@@ -1,0 +1,1305 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🔢 NumPy &#8212; Energy Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02_numpy_tutorial';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🐼 Pandas" href="03_pandas_tutorial.html" />
+    <link rel="prev" title="🐍 Introduction to Python" href="01_introduction_to_python.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Data Science</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Course Overview: Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="python.html">📖 Python/Numpy/Pandas</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/02_numpy_tutorial.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🔢 NumPy</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔢 NumPy</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">📦 Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-numpy">❓ What is NumPy?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-numpy-arrays">✨ Creating NumPy Arrays</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-list">From list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#range-linspace">🔎 Range, linspace</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#random-numbers-in-numpy">🎲 Random Numbers in NumPy</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#np-random-rand-n-uniform-distribution-0-1">🌞 <code class="docutils literal notranslate"><span class="pre">np.random.rand(n)</span></code> → Uniform distribution [0, 1)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#np-random-randn-n-standard-normal-distribution-mean-0-std-1">📉 <code class="docutils literal notranslate"><span class="pre">np.random.randn(n)</span></code> → Standard normal distribution (mean=0, std=1)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#np-random-randint-low-high-size-random-integers">⚡ <code class="docutils literal notranslate"><span class="pre">np.random.randint(low,</span> <span class="pre">high,</span> <span class="pre">size)</span></code> → Random integers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-seed">🎲 Why Use <code class="docutils literal notranslate"><span class="pre">seed()</span></code>?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">🔎 Attributes and Methods</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type">⚡ Type</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-and-selection">🎯 Indexing and Selection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">📡 Broadcasting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-importance-of-copy">📝 The Importance of <code class="docutils literal notranslate"><span class="pre">copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#matrices">🏢 Matrices</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-selection">🔎 Conditional Selection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#operations">➕ Operations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">⚡  Matrix Multiplication</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics">📊 Statistics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#axes">🧭 Axes</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-functions-ufuncs">🧮 Universal Functions (ufuncs)</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="numpy">
+<h1>🔢 NumPy<a class="headerlink" href="#numpy" title="Link to this heading">#</a></h1>
+<section id="installation">
+<h2>📦 Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>If NumPy is not installed, you can add it using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy
+</pre></div>
+</div>
+<p>or (if using Anaconda):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>numpy
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="what-is-numpy">
+<h2>❓ What is NumPy?<a class="headerlink" href="#what-is-numpy" title="Link to this heading">#</a></h2>
+<p><strong>NumPy</strong> (Numerical Python) is the core library for <strong>scientific computing</strong> in Python.</p>
+<ul class="simple">
+<li><p>Provides powerful <strong>N-dimensional arrays</strong>.</p></li>
+<li><p>Supports <strong>vectorized operations</strong> (fast math on arrays).</p></li>
+<li><p>Contains tools for <strong>statistics, linear algebra, random numbers</strong>.</p></li>
+<li><p>Forms the base for many libraries: Pandas, scikit-learn, TensorFlow, PyTorch.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="creating-numpy-arrays">
+<h1>✨ Creating NumPy Arrays<a class="headerlink" href="#creating-numpy-arrays" title="Link to this heading">#</a></h1>
+<p>👉 Just like a plain list of numbers, NumPy arrays make it easy to store and process energy production values (or any dataset).</p>
+<hr class="docutils" />
+<section id="from-list">
+<h2>From list<a class="headerlink" href="#from-list" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Daily solar energy production in kWh</span>
+<span class="n">energy_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">160</span><span class="p">]</span>
+<span class="n">energy_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">energy_data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_arr</span><span class="p">)</span>
+<span class="c1"># [120 135 150 160]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[120 135 150 160]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="range-linspace">
+<h2>🔎 Range, linspace<a class="headerlink" href="#range-linspace" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">np.arange(start,</span> <span class="pre">stop,</span> <span class="pre">step)</span></code></strong>
+Generates numbers starting at <code class="docutils literal notranslate"><span class="pre">start</span></code>, up to (but not including) <code class="docutils literal notranslate"><span class="pre">stop</span></code>, stepping by <code class="docutils literal notranslate"><span class="pre">step</span></code>.
+Useful for <strong>time intervals, indexes, or sequences with fixed steps</strong>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">np.linspace(start,</span> <span class="pre">stop,</span> <span class="pre">num)</span></code></strong>
+Generates <code class="docutils literal notranslate"><span class="pre">num</span></code> evenly spaced values from <code class="docutils literal notranslate"><span class="pre">start</span></code> to <code class="docutils literal notranslate"><span class="pre">stop</span></code> (inclusive).
+Useful for <strong>smooth scales, plotting, or dividing a range evenly</strong>.</p></li>
+<li><p>👉 <code class="docutils literal notranslate"><span class="pre">arange()</span></code> = <em>“steps by interval”</em></p></li>
+<li><p>👉 <code class="docutils literal notranslate"><span class="pre">linspace()</span></code> = <em>“split into equal parts”</em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Measurement hours:&quot;</span><span class="p">,</span> <span class="n">hours</span><span class="p">)</span>
+<span class="c1"># [0 2 4 6 8]</span>
+
+<span class="c1"># np.linspace(start, stop, num)</span>
+<span class="c1"># Simulate 5 evenly spaced efficiency levels between 0% and 100%</span>
+<span class="n">efficiency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Efficiency levels:&quot;</span><span class="p">,</span> <span class="n">efficiency</span><span class="p">)</span>
+<span class="c1"># [0.   0.25 0.5  0.75 1. ]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Measurement hours: [0 2 4 6 8]
+Efficiency levels: [0.   0.25 0.5  0.75 1.  ]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="random-numbers-in-numpy">
+<h1>🎲 Random Numbers in NumPy<a class="headerlink" href="#random-numbers-in-numpy" title="Link to this heading">#</a></h1>
+<p>NumPy has several functions to <strong>generate random numbers</strong> useful for simulations in data science and energy analytics ⚡.</p>
+<p>👉 With these, you can model <strong>efficiency 🌞, noise 📉, and output ⚡</strong> to make your simulations more realistic.</p>
+<hr class="docutils" />
+<section id="np-random-rand-n-uniform-distribution-0-1">
+<h2>🌞 <code class="docutils literal notranslate"><span class="pre">np.random.rand(n)</span></code> → Uniform distribution [0, 1)<a class="headerlink" href="#np-random-rand-n-uniform-distribution-0-1" title="Link to this heading">#</a></h2>
+<p>Generates <code class="docutils literal notranslate"><span class="pre">n</span></code> random numbers between <strong>0 and 1</strong>, all equally likely.
+✅ Use: simulate <strong>efficiencies, probabilities, or fractions</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: simulate solar panel efficiency (random values between 0 and 1)</span>
+<span class="n">efficiency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solar efficiency:&quot;</span><span class="p">,</span> <span class="n">efficiency</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solar efficiency: [0.11107385 0.8043761  0.71664469]
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="np-random-randn-n-standard-normal-distribution-mean-0-std-1">
+<h2>📉 <code class="docutils literal notranslate"><span class="pre">np.random.randn(n)</span></code> → Standard normal distribution (mean=0, std=1)<a class="headerlink" href="#np-random-randn-n-standard-normal-distribution-mean-0-std-1" title="Link to this heading">#</a></h2>
+<p>Generates <code class="docutils literal notranslate"><span class="pre">n</span></code> random numbers with a <strong>bell-curve distribution</strong> centered at 0.
+✅ Use: simulate <strong>sensor noise, measurement errors, or fluctuations</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: simulate noise in sensor readings</span>
+<span class="n">sensor_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sensor noise:&quot;</span><span class="p">,</span> <span class="n">sensor_noise</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sensor noise: [ 0.54972407 -0.11752996  0.22364662]
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="np-random-randint-low-high-size-random-integers">
+<h2>⚡ <code class="docutils literal notranslate"><span class="pre">np.random.randint(low,</span> <span class="pre">high,</span> <span class="pre">size)</span></code> → Random integers<a class="headerlink" href="#np-random-randint-low-high-size-random-integers" title="Link to this heading">#</a></h2>
+<p>Generates random integers in the range <code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high)</span></code>.
+✅ Use: simulate <strong>discrete counts, daily power output, or events</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: simulate random daily power output (kWh) between 1 and 10</span>
+<span class="n">daily_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Daily output:&quot;</span><span class="p">,</span> <span class="n">daily_output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Daily output: [6 2 5 9 2]
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="why-use-seed">
+<h2>🎲 Why Use <code class="docutils literal notranslate"><span class="pre">seed()</span></code>?<a class="headerlink" href="#why-use-seed" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Ensures <strong>consistent results</strong> for experiments.</p></li>
+<li><p>Makes it easier to <strong>compare models</strong> or share notebooks.</p></li>
+<li><p>Useful when teaching or debugging so outputs don’t change randomly.</p></li>
+</ul>
+<p>👉 Think of <code class="docutils literal notranslate"><span class="pre">seed()</span></code> as setting the <strong>starting point</strong> for randomness 🎲.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set seed to make results reproducible</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+
+<span class="c1"># Simulate daily solar energy production (MWh) for 7 days</span>
+<span class="n">solar_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+
+<span class="c1"># Simulate daily wind energy production (MWh) for 7 days</span>
+<span class="n">wind_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solar output (MWh):&quot;</span><span class="p">,</span> <span class="n">solar_output</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Wind output (MWh):&quot;</span><span class="p">,</span> <span class="n">wind_output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solar output (MWh): [166 192 198 117 183 157 186]
+Wind output (MWh): [247 246 197 223 182 196 246]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="attributes-and-methods">
+<h1>🔎 Attributes and Methods<a class="headerlink" href="#attributes-and-methods" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong>📐 <code class="docutils literal notranslate"><span class="pre">shape</span></code></strong> → dataset dimensions (🏭 plants × 📅 days).</p></li>
+<li><p><strong>🔄 <code class="docutils literal notranslate"><span class="pre">reshape</span></code></strong> → reorganizes values into a new structure.</p></li>
+<li><p><strong>📊 <code class="docutils literal notranslate"><span class="pre">max</span></code></strong> → finds the <strong>peak production value</strong>.</p></li>
+<li><p><strong>🎯 <code class="docutils literal notranslate"><span class="pre">argmax</span></code></strong> → gives the index of that max value (in a flat array).</p></li>
+<li><p><strong>🗺️ <code class="docutils literal notranslate"><span class="pre">np.unravel_index</span></code></strong> → converts flat index → (row, column), so you know <strong>which plant 🏭</strong> and <strong>which day 📅</strong> produced the maximum.</p></li>
+</ul>
+<p>👉 Useful for spotting <strong>peak energy output days</strong> 🌞💨💧 and reshaping datasets for analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Energy production data (12 values) in MWh</span>
+<span class="n">energy_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">132</span><span class="p">)</span>   <span class="c1"># 120,121,...,131</span>
+<span class="n">energy_matrix</span> <span class="o">=</span> <span class="n">energy_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># 3 plants × 4 days</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape:&quot;</span><span class="p">,</span> <span class="n">energy_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>        <span class="c1"># 3 rows (plants) × 4 cols (days)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reshape:&quot;</span><span class="p">,</span> <span class="n">energy_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># reshape into 2×6</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Max:&quot;</span><span class="p">,</span> <span class="n">energy_matrix</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>          <span class="c1"># highest production value</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Index of Max:&quot;</span><span class="p">,</span> <span class="n">energy_matrix</span><span class="o">.</span><span class="n">argmax</span><span class="p">())</span>  <span class="c1"># index (flattened) of max</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[120 121 122 123]
+ [124 125 126 127]
+ [128 129 130 131]]
+Shape: (3, 4)
+Reshape: [[120 121 122 123 124 125]
+ [126 127 128 129 130 131]]
+Max: 131
+Index of Max: 11
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert flat index to row &amp; column</span>
+<span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">energy_matrix</span><span class="o">.</span><span class="n">argmax</span><span class="p">(),</span> <span class="n">energy_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Max production at Plant </span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">, Day </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Max production at Plant 2, Day 3
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<section id="type">
+<h2>⚡ Type<a class="headerlink" href="#type" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">dtype</span></code></strong> → tells you the <strong>data type</strong> of elements inside a NumPy array.</p></li>
+<li><p>Common types:</p>
+<ul>
+<li><p><strong>int</strong> (integers, e.g. counts, whole kWh values)</p></li>
+<li><p><strong>float</strong> (decimals, e.g. efficiency, percentages)</p></li>
+<li><p><strong>bool</strong> (True/False, e.g. is_renewable)</p></li>
+</ul>
+</li>
+<li><p>NumPy arrays are <strong>homogeneous</strong> → all elements must have the same type (unlike Python lists).</p></li>
+</ul>
+<p>👉 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> is critical in analytics because it affects <strong>memory usage 💾</strong> and <strong>precision 🎯</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Daily solar energy production (kWh)</span>
+<span class="n">solar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">120</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">160</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">solar</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data type:&quot;</span><span class="p">,</span> <span class="n">solar</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[120 135 150 160]
+Data type: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Efficiency values (as percentages)</span>
+<span class="n">efficiency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">efficiency</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data type:&quot;</span><span class="p">,</span> <span class="n">efficiency</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.85 0.9  0.88 0.92]
+Data type: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="indexing-and-selection">
+<h1>🎯 Indexing and Selection<a class="headerlink" href="#indexing-and-selection" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>arr[0] → first element (Day 1 🌞).</p></li>
+<li><p>arr[1:4] → slice Days 2–4 📅.</p></li>
+<li><p>arr[-1] → last element (most recent day ⏳).</p></li>
+<li><p>arr[-2:] → last 2 days of production 🔋.</p></li>
+</ul>
+<p>👉 Negative indexing is super handy when you want to quickly access the latest data points in time series.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Energy production (in MWh) from a solar plant over 5 days</span>
+<span class="n">production</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">180</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>     <span class="c1"># First day&#39;s production</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>   <span class="c1"># Days 2–4 production</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>     <span class="c1"># Last day&#39;s production</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>    <span class="c1"># Last 2 days&#39; production</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
+[120 140 160]
+180
+[160 180]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="broadcasting">
+<h1>📡 Broadcasting<a class="headerlink" href="#broadcasting" title="Link to this heading">#</a></h1>
+<p>NumPy allows <strong>broadcasting</strong>: applying operations to arrays of different shapes or applying the same operation to all elements.</p>
+<p>No need for loops → fast &amp; clean 🚀.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Base daily production values in MWh</span>
+<span class="n">production</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">])</span>
+
+<span class="c1"># Apply a constant 10 MWh bonus to each day</span>
+<span class="n">adjusted_production</span> <span class="o">=</span> <span class="n">production</span> <span class="o">+</span> <span class="mi">10</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">adjusted_production</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[110 130 140]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">consumption</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">])</span>
+<span class="n">increase</span> <span class="o">=</span> <span class="n">consumption</span> <span class="o">*</span> <span class="mf">1.05</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">increase</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[105.  126.  136.5]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-importance-of-copy">
+<h2>📝 The Importance of <code class="docutils literal notranslate"><span class="pre">copy()</span></code><a class="headerlink" href="#the-importance-of-copy" title="Link to this heading">#</a></h2>
+<p>⚠️ In NumPy, simple assignments don’t create a new array, they create a <strong>view</strong>. To avoid this, use <code class="docutils literal notranslate"><span class="pre">.copy()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">backup</span> <span class="o">=</span> <span class="n">solar</span>
+<span class="n">backup</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solar after backup change:&#39;</span><span class="p">,</span> <span class="n">solar</span><span class="p">)</span>
+
+<span class="n">solar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">safe_copy</span> <span class="o">=</span> <span class="n">solar</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">safe_copy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Solar:&#39;</span><span class="p">,</span> <span class="n">solar</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Safe copy:&#39;</span><span class="p">,</span> <span class="n">safe_copy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solar after backup change: [99 15 18 20]
+Solar: [12 15 18 20]
+Safe copy: [99 15 18 20]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="matrices">
+<h1>🏢 Matrices<a class="headerlink" href="#matrices" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>arr[row, col] → pick a single value (plant × day).</p></li>
+<li><p>arr[2] → all columns for row 2 (Hydro plant 💧).</p></li>
+<li><p>arr[:, 1] → all rows for column 1 (all plants’ production on Day 2 📅).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Energy production (MWh) for 3 plants over 4 days</span>
+<span class="c1"># Rows = plants, Columns = days</span>
+<span class="n">production</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">140</span><span class="p">],</span>  <span class="c1"># Solar 🌞</span>
+    <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">220</span><span class="p">],</span>  <span class="c1"># Wind 💨</span>
+    <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">305</span><span class="p">,</span> <span class="mi">295</span><span class="p">]</span>   <span class="c1"># Hydro 💧</span>
+<span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>   <span class="c1"># First plant, first day (Solar, Day 1)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>   <span class="c1"># Second plant, third day (Wind, Day 3)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>      <span class="c1"># All days for Hydro plant</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>   <span class="c1"># All plants on Day 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape:&#39;</span><span class="p">,</span> <span class="n">production</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
+190
+[300 310 305 295]
+[120 210 310]
+Shape: (3, 4)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">production</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">125</span><span class="p">],</span>   <span class="c1"># Solar 🌞</span>
+    <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">205</span><span class="p">],</span>   <span class="c1"># Wind 💨</span>
+    <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">295</span><span class="p">]</span>    <span class="c1"># Hydro 💧</span>
+<span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Production matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">production</span><span class="p">)</span>
+
+<span class="c1"># Transpose the matrix (swap rows ↔ columns)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transposed matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">production</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Production matrix:
+ [[120 130 125]
+ [200 210 205]
+ [300 310 295]]
+Transposed matrix:
+ [[120 200 300]
+ [130 210 310]
+ [125 205 295]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="conditional-selection">
+<h1>🔎 Conditional Selection<a class="headerlink" href="#conditional-selection" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">consumption</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>
+<span class="n">high_usage</span> <span class="o">=</span> <span class="n">consumption</span><span class="p">[</span><span class="n">consumption</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">high_usage</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[25 30]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">consumption</span><span class="o">&gt;</span><span class="mi">20</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False, False,  True, False,  True])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c_cond</span> <span class="o">=</span> <span class="n">consumption</span><span class="o">&gt;</span><span class="mi">20</span>
+<span class="n">c_cond</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False, False,  True, False,  True])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">high_usage</span> <span class="o">=</span> <span class="n">consumption</span><span class="p">[</span><span class="n">c_cond</span><span class="p">]</span>
+<span class="n">high_usage</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([25, 30])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="operations">
+<h1>➕ Operations<a class="headerlink" href="#operations" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Daily solar energy production (MWh) for 4 days</span>
+<span class="n">production</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">160</span><span class="p">])</span>
+
+<span class="c1"># Add production to itself (doubling)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span> <span class="o">+</span> <span class="n">production</span><span class="p">)</span>  
+
+<span class="c1"># Multiply production by itself (element-wise square)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">production</span> <span class="o">*</span> <span class="n">production</span><span class="p">)</span>  
+
+<span class="c1"># Square root (useful for normalization/scaling)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">production</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[200 240 280 320]
+[10000 14400 19600 25600]
+[10.         10.95445115 11.83215957 12.64911064]
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<section id="matrix-multiplication">
+<h2>⚡  Matrix Multiplication<a class="headerlink" href="#matrix-multiplication" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Production matrix</strong> → MWh produced (plants × days).</p></li>
+<li><p><strong>Cost vector</strong> → price per MWh for each plant.</p></li>
+<li><p><strong>Matrix multiplication (<code class="docutils literal notranslate"><span class="pre">np.dot</span></code>)</strong> → gives <strong>daily revenues</strong> across all plants.</p></li>
+</ul>
+<p>👉 This shows how <strong>linear algebra</strong> in NumPy can be directly applied to <strong>energy economics 💶⚡</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">production</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">125</span><span class="p">],</span>   <span class="c1"># Solar 🌞</span>
+    <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">205</span><span class="p">],</span>   <span class="c1"># Wind 💨</span>
+    <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">295</span><span class="p">]</span>    <span class="c1"># Hydro 💧</span>
+<span class="p">])</span>
+
+<span class="c1"># Cost per MWh for each plant (€/MWh)</span>
+<span class="n">cost_per_mwh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">50</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>  <span class="c1"># Solar=50€, Wind=40€, Hydro=30€</span>
+
+<span class="c1"># Total revenue per day = cost × production</span>
+<span class="c1"># Matrix multiplication: (1x3 costs) × (3x3 production) = (1x3 revenues per day)</span>
+<span class="n">revenue</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cost_per_mwh</span><span class="p">,</span> <span class="n">production</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Production matrix (MWh):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">production</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cost per MWh (€):&quot;</span><span class="p">,</span> <span class="n">cost_per_mwh</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Revenue per day (€):&quot;</span><span class="p">,</span> <span class="n">revenue</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Production matrix (MWh):
+ [[120 130 125]
+ [200 210 205]
+ [300 310 295]]
+Cost per MWh (€): [50 40 30]
+Revenue per day (€): [23000 24200 23300]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using @ operator (preferred for readability)</span>
+<span class="n">revenue_at</span> <span class="o">=</span> <span class="n">cost_per_mwh</span> <span class="o">@</span> <span class="n">production</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Revenue with np.dot (€):&quot;</span><span class="p">,</span> <span class="n">revenue</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Revenue with @ (€):&quot;</span><span class="p">,</span> <span class="n">revenue_at</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Revenue with np.dot (€): [23000 24200 23300]
+Revenue with @ (€): [23000 24200 23300]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="statistics">
+<h1>📊 Statistics<a class="headerlink" href="#statistics" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong>📊 Mean (<code class="docutils literal notranslate"><span class="pre">np.mean</span></code>)</strong> → the <strong>average production</strong> across days.</p></li>
+<li><p><strong>📉 Standard Deviation (<code class="docutils literal notranslate"><span class="pre">np.std</span></code>)</strong> → how much production varies from the average (higher = more fluctuations).</p></li>
+<li><p><strong>📐 Variance (<code class="docutils literal notranslate"><span class="pre">np.var</span></code>)</strong> → the squared measure of spread (basis of std dev).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Daily solar energy production (MWh) over 4 days</span>
+<span class="n">production</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">150</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">production</span><span class="p">))</span>      <span class="c1"># 📊 Average daily production</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Std Dev:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">production</span><span class="p">))</span>    <span class="c1"># 📉 Variation in production</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Var:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">production</span><span class="p">))</span>        <span class="c1"># 📐 Spread of production</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean: 125.0
+Std Dev: 18.027756377319946
+Var: 325.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="axes">
+<h1>🧭 Axes<a class="headerlink" href="#axes" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">axis=0</span></code> → down the rows (📅 column-wise)</strong></p>
+<ul>
+<li><p>Adds values <strong>for each column</strong>.</p></li>
+<li><p>Here: total energy produced by <strong>all plants per day</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[320,</span> <span class="pre">340,</span> <span class="pre">330]</span></code> → Day 1 total = 320 MWh, Day 2 = 340, Day 3 = 330.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">axis=1</span></code> → across the columns (🏭 row-wise)</strong></p>
+<ul>
+<li><p>Adds values <strong>for each row</strong>.</p></li>
+<li><p>Here: total energy produced by <strong>each plant over all days</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[360,</span> <span class="pre">630]</span></code> → Solar total = 360 MWh, Wind total = 630.</p></li>
+</ul>
+</li>
+</ul>
+<p>👉 Think of <strong>axis like a direction</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">axis=0</span></code> → work <strong>down</strong> the rows.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">axis=1</span></code> → work <strong>across</strong> the columns.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">110</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">220</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Daily totals:&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">energy_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Plant totals:&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">energy_matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Daily totals: [320 340 330]
+Plant totals: [360 630]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="universal-functions-ufuncs">
+<h1>🧮 Universal Functions (ufuncs)<a class="headerlink" href="#universal-functions-ufuncs" title="Link to this heading">#</a></h1>
+<p>NumPy provides many built-in <strong>mathematical functions</strong> that apply <strong>element-wise</strong> to arrays (no loops needed 🚀).
+Common ones include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">np.exp</span></code> → exponential</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.log</span></code> → natural logarithm</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.sin</span></code>, <code class="docutils literal notranslate"><span class="pre">np.cos</span></code> → trigonometric functions</p></li>
+</ul>
+<p>✅ This creates a <strong>sine wave curve</strong> where:</p>
+<ul class="simple">
+<li><p>Night hours → <code class="docutils literal notranslate"><span class="pre">0</span></code> (no solar).</p></li>
+<li><p>Noon → <strong>peak production</strong>.</p></li>
+<li><p>Evening → returns to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Hours in a day (0–23)</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+
+<span class="c1"># Model solar production using a sine wave</span>
+<span class="c1"># Shifted so it&#39;s zero at night and peaks at noon</span>
+<span class="n">solar_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="n">hours</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">12</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solar output (MWh):&quot;</span><span class="p">,</span> <span class="n">solar_output</span><span class="p">)</span>
+
+<span class="c1"># Plot the solar cycle</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">solar_output</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Solar Energy Production Over a Day&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Hour of Day&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Production (MWh)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solar output (MWh): [0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00
+ 0.00000000e+00 0.00000000e+00 0.00000000e+00 2.58819045e+01
+ 5.00000000e+01 7.07106781e+01 8.66025404e+01 9.65925826e+01
+ 1.00000000e+02 9.65925826e+01 8.66025404e+01 7.07106781e+01
+ 5.00000000e+01 2.58819045e+01 1.22464680e-14 0.00000000e+00
+ 0.00000000e+00 0.00000000e+00 0.00000000e+00 0.00000000e+00]
+</pre></div>
+</div>
+<img alt="_images/912ac4a2be26fa375be685e5eb9bde16a85f6728ad5ff9269e2e7431e15273c6.png" src="_images/912ac4a2be26fa375be685e5eb9bde16a85f6728ad5ff9269e2e7431e15273c6.png" />
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_introduction_to_python.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🐍 Introduction to Python</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_pandas_tutorial.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🐼 Pandas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔢 NumPy</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">📦 Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-numpy">❓ What is NumPy?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-numpy-arrays">✨ Creating NumPy Arrays</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-list">From list</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#range-linspace">🔎 Range, linspace</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#random-numbers-in-numpy">🎲 Random Numbers in NumPy</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#np-random-rand-n-uniform-distribution-0-1">🌞 <code class="docutils literal notranslate"><span class="pre">np.random.rand(n)</span></code> → Uniform distribution [0, 1)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#np-random-randn-n-standard-normal-distribution-mean-0-std-1">📉 <code class="docutils literal notranslate"><span class="pre">np.random.randn(n)</span></code> → Standard normal distribution (mean=0, std=1)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#np-random-randint-low-high-size-random-integers">⚡ <code class="docutils literal notranslate"><span class="pre">np.random.randint(low,</span> <span class="pre">high,</span> <span class="pre">size)</span></code> → Random integers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-seed">🎲 Why Use <code class="docutils literal notranslate"><span class="pre">seed()</span></code>?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-and-methods">🔎 Attributes and Methods</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type">⚡ Type</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-and-selection">🎯 Indexing and Selection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">📡 Broadcasting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-importance-of-copy">📝 The Importance of <code class="docutils literal notranslate"><span class="pre">copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#matrices">🏢 Matrices</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-selection">🔎 Conditional Selection</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#operations">➕ Operations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">⚡  Matrix Multiplication</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics">📊 Statistics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#axes">🧭 Axes</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-functions-ufuncs">🧮 Universal Functions (ufuncs)</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

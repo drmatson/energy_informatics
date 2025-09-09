@@ -1,0 +1,2329 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🐍 Introduction to Python &#8212; Energy Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '01_introduction_to_python';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🔢 NumPy" href="02_numpy_tutorial.html" />
+    <link rel="prev" title="📖 Python/Numpy/Pandas" href="python.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Data Science</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Course Overview: Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="python.html">📖 Python/Numpy/Pandas</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/01_introduction_to_python.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🐍 Introduction to Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🐍 Introduction to Python</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#packages">📦 Packages</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-python">🐍 Getting Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-anaconda">1️⃣ Install Anaconda 🐼</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-virtual-environment">2️⃣ Create a Virtual Environment 🧩</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyter-notebook">3️⃣ Start Jupyter Notebook 📓</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#google-colab">☁️💻 Google Colab</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-get-started">🚀 To get started:</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#git">🌱 Git</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#types-in-python">🔤 Types in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-python-data-types">Common Python Data Types:</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#operations-on-numbers-in-python">🔢 Operations on Numbers in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-arithmetic-operators">✨ Basic Arithmetic Operators</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-in-python">🏷️ Variables in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">✨ Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-conventions">📝 Naming Conventions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-must-follow">✅ Rules (must follow)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conventions-best-practices">📌 Conventions (best practices)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#strings-in-python">📝 Strings in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">✨ Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-operations">🔧 String Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-string-methods">🎯 Useful String Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-printing-in-python">🖨️ Output / Printing in Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-printing">✨ Basic Printing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#printing-variables">🔗 Printing Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenation">➕ Concatenation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-strings-modern-recommended">🎯 f-Strings (modern &amp; recommended)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-numbers">🧩 Formatting Numbers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#booleans-in-python">✅ Booleans in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">✨ Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-operators-return-boolean">🔄 Comparison Operators (return Boolean)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-operators">⚡ Logical Operators</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#if-elif-else-in-python">🔀 if, elif, else in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">✨ Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-points">⚡ Key Points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">📝 Example</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lists-in-python">📋 Lists in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-list">✨ Creating a List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-items">🔄 Accessing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nested-lists">✨ Nested lists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-a-list">📝 Modifying a List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-items">➕ Adding Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-items">❌ Removing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looping-through-a-list">🔁 Looping Through a List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-functions">📊 Useful Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membership-test">👍 Membership test</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries-in-python">📖 Dictionaries in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries-are-super-useful-for-storing-structured-data-like-details-of-power-plants-energy-production-or-sensor-readings">👉 Dictionaries are super useful for storing <strong>structured data</strong> like details of power plants, energy production, or sensor readings.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-dictionary">✨ Creating a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-values">🔎 Accessing Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-a-dictionary">📝 Modifying a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-new-keyvalue-pairs">➕ Adding New Key–Value Pairs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">❌ Removing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looping-through-a-dictionary">🔁 Looping Through a Dictionary</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tuples-in-python">🔒 Tuples in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-tuple">✨ Creating a Tuple</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">🔎 Accessing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length-of-a-tuple">📏 Length of a Tuple</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#immutability">⚠️ Immutability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tuples-with-mixed-data">🔁 Tuples with Mixed Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nested-tuples-in-python">🔗 Nested Tuples in Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-multiple-energy-plants">✨ Example: Multiple Energy Plants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-nested-data">🔎 Accessing Nested Data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sets-in-python">🧩 Sets in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-set">✨ Creating a Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">➕ Adding Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">❌ Removing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">🔎 Membership Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-operations">🔗 Set Operations</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#loops-in-python">🔁 Loops in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop">▶️ for Loop</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions">📝 List Comprehensions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#while-loop">🔄 while Loop</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-in-python">🔧 Functions in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-function">✨ Basic Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-parameters">⚡ Function with Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-return-value">🔄 Function with Return Value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-default-parameter">🧩 Function with Default Parameter</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-map-and-filter-in-python">⚡ Lambda, map(), and filter() in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-functions">🔹 Lambda Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter">🔹 filter()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map">🔹 map()</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-example">📝 Basic Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduce">🔹 reduce()</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-python">
+<h1>🐍 Introduction to Python<a class="headerlink" href="#introduction-to-python" title="Link to this heading">#</a></h1>
+<p>Python is the most widely used programming language in <strong>data science 📊</strong> and <strong>machine learning 🤖</strong> because of its <strong>simplicity ✨</strong>, <strong>flexibility 🔧</strong>, and rich ecosystem of libraries like <strong>NumPy ➕</strong>, <strong>Pandas 🐼</strong>, <strong>scikit-learn 📘</strong>, <strong>TensorFlow 🔗</strong>, and <strong>PyTorch 🔥</strong>. It enables efficient <strong>data manipulation 🔄</strong>, <strong>visualization 📈</strong>, and <strong>model development 🧩</strong>, making it the backbone for <strong>building 🏗️</strong>, <strong>training 🏋️</strong>, and <strong>deploying 🚀</strong> machine learning solutions.</p>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="packages">
+<h1>📦 Packages<a class="headerlink" href="#packages" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong>NumPy ➕</strong> – The foundation for numerical computing in Python; great for working with arrays and performing mathematical operations.</p></li>
+<li><p><strong>Pandas 🐼</strong> – A library for data manipulation and analysis; makes it easy to handle tables, spreadsheets, and time-series data.</p></li>
+<li><p><strong>Matplotlib 📊</strong> – A plotting library for creating static, interactive, and animated visualizations in Python.</p></li>
+<li><p><strong>Seaborn 🎨</strong> – Built on top of Matplotlib; makes beautiful, statistical plots with simpler code.</p></li>
+<li><p><strong>scikit-learn 🤖</strong> – A machine learning library for tasks like classification, regression, clustering, and model evaluation.</p></li>
+<li><p><strong>…</strong> – Other useful packages include <strong>TensorFlow 🔗</strong> and <strong>PyTorch 🔥</strong> for deep learning, and <strong>Statsmodels 📉</strong> for statistical modeling.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="getting-python">
+<h1>🐍 Getting Python<a class="headerlink" href="#getting-python" title="Link to this heading">#</a></h1>
+<section id="install-anaconda">
+<h2>1️⃣ Install Anaconda 🐼<a class="headerlink" href="#install-anaconda" title="Link to this heading">#</a></h2>
+<p>Anaconda is a package that makes working with Python easier for <strong>data science 📊</strong>.</p>
+<ul class="simple">
+<li><p>🌐 Go to <a class="reference external" href="https://www.anaconda.com/products/distribution">Anaconda Distribution</a></p></li>
+<li><p>💻 Download the version for your operating system (<strong>Windows 🪟, Mac 🍎, or Linux 🐧</strong>)</p></li>
+<li><p>⚙️ Run the installer and follow the steps (on Windows, you may see “Add Anaconda to PATH”—you can leave it unchecked, Anaconda Prompt will still work)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="create-a-virtual-environment">
+<h2>2️⃣ Create a Virtual Environment 🧩<a class="headerlink" href="#create-a-virtual-environment" title="Link to this heading">#</a></h2>
+<p>Environments let you keep different projects separate, each with its own Python and libraries.</p>
+<ul class="simple">
+<li><p>🖥️ Open <strong>Anaconda Prompt</strong> (or terminal)</p></li>
+<li><p>🆕 Create a new environment called <code class="docutils literal notranslate"><span class="pre">myenv</span></code> with Python 3.9</p></li>
+<li><p>▶️ Activate your environment</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="start-jupyter-notebook">
+<h2>3️⃣ Start Jupyter Notebook 📓<a class="headerlink" href="#start-jupyter-notebook" title="Link to this heading">#</a></h2>
+<p>Jupyter Notebook lets you write and run Python code in your browser, mixing <strong>code 💻, notes 📝, and charts 📈</strong>.</p>
+<ul class="simple">
+<li><p>📥 Install Jupyter (if not already included)</p></li>
+<li><p>🚀 Run Jupyter</p></li>
+<li><p>🌍 A browser window will open where you can create and run notebooks (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> files)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="google-colab">
+<h1>☁️💻 Google Colab<a class="headerlink" href="#google-colab" title="Link to this heading">#</a></h1>
+<p>Google Colab (short for <em>Colaboratory</em>) is a <strong>free, cloud-based platform 🌐</strong> from Google that lets you write and run <strong>Python code 🐍</strong> right in your web browser. It’s especially popular for <strong>data science 📊, machine learning 🤖, and deep learning 🧠</strong> because:</p>
+<ul class="simple">
+<li><p>🚫 You don’t need to install anything—just log in with your <strong>Google account 🔑</strong></p></li>
+<li><p>⚡ It provides free access to <strong>CPUs 🖥️, GPUs 🎮, and TPUs 🚀</strong>, which are great for training ML models</p></li>
+<li><p>🤝 You can easily share notebooks with others, just like <strong>Google Docs 📄</strong></p></li>
+<li><p>📚 It supports Python libraries like <strong>NumPy ➕, Pandas 🐼, TensorFlow 🔗, PyTorch 🔥, and scikit-learn 📘</strong></p></li>
+</ul>
+<hr class="docutils" />
+<section id="to-get-started">
+<h2>🚀 To get started:<a class="headerlink" href="#to-get-started" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>🌍 Go to <a class="reference external" href="https://colab.research.google.com/">Google Colab</a></p></li>
+<li><p>🆕 Create a new notebook</p></li>
+<li><p>✍️ Write and run Python code directly in cells</p></li>
+<li><p>💾 Save your work to <strong>Google Drive ☁️</strong> for easy access later</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="git">
+<h1>🌱 Git<a class="headerlink" href="#git" title="Link to this heading">#</a></h1>
+<p><strong>Git 🔧</strong> is a <strong>version control system</strong> that helps developers track changes in their code, collaborate with others, and manage different versions of a project. It’s like a history tool for your code, making teamwork and rollbacks much easier.</p>
+<p>👉 <a class="reference external" href="https://www.w3schools.com/git/">Learn Git at W3Schools</a></p>
+<hr class="docutils" />
+<ul class="simple">
+<li><p><strong>Repos 📦</strong> – Online platforms to store and share code:</p>
+<ul>
+<li><p><strong>GitHub 🐙</strong> – The most popular platform for open-source and collaboration.</p></li>
+<li><p><strong>Bitbucket 🧩</strong> – Often used in teams, with good integration for Jira/Atlassian tools.</p></li>
+<li><p><strong>GitLab 🦊</strong> – Open-source option with built-in DevOps and CI/CD features.</p></li>
+</ul>
+</li>
+<li><p><strong>Apps 💻</strong> – Tools that make Git easier to use with a graphical interface:</p>
+<ul>
+<li><p><strong>SourceTree 🌳</strong> – A desktop app for managing Git repos visually.</p></li>
+<li><p><strong>GitHub Desktop 🖥️</strong> – Simple app for working with GitHub projects.</p></li>
+<li><p>… and others like <strong>GitKraken 🐙⚡</strong>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="types-in-python">
+<h1>🔤 Types in Python<a class="headerlink" href="#types-in-python" title="Link to this heading">#</a></h1>
+<p>In Python, <strong>data types</strong> tell us what kind of value we are working with. Python is a <strong>dynamically typed language</strong>, meaning you don’t need to declare types explicitly — Python figures it out for you.</p>
+<section id="common-python-data-types">
+<h2>Common Python Data Types:<a class="headerlink" href="#common-python-data-types" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>int 🔢</strong> – Whole numbers (e.g., <code class="docutils literal notranslate"><span class="pre">5</span></code>, <code class="docutils literal notranslate"><span class="pre">-42</span></code>, <code class="docutils literal notranslate"><span class="pre">1000</span></code>)</p></li>
+<li><p><strong>float ➗</strong> – Decimal numbers (e.g., <code class="docutils literal notranslate"><span class="pre">3.14</span></code>, <code class="docutils literal notranslate"><span class="pre">-0.5</span></code>, <code class="docutils literal notranslate"><span class="pre">2.0</span></code>)</p></li>
+<li><p><strong>str 📝</strong> – Text strings (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Solar&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">'Energy'</span></code>)</p></li>
+<li><p><strong>bool ✅/❌</strong> – Boolean values: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p><strong>list 📋</strong> – Ordered, changeable collection (e.g., <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>)</p></li>
+<li><p><strong>tuple 🔒</strong> – Ordered, but unchangeable collection (e.g., <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code>)</p></li>
+<li><p><strong>dict 📖</strong> – Key-value pairs (e.g., <code class="docutils literal notranslate"><span class="pre">{&quot;building&quot;:</span> <span class="pre">&quot;1&quot;,</span> <span class="pre">&quot;demand&quot;:</span> <span class="pre">25.0}</span></code>)</p></li>
+<li><p><strong>set 🧩</strong> – Unordered collection of unique items (e.g., <code class="docutils literal notranslate"><span class="pre">{1,</span> <span class="pre">2,</span> <span class="pre">3}</span></code>)</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="operations-on-numbers-in-python">
+<h1>🔢 Operations on Numbers in Python<a class="headerlink" href="#operations-on-numbers-in-python" title="Link to this heading">#</a></h1>
+<p>Python can handle <strong>arithmetic operations</strong> easily with both <strong>integers (int)</strong> and <strong>decimals (float)</strong>.</p>
+<section id="basic-arithmetic-operators">
+<h2>✨ Basic Arithmetic Operators<a class="headerlink" href="#basic-arithmetic-operators" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>➕ <strong>Addition</strong>: <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">+</span> <span class="pre">3</span> <span class="pre">=</span> <span class="pre">8</span></code></p></li>
+<li><p>➖ <strong>Subtraction</strong>: <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">-</span> <span class="pre">3</span> <span class="pre">=</span> <span class="pre">2</span></code></p></li>
+<li><p>✖️ <strong>Multiplication</strong>: <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">*</span> <span class="pre">3</span> <span class="pre">=</span> <span class="pre">15</span></code></p></li>
+<li><p>➗ <strong>Division</strong>: <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">=</span> <span class="pre">2.5</span></code> (always gives a float)</p></li>
+<li><p>🧮 <strong>Floor Division</strong>: <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">//</span> <span class="pre">2</span> <span class="pre">=</span> <span class="pre">2</span></code> (rounds down to whole number)</p></li>
+<li><p>🔑 <strong>Modulus (Remainder)</strong>: <code class="docutils literal notranslate"><span class="pre">5</span> <span class="pre">%</span> <span class="pre">2</span> <span class="pre">=</span> <span class="pre">1</span></code></p></li>
+<li><p>⚡ <strong>Exponentiation (Power)</strong>: <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">3</span> <span class="pre">=</span> <span class="pre">8</span></code></p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sum: 2 + 2 = &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Multiplication: 1 * 3 = &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Division: &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Power: 2 ** 3 = &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mod: 8 % 4 = &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">8</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mod: 7 % 2 = &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">7</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Integer division: 7 // 2 = &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">7</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Order of operations: (4 + 1) * (6 + 5) = &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">((</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">6</span> <span class="o">+</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sum: 2 + 2 = 4
+Multiplication: 1 * 3 = 3
+Division: 0.5
+Power: 2 ** 3 = 8
+Mod: 8 % 4 = 0
+Mod: 7 % 2 = 1
+Integer division: 7 // 2 = 3
+Order of operations: (4 + 1) * (6 + 5) = 55
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="variables-in-python">
+<h1>🏷️ Variables in Python<a class="headerlink" href="#variables-in-python" title="Link to this heading">#</a></h1>
+<p>A <strong>variable</strong> is like a container 🧺 that stores a value. In Python, you don’t need to declare the type — it’s assigned automatically when you store a value.</p>
+<section id="examples">
+<h2>✨ Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">capacity_mw</span> <span class="o">=</span> <span class="mi">120</span>       <span class="c1"># int</span>
+<span class="n">plant_name</span> <span class="o">=</span> <span class="s2">&quot;SolarOne&quot;</span> <span class="c1"># str</span>
+<span class="n">efficiency</span> <span class="o">=</span> <span class="mf">19.5</span>       <span class="c1"># float (%)</span>
+<span class="n">is_renewable</span> <span class="o">=</span> <span class="kc">True</span>     <span class="c1"># bool</span>
+</pre></div>
+</div>
+<p>👉 You can change the value of a variable at any time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">20</span>   <span class="c1"># now x holds 20</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="naming-conventions">
+<h2>📝 Naming Conventions<a class="headerlink" href="#naming-conventions" title="Link to this heading">#</a></h2>
+<p>Python has some rules and best practices for naming variables.</p>
+<p>📖 Full guide here: <a class="reference external" href="https://peps.python.org/pep-0008/#naming-conventions">PEP 8 — Naming Conventions</a></p>
+<section id="rules-must-follow">
+<h3>✅ Rules (must follow)<a class="headerlink" href="#rules-must-follow" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Names can include <strong>letters, digits, and underscores</strong> (<code class="docutils literal notranslate"><span class="pre">_</span></code>)</p></li>
+<li><p>Must <strong>start with a letter or underscore</strong> (not a number)</p></li>
+<li><p><strong>Case-sensitive</strong> (<code class="docutils literal notranslate"><span class="pre">Name</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code> are different)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_valid</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">name1</span> <span class="o">=</span> <span class="s2">&quot;Elering&quot;</span>
+</pre></div>
+</div>
+<p>🚫 Invalid examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Alexela&quot;</span>   <span class="c1"># ❌ can’t start with a number</span>
+<span class="n">my</span><span class="o">-</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Elering&quot;</span>   <span class="c1"># ❌ hyphens not allowed</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="conventions-best-practices">
+<h3>📌 Conventions (best practices)<a class="headerlink" href="#conventions-best-practices" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Use <strong>snake_case</strong> for variables:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">user_name</span> <span class="o">=</span> <span class="s2">&quot;Alexela&quot;</span>
+<span class="n">total_price</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</li>
+<li><p>Use <strong>UPPERCASE</strong> for constants:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PI</span> <span class="o">=</span> <span class="mf">3.14159</span>
+<span class="n">MAX_USERS</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</li>
+<li><p>Choose <strong>meaningful names</strong> (avoid single letters unless for math loops):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">score</span> <span class="o">=</span> <span class="mi">95</span>    <span class="c1"># ✅ clear</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">95</span>        <span class="c1"># ⚠️ less clear</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="strings-in-python">
+<h1>📝 Strings in Python<a class="headerlink" href="#strings-in-python" title="Link to this heading">#</a></h1>
+<p>A <strong>string</strong> is a sequence of characters (letters, numbers, symbols, spaces) enclosed in quotes. You can use <strong>single (<code class="docutils literal notranslate"><span class="pre">'</span></code>), double (<code class="docutils literal notranslate"><span class="pre">&quot;</span></code>), or triple quotes (<code class="docutils literal notranslate"><span class="pre">'''</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>)</strong> for strings.</p>
+<p>👉 Strings in Python are <strong>immutable</strong> (you can’t change them directly, but you can create new ones).</p>
+<section id="id1">
+<h2>✨ Examples<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;string&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;string&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;string&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;string&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;It&#39;s string&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;It&#39;s string&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;it</span><span class="se">\&#39;</span><span class="s1">s string&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;it&#39;s string&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="string-operations">
+<h2>🔧 String Operations<a class="headerlink" href="#string-operations" title="Link to this heading">#</a></h2>
+<p>Strings are very flexible in Python.</p>
+<ul class="simple">
+<li><p>➕ <strong>Concatenation</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>  <span class="s2">&quot;Solar &quot;</span> <span class="o">+</span> <span class="s2">&quot;energy&quot;</span>   <span class="c1"># &quot;Solar energy&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Solar energy&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>✖️ <strong>Repetition</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>  <span class="s2">&quot;Hi! &quot;</span> <span class="o">*</span> <span class="mi">3</span>   <span class="c1"># &quot;Hi! Hi! Hi! &quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Hi! Hi! Hi! &#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>🔢 <strong>Indexing &amp; Slicing</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy</span> <span class="o">=</span> <span class="s2">&quot;Solar&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>     <span class="c1"># S (first char)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>    <span class="c1"># r (last char)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>   <span class="c1"># Sol</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>S
+r
+Sol
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>📏 <strong>Length</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>  <span class="nb">len</span><span class="p">(</span><span class="s2">&quot;Solar&quot;</span><span class="p">)</span>   <span class="c1"># 6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="useful-string-methods">
+<h2>🎯 Useful String Methods<a class="headerlink" href="#useful-string-methods" title="Link to this heading">#</a></h2>
+<p>Python has many built-in string functions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy</span> <span class="o">=</span> <span class="s2">&quot;  clean energy  &quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">energy</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>        <span class="c1"># &quot;  CLEAN ENERGY  &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>        <span class="c1"># &quot;  clean energy  &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>        <span class="c1"># &quot;clean energy&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;energy&quot;</span><span class="p">,</span> <span class="s2">&quot;power&quot;</span><span class="p">))</span>  <span class="c1"># &quot;  clean power  &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>        <span class="c1"># [&#39;clean&#39;, &#39;energy&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  CLEAN ENERGY  
+  clean energy  
+clean energy
+  clean power  
+[&#39;clean&#39;, &#39;energy&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="output-printing-in-python">
+<h2>🖨️ Output / Printing in Python<a class="headerlink" href="#output-printing-in-python" title="Link to this heading">#</a></h2>
+<p>In Python, we use the <strong><code class="docutils literal notranslate"><span class="pre">print()</span></code> function</strong> to display information on the screen. It can show text, numbers, variables, or even results of expressions.</p>
+<hr class="docutils" />
+<section id="basic-printing">
+<h3>✨ Basic Printing<a class="headerlink" href="#basic-printing" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Renewable Energy Rocks!&quot;</span><span class="p">)</span>   <span class="c1"># prints text</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>                         <span class="c1"># prints a number (e.g., MW capacity)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Renewable Energy Rocks!
+120
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="printing-variables">
+<h3>🔗 Printing Variables<a class="headerlink" href="#printing-variables" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;Wind&quot;</span>
+<span class="n">capacity</span> <span class="o">=</span> <span class="mi">200</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>             <span class="c1"># Wind</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Capacity:&quot;</span><span class="p">,</span> <span class="n">capacity</span><span class="p">)</span>  <span class="c1"># Capacity: 200</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Wind
+Capacity: 200
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="concatenation">
+<h3>➕ Concatenation<a class="headerlink" href="#concatenation" title="Link to this heading">#</a></h3>
+<p>You can join strings together:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solar &quot;</span> <span class="o">+</span> <span class="s2">&quot;Energy&quot;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solar Energy
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="f-strings-modern-recommended">
+<h3>🎯 f-Strings (modern &amp; recommended)<a class="headerlink" href="#f-strings-modern-recommended" title="Link to this heading">#</a></h3>
+<p>f-strings let you insert variables directly inside a string (Python 3.6+):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;solar&quot;</span>
+<span class="n">capacity</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2"> plant generates </span><span class="si">{</span><span class="n">capacity</span><span class="si">}</span><span class="s2"> MW of power.&quot;</span><span class="p">)</span>
+<span class="c1"># The solar plant generates 120 MW of power.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The solar plant generates 120 MW of power.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy1</span> <span class="o">=</span> <span class="s2">&quot;solar&quot;</span>
+<span class="n">energy2</span> <span class="o">=</span> <span class="s2">&quot;grid&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Send &#39;</span><span class="si">{}</span><span class="s2">&#39; power to the </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">energy1</span><span class="p">,</span> <span class="n">energy2</span><span class="p">))</span>
+<span class="c1"># Send &#39;solar&#39; power to the grid</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Send &#39;solar&#39; power to the grid
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="formatting-numbers">
+<h3>🧩 Formatting Numbers<a class="headerlink" href="#formatting-numbers" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14159</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pi rounded: </span><span class="si">{</span><span class="n">pi</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>   <span class="c1"># Pi rounded: 3.14</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Pi rounded: 3.14
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Print number nicely </span><span class="si">%.2f</span><span class="s2">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="mf">356.08977</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Print number nicely 356.09
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="booleans-in-python">
+<h1>✅ Booleans in Python<a class="headerlink" href="#booleans-in-python" title="Link to this heading">#</a></h1>
+<p>A <strong>Boolean</strong> represents one of two values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code> ✔️</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code> ❌</p></li>
+</ul>
+<p>They are often used for <strong>conditions</strong> and <strong>logic</strong> in programs.</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>✨ Examples<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">is_renewable</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">is_fossil</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">is_renewable</span><span class="p">)</span>        <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">is_fossil</span><span class="p">))</span>     <span class="c1"># &lt;class &#39;bool&#39;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+&lt;class &#39;bool&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="comparison-operators-return-boolean">
+<h2>🔄 Comparison Operators (return Boolean)<a class="headerlink" href="#comparison-operators-return-boolean" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">5</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>   <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">5</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># False</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">5</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># True</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+False
+True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="logical-operators">
+<h2>⚡ Logical Operators<a class="headerlink" href="#logical-operators" title="Link to this heading">#</a></h2>
+<p>Booleans can be combined with <code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, and <code class="docutils literal notranslate"><span class="pre">not</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">y</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="ow">and</span> <span class="n">y</span><span class="p">)</span>  <span class="c1"># False</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="ow">or</span> <span class="n">y</span><span class="p">)</span>   <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="ow">not</span> <span class="n">x</span><span class="p">)</span>    <span class="c1"># False</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+True
+False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="if-elif-else-in-python">
+<h1>🔀 if, elif, else in Python<a class="headerlink" href="#if-elif-else-in-python" title="Link to this heading">#</a></h1>
+<p>Python uses <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, and <code class="docutils literal notranslate"><span class="pre">else</span></code> statements to make <strong>decisions</strong> in code. These control the <strong>flow of execution</strong> depending on conditions (True/False).</p>
+<hr class="docutils" />
+<section id="syntax">
+<h2>✨ Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition1</span><span class="p">:</span>
+    <span class="c1"># code runs if condition1 is True</span>
+<span class="k">elif</span> <span class="n">condition2</span><span class="p">:</span>
+    <span class="c1"># code runs if condition2 is True</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># code runs if none of the above are True</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="key-points">
+<h2>⚡ Key Points<a class="headerlink" href="#key-points" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Use <strong><code class="docutils literal notranslate"><span class="pre">if</span></code></strong> for the first condition.</p></li>
+<li><p>Use <strong><code class="docutils literal notranslate"><span class="pre">elif</span></code></strong> (else if) for more conditions.</p></li>
+<li><p>Use <strong><code class="docutils literal notranslate"><span class="pre">else</span></code></strong> for a default/fallback action.</p></li>
+<li><p>Indentation (spaces) is important in Python!</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="example">
+<h2>📝 Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Yes&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Yes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Yes&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Yes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="lists-in-python">
+<h1>📋 Lists in Python<a class="headerlink" href="#lists-in-python" title="Link to this heading">#</a></h1>
+<p>A <strong>list</strong> can store multiple energy-related values, like power readings, energy sources, or daily consumption.</p>
+<hr class="docutils" />
+<section id="creating-a-list">
+<h2>✨ Creating a List<a class="headerlink" href="#creating-a-list" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_sources</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;solar&quot;</span><span class="p">,</span> <span class="s2">&quot;wind&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;nuclear&quot;</span><span class="p">]</span>
+<span class="n">daily_consumption_kwh</span> <span class="o">=</span> <span class="p">[</span><span class="mf">15.2</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">,</span> <span class="mf">20.1</span><span class="p">,</span> <span class="mf">16.7</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="accessing-items">
+<h2>🔄 Accessing Items<a class="headerlink" href="#accessing-items" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">energy_sources</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>   <span class="c1"># solar</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">daily_consumption_kwh</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 16.7 (last day&#39;s usage)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>solar
+16.7
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_sources</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;solar&quot;</span><span class="p">,</span> <span class="s2">&quot;wind&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;nuclear&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_sources</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>     <span class="c1"># solar</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_sources</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>    <span class="c1"># [&#39;wind&#39;, &#39;hydro&#39;, &#39;nuclear&#39;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_sources</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>    <span class="c1"># [&#39;solar&#39;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_sources</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>     <span class="c1"># nuclear</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>solar
+[&#39;wind&#39;, &#39;hydro&#39;, &#39;nuclear&#39;]
+[&#39;solar&#39;]
+nuclear
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="nested-lists">
+<h2>✨ Nested lists<a class="headerlink" href="#nested-lists" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_nested</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;solar&quot;</span><span class="p">,</span> <span class="s2">&quot;wind&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;hydro&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;nuclear&quot;</span><span class="p">]]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_nested</span><span class="p">)</span>
+<span class="c1"># [&#39;solar&#39;, &#39;wind&#39;, [&#39;hydro&#39;, [&#39;nuclear&#39;]]]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_nested</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>        <span class="c1"># solar</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_nested</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>        <span class="c1"># [&#39;hydro&#39;, [&#39;nuclear&#39;]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_nested</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>     <span class="c1"># hydro</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_nested</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>     <span class="c1"># [&#39;nuclear&#39;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_nested</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># nuclear</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;solar&#39;, &#39;wind&#39;, [&#39;hydro&#39;, [&#39;nuclear&#39;]]]
+solar
+[&#39;hydro&#39;, [&#39;nuclear&#39;]]
+hydro
+[&#39;nuclear&#39;]
+nuclear
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">energy_nested</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_nested</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_nested</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;hydro&#39;, [&#39;nuclear&#39;]]
+[&#39;nuclear&#39;]
+nuclear
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="modifying-a-list">
+<h2>📝 Modifying a List<a class="headerlink" href="#modifying-a-list" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_sources</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;geothermal&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_sources</span><span class="p">)</span>  
+<span class="c1"># [&#39;solar&#39;, &#39;geothermal&#39;, &#39;hydro&#39;, &#39;nuclear&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;solar&#39;, &#39;geothermal&#39;, &#39;hydro&#39;, &#39;nuclear&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="adding-items">
+<h2>➕ Adding Items<a class="headerlink" href="#adding-items" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;biomass&quot;</span><span class="p">)</span>
+<span class="n">daily_consumption_kwh</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">14.8</span><span class="p">)</span>  <span class="c1"># add a new day at the start</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="removing-items">
+<h2>❌ Removing Items<a class="headerlink" href="#removing-items" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_sources</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;nuclear&quot;</span><span class="p">)</span>
+<span class="n">daily_consumption_kwh</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>   <span class="c1"># remove last entry</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16.7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="looping-through-a-list">
+<h2>🔁 Looping Through a List<a class="headerlink" href="#looping-through-a-list" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">energy_sources</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy source: </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Energy source: solar
+Energy source: geothermal
+Energy source: hydro
+Energy source: biomass
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="useful-functions">
+<h2>📊 Useful Functions<a class="headerlink" href="#useful-functions" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">daily_consumption_kwh</span><span class="p">))</span>   <span class="c1"># number of days recorded</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">daily_consumption_kwh</span><span class="p">))</span>   <span class="c1"># highest consumption</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">daily_consumption_kwh</span><span class="p">))</span>   <span class="c1"># lowest consumption</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">daily_consumption_kwh</span><span class="p">))</span>   <span class="c1"># total consumption</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+20.1
+14.8
+68.6
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="membership-test">
+<h2>👍 Membership test<a class="headerlink" href="#membership-test" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;solar&quot;</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;wind&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;nuclear&quot;</span><span class="p">])</span>  
+<span class="c1"># False</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;wind&quot;</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;wind&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;nuclear&quot;</span><span class="p">])</span>  
+<span class="c1"># True</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="dictionaries-in-python">
+<h1>📖 Dictionaries in Python<a class="headerlink" href="#dictionaries-in-python" title="Link to this heading">#</a></h1>
+<p>A <strong>dictionary</strong> in Python stores data as <strong>key–value pairs</strong>.</p>
+<ul class="simple">
+<li><p>Keys 🗝️ are unique identifiers.</p></li>
+<li><p>Values 📦 are the data linked to those keys.</p></li>
+<li></li>
+</ul>
+<section id="dictionaries-are-super-useful-for-storing-structured-data-like-details-of-power-plants-energy-production-or-sensor-readings">
+<h2>👉 Dictionaries are super useful for storing <strong>structured data</strong> like details of power plants, energy production, or sensor readings.<a class="headerlink" href="#dictionaries-are-super-useful-for-storing-structured-data-like-details-of-power-plants-energy-production-or-sensor-readings" title="Link to this heading">#</a></h2>
+</section>
+<section id="creating-a-dictionary">
+<h2>✨ Creating a Dictionary<a class="headerlink" href="#creating-a-dictionary" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_plant</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;SolarOne&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;capacity_mw&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+    <span class="s2">&quot;is_renewable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="accessing-values">
+<h2>🔎 Accessing Values<a class="headerlink" href="#accessing-values" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">energy_plant</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>       <span class="c1"># SolarOne</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_plant</span><span class="p">[</span><span class="s2">&quot;capacity_mw&quot;</span><span class="p">])</span>  <span class="c1"># 120</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SolarOne
+120
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="modifying-a-dictionary">
+<h2>📝 Modifying a Dictionary<a class="headerlink" href="#modifying-a-dictionary" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_plant</span><span class="p">[</span><span class="s2">&quot;capacity_mw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_plant</span><span class="p">)</span>
+<span class="c1"># {&#39;name&#39;: &#39;SolarOne&#39;, &#39;capacity_mw&#39;: 150, &#39;is_renewable&#39;: True}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;SolarOne&#39;, &#39;capacity_mw&#39;: 150, &#39;is_renewable&#39;: True}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="adding-new-keyvalue-pairs">
+<h2>➕ Adding New Key–Value Pairs<a class="headerlink" href="#adding-new-keyvalue-pairs" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_plant</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Estonia&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_plant</span><span class="p">)</span>
+<span class="c1"># {&#39;name&#39;: &#39;SolarOne&#39;, &#39;capacity_mw&#39;: 150, &#39;is_renewable&#39;: True, &#39;location&#39;: &#39;Estonia&#39;}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;SolarOne&#39;, &#39;capacity_mw&#39;: 150, &#39;is_renewable&#39;: True, &#39;location&#39;: &#39;Estonia&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>❌ Removing Items<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_plant</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;is_renewable&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_plant</span><span class="p">)</span>
+<span class="c1"># {&#39;name&#39;: &#39;SolarOne&#39;, &#39;capacity_mw&#39;: 150, &#39;location&#39;: &#39;Estonia&#39;}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;name&#39;: &#39;SolarOne&#39;, &#39;capacity_mw&#39;: 150, &#39;location&#39;: &#39;Estonia&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="looping-through-a-dictionary">
+<h2>🔁 Looping Through a Dictionary<a class="headerlink" href="#looping-through-a-dictionary" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">energy_plant</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>name: SolarOne
+capacity_mw: 150
+location: Estonia
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_plant</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;name&#39;, &#39;capacity_mw&#39;, &#39;location&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_plant</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_items([(&#39;name&#39;, &#39;SolarOne&#39;), (&#39;capacity_mw&#39;, 150), (&#39;location&#39;, &#39;Estonia&#39;)])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tuples-in-python">
+<h1>🔒 Tuples in Python<a class="headerlink" href="#tuples-in-python" title="Link to this heading">#</a></h1>
+<p>A <strong>tuple</strong> is like a list, but <strong>immutable</strong> (you can’t change, add, or remove items after it’s created). Tuples are useful for <strong>fixed collections of data</strong>.</p>
+<p>👉 Tuples are great when you want <strong>data that should not change</strong> — for example, the <strong>coordinates of a power plant</strong>, or a fixed set of energy categories.</p>
+<hr class="docutils" />
+<section id="creating-a-tuple">
+<h2>✨ Creating a Tuple<a class="headerlink" href="#creating-a-tuple" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Solar&quot;</span><span class="p">,</span> <span class="s2">&quot;Wind&quot;</span><span class="p">,</span> <span class="s2">&quot;Hydro&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_tuple</span><span class="p">)</span>  
+<span class="c1"># (&#39;Solar&#39;, &#39;Wind&#39;, &#39;Hydro&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;Solar&#39;, &#39;Wind&#39;, &#39;Hydro&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>🔎 Accessing Items<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">energy_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>   <span class="c1"># Solar</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_tuple</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Hydro</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solar
+Hydro
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="length-of-a-tuple">
+<h2>📏 Length of a Tuple<a class="headerlink" href="#length-of-a-tuple" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">energy_tuple</span><span class="p">))</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="immutability">
+<h2>⚠️ Immutability<a class="headerlink" href="#immutability" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">energy_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Nuclear&quot;</span>  
+<span class="c1"># ❌ Error: &#39;tuple&#39; object does not support item assignment</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="tuples-with-mixed-data">
+<h2>🔁 Tuples with Mixed Data<a class="headerlink" href="#tuples-with-mixed-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plant_info</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;SolarOne&quot;</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">plant_info</span><span class="p">)</span>  
+<span class="c1"># (&#39;SolarOne&#39;, 120, True)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;SolarOne&#39;, 120, True)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="nested-tuples-in-python">
+<h2>🔗 Nested Tuples in Python<a class="headerlink" href="#nested-tuples-in-python" title="Link to this heading">#</a></h2>
+<p>You can store tuples <strong>inside other tuples</strong> to represent structured data.</p>
+<hr class="docutils" />
+<section id="example-multiple-energy-plants">
+<h3>✨ Example: Multiple Energy Plants<a class="headerlink" href="#example-multiple-energy-plants" title="Link to this heading">#</a></h3>
+<p>👉 Here each inner tuple stores:</p>
+<ul class="simple">
+<li><p><strong>Plant name 🏭</strong> (string)</p></li>
+<li><p><strong>Capacity in MW ⚡</strong> (int)</p></li>
+<li><p><strong>Is renewable? ✅/❌</strong> (bool)</p></li>
+</ul>
+<p>This way, you can keep a <strong>fixed dataset</strong> of multiple energy plants in one tuple.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_plants</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">&quot;SolarOne&quot;</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;WindFarmX&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;CoalPlantA&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_plants</span><span class="p">)</span>
+<span class="c1"># ((&#39;SolarOne&#39;, 120, True), (&#39;WindFarmX&#39;, 200, True), (&#39;CoalPlantA&#39;, 500, False))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((&#39;SolarOne&#39;, 120, True), (&#39;WindFarmX&#39;, 200, True), (&#39;CoalPlantA&#39;, 500, False))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="accessing-nested-data">
+<h3>🔎 Accessing Nested Data<a class="headerlink" href="#accessing-nested-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">energy_plants</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>        <span class="c1"># (&#39;SolarOne&#39;, 120, True)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_plants</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>     <span class="c1"># WindFarmX</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_plants</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>     <span class="c1"># 500</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_plants</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>     <span class="c1"># False</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;SolarOne&#39;, 120, True)
+WindFarmX
+500
+False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="sets-in-python">
+<h1>🧩 Sets in Python<a class="headerlink" href="#sets-in-python" title="Link to this heading">#</a></h1>
+<p>A <strong>set</strong> is a collection of unique items.</p>
+<ul class="simple">
+<li><p><strong>Unordered</strong> (no fixed position/index).</p></li>
+<li><p><strong>No duplicates allowed</strong>.</p></li>
+<li><p>Useful for removing duplicates or checking membership.</p></li>
+</ul>
+<p>👉 Sets are very handy for <strong>energy analytics</strong> — for example, finding which sources are renewable ✅, which are not ❌, or combining datasets.</p>
+<hr class="docutils" />
+<section id="creating-a-set">
+<h2>✨ Creating a Set<a class="headerlink" href="#creating-a-set" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_sources</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;solar&quot;</span><span class="p">,</span> <span class="s2">&quot;wind&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;solar&quot;</span><span class="p">}</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_sources</span><span class="p">)</span>  
+<span class="c1"># {&#39;solar&#39;, &#39;wind&#39;, &#39;hydro&#39;}   (duplicate &quot;solar&quot; removed)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;wind&#39;, &#39;hydro&#39;, &#39;solar&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>➕ Adding Items<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_sources</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;nuclear&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_sources</span><span class="p">)</span>  <span class="c1"># {&#39;solar&#39;, &#39;wind&#39;, &#39;hydro&#39;, &#39;nuclear&#39;}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;wind&#39;, &#39;hydro&#39;, &#39;solar&#39;, &#39;nuclear&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>❌ Removing Items<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_sources</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;wind&quot;</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_sources</span><span class="p">)</span>  
+<span class="c1"># {&#39;solar&#39;, &#39;hydro&#39;, &#39;nuclear&#39;}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;hydro&#39;, &#39;solar&#39;, &#39;nuclear&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id7">
+<h2>🔎 Membership Test<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;solar&quot;</span> <span class="ow">in</span> <span class="n">energy_sources</span><span class="p">)</span>   <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;coal&quot;</span> <span class="ow">in</span> <span class="n">energy_sources</span><span class="p">)</span>    <span class="c1"># False</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="set-operations">
+<h2>🔗 Set Operations<a class="headerlink" href="#set-operations" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">renewables</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;solar&quot;</span><span class="p">,</span> <span class="s2">&quot;wind&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">}</span>
+<span class="n">all_sources</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;solar&quot;</span><span class="p">,</span> <span class="s2">&quot;wind&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;nuclear&quot;</span><span class="p">,</span> <span class="s2">&quot;coal&quot;</span><span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">all_sources</span> <span class="o">-</span> <span class="n">renewables</span><span class="p">)</span>   <span class="c1"># difference -&gt; {&#39;coal&#39;, &#39;nuclear&#39;}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_sources</span> <span class="o">&amp;</span> <span class="n">renewables</span><span class="p">)</span>   <span class="c1"># intersection -&gt; {&#39;solar&#39;, &#39;wind&#39;, &#39;hydro&#39;}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_sources</span> <span class="o">|</span> <span class="n">renewables</span><span class="p">)</span>   <span class="c1"># union -&gt; {&#39;coal&#39;, &#39;nuclear&#39;, &#39;solar&#39;, &#39;wind&#39;, &#39;hydro&#39;}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;nuclear&#39;, &#39;coal&#39;}
+{&#39;wind&#39;, &#39;hydro&#39;, &#39;solar&#39;}
+{&#39;wind&#39;, &#39;hydro&#39;, &#39;coal&#39;, &#39;nuclear&#39;, &#39;solar&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="loops-in-python">
+<h1>🔁 Loops in Python<a class="headerlink" href="#loops-in-python" title="Link to this heading">#</a></h1>
+<p>Loops let you <strong>repeat actions</strong> without writing the same code multiple times.
+There are two main types:</p>
+<ul class="simple">
+<li><p><strong>for loop</strong> → iterate over a sequence (list, tuple, dict, set, string).</p></li>
+<li><p><strong>while loop</strong> → keep running while a condition is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+<p>👉 Use <strong>for loops</strong> for going through collections 📋 and <strong>while loops</strong> for conditions 🔎.</p>
+<hr class="docutils" />
+<section id="for-loop">
+<h2>▶️ for Loop<a class="headerlink" href="#for-loop" title="Link to this heading">#</a></h2>
+<p>Used when you know how many times you want to repeat something (like going through a list of energy sources).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_sources</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;solar&quot;</span><span class="p">,</span> <span class="s2">&quot;wind&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">energy_sources</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Energy source: </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Energy source: solar
+Energy source: wind
+Energy source: hydro
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<section id="list-comprehensions">
+<h3>📝 List Comprehensions<a class="headerlink" href="#list-comprehensions" title="Link to this heading">#</a></h3>
+<p>A <strong>list comprehension</strong> is a shorter way to create a new list by applying an operation to each item in an existing list.</p>
+<p>👉 List comprehensions are <strong>compact and efficient</strong>, often replacing loops when transforming data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">capacities</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>
+<span class="n">new_capacities</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">*</span> <span class="mf">1.1</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">capacities</span><span class="p">]</span>  <span class="c1"># increase each by 10%</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_capacities</span><span class="p">)</span>
+<span class="c1"># [110.0, 220.00000000000003, 330.0]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[110.00000000000001, 220.00000000000003, 330.0]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_plants</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;SolarOne&quot;</span><span class="p">,</span> <span class="s2">&quot;renewable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;WindFarmX&quot;</span><span class="p">,</span> <span class="s2">&quot;renewable&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CoalPlantA&quot;</span><span class="p">,</span> <span class="s2">&quot;renewable&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+<span class="p">]</span>
+
+<span class="n">renewable_plants</span> <span class="o">=</span> <span class="p">[</span><span class="n">plant</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">plant</span> <span class="ow">in</span> <span class="n">energy_plants</span> <span class="k">if</span> <span class="n">plant</span><span class="p">[</span><span class="s2">&quot;renewable&quot;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">renewable_plants</span><span class="p">)</span>
+<span class="c1"># [&#39;SolarOne&#39;, &#39;WindFarmX&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;SolarOne&#39;, &#39;WindFarmX&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="while-loop">
+<h2>🔄 while Loop<a class="headerlink" href="#while-loop" title="Link to this heading">#</a></h2>
+<p>Used when you don’t know exactly how many times the loop should run, but you have a condition to check.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">capacity</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="n">capacity</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="n">capacity</span> <span class="o">+=</span> <span class="mi">25</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Current capacity: </span><span class="si">{</span><span class="n">capacity</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Current capacity: 25 MW
+Current capacity: 50 MW
+Current capacity: 75 MW
+Current capacity: 100 MW
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="functions-in-python">
+<h1>🔧 Functions in Python<a class="headerlink" href="#functions-in-python" title="Link to this heading">#</a></h1>
+<p>A <strong>function</strong> is a reusable block of code that performs a task.</p>
+<ul class="simple">
+<li><p>Defined with the keyword <code class="docutils literal notranslate"><span class="pre">def</span></code>.</p></li>
+<li><p>Can take <strong>parameters (inputs)</strong> and return <strong>values (outputs)</strong>.</p></li>
+</ul>
+<p>👉 Functions help you <strong>organize, reuse, and simplify</strong> code — essential for energy analytics, simulations, and machine learning projects.</p>
+<hr class="docutils" />
+<section id="basic-function">
+<h2>✨ Basic Function<a class="headerlink" href="#basic-function" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">energy</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Welcome to the Energy World!&quot;</span><span class="p">)</span>
+    
+<span class="n">energy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Welcome to the Energy World!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="function-with-parameters">
+<h2>⚡ Function with Parameters<a class="headerlink" href="#function-with-parameters" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">energy_output</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">capacity_mw</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2"> plant generates </span><span class="si">{</span><span class="n">capacity_mw</span><span class="si">}</span><span class="s2"> MW of power.&quot;</span><span class="p">)</span>
+
+<span class="n">energy_output</span><span class="p">(</span><span class="s2">&quot;Solar&quot;</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+<span class="n">energy_output</span><span class="p">(</span><span class="s2">&quot;Wind&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The Solar plant generates 120 MW of power.
+The Wind plant generates 200 MW of power.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="function-with-return-value">
+<h2>🔄 Function with Return Value<a class="headerlink" href="#function-with-return-value" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">increase_capacity</span><span class="p">(</span><span class="n">capacity</span><span class="p">,</span> <span class="n">percent</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">capacity</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">percent</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">new_capacity</span> <span class="o">=</span> <span class="n">increase_capacity</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_capacity</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>110.00000000000001
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="function-with-default-parameter">
+<h2>🧩 Function with Default Parameter<a class="headerlink" href="#function-with-default-parameter" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">efficiency</span><span class="p">(</span><span class="n">plant</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="mi">90</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plant</span><span class="si">}</span><span class="s2"> efficiency is </span><span class="si">{</span><span class="n">percent</span><span class="si">}</span><span class="s2">%&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">efficiency</span><span class="p">(</span><span class="s2">&quot;SolarOne&quot;</span><span class="p">))</span>       <span class="c1"># SolarOne efficiency is 90%</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">efficiency</span><span class="p">(</span><span class="s2">&quot;WindFarmX&quot;</span><span class="p">,</span> <span class="mi">85</span><span class="p">))</span>  <span class="c1"># WindFarmX efficiency is 85%</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SolarOne efficiency is 90%
+WindFarmX efficiency is 85%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="lambda-map-and-filter-in-python">
+<h1>⚡ Lambda, map(), and filter() in Python<a class="headerlink" href="#lambda-map-and-filter-in-python" title="Link to this heading">#</a></h1>
+<section id="lambda-functions">
+<h2>🔹 Lambda Functions<a class="headerlink" href="#lambda-functions" title="Link to this heading">#</a></h2>
+<p>A <strong>lambda function</strong> is a small, anonymous function defined in one line using the keyword <code class="docutils literal notranslate"><span class="pre">lambda</span></code>.</p>
+<p>👉 Use <strong><code class="docutils literal notranslate"><span class="pre">filter()</span></code></strong> to select items ✅, and <strong><code class="docutils literal notranslate"><span class="pre">map()</span></code></strong> to transform them 🔄. Both work great with <strong>lambda functions</strong> for compact, powerful code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>  
+<span class="c1"># 25</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="filter">
+<h2>🔹 filter()<a class="headerlink" href="#filter" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">filter(function,</span> <span class="pre">iterable)</span></code> keeps only the elements that satisfy the condition.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">capacities</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>
+<span class="n">large_plants</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">,</span> <span class="n">capacities</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">large_plants</span><span class="p">)</span>
+<span class="c1"># [120, 200, 300]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[120, 200, 300]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="map">
+<h2>🔹 map()<a class="headerlink" href="#map" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">map(function,</span> <span class="pre">iterable)</span></code> applies a function to <strong>each item</strong> of a list.</p>
+<section id="basic-example">
+<h3>📝 Basic Example<a class="headerlink" href="#basic-example" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">capacities</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>
+<span class="n">new_capacities</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">,</span> <span class="n">capacities</span><span class="p">))</span>  <span class="c1"># increase by 10%</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_capacities</span><span class="p">)</span>
+<span class="c1"># [110.00000000000001, 220.00000000000003, 330.0]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[110.00000000000001, 220.00000000000003, 330.0]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="reduce">
+<h2>🔹 reduce()<a class="headerlink" href="#reduce" title="Link to this heading">#</a></h2>
+<p>The <strong><code class="docutils literal notranslate"><span class="pre">reduce()</span></code></strong> function (from the <code class="docutils literal notranslate"><span class="pre">functools</span></code> module) applies a function <strong>cumulatively</strong> to the items of a list, reducing it to a single value.</p>
+<p>👉 Use <code class="docutils literal notranslate"><span class="pre">reduce()</span></code> when you want to <strong>aggregate values</strong> into one result — like calculating <strong>total energy capacity, total cost, or total emissions</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+
+<span class="n">capacities</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">]</span>
+<span class="n">total_capacity</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">capacities</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">total_capacity</span><span class="p">)</span>
+<span class="c1"># 1000</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="python.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">📖 Python/Numpy/Pandas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02_numpy_tutorial.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🔢 NumPy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🐍 Introduction to Python</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#packages">📦 Packages</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-python">🐍 Getting Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-anaconda">1️⃣ Install Anaconda 🐼</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-virtual-environment">2️⃣ Create a Virtual Environment 🧩</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-jupyter-notebook">3️⃣ Start Jupyter Notebook 📓</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#google-colab">☁️💻 Google Colab</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-get-started">🚀 To get started:</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#git">🌱 Git</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#types-in-python">🔤 Types in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-python-data-types">Common Python Data Types:</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#operations-on-numbers-in-python">🔢 Operations on Numbers in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-arithmetic-operators">✨ Basic Arithmetic Operators</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-in-python">🏷️ Variables in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">✨ Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-conventions">📝 Naming Conventions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-must-follow">✅ Rules (must follow)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conventions-best-practices">📌 Conventions (best practices)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#strings-in-python">📝 Strings in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">✨ Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#string-operations">🔧 String Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-string-methods">🎯 Useful String Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-printing-in-python">🖨️ Output / Printing in Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-printing">✨ Basic Printing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#printing-variables">🔗 Printing Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenation">➕ Concatenation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-strings-modern-recommended">🎯 f-Strings (modern &amp; recommended)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formatting-numbers">🧩 Formatting Numbers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#booleans-in-python">✅ Booleans in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">✨ Examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-operators-return-boolean">🔄 Comparison Operators (return Boolean)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-operators">⚡ Logical Operators</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#if-elif-else-in-python">🔀 if, elif, else in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">✨ Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-points">⚡ Key Points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">📝 Example</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lists-in-python">📋 Lists in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-list">✨ Creating a List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-items">🔄 Accessing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nested-lists">✨ Nested lists</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-a-list">📝 Modifying a List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-items">➕ Adding Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-items">❌ Removing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looping-through-a-list">🔁 Looping Through a List</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#useful-functions">📊 Useful Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membership-test">👍 Membership test</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries-in-python">📖 Dictionaries in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionaries-are-super-useful-for-storing-structured-data-like-details-of-power-plants-energy-production-or-sensor-readings">👉 Dictionaries are super useful for storing <strong>structured data</strong> like details of power plants, energy production, or sensor readings.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-dictionary">✨ Creating a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-values">🔎 Accessing Values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-a-dictionary">📝 Modifying a Dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-new-keyvalue-pairs">➕ Adding New Key–Value Pairs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">❌ Removing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looping-through-a-dictionary">🔁 Looping Through a Dictionary</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tuples-in-python">🔒 Tuples in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-tuple">✨ Creating a Tuple</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">🔎 Accessing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length-of-a-tuple">📏 Length of a Tuple</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#immutability">⚠️ Immutability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tuples-with-mixed-data">🔁 Tuples with Mixed Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nested-tuples-in-python">🔗 Nested Tuples in Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-multiple-energy-plants">✨ Example: Multiple Energy Plants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-nested-data">🔎 Accessing Nested Data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sets-in-python">🧩 Sets in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-set">✨ Creating a Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">➕ Adding Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">❌ Removing Items</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">🔎 Membership Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-operations">🔗 Set Operations</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#loops-in-python">🔁 Loops in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop">▶️ for Loop</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions">📝 List Comprehensions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#while-loop">🔄 while Loop</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-in-python">🔧 Functions in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-function">✨ Basic Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-parameters">⚡ Function with Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-return-value">🔄 Function with Return Value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-with-default-parameter">🧩 Function with Default Parameter</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-map-and-filter-in-python">⚡ Lambda, map(), and filter() in Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-functions">🔹 Lambda Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filter">🔹 filter()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map">🔹 map()</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-example">📝 Basic Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reduce">🔹 reduce()</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
