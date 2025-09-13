@@ -1,0 +1,15 @@
+format: jb-book
+root: intro
+
+chapters:
+  - file: python         # chapter landing page (markdown)
+    sections:
+      - file: 01_introduction_to_python
+      - file: 02_numpy_tutorial
+      - file: 03_pandas_tutorial
+  - file: 04_data_science_cycle
+  - file: visualization         
+    sections:
+      - file: 05_visualization
+      - file: 06_plotly
+      - file: 07_ipywidgets

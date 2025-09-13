@@ -1,0 +1,27 @@
+title: "Energy Informatics"
+author: "Margarita Matson"
+
+launch_buttons:
+  binderhub_url: https://mybinder.org
+  thebe: true
+
+thebe:
+  kernel_name: python3
+
+repository:
+  url: https://github.com/drmatson/energy_informatics
+  branch: gh-pages          # <-- adjust if not 'main'
+  path_to_book: .        # folder that contains your notebooks
+
+execute:
+  execute_notebooks: "off"   # use saved outputs (good for GitHub Pages)
+
+html:
+  use_repository_button: false
+  use_edit_page_button: false
+  use_issues_button: false
+
+sphinx:
+  config:
+    copyright: "© 2025"
+
