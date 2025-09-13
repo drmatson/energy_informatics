@@ -13,3 +13,4 @@ chapters:
       - file: 05_visualization
       - file: 06_plotly
       - file: 07_ipywidgets
+      - file: 08_dash
