@@ -1,12 +1,6 @@
 title: "Energy Informatics"
 author: "Margarita Matson"
 
-launch_buttons:
-  binderhub_url: https://mybinder.org
-  thebe: true
-
-thebe:
-  kernel_name: python3
 
 repository:
   url: https://github.com/drmatson/energy_informatics
