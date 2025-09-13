@@ -1,0 +1,1635 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>📊 Visualization Tutorial with Matplotlib &amp; Seaborn &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '05_visualization';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="👀 Visuals in Exploratory Data Analysis (EDA)" href="visualization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="visualization.html">👀 Visuals in Exploratory Data Analysis (EDA)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/05_visualization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>📊 Visualization Tutorial with Matplotlib & Seaborn</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-matplotlib">🎨 What is Matplotlib?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-seaborn">📈 What is Seaborn?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-difference">🔎 Key Difference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#line-plots">📈 Line Plots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-line-plots">🔎 Why use line plots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-example">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-tips">✅ Key Tips</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-plots-categorical-data">📊 Bar Plots (Categorical Data)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-bar-plots">🔎 Why use bar plots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">✅ Key Tips</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-kde-kernel-density-estimate">📊 Histogram &amp; KDE (Kernel Density Estimate)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-them">🔎 Why use them?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-histogram-kde">✅ How to Read a Histogram + KDE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-distributions-summer-vs-winter-demand">🌞❄️ Comparing Distributions: Summer vs Winter Demand</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-this-plot">✅ How to Read This Plot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plots">🔵 Scatter Plots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-scatter-plots">🔎 Why use scatter plots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-tips-for-scatter-plots">✅ Key Tips for Scatter Plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demand-vs-temperature-u-shape-heating-cooling">Demand vs Temperature (U-shape: heating &amp; cooling)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wind-speed-vs-wind-generation-saturation-curve">Wind Speed vs Wind Generation (saturation curve)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hourly-load-profile-by-day-type-color-by-weekday-weekend">Hourly Load Profile by Day Type (color by weekday/weekend)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#price-vs-demand-with-heteroskedastic-noise">Price vs Demand (with heteroskedastic noise)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demand-vs-temperature-by-season-facets">Demand vs Temperature by Season (facets)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplot-with-regression-line">🔴 Scatterplot with Regression Line</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-scatterplots-with-regression">🔎 Why use scatterplots with regression?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">⚡ Energy Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-it">✅ How to Read It</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplots">📦 Boxplots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-boxplots">🔎 Why use boxplots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-boxplot">✅ How to Read a Boxplot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-with-spread-variability">📊 Interpretation (with spread &amp; variability)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#violin-plots">🎻 Violin Plots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-violin-plots">🔎 Why use violin plots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-violin-plot">✅ How to Read a Violin Plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-with-more-spread-variability">📊 Interpretation (with more spread &amp; variability)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmap-correlations">🌡️💨  Heatmap (Correlations)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-this-heatmap">✅ How to Read This Heatmap</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-clustermap">🔗 Correlation Clustermap</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-clustermap">✅ How to Read a Clustermap</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pairplot-scatter-matrix">🔄 Pairplot (Scatter Matrix)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-pairplots">🔎 Why use pairplots?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-pairplot">✅ How to Read a Pairplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-colors-sizes-and-titles">Customizing Colors, Sizes, and Titles</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib-line-styles-markers-title-grid">Matplotlib: Line styles, markers, title, grid</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn-palettes-and-context">Seaborn: Palettes and context</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="visualization-tutorial-with-matplotlib-seaborn">
+<h1>📊 Visualization Tutorial with Matplotlib &amp; Seaborn<a class="headerlink" href="#visualization-tutorial-with-matplotlib-seaborn" title="Link to this heading">#</a></h1>
+<p>This tutorial is on <strong>typography &amp; visualization</strong> and introduces two of the most widely used Python libraries for data visualization.</p>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="what-is-matplotlib">
+<h2>🎨 What is Matplotlib?<a class="headerlink" href="#what-is-matplotlib" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Matplotlib</strong> is the <strong>foundational plotting library</strong> in Python.</p></li>
+<li><p>It provides <strong>fine-grained control</strong> over every aspect of a figure: axes, ticks, labels, colors, line styles, legends, and more.</p></li>
+<li><p>It is extremely <strong>flexible</strong> but often requires <strong>more code</strong> for simple tasks.</p></li>
+<li><p>Think of it as the <strong>“engine”</strong> behind most Python plots.</p></li>
+<li><p>⚡ In energy analytics: use it when you need <strong>customized plots</strong> for reports or dashboards.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="what-is-seaborn">
+<h2>📈 What is Seaborn?<a class="headerlink" href="#what-is-seaborn" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Seaborn</strong> is built <strong>on top of Matplotlib</strong>, offering a <strong>higher-level interface</strong> with <strong>beautiful defaults</strong>.</p></li>
+<li><p>It is designed for <strong>statistical visualization</strong> and integrates smoothly with <strong>Pandas DataFrames</strong>.</p></li>
+<li><p>With just one line of code, you can create <strong>attractive histograms, scatterplots, boxplots, heatmaps, regression plots, etc.</strong></p></li>
+<li><p>⚡ In energy analytics: great for <strong>quick exploration</strong> of demand, weather, and correlations without much code.</p></li>
+</ul>
+<hr class="docutils" />
+<section id="key-difference">
+<h3>🔎 Key Difference<a class="headerlink" href="#key-difference" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Matplotlib</strong> → full control, more detailed coding, suitable for <strong>final polished plots</strong>.</p></li>
+<li><p><strong>Seaborn</strong> → cleaner, faster, and visually appealing by default, best for <strong>exploratory data analysis (EDA)</strong>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">800</span><span class="p">,</span><span class="mi">820</span><span class="p">,</span><span class="mi">850</span><span class="p">,</span><span class="mi">870</span><span class="p">,</span><span class="mi">900</span><span class="p">,</span><span class="mi">950</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1200</span><span class="p">,</span><span class="mi">1400</span><span class="p">,</span><span class="mi">1600</span><span class="p">,</span><span class="mi">1700</span><span class="p">,</span><span class="mi">1750</span><span class="p">,</span>
+               <span class="mi">1800</span><span class="p">,</span><span class="mi">1780</span><span class="p">,</span><span class="mi">1700</span><span class="p">,</span><span class="mi">1600</span><span class="p">,</span><span class="mi">1500</span><span class="p">,</span><span class="mi">1400</span><span class="p">,</span><span class="mi">1300</span><span class="p">,</span><span class="mi">1200</span><span class="p">,</span><span class="mi">1100</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">900</span><span class="p">,</span><span class="mi">850</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="line-plots">
+<h1>📈 Line Plots<a class="headerlink" href="#line-plots" title="Link to this heading">#</a></h1>
+<p>A <strong>line plot</strong> connects data points with lines, making it the most common way to visualize <strong>time series data</strong>.</p>
+<hr class="docutils" />
+<section id="why-use-line-plots">
+<h2>🔎 Why use line plots?<a class="headerlink" href="#why-use-line-plots" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Show <strong>trends over time</strong> (upward, downward, seasonal).</p></li>
+<li><p>Highlight <strong>patterns</strong> such as daily cycles, weekly repetition, or long-term growth/decline.</p></li>
+<li><p>Make it easy to compare <strong>multiple series</strong> on the same timeline (e.g., Solar vs Wind vs Hydro).</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="energy-example">
+<h2>⚡ Energy Example<a class="headerlink" href="#energy-example" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Plotting <strong>hourly electricity demand</strong> across a day shows <strong>morning/evening peaks</strong>.</p></li>
+<li><p>Comparing <strong>two weeks stacked</strong> reveals how weekdays look alike.</p></li>
+<li><p>Adding <strong>forecast vs actual</strong> curves helps evaluate model performance.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="key-tips">
+<h2>✅ Key Tips<a class="headerlink" href="#key-tips" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Always label axes.</p></li>
+<li><p>Use legends when comparing multiple lines.</p></li>
+<li><p>Add gridlines for readability.</p></li>
+<li><p>Keep line colors and styles distinct if plotting more than one series.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 Line plots are the <strong>default tool</strong> for time-based energy data and should always be part of EDA.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Demand (MW)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Hourly Electricity Demand&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/da257c8566d77c4a46841acf358179de6b521aecec0286c2dee60c8d433517d2.png" src="_images/da257c8566d77c4a46841acf358179de6b521aecec0286c2dee60c8d433517d2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Week 1&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Week 2&quot;</span><span class="p">)</span>  <span class="c1"># mock second week</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Demand Comparison: Two Weeks&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fe6ba58a06038720a7bef9c0348b5d1105f3ed9e00609259479d78516d399a55.png" src="_images/fe6ba58a06038720a7bef9c0348b5d1105f3ed9e00609259479d78516d399a55.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="bar-plots-categorical-data">
+<h1>📊 Bar Plots (Categorical Data)<a class="headerlink" href="#bar-plots-categorical-data" title="Link to this heading">#</a></h1>
+<p>A <strong>bar plot</strong> displays data using rectangular bars, where the <strong>length of each bar</strong> represents the value of a category.
+It’s best for <strong>comparing discrete groups</strong>.</p>
+<hr class="docutils" />
+<section id="why-use-bar-plots">
+<h2>🔎 Why use bar plots?<a class="headerlink" href="#why-use-bar-plots" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Compare <strong>categories</strong> (e.g., production by energy source).</p></li>
+<li><p>Show <strong>distribution of totals</strong> (e.g., demand by region).</p></li>
+<li><p>Easy to see <strong>which category dominates</strong>.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="id1">
+<h2>⚡ Energy Example<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Compare how much electricity is produced from <strong>Solar, Wind, and Hydro</strong>.</p></li>
+<li><p>Show <strong>regional demand</strong> (North vs South vs East vs West).</p></li>
+<li><p>Display <strong>installed capacity</strong> by technology.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="id2">
+<h2>✅ Key Tips<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Use <strong>vertical bars</strong> for simple category names (e.g., Solar, Wind).</p></li>
+<li><p>Use <strong>horizontal bars</strong> for long labels (e.g., “North-East Interconnection Zone”).</p></li>
+<li><p>Sort categories for clarity (e.g., highest to lowest).</p></li>
+<li><p>Always label axes and use units (<code class="docutils literal notranslate"><span class="pre">MWh</span></code>, <code class="docutils literal notranslate"><span class="pre">MW</span></code>).</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 Horizontal bar plots are especially useful when <strong>category names are long</strong> or when you want to emphasize ranking.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Solar&quot;</span><span class="p">,</span><span class="s2">&quot;Wind&quot;</span><span class="p">,</span><span class="s2">&quot;Hydro&quot;</span><span class="p">]</span>
+<span class="n">production</span> <span class="o">=</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">800</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">sources</span><span class="p">,</span> <span class="n">production</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Energy Production by Source&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Production [MWh]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/67dbc9a46784aeb269665a3a808c0bc956a6337737b1e8c2bd15a3a9b65c2f1a.png" src="_images/67dbc9a46784aeb269665a3a808c0bc956a6337737b1e8c2bd15a3a9b65c2f1a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;North Region&quot;</span><span class="p">,</span> <span class="s2">&quot;South Region&quot;</span><span class="p">,</span> <span class="s2">&quot;East Region&quot;</span><span class="p">,</span> <span class="s2">&quot;West Region&quot;</span><span class="p">]</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">1100</span><span class="p">,</span> <span class="mi">900</span><span class="p">]</span>  <span class="c1"># MWh</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">regions</span><span class="p">,</span> <span class="n">demand</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;seagreen&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Regional Electricity Demand&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Demand [MWh]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Region&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/42df32db26f70cfff75c66f648c2d454deb881ba2d7612da442b1098b7df9cee.png" src="_images/42df32db26f70cfff75c66f648c2d454deb881ba2d7612da442b1098b7df9cee.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="histogram-kde-kernel-density-estimate">
+<h1>📊 Histogram &amp; KDE (Kernel Density Estimate)<a class="headerlink" href="#histogram-kde-kernel-density-estimate" title="Link to this heading">#</a></h1>
+<p>A <strong>histogram</strong> shows the <strong>distribution</strong> of data by splitting values into <strong>bins</strong> (intervals) and counting how many observations fall into each bin.
+A <strong>KDE (Kernel Density Estimate)</strong> is a smoothed curve that approximates the distribution.</p>
+<hr class="docutils" />
+<section id="why-use-them">
+<h2>🔎 Why use them?<a class="headerlink" href="#why-use-them" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Understand the <strong>shape of the data</strong> (normal, skewed, multimodal).</p></li>
+<li><p>Spot <strong>common ranges</strong> and <strong>rare values</strong>.</p></li>
+<li><p>Compare distributions between groups (e.g., demand in winter vs summer).</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="id3">
+<h2>⚡ Energy Example<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Histogram of <strong>hourly demand</strong> shows which demand levels are most frequent.</p></li>
+<li><p>Adding KDE gives a <strong>smooth curve</strong>, making it easier to see peaks and spread.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="how-to-read-a-histogram-kde">
+<h2>✅ How to Read a Histogram + KDE<a class="headerlink" href="#how-to-read-a-histogram-kde" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>X-axis</strong> → the values (e.g., demand in MW).</p></li>
+<li><p><strong>Y-axis</strong> → how often those values occur (frequency or density).</p></li>
+<li><p><strong>Histogram bars</strong> → show counts in each bin.</p></li>
+<li><p><strong>KDE curve</strong> → smoothed shape of the distribution.</p></li>
+<li><p><strong>Interpretation:</strong></p>
+<ul>
+<li><p>Tall bars / peaks → demand levels that occur often.</p></li>
+<li><p>Wide spread → high variability.</p></li>
+<li><p>Multiple peaks → different operating regimes (e.g., weekdays vs weekends).</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>👉 Together, <strong>histograms + KDEs</strong> help you quickly see whether demand is stable, variable, or follows multiple patterns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribution of Hourly Demand&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c42307885ff3c23fa477578d998b96b586fbe3d4d428c9ff39eb6ed7d4dedd71.png" src="_images/c42307885ff3c23fa477578d998b96b586fbe3d4d428c9ff39eb6ed7d4dedd71.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="comparing-distributions-summer-vs-winter-demand">
+<h2>🌞❄️ Comparing Distributions: Summer vs Winter Demand<a class="headerlink" href="#comparing-distributions-summer-vs-winter-demand" title="Link to this heading">#</a></h2>
+<p>Sometimes we want to compare how distributions differ between groups.
+With Seaborn, we can add a <strong><code class="docutils literal notranslate"><span class="pre">hue</span></code></strong> argument to separate categories (e.g., summer vs winter).</p>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example dataset: hourly demand with season labels</span>
+<span class="n">winter</span> <span class="o">=</span> <span class="p">[</span><span class="mi">900</span><span class="p">,</span><span class="mi">950</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1050</span><span class="p">,</span><span class="mi">1100</span><span class="p">,</span><span class="mi">1200</span><span class="p">,</span><span class="mi">1250</span><span class="p">,</span><span class="mi">1300</span><span class="p">,</span><span class="mi">1400</span><span class="p">,</span><span class="mi">1500</span><span class="p">,</span><span class="mi">1600</span><span class="p">,</span><span class="mi">1700</span><span class="p">]</span>
+<span class="n">summer</span> <span class="o">=</span> <span class="p">[</span><span class="mi">700</span><span class="p">,</span><span class="mi">750</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">820</span><span class="p">,</span><span class="mi">850</span><span class="p">,</span><span class="mi">900</span><span class="p">,</span><span class="mi">950</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1050</span><span class="p">,</span><span class="mi">1100</span><span class="p">,</span><span class="mi">1150</span><span class="p">,</span><span class="mi">1200</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="n">winter</span> <span class="o">+</span> <span class="n">summer</span><span class="p">,</span>
+    <span class="s2">&quot;season&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Winter&quot;</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">winter</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Summer&quot;</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">summer</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Winter&quot;</span><span class="p">:</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Summer&quot;</span><span class="p">:</span><span class="s2">&quot;orange&quot;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Demand Distribution: Winter vs Summer&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2aeab974a5b39c52417a3aec05d5358579d7a24338c228342272067ea9e60484.png" src="_images/2aeab974a5b39c52417a3aec05d5358579d7a24338c228342272067ea9e60484.png" />
+</div>
+</div>
+<section id="how-to-read-this-plot">
+<h3>✅ How to Read This Plot<a class="headerlink" href="#how-to-read-this-plot" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Two distributions</strong> → Winter (blue) vs Summer (orange).</p></li>
+<li><p><strong>Histogram bars</strong> → show frequency of demand ranges for each season.</p></li>
+<li><p><strong>KDE curves</strong> → smooth comparison of overall shape.</p></li>
+<li><p><strong>Interpretation:</strong></p>
+<ul>
+<li><p>Winter demand is <strong>shifted higher</strong> (more heating).</p></li>
+<li><p>Summer demand is <strong>lower and flatter</strong> (less heating, sometimes cooling).</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>👉 Using <code class="docutils literal notranslate"><span class="pre">hue</span></code> makes comparisons very intuitive — you can clearly see <strong>seasonal shifts</strong> in demand patterns.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="scatter-plots">
+<h1>🔵 Scatter Plots<a class="headerlink" href="#scatter-plots" title="Link to this heading">#</a></h1>
+<p>A <strong>scatter plot</strong> shows the relationship between two variables by plotting individual data points.
+By adding <strong>color (hue), size, or style</strong>, we can visualize more dimensions of the data.</p>
+<hr class="docutils" />
+<section id="why-use-scatter-plots">
+<h2>🔎 Why use scatter plots?<a class="headerlink" href="#why-use-scatter-plots" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Explore <strong>relationships</strong> between demand and external factors (temperature, wind, solar radiation).</p></li>
+<li><p>Detect <strong>non-linear effects</strong> (e.g., U-shape demand vs temperature).</p></li>
+<li><p>Spot <strong>outliers</strong> and special cases (holidays, anomalies).</p></li>
+<li><p>Add a third variable via <strong>color or size</strong> to see interactions.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="key-tips-for-scatter-plots">
+<h2>✅ Key Tips for Scatter Plots<a class="headerlink" href="#key-tips-for-scatter-plots" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Use <strong>alpha &lt; 1</strong> to reduce overplotting when you have thousands of points.</p></li>
+<li><p>Use <strong>hue</strong> for categorical separation (weekday, season, holiday).</p></li>
+<li><p>Use <strong>size</strong> or <strong>style</strong> for additional dimensions (e.g., wind speed, holiday flag).</p></li>
+<li><p>Always check if the relationship looks <strong>linear or non-linear</strong> before choosing a model.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 Scatter plots are <strong>the workhorse of EDA</strong> in energy demand analysis: they reveal <strong>hidden drivers</strong> and guide <strong>feature engineering</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<section id="demand-vs-temperature-u-shape-heating-cooling">
+<h3>Demand vs Temperature (U-shape: heating &amp; cooling)<a class="headerlink" href="#demand-vs-temperature-u-shape-heating-cooling" title="Link to this heading">#</a></h3>
+<p><strong>Idea:</strong> Demand rises when it’s very cold (heating) and again when it’s very hot (cooling).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">800</span>
+
+<span class="n">temp</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># °C</span>
+<span class="c1"># U-shape: quadratic around ~15°C comfort zone</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="mi">1200</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="p">(</span><span class="n">temp</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Add weekday/weekend label for hue</span>
+<span class="n">weekday</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Weekday&quot;</span><span class="p">,</span><span class="s2">&quot;Weekend&quot;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
+
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;temp&quot;</span><span class="p">:</span> <span class="n">temp</span><span class="p">,</span> <span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="n">demand</span><span class="p">,</span> <span class="s2">&quot;daytype&quot;</span><span class="p">:</span> <span class="n">weekday</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;temp&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;daytype&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Demand vs Temperature (synthetic)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Temperature (°C)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/18561ca578e6980f4dbfe70fa98b809ff91bc20333ec0eb89de6acdc67867d71.png" src="_images/18561ca578e6980f4dbfe70fa98b809ff91bc20333ec0eb89de6acdc67867d71.png" />
+</div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="wind-speed-vs-wind-generation-saturation-curve">
+<h3>Wind Speed vs Wind Generation (saturation curve)<a class="headerlink" href="#wind-speed-vs-wind-generation-saturation-curve" title="Link to this heading">#</a></h3>
+<p><strong>Idea:</strong> Power grows ~cubic at low speeds and saturates near rated output.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">600</span>
+
+<span class="n">wind</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># m/s</span>
+<span class="c1"># Logistic-like saturation</span>
+<span class="n">rated</span> <span class="o">=</span> <span class="mi">2000</span>  <span class="c1"># MW</span>
+<span class="n">gen</span> <span class="o">=</span> <span class="n">rated</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">wind</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="n">gen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rated</span><span class="p">)</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;wind_speed&quot;</span><span class="p">:</span> <span class="n">wind</span><span class="p">,</span> <span class="s2">&quot;wind_gen&quot;</span><span class="p">:</span> <span class="n">gen</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;wind_speed&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;wind_gen&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Wind Generation vs Wind Speed (synthetic)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Wind Speed (m/s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Wind Generation [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ec84f797fdab4c4aef1e5df622d9dec34aa57683d0cea3d9527dd5a32ab02e62.png" src="_images/ec84f797fdab4c4aef1e5df622d9dec34aa57683d0cea3d9527dd5a32ab02e62.png" />
+</div>
+</div>
+</section>
+<section id="hourly-load-profile-by-day-type-color-by-weekday-weekend">
+<h3>Hourly Load Profile by Day Type (color by weekday/weekend)<a class="headerlink" href="#hourly-load-profile-by-day-type-color-by-weekday-weekend" title="Link to this heading">#</a></h3>
+<p><strong>Idea:</strong> Morning/evening peaks on weekdays; flatter/lower on weekends.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+
+<span class="c1"># Weekday pattern: morning/evening peaks</span>
+<span class="n">wk</span> <span class="o">=</span> <span class="mi">900</span> <span class="o">+</span> <span class="mi">200</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">hours</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span><span class="o">/</span><span class="mf">2.2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">250</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">hours</span><span class="o">-</span><span class="mi">18</span><span class="p">)</span><span class="o">/</span><span class="mf">2.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">wk</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+
+<span class="c1"># Weekend pattern: lower &amp; flatter</span>
+<span class="n">we</span> <span class="o">=</span> <span class="mi">800</span> <span class="o">+</span> <span class="mi">120</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">hours</span><span class="o">-</span><span class="mi">11</span><span class="p">)</span><span class="o">/</span><span class="mf">3.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">hours</span><span class="o">-</span><span class="mi">19</span><span class="p">)</span><span class="o">/</span><span class="mf">3.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">we</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+
+<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">wk</span><span class="p">,</span> <span class="n">we</span><span class="p">],</span>
+    <span class="s2">&quot;daytype&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="s2">&quot;Weekday&quot;</span><span class="p">,</span><span class="s2">&quot;Weekend&quot;</span><span class="p">],</span> <span class="mi">24</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df4</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;daytype&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df4</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;daytype&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Hourly Load Profile: Weekday vs Weekend (synthetic)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Hour of Day&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3d6f910cb8ce2cb41e7505b0daccc0b5eeeaaa3c3b3c31d8dc6e61fe7d007b67.png" src="_images/3d6f910cb8ce2cb41e7505b0daccc0b5eeeaaa3c3b3c31d8dc6e61fe7d007b67.png" />
+</div>
+</div>
+</section>
+<section id="price-vs-demand-with-heteroskedastic-noise">
+<h3>Price vs Demand (with heteroskedastic noise)<a class="headerlink" href="#price-vs-demand-with-heteroskedastic-noise" title="Link to this heading">#</a></h3>
+<p><strong>Idea:</strong> Higher demand often correlates with higher prices, with variance increasing at peaks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">900</span>
+
+<span class="n">demand</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">2400</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="c1"># Price increases with demand; volatility grows at higher demand</span>
+<span class="n">price</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">+</span> <span class="mf">0.06</span><span class="o">*</span><span class="n">demand</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.015</span><span class="o">*</span><span class="n">demand</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">season</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Winter&quot;</span><span class="p">,</span><span class="s2">&quot;Shoulder&quot;</span><span class="p">,</span><span class="s2">&quot;Summer&quot;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
+<span class="n">df5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="n">demand</span><span class="p">,</span> <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span> <span class="s2">&quot;season&quot;</span><span class="p">:</span> <span class="n">season</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df5</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Price vs Demand with Heteroskedasticity (synthetic)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Price [€/MWh]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/79fcf10fc946b4d8b65594457e93d5baa94d58e4e966e74580fb84ebe2612a99.png" src="_images/79fcf10fc946b4d8b65594457e93d5baa94d58e4e966e74580fb84ebe2612a99.png" />
+</div>
+</div>
+</section>
+<section id="demand-vs-temperature-by-season-facets">
+<h3>Demand vs Temperature by Season (facets)<a class="headerlink" href="#demand-vs-temperature-by-season-facets" title="Link to this heading">#</a></h3>
+<p><strong>Idea:</strong> Same demand–temperature relationship, but visualized per season.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1200</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="n">season</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">50</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Winter&quot;</span><span class="p">,</span><span class="s2">&quot;Spring/Autumn&quot;</span><span class="p">,</span><span class="s2">&quot;Summer&quot;</span><span class="p">])</span>
+
+<span class="n">demand</span> <span class="o">=</span> <span class="mi">1250</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="p">(</span><span class="n">temp</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="n">df6</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;temp&quot;</span><span class="p">:</span> <span class="n">temp</span><span class="p">,</span> <span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="n">demand</span><span class="p">,</span> <span class="s2">&quot;season&quot;</span><span class="p">:</span> <span class="n">season</span><span class="p">})</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">df6</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">&quot;season&quot;</span><span class="p">,</span> <span class="n">col_wrap</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map_dataframe</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;temp&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="s2">&quot;Temperature (°C)&quot;</span><span class="p">,</span> <span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Demand vs Temperature by Season (synthetic)&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.04</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6eb912dee311dd53293b99c67f2883e93b9c97acb4a9520936f6d039758b36a1.png" src="_images/6eb912dee311dd53293b99c67f2883e93b9c97acb4a9520936f6d039758b36a1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="scatterplot-with-regression-line">
+<h2>🔴 Scatterplot with Regression Line<a class="headerlink" href="#scatterplot-with-regression-line" title="Link to this heading">#</a></h2>
+<p>A <strong>scatterplot</strong> shows the relationship between two variables.
+Adding a <strong>regression line</strong> helps visualize the underlying trend.</p>
+<hr class="docutils" />
+<section id="why-use-scatterplots-with-regression">
+<h3>🔎 Why use scatterplots with regression?<a class="headerlink" href="#why-use-scatterplots-with-regression" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Identify <strong>linear or non-linear relationships</strong>.</p></li>
+<li><p>Spot <strong>clusters or outliers</strong>.</p></li>
+<li><p>Check if one variable can help <strong>predict</strong> another.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="id4">
+<h3>⚡ Energy Example<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Demand vs Temperature</strong>: colder or hotter days often increase demand (heating/cooling).</p></li>
+<li><p><strong>Wind speed vs Wind generation</strong>: higher wind speeds usually increase output, up to turbine limits.</p></li>
+<li><p><strong>Solar radiation vs PV production</strong>: positive correlation until saturation.</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;temp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">],</span>
+    <span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2200</span><span class="p">,</span><span class="mi">2100</span><span class="p">,</span><span class="mi">2000</span><span class="p">,</span><span class="mi">1900</span><span class="p">,</span><span class="mi">1800</span><span class="p">,</span><span class="mi">1750</span><span class="p">,</span><span class="mi">1700</span><span class="p">,</span><span class="mi">1800</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;temp&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;temp&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">weather</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Demand vs Temperature with Regression Line&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Temperature (°C)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ce8d669996578e9d7980fabf13a9717626420dda8c57c8ad0bd4dc0095df6bdf.png" src="_images/ce8d669996578e9d7980fabf13a9717626420dda8c57c8ad0bd4dc0095df6bdf.png" />
+</div>
+</div>
+</section>
+<section id="how-to-read-it">
+<h3>✅ How to Read It<a class="headerlink" href="#how-to-read-it" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Dots</strong> = actual observations.</p></li>
+<li><p><strong>Red line</strong> = best-fit linear regression line.</p></li>
+<li><p>If the dots closely follow the line → strong linear correlation.</p></li>
+<li><p>If the dots curve away → relationship may be <strong>non-linear</strong> (e.g., U-shape for temperature vs demand).</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 Scatterplots with regression are essential for <strong>feature selection</strong> in modeling: they help you see which variables have predictive power.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="boxplots">
+<h1>📦 Boxplots<a class="headerlink" href="#boxplots" title="Link to this heading">#</a></h1>
+<p>A <strong>boxplot</strong> (also called a whisker plot) summarizes the <strong>distribution</strong> of a dataset.
+It highlights the <strong>median, spread, and potential outliers</strong>.</p>
+<hr class="docutils" />
+<section id="why-use-boxplots">
+<h2>🔎 Why use boxplots?<a class="headerlink" href="#why-use-boxplots" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Compare distributions across <strong>categories</strong> (e.g., Solar vs Wind vs Hydro).</p></li>
+<li><p>Show <strong>central tendency</strong> (median).</p></li>
+<li><p>Reveal <strong>spread</strong> (interquartile range).</p></li>
+<li><p>Detect <strong>outliers</strong> (points far from the rest).</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Solar&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Wind&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Hydro&quot;</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span>
+<span class="n">production</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Solar: centered ~300, but variable with a couple of high/low outliers</span>
+    <span class="mi">250</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">290</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span> <span class="mi">340</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span>
+    
+    <span class="c1"># Wind: centered ~500, wider variability</span>
+    <span class="mi">420</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">470</span><span class="p">,</span> <span class="mi">490</span><span class="p">,</span> <span class="mi">520</span><span class="p">,</span> <span class="mi">550</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">650</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span>
+    
+    <span class="c1"># Hydro: centered ~800, relatively stable but with spread</span>
+    <span class="mi">720</span><span class="p">,</span> <span class="mi">740</span><span class="p">,</span> <span class="mi">760</span><span class="p">,</span> <span class="mi">780</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">820</span><span class="p">,</span> <span class="mi">850</span><span class="p">,</span> <span class="mi">880</span><span class="p">,</span> <span class="mi">920</span><span class="p">,</span> <span class="mi">950</span>
+<span class="p">]</span>
+<span class="n">df_prod</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Source&quot;</span><span class="p">:</span> <span class="n">sources</span><span class="p">,</span> <span class="s2">&quot;Production&quot;</span><span class="p">:</span> <span class="n">production</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Source&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Production&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_prod</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Source&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set2&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Energy Production by Source&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Energy Source&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Production [MWh]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cfdfc15a6fbf2ef1fd30cb60f6a29c17212b84e132981a9ee9db8a36f8349b98.png" src="_images/cfdfc15a6fbf2ef1fd30cb60f6a29c17212b84e132981a9ee9db8a36f8349b98.png" />
+</div>
+</div>
+</section>
+<section id="how-to-read-a-boxplot">
+<h2>✅ How to Read a Boxplot<a class="headerlink" href="#how-to-read-a-boxplot" title="Link to this heading">#</a></h2>
+<p>Each box shows the distribution for one energy source:</p>
+<ul class="simple">
+<li><p><strong>Center line</strong> → the <strong>median</strong> (50th percentile).</p></li>
+<li><p><strong>Box edges</strong> → 25th and 75th percentiles (interquartile range, IQR).</p></li>
+<li><p><strong>Whiskers</strong> → extend to the smallest/largest values within 1.5 × IQR.</p></li>
+<li><p><strong>Dots (if any)</strong> → outliers, unusually high or low values.</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="interpretation-with-spread-variability">
+<h2>📊 Interpretation (with spread &amp; variability)<a class="headerlink" href="#interpretation-with-spread-variability" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Solar</strong> → centered around ~300 MWh but with <strong>large spread</strong>; some days drop as low as 250, others spike above 400–450 → shows intermittent, weather-dependent output.</p></li>
+<li><p><strong>Wind</strong> → centered ~500 MWh but with <strong>very wide variability</strong> (420–750). This reflects how wind conditions can swing output significantly.</p></li>
+<li><p><strong>Hydro</strong> → centered around ~800 MWh, generally <strong>more stable</strong>, but still shows a noticeable range (720–950), with a few high production days.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 Boxplots are great when you want to <strong>compare multiple categories side by side</strong> — they compress a lot of distribution information into a simple graphic.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="violin-plots">
+<h1>🎻 Violin Plots<a class="headerlink" href="#violin-plots" title="Link to this heading">#</a></h1>
+<p>A <strong>violin plot</strong> combines the ideas of a <strong>boxplot</strong> and a <strong>density plot</strong>.
+It shows the <strong>distribution shape</strong> of the data, not just summary statistics.</p>
+<hr class="docutils" />
+<section id="why-use-violin-plots">
+<h2>🔎 Why use violin plots?<a class="headerlink" href="#why-use-violin-plots" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Visualize the <strong>full distribution</strong> (not just median &amp; quartiles).</p></li>
+<li><p>See <strong>whether data is symmetric, skewed, or multimodal</strong> (multiple peaks).</p></li>
+<li><p>Compare the <strong>spread and shape</strong> of categories side by side.</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Source&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Production&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_prod</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Source&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Production Distributions by Source&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Energy Source&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Production [MWh]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/24c4b2d210b7dabdabb2121316fff8f8f4112a509ec5a64aee7c51f98485876b.png" src="_images/24c4b2d210b7dabdabb2121316fff8f8f4112a509ec5a64aee7c51f98485876b.png" />
+</div>
+</div>
+</section>
+<section id="how-to-read-a-violin-plot">
+<h2>✅ How to Read a Violin Plot<a class="headerlink" href="#how-to-read-a-violin-plot" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Width of the violin</strong> → how frequent values are at that level.</p></li>
+<li><p><strong>Thin sections</strong> → rare values.</p></li>
+<li><p><strong>Thick sections</strong> → common values.</p></li>
+<li><p><strong>Center line</strong> → median (like in boxplot).</p></li>
+<li><p><strong>White box inside</strong> → interquartile range (25–75%).</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<section id="interpretation-with-more-spread-variability">
+<h2>📊 Interpretation (with more spread &amp; variability)<a class="headerlink" href="#interpretation-with-more-spread-variability" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Solar</strong> → violin is <strong>wide at multiple levels</strong>, showing many operating ranges (from ~250 up to ~400+). This reflects strong day-to-day fluctuations in solar production.</p></li>
+<li><p><strong>Wind</strong> → violin is <strong>very tall and variable</strong>, stretching from ~420 to ~750. The wide belly around ~500–600 shows the most common operating range, but long tails indicate occasional extreme highs/lows.</p></li>
+<li><p><strong>Hydro</strong> → violin is <strong>narrower</strong>, concentrated around ~800 MWh, but still spreads up to ~950. This suggests <strong>relative stability</strong> compared to solar and wind.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 Violin plots are useful when you want to <strong>see the full shape of the distribution</strong>, not just averages — they tell the story of <strong>variability and consistency</strong> in energy sources.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="heatmap-correlations">
+<h1>🌡️💨  Heatmap (Correlations)<a class="headerlink" href="#heatmap-correlations" title="Link to this heading">#</a></h1>
+<p>A <strong>heatmap</strong> is a visual way to represent the <strong>correlation matrix</strong> between variables.
+Correlation values range from <strong>-1 to +1</strong>:</p>
+<ul class="simple">
+<li><p><strong>+1</strong> → perfect positive correlation (as one increases, the other increases).</p></li>
+<li><p><strong>-1</strong> → perfect negative correlation (as one increases, the other decreases).</p></li>
+<li><p><strong>0</strong> → no linear relationship.</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;demand&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">2100</span><span class="p">,</span> <span class="mi">2200</span><span class="p">,</span> <span class="mi">1900</span><span class="p">,</span> <span class="mi">1800</span><span class="p">,</span> <span class="mi">1700</span><span class="p">,</span> <span class="mi">1600</span><span class="p">],</span>
+    <span class="s2">&quot;temp&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
+    <span class="s2">&quot;wind&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s2">&quot;humidity&quot;</span><span class="p">:[</span><span class="mi">85</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">55</span><span class="p">],</span>        <span class="c1"># % (falls as temp rises)</span>
+    <span class="s2">&quot;solar&quot;</span><span class="p">:</span>   <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="mi">850</span><span class="p">],</span>  <span class="c1"># W/m² (rises with temp)</span>
+    <span class="s2">&quot;pressure&quot;</span><span class="p">:[</span><span class="mi">1025</span><span class="p">,</span> <span class="mi">1022</span><span class="p">,</span> <span class="mi">1018</span><span class="p">,</span> <span class="mi">1015</span><span class="p">,</span> <span class="mi">1010</span><span class="p">,</span> <span class="mi">1008</span><span class="p">,</span> <span class="mi">1005</span><span class="p">]</span> <span class="c1"># hPa (slight decline)</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>temp</th>
+      <th>wind</th>
+      <th>humidity</th>
+      <th>solar</th>
+      <th>pressure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>demand</th>
+      <td>1.000000</td>
+      <td>-0.857143</td>
+      <td>-0.172062</td>
+      <td>0.857143</td>
+      <td>-0.916261</td>
+      <td>0.851216</td>
+    </tr>
+    <tr>
+      <th>temp</th>
+      <td>-0.857143</td>
+      <td>1.000000</td>
+      <td>0.401478</td>
+      <td>-1.000000</td>
+      <td>0.988598</td>
+      <td>-0.996546</td>
+    </tr>
+    <tr>
+      <th>wind</th>
+      <td>-0.172062</td>
+      <td>0.401478</td>
+      <td>1.000000</td>
+      <td>-0.401478</td>
+      <td>0.376156</td>
+      <td>-0.454865</td>
+    </tr>
+    <tr>
+      <th>humidity</th>
+      <td>0.857143</td>
+      <td>-1.000000</td>
+      <td>-0.401478</td>
+      <td>1.000000</td>
+      <td>-0.988598</td>
+      <td>0.996546</td>
+    </tr>
+    <tr>
+      <th>solar</th>
+      <td>-0.916261</td>
+      <td>0.988598</td>
+      <td>0.376156</td>
+      <td>-0.988598</td>
+      <td>1.000000</td>
+      <td>-0.988687</td>
+    </tr>
+    <tr>
+      <th>pressure</th>
+      <td>0.851216</td>
+      <td>-0.996546</td>
+      <td>-0.454865</td>
+      <td>0.996546</td>
+      <td>-0.988687</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">weather</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Correlation Heatmap (Demand &amp; Weather Features)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6cfe722b8da0fda97a96edf6fdf61ead3332f04e00fe212ae4e46adbc38a6dff.png" src="_images/6cfe722b8da0fda97a96edf6fdf61ead3332f04e00fe212ae4e46adbc38a6dff.png" />
+</div>
+</div>
+<hr class="docutils" />
+<section id="how-to-read-this-heatmap">
+<h2>✅ How to Read This Heatmap<a class="headerlink" href="#how-to-read-this-heatmap" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Demand vs Temp = strong negative</strong> → colder temps = higher demand (heating).</p></li>
+<li><p><strong>Demand vs Humidity = positive</strong> → cold days (high humidity in winter) align with higher demand.</p></li>
+<li><p><strong>Demand vs Solar = negative</strong> → more sunlight (often warmer days) = lower demand.</p></li>
+<li><p><strong>Temp vs Solar = positive</strong> → sunny days tend to be warmer.</p></li>
+<li><p><strong>Temp vs Pressure = negative</strong> → as temps rise, pressure tends to drop slightly.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="correlation-clustermap">
+<h1>🔗 Correlation Clustermap<a class="headerlink" href="#correlation-clustermap" title="Link to this heading">#</a></h1>
+<p>A <strong>clustermap</strong> is like a heatmap, but it also performs <strong>hierarchical clustering</strong> of rows and columns.
+This groups together variables that have <strong>similar correlation patterns</strong>, making it easier to spot clusters of related features.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">clustermap</span><span class="p">(</span>
+    <span class="n">weather</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;rocket_r&quot;</span><span class="p">,</span>   <span class="c1"># reversed &quot;rocket&quot; color palette</span>
+    <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2edebb613cf2f739c8416cc9dbc82879a9d9e88d0204f0b8c92a33cf6e630ae3.png" src="_images/2edebb613cf2f739c8416cc9dbc82879a9d9e88d0204f0b8c92a33cf6e630ae3.png" />
+</div>
+</div>
+<hr class="docutils" />
+<section id="how-to-read-a-clustermap">
+<h2>✅ How to Read a Clustermap<a class="headerlink" href="#how-to-read-a-clustermap" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Color scale</strong> works just like a heatmap → red/orange = high correlation, dark = low/negative.</p></li>
+<li><p><strong>Dendrograms</strong> (the tree-like structures) show how features group together:</p>
+<ul>
+<li><p>Variables in the same branch are <strong>more correlated</strong> with each other.</p></li>
+</ul>
+</li>
+<li><p>In our example:</p>
+<ul>
+<li><p><strong>Temp, Solar, and Pressure</strong> might cluster together (all related to seasonal/weather cycles).</p></li>
+<li><p><strong>Demand and Humidity</strong> might cluster, since both peak on colder days.</p></li>
+<li><p><strong>Wind</strong> may form its own branch if it behaves differently.</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>👉 Compared to a plain heatmap, a <strong>clustermap automatically organizes features</strong>, which is especially useful when you have <strong>many variables</strong> (e.g., dozens of weather and demand drivers).</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pairplot-scatter-matrix">
+<h1>🔄 Pairplot (Scatter Matrix)<a class="headerlink" href="#pairplot-scatter-matrix" title="Link to this heading">#</a></h1>
+<p>A <strong>pairplot</strong> (also called a scatter matrix) shows the relationships between <strong>all pairs of variables</strong> in a dataset.
+It combines multiple <strong>scatterplots</strong> into a grid, with histograms or KDE plots on the diagonal.</p>
+<hr class="docutils" />
+<section id="why-use-pairplots">
+<h2>🔎 Why use pairplots?<a class="headerlink" href="#why-use-pairplots" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Explore <strong>all variable relationships at once</strong>.</p></li>
+<li><p>Spot <strong>strong correlations</strong> and <strong>non-linear patterns</strong>.</p></li>
+<li><p>Detect <strong>clusters</strong> or groups (e.g., weekdays vs weekends, seasons).</p></li>
+<li><p>Quick overview before running models or feature selection.</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span> <span class="n">diag_kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">,</span> <span class="n">corner</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Pairwise Relationships in Energy Data&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/efc7a69691f2214de5e506769c42819f21ea8bc965066a3e2ac1be37d02ff77f.png" src="_images/efc7a69691f2214de5e506769c42819f21ea8bc965066a3e2ac1be37d02ff77f.png" />
+</div>
+</div>
+<hr class="docutils" />
+<section id="how-to-read-a-pairplot">
+<h3>✅ How to Read a Pairplot<a class="headerlink" href="#how-to-read-a-pairplot" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Each <strong>scatterplot</strong> = relationship between two variables.</p>
+<ul>
+<li><p>Example: <strong>Demand vs Temp</strong> → negative trend (colder → higher demand).</p></li>
+<li><p>Example: <strong>Solar vs Temp</strong> → positive trend (warmer → sunnier).</p></li>
+</ul>
+</li>
+<li><p><strong>Diagonal plots</strong> = distribution of each variable (histogram or KDE).</p></li>
+<li><p><strong>Clusters/outliers</strong> show up as groups or isolated points.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 Pairplots are especially useful at the <strong>start of EDA</strong> to see how demand relates to multiple weather features before building models.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="customizing-colors-sizes-and-titles">
+<h1>Customizing Colors, Sizes, and Titles<a class="headerlink" href="#customizing-colors-sizes-and-titles" title="Link to this heading">#</a></h1>
+<section id="matplotlib-line-styles-markers-title-grid">
+<h2>Matplotlib: Line styles, markers, title, grid<a class="headerlink" href="#matplotlib-line-styles-markers-title-grid" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;navy&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Demand (MW)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Hourly Electricity Demand&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkred&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3a1d2cd7ed9c8118e07467cd5060ed7d07260f0c7a7ca9f6d7545c95853f0c7e.png" src="_images/3a1d2cd7ed9c8118e07467cd5060ed7d07260f0c7a7ca9f6d7545c95853f0c7e.png" />
+</div>
+</div>
+</section>
+<section id="seaborn-palettes-and-context">
+<h2>Seaborn: Palettes and context<a class="headerlink" href="#seaborn-palettes-and-context" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Global style and context</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>    <span class="c1"># options: darkgrid, whitegrid, dark, white, ticks</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>       <span class="c1"># options: paper, notebook, talk, poster</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribution of Hourly Demand&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a926cd4ad4091c23ade5ceb9d3ceaaa4eea1a92f77deb929ed1609932b2738a3.png" src="_images/a926cd4ad4091c23ade5ceb9d3ceaaa4eea1a92f77deb929ed1609932b2738a3.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong>Matplotlib</strong> → full control; more verbose.</p></li>
+<li><p><strong>Seaborn</strong> → nicer defaults; quick statistical plots.</p></li>
+<li><p>Customize <strong>colors, sizes, titles, and styles</strong> to improve clarity.</p></li>
+<li><p>Use advanced plots (box/violin/heatmap/pairplot) to reveal patterns in energy data.</p></li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="visualization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">👀 Visuals in Exploratory Data Analysis (EDA)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-matplotlib">🎨 What is Matplotlib?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-seaborn">📈 What is Seaborn?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-difference">🔎 Key Difference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#line-plots">📈 Line Plots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-line-plots">🔎 Why use line plots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-example">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-tips">✅ Key Tips</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-plots-categorical-data">📊 Bar Plots (Categorical Data)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-bar-plots">🔎 Why use bar plots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">✅ Key Tips</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-kde-kernel-density-estimate">📊 Histogram &amp; KDE (Kernel Density Estimate)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-them">🔎 Why use them?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-histogram-kde">✅ How to Read a Histogram + KDE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-distributions-summer-vs-winter-demand">🌞❄️ Comparing Distributions: Summer vs Winter Demand</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-this-plot">✅ How to Read This Plot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plots">🔵 Scatter Plots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-scatter-plots">🔎 Why use scatter plots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-tips-for-scatter-plots">✅ Key Tips for Scatter Plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demand-vs-temperature-u-shape-heating-cooling">Demand vs Temperature (U-shape: heating &amp; cooling)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wind-speed-vs-wind-generation-saturation-curve">Wind Speed vs Wind Generation (saturation curve)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hourly-load-profile-by-day-type-color-by-weekday-weekend">Hourly Load Profile by Day Type (color by weekday/weekend)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#price-vs-demand-with-heteroskedastic-noise">Price vs Demand (with heteroskedastic noise)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demand-vs-temperature-by-season-facets">Demand vs Temperature by Season (facets)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplot-with-regression-line">🔴 Scatterplot with Regression Line</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-scatterplots-with-regression">🔎 Why use scatterplots with regression?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">⚡ Energy Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-it">✅ How to Read It</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplots">📦 Boxplots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-boxplots">🔎 Why use boxplots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-boxplot">✅ How to Read a Boxplot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-with-spread-variability">📊 Interpretation (with spread &amp; variability)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#violin-plots">🎻 Violin Plots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-violin-plots">🔎 Why use violin plots?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-violin-plot">✅ How to Read a Violin Plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-with-more-spread-variability">📊 Interpretation (with more spread &amp; variability)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmap-correlations">🌡️💨  Heatmap (Correlations)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-this-heatmap">✅ How to Read This Heatmap</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-clustermap">🔗 Correlation Clustermap</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-clustermap">✅ How to Read a Clustermap</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pairplot-scatter-matrix">🔄 Pairplot (Scatter Matrix)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-pairplots">🔎 Why use pairplots?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-pairplot">✅ How to Read a Pairplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-colors-sizes-and-titles">Customizing Colors, Sizes, and Titles</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib-line-styles-markers-title-grid">Matplotlib: Line styles, markers, title, grid</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn-palettes-and-context">Seaborn: Palettes and context</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

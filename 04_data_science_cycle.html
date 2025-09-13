@@ -1,0 +1,2936 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🔄 Data Science Lifecycle &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '04_data_science_cycle';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="👀 Visuals in Exploratory Data Analysis (EDA)" href="visualization.html" />
+    <link rel="prev" title="🐼 Pandas" href="03_pandas_tutorial.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visuals in Exploratory Data Analysis (EDA)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/04_data_science_cycle.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🔄 Data Science Lifecycle</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔄 Data Science Lifecycle</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Data Science Lifecycle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding">1️⃣ Business Understanding 💡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">2️⃣ Data Collection 📥</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">3️⃣ Data Cleaning 🧹</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">4️⃣ Data Exploration 🔎</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">5️⃣ Feature Engineering 🏗️</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">6️⃣ Modeling 🤖</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">7️⃣ Evaluation 📊</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-action">8️⃣ Communication &amp; Action 📢</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-science-lifecycle-quick-guide">📊 Data Science Lifecycle — Quick Guide</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1️⃣ Business Understanding</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2️⃣ Data Collection  📥</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-guide-pandas-read-csv">🐼 Quick Guide: <code class="docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-energy-demand-data">📥 Raw energy demand data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-data">🌦️ Weather Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3️⃣ Data Cleaning 🧹</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">📐 Indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-look-info">🔎 Quick Look: <code class="docutils literal notranslate"><span class="pre">.info()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4️⃣ Data Exploration 🔎</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-look-for-patterns">📅  Let’s look for patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-seasons">❄️ Different seasons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-ruin-the-pattern">🏖️ What can ruin the pattern?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5️⃣ Feature Engineering 🏗️</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calendar-features">📅 Calendar Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-features-why-they-matter">⏪ Lag Features — Why They Matter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-lag-features">⚡ Common Lag Features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-watch-out-for">🚨 Things to Watch Out For</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-features-weather">🌦️ External Features: Weather</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature">🌡️ Temperature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-weather-features-matter">🔎 Why Weather Features Matter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-weather-data">🛠️ Handling Missing Weather Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformations-encodings">🧮 Transformations &amp; Encodings</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6️⃣ Modeling 🤖</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-testing-data-split">🧪 Training/Testing Data Split</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-comparison-planned-vs-actual">🔎 Initial Comparison: Planned vs Actual</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-model-lag-7-same-day-last-week">🪞 Naive Model: Lag 7 (Same Day Last Week)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">📈 Linear Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-linear-regression">📈 What is Linear Regression?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-correlation">🔗 What is Correlation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-feature-lag7">Single feature: lag7</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-with-regression-line">📉 Graph with Regression Line</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#features-lag7-and-lag2">Features: lag7 and lag2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#features-lag7-lag2-temperature">Features: lag7, lag2, temperature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-regression-svr">⚙️ Support Vector Regression (SVR)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-feature-lag-7">Single feature lag 7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-features-lag7-lag2">Two features: lag7, lag2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Features: lag7, lag2, temperature</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7️⃣ Evaluation 📊</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics">Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-error-mae">📏 Mean Absolute Error (MAE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#root-mean-squared-error-rmse">📐 Root Mean Squared Error (RMSE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-percentage-error-mape">📊 Mean Absolute Percentage Error (MAPE)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-multiple-metrics">🔎 Why use multiple metrics?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-the-results-table">📊 Interpreting the Results Table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observations">🔎 Observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">💡 Takeaways</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span><span class="p">,</span><span class="n">LinearSVR</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="data-science-lifecycle">
+<h1>🔄 Data Science Lifecycle<a class="headerlink" href="#data-science-lifecycle" title="Link to this heading">#</a></h1>
+<p>In this tutorial, we apply the <strong>Data Science Lifecycle</strong> to the task of <strong>predicting electricity demand</strong>.<br />
+We will go step by step from business understanding to data preparation, modeling, and evaluation.</p>
+<p>The <strong>Data Science Lifecycle</strong> describes the structured process of solving problems with data.
+It ensures that projects are systematic, reproducible, and lead to actionable insights.</p>
+<hr class="docutils" />
+<section id="id1">
+<h2>Data Science Lifecycle<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="business-understanding">
+<h3>1️⃣ Business Understanding 💡<a class="headerlink" href="#business-understanding" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Define the <strong>problem</strong> and <strong>goals</strong> clearly.</p></li>
+<li><p>Understand <strong>why the problem matters</strong> (business, technical, or societal value).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="data-collection">
+<h3>2️⃣ Data Collection 📥<a class="headerlink" href="#data-collection" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Identify and gather relevant data sources.</p></li>
+<li><p>Sources can include <strong>sensors, databases, APIs, logs, open datasets</strong>.</p></li>
+<li><p>Check data availability, licensing, and quality early.</p></li>
+<li><p>Example: load, weather, and calendar data for energy forecasting.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="data-cleaning">
+<h3>3️⃣ Data Cleaning 🧹<a class="headerlink" href="#data-cleaning" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Inspect and fix data issues: missing values, duplicates, inconsistent formats, outliers.</p></li>
+<li><p>Convert data types (timestamps, numerics).</p></li>
+<li><p>Create a <strong>clean, reliable dataset</strong> before analysis.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="data-exploration">
+<h3>4️⃣ Data Exploration 🔎<a class="headerlink" href="#data-exploration" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Explore data patterns with summary statistics and visualization.</p></li>
+<li><p>Identify distributions, correlations, and anomalies.</p></li>
+<li><p>Helps refine hypotheses and guides feature engineering.</p></li>
+<li><p>Example: look for daily, weekly, and seasonal cycles in demand.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="feature-engineering">
+<h3>5️⃣ Feature Engineering 🏗️<a class="headerlink" href="#feature-engineering" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Transform raw data into meaningful <strong>features</strong> for modeling.</p></li>
+<li><p>Techniques include:</p>
+<ul>
+<li><p><strong>Lag features</strong> (past values).</p></li>
+<li><p><strong>Aggregates</strong> (rolling averages, min/max).</p></li>
+<li><p><strong>Calendar variables</strong> (day of week, season, holiday).</p></li>
+<li><p><strong>External drivers</strong> (weather, events).</p></li>
+</ul>
+</li>
+<li><p>Good features are often the <strong>most important factor</strong> for model success.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="modeling">
+<h3>6️⃣ Modeling 🤖<a class="headerlink" href="#modeling" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Choose appropriate modeling techniques:</p>
+<ul>
+<li><p><strong>Baseline models</strong> (persistence, averages).</p></li>
+<li><p><strong>Statistical models</strong> (ARIMA, ETS).</p></li>
+<li><p><strong>Machine learning models</strong> (regression, trees, neural networks).</p></li>
+</ul>
+</li>
+<li><p>Train and tune models on historical data.</p></li>
+<li><p>Use proper <strong>train-validation-test splits</strong> (time-aware for time series).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="evaluation">
+<h3>7️⃣ Evaluation 📊<a class="headerlink" href="#evaluation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Measure performance with appropriate metrics (MAE, RMSE, MAPE).</p></li>
+<li><p>Compare models against baselines.</p></li>
+<li><p>Evaluate not only global error but also <strong>by segments</strong> (hour of day, season).</p></li>
+<li><p>Visualize predictions vs actual values to interpret results.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="communication-action">
+<h3>8️⃣ Communication &amp; Action 📢<a class="headerlink" href="#communication-action" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Translate results into insights for stakeholders.</p></li>
+<li><p>Highlight limitations, assumptions, and next steps.</p></li>
+<li><p>Deliver outputs in usable form (dashboards, reports, APIs, decision support).</p></li>
+<li><p>Example: provide day-ahead demand forecasts to system operators or market traders.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 This lifecycle is <strong>iterative</strong>: after evaluation, you may go back to adjust features, clean more data, or refine the business understanding.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="data-science-lifecycle-quick-guide">
+<h2>📊 Data Science Lifecycle — Quick Guide<a class="headerlink" href="#data-science-lifecycle-quick-guide" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Question ❓</p></th>
+<th class="head"><p>Output 📦</p></th>
+<th class="head"><p>Energy Example ⚡</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>1️⃣ Business Understanding</strong></p></td>
+<td><p>What problem are we solving? Why?</p></td>
+<td><p>Clear problem statement, success criteria</p></td>
+<td><p>Forecast demand to balance grid &amp; market</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>2️⃣ Data Collection</strong></p></td>
+<td><p>What data do we need? Where to get it?</p></td>
+<td><p>Raw datasets (logs, sensors, APIs)</p></td>
+<td><p>Load data from Elering + weather API</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>3️⃣ Data Cleaning</strong></p></td>
+<td><p>Is the data trustworthy?</p></td>
+<td><p>Clean, consistent dataset</p></td>
+<td><p>Handle missing hours, fix timestamps</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>4️⃣ Data Exploration</strong></p></td>
+<td><p>What patterns do we see?</p></td>
+<td><p>Insights, plots, hypotheses</p></td>
+<td><p>Spot daily/weekly cycles, anomalies</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>5️⃣ Feature Engineering</strong></p></td>
+<td><p>How to represent the data for models?</p></td>
+<td><p>Feature set (lags, categories, external)</p></td>
+<td><p>Lag(24h), lag(168h), weekday, temperature</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>6️⃣ Modeling</strong></p></td>
+<td><p>What methods can solve this?</p></td>
+<td><p>Trained models (baseline, ML, stats)</p></td>
+<td><p>ARIMA, Linear Regression, Random Forest</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>7️⃣ Evaluation</strong></p></td>
+<td><p>How good is the model?</p></td>
+<td><p>Metrics, error analysis</p></td>
+<td><p>Compare MAE, RMSE, MAPE vs baseline</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>8️⃣ Communication &amp; Action</strong></p></td>
+<td><p>How to deliver results?</p></td>
+<td><p>Reports, dashboards, decisions</p></td>
+<td><p>Day-ahead forecast to system operator</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id2">
+<h1>1️⃣ Business Understanding<a class="headerlink" href="#id2" title="Link to this heading">#</a></h1>
+<p>Predicting electricity demand is a <strong>critical task in the energy sector</strong>. Accurate forecasts help:</p>
+<ul class="simple">
+<li><p>⚡ <strong>Balance supply and demand</strong>: system operators must match generation to consumption in real time.</p></li>
+<li><p>💶 <strong>Support energy markets</strong>: demand forecasts influence day-ahead trading and price formation.</p></li>
+<li><p>🌍 <strong>Enable renewable integration</strong>: with variable resources like wind and solar, knowing the expected demand is essential for stability.</p></li>
+<li><p>🔋 <strong>Optimize storage and flexibility</strong>: storage systems, demand response, and flexible generation rely on reliable demand forecasts.</p></li>
+</ul>
+<p><strong>The problem:</strong>
+We aim to build a <strong>model that predicts short-term demand (e.g., next 24 hours)</strong> based on historical data and relevant external drivers such as weather and calendar effects.</p>
+<p><strong>Success criteria:</strong></p>
+<ul class="simple">
+<li><p>Forecasts should be <strong>more accurate than a naïve baseline</strong> (e.g., yesterday’s demand = today).</p></li>
+<li><p>Performance measured with metrics like <strong>MAE, RMSE, and MAPE</strong>.</p></li>
+<li><p>Forecasts must be <strong>timely</strong> (delivered ahead of the market deadlines).</p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>Our goal:</strong> predict <strong>next-day demand</strong> using historical consumption data (and possibly weather/calendar features).</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>2️⃣ Data Collection  📥<a class="headerlink" href="#id3" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="quick-guide-pandas-read-csv">
+<h2>🐼 Quick Guide: <code class="docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code><a class="headerlink" href="#quick-guide-pandas-read-csv" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> is the standard function to read tabular data from a <strong>CSV (comma-separated values) file</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Basic usage</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;energy_data.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Common useful options:</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+    <span class="s2">&quot;energy_data.csv&quot;</span><span class="p">,</span>
+    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span>            <span class="c1"># field separator (&quot;,&quot; is default, &quot;;&quot; for some European files)</span>
+    <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="c1"># convert date column into datetime objects</span>
+    <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span>      <span class="c1"># use a column (e.g., time) as index</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>We first load the dataset. In practice, demand and production data can be obtained from several sources:</p>
+<ul class="simple">
+<li><p><strong>Elering</strong> (Estonian transmission operator) → <a class="reference external" href="https://dashboard.elering.ee/et/system/with-plan/production-consumption">System dashboard</a> provides historical demand and production.</p></li>
+<li><p><strong>CSV files or APIs</strong> provided by operators, markets (e.g., Nord Pool), or weather services.</p></li>
+<li><p><strong>Other energy market datasets</strong> (regional TSOs, open data portals, Kaggle, etc.).</p></li>
+</ul>
+<p>Once downloaded (typically as a CSV), we can load the data into Python using <strong>Pandas</strong>.</p>
+<p>✅ This will create a <strong>DataFrame</strong> where each column is a variable (e.g., demand, production) and each row is a timestamp.</p>
+<hr class="docutils" />
+</section>
+<section id="raw-energy-demand-data">
+<h2>📥 Raw energy demand data<a class="headerlink" href="#raw-energy-demand-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elering</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/electricity-production and consumption_2022.csv&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">elering</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ajatempel (UTC)</th>
+      <th>Kuupaev (Eesti aeg)</th>
+      <th>Tarbimine</th>
+      <th>Tootmine</th>
+      <th>Planeeritud tarbimine</th>
+      <th>Planeeritud tootmine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1640988000</td>
+      <td>01.01.2022 00:00</td>
+      <td>899.4</td>
+      <td>419.5</td>
+      <td>903.1</td>
+      <td>462.4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1640991600</td>
+      <td>01.01.2022 01:00</td>
+      <td>892.1</td>
+      <td>431.9</td>
+      <td>935.8</td>
+      <td>469.1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1640995200</td>
+      <td>01.01.2022 02:00</td>
+      <td>874.3</td>
+      <td>428.1</td>
+      <td>897.6</td>
+      <td>458.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1640998800</td>
+      <td>01.01.2022 03:00</td>
+      <td>860.1</td>
+      <td>435.7</td>
+      <td>878.5</td>
+      <td>471.9</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1641002400</td>
+      <td>01.01.2022 04:00</td>
+      <td>842.7</td>
+      <td>429.2</td>
+      <td>891.1</td>
+      <td>472.2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>8755</th>
+      <td>1672506000</td>
+      <td>31.12.2022 19:00</td>
+      <td>989.4</td>
+      <td>674.4</td>
+      <td>983.3</td>
+      <td>660.0</td>
+    </tr>
+    <tr>
+      <th>8756</th>
+      <td>1672509600</td>
+      <td>31.12.2022 20:00</td>
+      <td>932.5</td>
+      <td>614.2</td>
+      <td>957.5</td>
+      <td>600.3</td>
+    </tr>
+    <tr>
+      <th>8757</th>
+      <td>1672513200</td>
+      <td>31.12.2022 21:00</td>
+      <td>889.5</td>
+      <td>609.5</td>
+      <td>921.1</td>
+      <td>590.6</td>
+    </tr>
+    <tr>
+      <th>8758</th>
+      <td>1672516800</td>
+      <td>31.12.2022 22:00</td>
+      <td>846.5</td>
+      <td>585.2</td>
+      <td>864.6</td>
+      <td>568.2</td>
+    </tr>
+    <tr>
+      <th>8759</th>
+      <td>1672520400</td>
+      <td>31.12.2022 23:00</td>
+      <td>817.6</td>
+      <td>567.0</td>
+      <td>867.9</td>
+      <td>559.8</td>
+    </tr>
+  </tbody>
+</table>
+<p>8760 rows × 6 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="weather-data">
+<h2>🌦️ Weather Data<a class="headerlink" href="#weather-data" title="Link to this heading">#</a></h2>
+<p>Electricity demand is strongly influenced by <strong>weather conditions</strong>:</p>
+<ul class="simple">
+<li><p>❄️ Cold weather → higher heating demand.</p></li>
+<li><p>🌞 Hot weather → higher cooling demand.</p></li>
+<li><p>💨 Wind and ☁️ cloud cover also impact renewable generation.</p></li>
+</ul>
+<p>For this project, we can use <strong>historical weather data</strong> from Tallinn Airport, available via:
+👉 <a class="reference external" href="https://rp5.ru/Weather_archive_in_Tallinn_%28airport%29">Weather archive — Tallinn (airport), RP5</a></p>
+<p>Typically, the downloaded file will include:</p>
+<ul class="simple">
+<li><p>Temperature (°C)</p></li>
+<li><p>Humidity (%)</p></li>
+<li><p>Wind speed (m/s)</p></li>
+<li><p>Cloud cover (0–8)</p></li>
+<li><p>Pressure, precipitation, etc.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/weather_2022.csv&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">weather</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Local time in Tallinn (airport)</th>
+      <th>T</th>
+      <th>Po</th>
+      <th>P</th>
+      <th>Pa</th>
+      <th>U</th>
+      <th>DD</th>
+      <th>Ff</th>
+      <th>ff10</th>
+      <th>ff3</th>
+      <th>...</th>
+      <th>Cm</th>
+      <th>Ch</th>
+      <th>VV</th>
+      <th>Td</th>
+      <th>RRR</th>
+      <th>tR</th>
+      <th>E</th>
+      <th>Tg</th>
+      <th>E'</th>
+      <th>sss</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31.12.2022 23:00</td>
+      <td>5.8</td>
+      <td>744.1</td>
+      <td>747.2</td>
+      <td>-0.7</td>
+      <td>93.0</td>
+      <td>Wind blowing from the south-southwest</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35.0</td>
+      <td>4.8</td>
+      <td>0.1</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>31.12.2022 22:00</td>
+      <td>5.9</td>
+      <td>744.3</td>
+      <td>747.3</td>
+      <td>-0.5</td>
+      <td>93.0</td>
+      <td>Wind blowing from the south-west</td>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>10.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35.0</td>
+      <td>4.8</td>
+      <td>0.2</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>31.12.2022 21:00</td>
+      <td>5.8</td>
+      <td>744.4</td>
+      <td>747.4</td>
+      <td>-0.3</td>
+      <td>93.0</td>
+      <td>Wind blowing from the south-southwest</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35.0</td>
+      <td>4.8</td>
+      <td>0.2</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>31.12.2022 20:00</td>
+      <td>5.7</td>
+      <td>744.8</td>
+      <td>747.8</td>
+      <td>-0.5</td>
+      <td>94.0</td>
+      <td>Wind blowing from the south-west</td>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35.0</td>
+      <td>4.8</td>
+      <td>0.5</td>
+      <td>12.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>31.12.2022 19:00</td>
+      <td>5.4</td>
+      <td>744.8</td>
+      <td>747.9</td>
+      <td>-0.8</td>
+      <td>96.0</td>
+      <td>Wind blowing from the south-west</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>20.0</td>
+      <td>4.8</td>
+      <td>0.3</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>8727</th>
+      <td>01.01.2022 04:00</td>
+      <td>-0.1</td>
+      <td>748.8</td>
+      <td>751.9</td>
+      <td>0.5</td>
+      <td>100.0</td>
+      <td>Wind blowing from the north-east</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.9</td>
+      <td>-0.1</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8728</th>
+      <td>01.01.2022 03:00</td>
+      <td>-0.1</td>
+      <td>748.5</td>
+      <td>751.6</td>
+      <td>0.4</td>
+      <td>99.0</td>
+      <td>Wind blowing from the north-east</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.4</td>
+      <td>-0.2</td>
+      <td>0.8</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8729</th>
+      <td>01.01.2022 02:00</td>
+      <td>0.0</td>
+      <td>748.2</td>
+      <td>751.3</td>
+      <td>0.2</td>
+      <td>99.0</td>
+      <td>Wind blowing from the east</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.4</td>
+      <td>-0.1</td>
+      <td>0.5</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8730</th>
+      <td>01.01.2022 01:00</td>
+      <td>-0.6</td>
+      <td>748.3</td>
+      <td>751.4</td>
+      <td>1.2</td>
+      <td>99.0</td>
+      <td>Wind blowing from the north-northwest</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.3</td>
+      <td>-0.7</td>
+      <td>0.2</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8731</th>
+      <td>01.01.2022 00:00</td>
+      <td>-1.0</td>
+      <td>748.1</td>
+      <td>751.2</td>
+      <td>1.0</td>
+      <td>98.0</td>
+      <td>Wind blowing from the north-northeast</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3.8</td>
+      <td>-1.3</td>
+      <td>0.1</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>8732 rows × 29 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id4">
+<h1>3️⃣ Data Cleaning 🧹<a class="headerlink" href="#id4" title="Link to this heading">#</a></h1>
+<p>Before analysis, the dataset must be <strong>clean and consistent</strong>. Typical steps include:</p>
+<ul class="simple">
+<li><p>🕳️ <strong>Handle missing values</strong> → interpolate, fill with averages, or drop rows if necessary.</p></li>
+<li><p>⏱️ <strong>Convert timestamps</strong> → make sure the time column is in <code class="docutils literal notranslate"><span class="pre">datetime</span></code> format.</p></li>
+<li><p>🔢 <strong>Ensure numeric columns</strong> → demand/production should be floats or integers, not strings.</p></li>
+<li><p>🚩 <strong>Remove or correct outliers</strong> → abnormal spikes (e.g., due to sensor errors) should be flagged.</p></li>
+</ul>
+<hr class="docutils" />
+<section id="indexing">
+<h2>📐 Indexing<a class="headerlink" href="#indexing" title="Link to this heading">#</a></h2>
+<p>In time series forecasting, it is very helpful to use <strong>timestamps as the index</strong> of the DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>   <span class="c1"># convert column to datetime</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>                 <span class="c1"># set as index</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">asfreq</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">)</span>                       <span class="c1"># ensure fixed hourly frequency</span>
+</pre></div>
+</div>
+<p>✅ Now you can easily slice data like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2023-01&quot;</span><span class="p">]</span>        <span class="c1"># all of January 2023</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2023-01-10&quot;</span><span class="p">:</span><span class="s2">&quot;2023-01-20&quot;</span><span class="p">]</span>  <span class="c1"># specific period</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="quick-look-info">
+<h2>🔎 Quick Look: <code class="docutils literal notranslate"><span class="pre">.info()</span></code><a class="headerlink" href="#quick-look-info" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">.info()</span></code> method gives a concise summary of the DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Output shows:</p>
+<ul class="simple">
+<li><p>Number of rows and columns</p></li>
+<li><p>Column names and data types (<code class="docutils literal notranslate"><span class="pre">int64</span></code>, <code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">datetime64</span></code>, <code class="docutils literal notranslate"><span class="pre">object</span></code>)</p></li>
+<li><p>Non-null counts (useful for spotting missing values)</p></li>
+</ul>
+<p>✅ Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 8760 entries, 2022-01-01 00:00:00 to 2022-12-31 23:00:00
+Freq: H
+Data columns (total 2 columns):
+ #   Column   Non-Null Count  Dtype
+---  ------   --------------  -----
+ 0   demand   8760 non-null   float64
+ 1   temp     8735 non-null   float64
+</pre></div>
+</div>
+<p>Here we see:</p>
+<ul class="simple">
+<li><p>Demand has no missing values.</p></li>
+<li><p>Temperature has 25 missing values → must be handled before modeling.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 <strong>Clean indexing + <code class="docutils literal notranslate"><span class="pre">.info()</span></code> checks</strong> give confidence that the dataset is ready for deeper exploration.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elering</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">elering</span><span class="p">[</span><span class="s1">&#39;Kuupaev (Eesti aeg)&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elering</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 8760 entries, 0 to 8759
+Data columns (total 7 columns):
+ #   Column                 Non-Null Count  Dtype         
+---  ------                 --------------  -----         
+ 0   Ajatempel (UTC)        8760 non-null   int64         
+ 1   Kuupaev (Eesti aeg)    8760 non-null   object        
+ 2   Tarbimine              8760 non-null   float64       
+ 3   Tootmine               8760 non-null   float64       
+ 4   Planeeritud tarbimine  8760 non-null   float64       
+ 5   Planeeritud tootmine   8760 non-null   float64       
+ 6   timestamp              8760 non-null   datetime64[ns]
+dtypes: datetime64[ns](1), float64(4), int64(1), object(1)
+memory usage: 479.2+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Local time in Tallinn (airport)&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temperature</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]]</span>
+<span class="n">temperature</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">temperature</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>T</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-12-31 23:00:00</th>
+      <td>5.8</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 22:00:00</th>
+      <td>5.9</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 21:00:00</th>
+      <td>5.8</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 20:00:00</th>
+      <td>5.7</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 19:00:00</th>
+      <td>5.4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>-0.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>-0.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>-0.6</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>-1.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>8732 rows × 1 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temperature</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 8732 entries, 2022-12-31 23:00:00 to 2022-01-01 00:00:00
+Data columns (total 1 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   T       8732 non-null   float64
+dtypes: float64(1)
+memory usage: 136.4 KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demand</span> <span class="o">=</span> <span class="n">elering</span><span class="p">[[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;Tarbimine&#39;</span><span class="p">]]</span>
+<span class="n">demand</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Tarbimine&#39;</span><span class="p">:</span><span class="s1">&#39;demand&#39;</span><span class="p">})</span>
+
+<span class="n">demand</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>899.4</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>892.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>874.3</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>860.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>842.7</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">planned_demand</span> <span class="o">=</span> <span class="n">elering</span><span class="p">[[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;Planeeritud tarbimine&#39;</span><span class="p">]]</span>
+<span class="n">planned_demand</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">planned_demand</span> <span class="o">=</span> <span class="n">planned_demand</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Planeeritud tarbimine&#39;</span><span class="p">:</span><span class="s1">&#39;planned_demand&#39;</span><span class="p">})</span>
+<span class="n">planned_demand</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>planned_demand</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>903.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>935.8</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>897.6</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>878.5</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>891.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id5">
+<h1>4️⃣ Data Exploration 🔎<a class="headerlink" href="#id5" title="Link to this heading">#</a></h1>
+<p>Once the dataset is clean, the next step is to <strong>explore patterns in demand</strong>. This helps us understand the dynamics before building models.</p>
+<p>We look for:</p>
+<ul class="simple">
+<li><p>📅 <strong>Daily and weekly cycles</strong> → demand usually peaks in the morning and evening, and weekdays are often similar to each other.</p></li>
+<li><p>❄️ <strong>Seasonal variations</strong> → winter weeks have higher demand due to heating, while summer weeks show lower demand and sometimes different daily profiles.</p></li>
+<li><p>🏖️ <strong>Holidays and special days</strong> → these break the regular pattern. For example, a weekday holiday may look more like a weekend, reducing industrial and office demand.</p></li>
+</ul>
+<hr class="docutils" />
+<section id="let-s-look-for-patterns">
+<h2>📅  Let’s look for patterns<a class="headerlink" href="#let-s-look-for-patterns" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Working days</strong> are very similar to each other, with stable daily patterns.</p></li>
+<li><p><strong>Two consecutive weeks</strong> often look almost identical, showing strong weekly seasonality.</p></li>
+<li><p><strong>Winter vs summer</strong> → weekly demand profiles differ:</p>
+<ul>
+<li><p>Winter shows <strong>higher peaks and more pronounced daily variation</strong>.</p></li>
+<li><p>Summer shows <strong>flatter curves and lower overall levels</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Holidays ruin the pattern</strong> → a holiday in the middle of a week disrupts the typical weekday cycle, making that day look like a weekend.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 These insights are crucial:</p>
+<ul class="simple">
+<li><p>They confirm the need for <strong>calendar features</strong> (weekday, holiday flags).</p></li>
+<li><p>They justify adding <strong>seasonal terms</strong> (month, temperature) to the model.</p></li>
+<li><p>They highlight the importance of <strong>handling anomalies</strong> like holidays separately.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection1</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-11-14&quot;</span><span class="p">]</span>
+<span class="n">selection1</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">selection2</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-11-15&quot;</span><span class="p">]</span>
+<span class="n">selection2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Two days stacked&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">selection1</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">])</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">selection2</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1a72f34f2383b65fef378cb0cf0e37f02d15f7b4fcf06388e7fcdee5d49fe431.png" src="_images/1a72f34f2383b65fef378cb0cf0e37f02d15f7b4fcf06388e7fcdee5d49fe431.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection1</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-11-14&quot;</span><span class="p">:</span><span class="s2">&quot;2022-11-20&quot;</span><span class="p">]</span>
+<span class="n">selection1</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">selection2</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-11-21&quot;</span><span class="p">:</span><span class="s2">&quot;2022-11-27&quot;</span><span class="p">]</span>
+<span class="n">selection2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Two weeks stacked&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">selection1</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">])</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">selection2</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a90e1ca831b9c81f9f43c4b6fb24598a17ce741e600fcde230072d4ff551dcd5.png" src="_images/a90e1ca831b9c81f9f43c4b6fb24598a17ce741e600fcde230072d4ff551dcd5.png" />
+</div>
+</div>
+</section>
+<section id="different-seasons">
+<h2>❄️ Different seasons<a class="headerlink" href="#different-seasons" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection1</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-5-2&quot;</span><span class="p">:</span><span class="s2">&quot;2022-5-8&quot;</span><span class="p">]</span>
+<span class="n">selection1</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">selection2</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-11-21&quot;</span><span class="p">:</span><span class="s2">&quot;2022-11-27&quot;</span><span class="p">]</span>
+<span class="n">selection2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Different seasons&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">selection2</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;November&quot;</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">selection1</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;May&quot;</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/54ef0110aec7d44947ac3a52905a3f5eb5e77ca0e9a23afbdf5910fe0e62bafd.png" src="_images/54ef0110aec7d44947ac3a52905a3f5eb5e77ca0e9a23afbdf5910fe0e62bafd.png" />
+</div>
+</div>
+</section>
+<section id="what-can-ruin-the-pattern">
+<h2>🏖️ What can ruin the pattern?<a class="headerlink" href="#what-can-ruin-the-pattern" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selection1</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-6-20&quot;</span><span class="p">:</span><span class="s2">&quot;2022-6-26&quot;</span><span class="p">]</span>
+<span class="n">selection1</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">selection2</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-6-13&quot;</span><span class="p">:</span><span class="s2">&quot;2022-6-19&quot;</span><span class="p">]</span>
+<span class="n">selection2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;How Jaanipäev looks like&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">selection1</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Jaanipäev&quot;</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">selection2</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Week before&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8960a242f4c94d76170c14d00c0aeea6fa3bf7eb6f7f70a254da0e6989eba68f.png" src="_images/8960a242f4c94d76170c14d00c0aeea6fa3bf7eb6f7f70a254da0e6989eba68f.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id6">
+<h1>5️⃣ Feature Engineering 🏗️<a class="headerlink" href="#id6" title="Link to this heading">#</a></h1>
+<p>Raw demand values alone are often not enough for accurate forecasting.
+We add <strong>features</strong> that capture the main drivers of electricity consumption.</p>
+<hr class="docutils" />
+<section id="calendar-features">
+<h2>📅 Calendar Features<a class="headerlink" href="#calendar-features" title="Link to this heading">#</a></h2>
+<p>Demand patterns are <strong>time-dependent</strong>:</p>
+<ul class="simple">
+<li><p><strong>Hour of day</strong> → captures daily cycles (morning/evening peaks, nighttime lows).</p></li>
+<li><p><strong>Day of week</strong> → weekdays are usually similar, weekends have lower industrial demand.</p></li>
+<li><p><strong>Month/season</strong> → heating demand in winter ❄️, cooling in summer 🌞.</p></li>
+<li><p><strong>Holiday flag</strong> → holidays break the normal cycle 🏖️ (a weekday may look like a weekend).</p></li>
+</ul>
+<p>👉 These features help the model distinguish <em>regular cycles</em> and <em>special cases</em>.</p>
+</section>
+<hr class="docutils" />
+<section id="lag-features-why-they-matter">
+<h2>⏪ Lag Features — Why They Matter<a class="headerlink" href="#lag-features-why-they-matter" title="Link to this heading">#</a></h2>
+<p>Electricity demand has strong <strong>temporal dependencies</strong>:</p>
+<ul class="simple">
+<li><p>Demand at a given hour is closely related to the <strong>same hour yesterday</strong> (daily cycle).</p></li>
+<li><p>It is also related to the <strong>same hour last week</strong> (weekly cycle).</p></li>
+<li><p>Demand does not change randomly — it follows predictable <strong>autocorrelation patterns</strong>.</p></li>
+</ul>
+<p>👉 Lag features help the model <strong>remember the past</strong> and exploit these correlations.</p>
+<hr class="docutils" />
+<section id="common-lag-features">
+<h3>⚡ Common Lag Features<a class="headerlink" href="#common-lag-features" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Short-term lags</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">t-1</span></code>, <code class="docutils literal notranslate"><span class="pre">t-2</span></code>, … <code class="docutils literal notranslate"><span class="pre">t-24</span></code></p></li>
+<li><p>Capture immediate momentum (what just happened).</p></li>
+<li><p>Example: if demand spiked at 18:00 today, 19:00 will also likely be high.</p></li>
+</ul>
+</li>
+<li><p><strong>Daily lags</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">t-24</span></code> (same hour yesterday).</p></li>
+<li><p>Captures daily seasonality (work schedules, household routines).</p></li>
+</ul>
+</li>
+<li><p><strong>Weekly lags</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">t-168</span></code> (same hour last week).</p></li>
+<li><p>Captures weekly seasonality (weekdays vs weekends).</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="things-to-watch-out-for">
+<h3>🚨 Things to Watch Out For<a class="headerlink" href="#things-to-watch-out-for" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Missing values:</strong> when you shift the series, the first rows become <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. These must be dropped before training.</p></li>
+<li><p><strong>Data leakage:</strong> only use lags that are truly <strong>in the past</strong> relative to the prediction horizon. For day-ahead forecasting, use lags up to <code class="docutils literal notranslate"><span class="pre">t-24</span></code> but not closer.</p></li>
+<li><p><strong>Too many lags:</strong> adding dozens of raw lag features can create noise and collinearity — pick the most relevant ones or use rolling stats.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 In <strong>energy forecasting</strong>, lag features form the <strong>baseline models</strong> themselves (persistence forecasts).
+Better models (ML or statistical) usually start with lag features, then add calendar and weather information on top.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># lag7 is the data 7 days ago</span>
+<span class="n">y_features</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">demand_lag7</span> <span class="o">=</span> <span class="n">y_features</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">24</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">demand_lag7</span> <span class="o">=</span> <span class="n">demand_lag7</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span><span class="s1">&#39;lag7&#39;</span><span class="p">})</span>
+<span class="n">y_features</span> <span class="o">=</span> <span class="n">y_features</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">demand_lag7</span><span class="p">)</span>
+
+<span class="c1"># lag2 is the data 2 days ago</span>
+<span class="n">demand_lag2</span> <span class="o">=</span> <span class="n">y_features</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">24</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">demand_lag2</span> <span class="o">=</span> <span class="n">demand_lag2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span><span class="s1">&#39;lag2&#39;</span><span class="p">})</span>
+<span class="n">y_features</span>  <span class="o">=</span> <span class="n">y_features</span> <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">demand_lag2</span><span class="p">)</span>
+
+<span class="n">y_features</span>  <span class="o">=</span> <span class="n">y_features</span> <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>  <span class="c1"># drop rows with NaN from lagging</span>
+<span class="n">y_features</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>lag7</th>
+      <th>lag2</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-08 00:00:00</th>
+      <td>1004.3</td>
+      <td>899.4</td>
+      <td>928.8</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 01:00:00</th>
+      <td>982.6</td>
+      <td>892.1</td>
+      <td>899.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 02:00:00</th>
+      <td>962.7</td>
+      <td>874.3</td>
+      <td>889.3</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 03:00:00</th>
+      <td>960.8</td>
+      <td>860.1</td>
+      <td>881.9</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 04:00:00</th>
+      <td>955.1</td>
+      <td>842.7</td>
+      <td>891.3</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 19:00:00</th>
+      <td>989.4</td>
+      <td>1009.5</td>
+      <td>1105.1</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 20:00:00</th>
+      <td>932.5</td>
+      <td>982.7</td>
+      <td>1077.0</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 21:00:00</th>
+      <td>889.5</td>
+      <td>965.4</td>
+      <td>1031.4</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 22:00:00</th>
+      <td>846.5</td>
+      <td>946.9</td>
+      <td>977.8</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 23:00:00</th>
+      <td>817.6</td>
+      <td>918.0</td>
+      <td>919.6</td>
+    </tr>
+  </tbody>
+</table>
+<p>8592 rows × 3 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="external-features-weather">
+<h2>🌦️ External Features: Weather<a class="headerlink" href="#external-features-weather" title="Link to this heading">#</a></h2>
+<p>Electricity demand is not only driven by <strong>time-based cycles</strong> (calendar and lags) — it is also heavily influenced by <strong>external factors</strong>, the most important of which is <strong>weather</strong>.</p>
+<hr class="docutils" />
+<section id="temperature">
+<h3>🌡️ Temperature<a class="headerlink" href="#temperature" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Cold weather</strong> → increases heating demand (electric heating, heat pumps).</p></li>
+<li><p><strong>Hot weather</strong> → increases cooling demand (air conditioning, ventilation).</p></li>
+<li><p>This creates a <strong>U-shaped relationship</strong>: demand rises in both very low and very high temperatures.</p></li>
+<li><p>⚡ <strong>In this example:</strong> we will focus on <strong>temperature</strong> as our main weather feature.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="why-weather-features-matter">
+<h3>🔎 Why Weather Features Matter<a class="headerlink" href="#why-weather-features-matter" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Calendar + lag features capture <strong>internal patterns</strong>,</p></li>
+<li><p>Weather features add <strong>external drivers</strong> that explain variation when patterns break (e.g., unusually cold weekend).</p></li>
+</ul>
+<p>👉 <strong>In this notebook:</strong>
+We will include <strong>temperature</strong> from Tallinn Airport as an external feature.
+Later, this will allow us to model how heating and cooling demand changes with seasons, beyond just daily or weekly cycles.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_features</span>  <span class="o">=</span> <span class="n">y_features</span> <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_features</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 8593 entries, 2022-01-08 00:00:00 to 2022-12-31 23:00:00
+Data columns (total 4 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   demand  8593 non-null   float64
+ 1   lag7    8593 non-null   float64
+ 2   lag2    8593 non-null   float64
+ 3   T       8564 non-null   float64
+dtypes: float64(4)
+memory usage: 335.7 KB
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="handling-missing-weather-data">
+<h3>🛠️ Handling Missing Weather Data<a class="headerlink" href="#handling-missing-weather-data" title="Link to this heading">#</a></h3>
+<p>Our <code class="docutils literal notranslate"><span class="pre">y_features</span></code> DataFrame has <strong>temperature values (<code class="docutils literal notranslate"><span class="pre">T</span></code>)</strong> alongside demand and lag features.
+When we check <code class="docutils literal notranslate"><span class="pre">.info()</span></code>, we see that <code class="docutils literal notranslate"><span class="pre">T</span></code> has slightly fewer non-null values (8564 vs 8593 rows) → meaning there are <strong>missing weather observations</strong>.</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">.fillna(method='bfill')</span></code></strong> → fills missing values by <strong>backward filling</strong> (taking the next valid observation).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">inplace=True</span></code></strong> → applies the change directly to the DataFrame without creating a copy.</p></li>
+<li><p>After this step, all rows have complete values, ensuring models don’t break when training.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 <strong>Why it matters:</strong> Most ML/statistical models cannot handle <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s. Filling ensures the dataset is complete.
+For weather, <strong>backward/forward filling</strong> is often acceptable because temperature changes smoothly over time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_features</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;bfill&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">y_features</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 8593 entries, 2022-01-08 00:00:00 to 2022-12-31 23:00:00
+Data columns (total 4 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   demand  8593 non-null   float64
+ 1   lag7    8593 non-null   float64
+ 2   lag2    8593 non-null   float64
+ 3   T       8593 non-null   float64
+dtypes: float64(4)
+memory usage: 335.7 KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_features</span>  <span class="o">=</span> <span class="n">y_features</span> <span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">planned_demand</span><span class="p">)</span>
+<span class="n">y_features</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>lag7</th>
+      <th>lag2</th>
+      <th>T</th>
+      <th>planned_demand</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-08 00:00:00</th>
+      <td>1004.3</td>
+      <td>899.4</td>
+      <td>928.8</td>
+      <td>-8.9</td>
+      <td>1088.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 01:00:00</th>
+      <td>982.6</td>
+      <td>892.1</td>
+      <td>899.1</td>
+      <td>-10.2</td>
+      <td>1068.4</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 02:00:00</th>
+      <td>962.7</td>
+      <td>874.3</td>
+      <td>889.3</td>
+      <td>-10.4</td>
+      <td>1058.9</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 03:00:00</th>
+      <td>960.8</td>
+      <td>860.1</td>
+      <td>881.9</td>
+      <td>-10.9</td>
+      <td>1049.5</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 04:00:00</th>
+      <td>955.1</td>
+      <td>842.7</td>
+      <td>891.3</td>
+      <td>-10.3</td>
+      <td>1064.9</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 19:00:00</th>
+      <td>989.4</td>
+      <td>1009.5</td>
+      <td>1105.1</td>
+      <td>5.4</td>
+      <td>983.3</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 20:00:00</th>
+      <td>932.5</td>
+      <td>982.7</td>
+      <td>1077.0</td>
+      <td>5.7</td>
+      <td>957.5</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 21:00:00</th>
+      <td>889.5</td>
+      <td>965.4</td>
+      <td>1031.4</td>
+      <td>5.8</td>
+      <td>921.1</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 22:00:00</th>
+      <td>846.5</td>
+      <td>946.9</td>
+      <td>977.8</td>
+      <td>5.9</td>
+      <td>864.6</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 23:00:00</th>
+      <td>817.6</td>
+      <td>918.0</td>
+      <td>919.6</td>
+      <td>5.8</td>
+      <td>867.9</td>
+    </tr>
+  </tbody>
+</table>
+<p>8593 rows × 5 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="transformations-encodings">
+<h2>🧮 Transformations &amp; Encodings<a class="headerlink" href="#transformations-encodings" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Cyclic encoding</strong> for hour and weekday → use <code class="docutils literal notranslate"><span class="pre">sin()</span></code>/<code class="docutils literal notranslate"><span class="pre">cos()</span></code> so that 23:00 and 00:00 are close.</p></li>
+<li><p><strong>Non-linear transformations</strong> → e.g., <code class="docutils literal notranslate"><span class="pre">temp^2</span></code> to capture U-shaped heating/cooling effects.</p></li>
+<li><p><strong>Categorical encoding</strong> → one-hot encode weekdays, holidays, or regions.</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 Good feature engineering is often <strong>more important than model choice</strong>.
+It provides the <strong>signal</strong> the model needs to learn patterns hidden in raw data.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="id7">
+<h1>6️⃣ Modeling 🤖<a class="headerlink" href="#id7" title="Link to this heading">#</a></h1>
+<p>At this stage, we try different approaches to <strong>predict electricity demand</strong>.</p>
+<ul class="simple">
+<li><p><strong>Baseline models</strong> → very simple, like saying <em>“tomorrow’s demand = yesterday’s demand”</em>. These persistence models are important references — every advanced model must beat them.</p></li>
+<li><p><strong>Statistical models</strong> → e.g., ARIMA, exponential smoothing. They explicitly model trends and seasonality.</p></li>
+<li><p><strong>Machine learning models</strong> → e.g., linear regression, tree-based methods, or neural networks. These can capture more complex, nonlinear relationships.</p></li>
+</ul>
+<p>👉 We always <strong>start with a baseline model</strong> to establish a <strong>minimum performance benchmark</strong> before moving to more advanced methods.</p>
+<section id="training-testing-data-split">
+<h2>🧪 Training/Testing Data Split<a class="headerlink" href="#training-testing-data-split" title="Link to this heading">#</a></h2>
+<p>To evaluate our model, we need to split the dataset into:</p>
+<ul class="simple">
+<li><p><strong>Training data</strong> → past values the model learns from.</p></li>
+<li><p><strong>Testing data</strong> → future values the model has never seen, used to measure accuracy.</p></li>
+</ul>
+<p>In this simplified example:</p>
+<ul class="simple">
+<li><p>We forecast <strong>only one day</strong> (<code class="docutils literal notranslate"><span class="pre">2022-11-04</span></code>).</p></li>
+<li><p>Training period = the <strong>previous 30 days</strong>.</p></li>
+<li><p>No cross-validation is applied here (though it is common in time series to use rolling or expanding windows).</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 In practice, we would use <strong>rolling forecasts</strong> or <strong>cross-validation</strong> for more robust evaluation, but this setup is enough for a first test.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict_for_start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">predict_for_end</span> <span class="o">=</span> <span class="n">predict_for_start</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">training_end</span> <span class="o">=</span> <span class="n">predict_for_start</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">training_start</span> <span class="o">=</span> <span class="n">training_end</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+
+<span class="n">testing_vector</span> <span class="o">=</span> <span class="n">y_features</span><span class="p">[(</span><span class="n">y_features</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">predict_for_start</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="p">(</span><span class="n">y_features</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">predict_for_end</span><span class="p">)]</span>
+<span class="n">training_vector</span> <span class="o">=</span> <span class="n">y_features</span><span class="p">[(</span><span class="n">y_features</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">training_start</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="p">(</span><span class="n">y_features</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">training_end</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="initial-comparison-planned-vs-actual">
+<h2>🔎 Initial Comparison: Planned vs Actual<a class="headerlink" href="#initial-comparison-planned-vs-actual" title="Link to this heading">#</a></h2>
+<p>System operators often publish a <strong>planned (forecasted) demand</strong> for the next day.
+We can compare this with the <strong>actual demand</strong> to see:</p>
+<ul class="simple">
+<li><p>How accurate the operator’s forecasts are.</p></li>
+<li><p>Whether our own models can do better.</p></li>
+</ul>
+<p>One common evaluation metric is <strong>MAPE (Mean Absolute Percentage Error)</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+MAPE = \frac{100}{n} \sum \left| \frac{y - \hat{y}}{y} \right|
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(y\)</span> = actual demand</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{y}\)</span> = forecast (planned or model prediction)</p></li>
+<li><p><span class="math notranslate nohighlight">\(n\)</span> = number of observations</p></li>
+</ul>
+<p>✅ <strong>Why MAPE?</strong></p>
+<ul class="simple">
+<li><p>It expresses error in <strong>percentages</strong>, which makes it intuitive.</p></li>
+<li><p>Example: <em>MAPE = 5% means on average the forecast is off by 5% compared to actual demand.</em></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span><span class="s1">&#39;planned_demand&#39;</span><span class="p">]]);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Planned vs. actual&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+<span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">testing_vector</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">testing_vector</span><span class="p">[</span><span class="s1">&#39;planned_demand&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mape</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Planned vs.actual&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;MAPE&quot;</span><span class="p">:</span> <span class="n">mape</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 2.418
+</pre></div>
+</div>
+<img alt="_images/f0600119010ff5b3acfff72c62d09f52cd6ca059a37f22c06f6a0b014c6ce09c.png" src="_images/f0600119010ff5b3acfff72c62d09f52cd6ca059a37f22c06f6a0b014c6ce09c.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="naive-model-lag-7-same-day-last-week">
+<h2>🪞 Naive Model: Lag 7 (Same Day Last Week)<a class="headerlink" href="#naive-model-lag-7-same-day-last-week" title="Link to this heading">#</a></h2>
+<p>A simple but surprisingly strong baseline for electricity demand forecasting is the <strong>seasonal naïve model</strong>:</p>
+<ul class="simple">
+<li><p><strong>Idea:</strong> <em>“Today’s demand will be the same as exactly one week ago.”</em></p></li>
+<li><p>Why 7 days? Electricity demand has a <strong>strong weekly seasonality</strong> — working days look alike, and weekends differ.</p></li>
+<li><p>This model often performs reasonably well and sets a <strong>benchmark</strong> that more advanced models must beat.</p></li>
+</ul>
+<p>👉 In practice, we just shift the demand series by <strong>7 days (168 hours)</strong> and use it as the prediction.
+Then we compare the shifted values with the actual demand on the target day.</p>
+<p>✅ If our advanced models cannot beat this baseline, they are not adding value!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span><span class="s1">&#39;lag7&#39;</span><span class="p">]]);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Naive forecast&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+
+<span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">testing_vector</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">testing_vector</span><span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mape</span><span class="p">)</span>
+
+<span class="c1"># Add a new row (new model result)</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;Naive model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MAPE&quot;</span><span class="p">:</span> <span class="n">mape</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 1.552
+</pre></div>
+</div>
+<img alt="_images/83574ac81b6d2521e91b612e1baf5d91cb0590b7d17a8ca33a8c91bd803e7667.png" src="_images/83574ac81b6d2521e91b612e1baf5d91cb0590b7d17a8ca33a8c91bd803e7667.png" />
+</div>
+</div>
+</section>
+<section id="linear-regression">
+<h2>📈 Linear Regression<a class="headerlink" href="#linear-regression" title="Link to this heading">#</a></h2>
+<p>To move beyond the naïve baseline, we can use a <strong>linear regression model</strong>:</p>
+<ul class="simple">
+<li><p><strong>Idea:</strong> predict demand as a <strong>linear combination of features</strong> (e.g., lag values, temperature).</p></li>
+<li><p>Unlike the lag-7 model, regression can <strong>combine multiple signals</strong>:</p>
+<ul>
+<li><p><strong>Lag features</strong> → yesterday’s demand, same hour last week.</p></li>
+<li><p><strong>Calendar features</strong> → hour of day, day of week.</p></li>
+<li><p><strong>External features</strong> → temperature, holidays.</p></li>
+</ul>
+</li>
+<li><p>The model assigns <strong>weights</strong> to each feature, estimating how strongly it contributes to demand.</p></li>
+</ul>
+<p>👉 Linear regression is simple, fast, and interpretable — making it a good <strong>first step</strong> beyond naïve forecasting.
+It helps us see whether combining features provides clear improvements over the lag-only models.</p>
+<hr class="docutils" />
+<section id="what-is-linear-regression">
+<h3>📈 What is Linear Regression?<a class="headerlink" href="#what-is-linear-regression" title="Link to this heading">#</a></h3>
+<p><strong>Linear regression</strong> is one of the simplest and most widely used statistical models.</p>
+<ul class="simple">
+<li><p>It tries to explain the relationship between a <strong>dependent variable</strong> (e.g., electricity demand) and one or more <strong>independent variables</strong> (features such as lagged demand or temperature).</p></li>
+<li><p>The model assumes this relationship is approximately <strong>linear</strong>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_n x_n + \epsilon
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(y\)</span> = demand (target)</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_i\)</span> = features (e.g., lag7, temperature)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_i\)</span> = coefficients (weights learned by the model)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span> = error term</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="what-is-correlation">
+<h3>🔗 What is Correlation?<a class="headerlink" href="#what-is-correlation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Correlation</strong> measures how strongly two variables move together.</p></li>
+<li><p>Value ranges from <strong>-1 to +1</strong>:</p>
+<ul>
+<li><p>+1 → perfect positive relationship (as one increases, so does the other).</p></li>
+<li><p>-1 → perfect negative relationship (as one increases, the other decreases).</p></li>
+<li><p>0 → no linear relationship.</p></li>
+</ul>
+</li>
+<li><p>Example: demand and temperature often show a <strong>negative correlation in winter</strong> (colder days → higher demand).</p></li>
+</ul>
+<hr class="docutils" />
+<p>👉 Linear regression is a first step to quantify relationships. If patterns are non-linear (like U-shape demand vs temperature), we can <strong>add polynomial features</strong> (e.g., temp²) or move to more advanced models.</p>
+</section>
+<section id="single-feature-lag7">
+<h3>Single feature: lag7<a class="headerlink" href="#single-feature-lag7" title="Link to this heading">#</a></h3>
+<hr class="docutils" />
+<section id="graph-with-regression-line">
+<h4>📉 Graph with Regression Line<a class="headerlink" href="#graph-with-regression-line" title="Link to this heading">#</a></h4>
+<p>We can visualize linear regression by plotting data points and a <strong>best-fit line</strong></p>
+<p>✅ This plot shows:</p>
+<ul class="simple">
+<li><p>Each point = demand vs. lag7.</p></li>
+<li><p>The red line = regression line → best linear fit.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">y_features</span><span class="p">,</span>  <span class="n">scatter_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">},</span> <span class="n">line_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;red&quot;</span><span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/628879029f22f239515dd07f829e4df6752c8c31e99bd40954da41249ac0dabf.png" src="_images/628879029f22f239515dd07f829e4df6752c8c31e99bd40954da41249ac0dabf.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">]]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">]]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">predictions_vector</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="n">predictions_vector</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">predictions_vector</span> <span class="o">=</span> <span class="n">predictions_vector</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;prediction&#39;</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">predictions_vector</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Linear regression. Single feature: lag7&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+
+<span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predictions_vector</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mape</span><span class="p">)</span>
+
+<span class="c1"># Add a new row (new model result)</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;Linear regression on lag7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MAPE&quot;</span><span class="p">:</span> <span class="n">mape</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 1.794
+</pre></div>
+</div>
+<img alt="_images/6882d9f6ba955aa52fd6bafbb4c7602705ee7cc91c09449b3df3feff9cce031b.png" src="_images/6882d9f6ba955aa52fd6bafbb4c7602705ee7cc91c09449b3df3feff9cce031b.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="features-lag7-and-lag2">
+<h3>Features: lag7 and lag2<a class="headerlink" href="#features-lag7-and-lag2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag2&#39;</span><span class="p">]]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag2&#39;</span><span class="p">]]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">predictions_vector</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="n">predictions_vector</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">predictions_vector</span> <span class="o">=</span> <span class="n">predictions_vector</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;prediction&#39;</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">predictions_vector</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Linear regression. Features: lag7, lag2&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+<span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predictions_vector</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mape</span><span class="p">)</span>
+
+<span class="c1"># Add a new row (new model result)</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;Linear regression on lag7, lag2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MAPE&quot;</span><span class="p">:</span> <span class="n">mape</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 1.352
+</pre></div>
+</div>
+<img alt="_images/3e982807a439ffd28d78f6419cd26669ae4f3f1f94fb17d4b52dc333af6df8a5.png" src="_images/3e982807a439ffd28d78f6419cd26669ae4f3f1f94fb17d4b52dc333af6df8a5.png" />
+</div>
+</div>
+</section>
+<section id="features-lag7-lag2-temperature">
+<h3>Features: lag7, lag2, temperature<a class="headerlink" href="#features-lag7-lag2-temperature" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag2&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag2&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">predictions_vector</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="n">predictions_vector</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">predictions_vector</span> <span class="o">=</span> <span class="n">predictions_vector</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;prediction&#39;</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">predictions_vector</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Linear regression. Features: lag7, lag2, temperature&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Consumption [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+<span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predictions_vector</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mape</span><span class="p">)</span>
+
+<span class="c1"># Add a new row (new model result)</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;Linear regression on lag7, lag2, temperature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MAPE&quot;</span><span class="p">:</span> <span class="n">mape</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 2.338
+</pre></div>
+</div>
+<img alt="_images/5341dbd76e9d1139fbc85d3d69b666b83de1f2ee92af3ac4cc80f7e14bdb544f.png" src="_images/5341dbd76e9d1139fbc85d3d69b666b83de1f2ee92af3ac4cc80f7e14bdb544f.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="support-vector-regression-svr">
+<h2>⚙️ Support Vector Regression (SVR)<a class="headerlink" href="#support-vector-regression-svr" title="Link to this heading">#</a></h2>
+<p><strong>Support Vector Regression (SVR)</strong> is an extension of Support Vector Machines (SVM) for regression tasks.</p>
+<ul class="simple">
+<li><p>Instead of fitting a line through all points (like linear regression), SVR tries to find a <strong>function that fits the data within a margin of tolerance (ε)</strong>.</p></li>
+<li><p>It is powerful for capturing <strong>non-linear relationships</strong>, especially when combined with kernels (e.g., RBF kernel).</p></li>
+<li><p>SVR works well on <strong>medium-sized datasets</strong> but can be slower on very large time series.</p></li>
+</ul>
+<p>👉 In energy demand forecasting, SVR can model complex effects (like the non-linear relation between demand and temperature) that linear regression may miss.</p>
+<p>✅ Key differences vs Linear Regression:</p>
+<ul class="simple">
+<li><p>Linear regression minimizes squared errors.</p></li>
+<li><p>SVR ignores small errors within the ε margin and focuses on keeping predictions within a “tube” around actual values.</p></li>
+</ul>
+<section id="single-feature-lag-7">
+<h3>Single feature lag 7<a class="headerlink" href="#single-feature-lag-7" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">]]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">]]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearSVR</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+
+<span class="n">predictions_vector</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="n">predictions_vector</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">predictions_vector</span> <span class="o">=</span> <span class="n">predictions_vector</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;prediction&#39;</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">predictions_vector</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;SVR on lag7&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+<span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predictions_vector</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mape</span><span class="p">)</span>
+
+<span class="c1"># Add a new row (new model result)</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;SVR on lag7&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MAPE&quot;</span><span class="p">:</span> <span class="n">mape</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 6.258
+</pre></div>
+</div>
+<img alt="_images/4838e124fb5b0310e6cb81d205d2817933d36a327d0f225b257b168917aa1a05.png" src="_images/4838e124fb5b0310e6cb81d205d2817933d36a327d0f225b257b168917aa1a05.png" />
+</div>
+</div>
+</section>
+<section id="two-features-lag7-lag2">
+<h3>Two features: lag7, lag2<a class="headerlink" href="#two-features-lag7-lag2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag2&#39;</span><span class="p">]]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag2&#39;</span><span class="p">]]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearSVR</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+
+<span class="n">predictions_vector</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="n">predictions_vector</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">predictions_vector</span> <span class="o">=</span> <span class="n">predictions_vector</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;prediction&#39;</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">predictions_vector</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;SVR on lag7, lag2&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+<span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predictions_vector</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mape</span><span class="p">)</span>
+
+<span class="c1"># Add a new row (new model result)</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;SVR on lag7, lag2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MAPE&quot;</span><span class="p">:</span> <span class="n">mape</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 4.223
+</pre></div>
+</div>
+<img alt="_images/a35291db057a303b082874f3912a996f2326a87a65c646583465c15685801731.png" src="_images/a35291db057a303b082874f3912a996f2326a87a65c646583465c15685801731.png" />
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Features: lag7, lag2, temperature<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag2&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">testing_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag2&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">training_vector</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearSVR</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+
+<span class="n">predictions_vector</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="n">predictions_vector</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">predictions_vector</span> <span class="o">=</span> <span class="n">predictions_vector</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;prediction&#39;</span><span class="p">})</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">predictions_vector</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;SVR on lag7, lag2, temperature&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+<span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predictions_vector</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mape</span><span class="p">)</span>
+
+<span class="c1"># Add a new row (new model result)</span>
+<span class="n">results</span><span class="p">[</span><span class="s2">&quot;SVR on lag7, lag2, temperature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MAPE&quot;</span><span class="p">:</span> <span class="n">mape</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 1.517
+</pre></div>
+</div>
+<img alt="_images/e5bbae13114d769bf108d8d1bc6dc8c0bd6632f15a49c1160812ac4a5be0690e.png" src="_images/e5bbae13114d769bf108d8d1bc6dc8c0bd6632f15a49c1160812ac4a5be0690e.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id9">
+<h1>7️⃣ Evaluation 📊<a class="headerlink" href="#id9" title="Link to this heading">#</a></h1>
+<p>To judge how well our models forecast electricity demand, we need <strong>error metrics</strong>.
+Different metrics highlight different aspects of performance.</p>
+<hr class="docutils" />
+<section id="metrics">
+<h2>Metrics<a class="headerlink" href="#metrics" title="Link to this heading">#</a></h2>
+<section id="mean-absolute-error-mae">
+<h3>📏 Mean Absolute Error (MAE)<a class="headerlink" href="#mean-absolute-error-mae" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+MAE = \frac{1}{n}\sum |y - \hat{y}|
+\]</div>
+<ul class="simple">
+<li><p>Measures the <strong>average absolute difference</strong> between actual (<span class="math notranslate nohighlight">\(y\)</span>) and predicted (<span class="math notranslate nohighlight">\(\hat{y}\)</span>) values.</p></li>
+<li><p>Interpretable in the same unit as the data (e.g., MW).</p></li>
+<li><p><strong>Good for:</strong> a general sense of typical error.</p></li>
+<li><p>⚡ Example: <em>MAE = 50 → on average, we miss by 50 MW.</em></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="root-mean-squared-error-rmse">
+<h3>📐 Root Mean Squared Error (RMSE)<a class="headerlink" href="#root-mean-squared-error-rmse" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+RMSE = \sqrt{\frac{1}{n}\sum (y - \hat{y})^2}
+\]</div>
+<ul class="simple">
+<li><p>Similar to MAE but <strong>squares the errors</strong> before averaging.</p></li>
+<li><p>Penalizes <strong>large errors</strong> more strongly.</p></li>
+<li><p><strong>Good for:</strong> when big mistakes (e.g., missing peak demand) are very costly.</p></li>
+<li><p>⚡ Example: <em>RMSE = 80 → typical large deviations are around 80 MW.</em></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="mean-absolute-percentage-error-mape">
+<h3>📊 Mean Absolute Percentage Error (MAPE)<a class="headerlink" href="#mean-absolute-percentage-error-mape" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+MAPE = \frac{100}{n}\sum \left|\frac{y - \hat{y}}{y}\right|
+\]</div>
+<ul class="simple">
+<li><p>Expresses error as a <strong>percentage of actual demand</strong>.</p></li>
+<li><p>Easy to interpret across scales.</p></li>
+<li><p><strong>Caution:</strong> unstable when <span class="math notranslate nohighlight">\(y\)</span> is very close to 0 (denominator issue).</p></li>
+<li><p>⚡ Example: <em>MAPE = 5% → on average, forecasts are off by 5%.</em></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="why-use-multiple-metrics">
+<h2>🔎 Why use multiple metrics?<a class="headerlink" href="#why-use-multiple-metrics" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>MAE</strong> → tells you the typical error.</p></li>
+<li><p><strong>RMSE</strong> → warns about large errors (peaks).</p></li>
+<li><p><strong>MAPE</strong> → expresses error in relative terms (easy for managers to understand).</p></li>
+</ul>
+<p>👉 For energy forecasting, <strong>operators often prefer MAPE</strong> for communication, while <strong>MAE/RMSE</strong> are used by data scientists to fine-tune models.</p>
+</section>
+<hr class="docutils" />
+<section id="interpreting-the-results-table">
+<h2>📊 Interpreting the Results Table<a class="headerlink" href="#interpreting-the-results-table" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to DataFrame</span>
+<span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">results_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Model&quot;</span>
+<span class="n">results_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MAPE</th>
+    </tr>
+    <tr>
+      <th>Model</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Planned vs.actual</th>
+      <td>2.42</td>
+    </tr>
+    <tr>
+      <th>Naive model</th>
+      <td>1.55</td>
+    </tr>
+    <tr>
+      <th>Linear regression on lag7</th>
+      <td>1.79</td>
+    </tr>
+    <tr>
+      <th>Linear regression on lag7, lag2</th>
+      <td>1.35</td>
+    </tr>
+    <tr>
+      <th>Linear regression on lag7, lag2, temperature</th>
+      <td>2.34</td>
+    </tr>
+    <tr>
+      <th>SVR on lag7</th>
+      <td>6.26</td>
+    </tr>
+    <tr>
+      <th>SVR on lag7, lag2</th>
+      <td>4.22</td>
+    </tr>
+    <tr>
+      <th>SVR on lag7, lag2, temperature</th>
+      <td>1.52</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="observations">
+<h3>🔎 Observations<a class="headerlink" href="#observations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>✅ <strong>Naive model (lag7)</strong> already performs quite well.</p></li>
+<li><p>✅ <strong>Linear regression with lag7 + lag2</strong> is the best overall, showing the value of combining <strong>weekly</strong> and <strong>daily recency</strong> effects.</p></li>
+<li><p>⚠️ Adding <strong>temperature</strong> unexpectedly makes regression worse.</p></li>
+<li><p>⚠️ <strong>SVR results are unstable</strong>.</p>
+<ul>
+<li><p>This indicates a need for <strong>better feature scaling</strong>, <strong>parameter tuning (C, ε, γ)</strong>, or more careful <strong>cross-validation</strong>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="takeaways">
+<h3>💡 Takeaways<a class="headerlink" href="#takeaways" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Baselines are strong</strong> → even simple lag-based models are hard to beat in short-term load forecasting.</p></li>
+<li><p><strong>Linear models work well</strong> → especially with well-chosen lag features.</p></li>
+<li><p><strong>Weather needs care</strong> → linear regression may not capture non-linear heating/cooling effects. Polynomial features or more flexible models may be needed.</p></li>
+<li><p><strong>SVR requires tuning</strong> → default settings can lead to very poor forecasts. With hyperparameter optimization, performance might improve.</p></li>
+</ol>
+<hr class="docutils" />
+<p>👉 For practical forecasting, the <strong>linear regression with lag7 + lag2</strong> model is currently the most reliable in this experiment.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_pandas_tutorial.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🐼 Pandas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="visualization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">👀 Visuals in Exploratory Data Analysis (EDA)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔄 Data Science Lifecycle</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Data Science Lifecycle</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#business-understanding">1️⃣ Business Understanding 💡</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-collection">2️⃣ Data Collection 📥</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-cleaning">3️⃣ Data Cleaning 🧹</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">4️⃣ Data Exploration 🔎</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">5️⃣ Feature Engineering 🏗️</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">6️⃣ Modeling 🤖</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">7️⃣ Evaluation 📊</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-action">8️⃣ Communication &amp; Action 📢</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-science-lifecycle-quick-guide">📊 Data Science Lifecycle — Quick Guide</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1️⃣ Business Understanding</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2️⃣ Data Collection  📥</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-guide-pandas-read-csv">🐼 Quick Guide: <code class="docutils literal notranslate"><span class="pre">pandas.read_csv()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-energy-demand-data">📥 Raw energy demand data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weather-data">🌦️ Weather Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3️⃣ Data Cleaning 🧹</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing">📐 Indexing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-look-info">🔎 Quick Look: <code class="docutils literal notranslate"><span class="pre">.info()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4️⃣ Data Exploration 🔎</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-look-for-patterns">📅  Let’s look for patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#different-seasons">❄️ Different seasons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-can-ruin-the-pattern">🏖️ What can ruin the pattern?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5️⃣ Feature Engineering 🏗️</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calendar-features">📅 Calendar Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-features-why-they-matter">⏪ Lag Features — Why They Matter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-lag-features">⚡ Common Lag Features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-watch-out-for">🚨 Things to Watch Out For</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-features-weather">🌦️ External Features: Weather</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature">🌡️ Temperature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-weather-features-matter">🔎 Why Weather Features Matter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-weather-data">🛠️ Handling Missing Weather Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformations-encodings">🧮 Transformations &amp; Encodings</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6️⃣ Modeling 🤖</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-testing-data-split">🧪 Training/Testing Data Split</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-comparison-planned-vs-actual">🔎 Initial Comparison: Planned vs Actual</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-model-lag-7-same-day-last-week">🪞 Naive Model: Lag 7 (Same Day Last Week)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">📈 Linear Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-linear-regression">📈 What is Linear Regression?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-correlation">🔗 What is Correlation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-feature-lag7">Single feature: lag7</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-with-regression-line">📉 Graph with Regression Line</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#features-lag7-and-lag2">Features: lag7 and lag2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#features-lag7-lag2-temperature">Features: lag7, lag2, temperature</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-regression-svr">⚙️ Support Vector Regression (SVR)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-feature-lag-7">Single feature lag 7</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-features-lag7-lag2">Two features: lag7, lag2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Features: lag7, lag2, temperature</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7️⃣ Evaluation 📊</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics">Metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-error-mae">📏 Mean Absolute Error (MAE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#root-mean-squared-error-rmse">📐 Root Mean Squared Error (RMSE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-absolute-percentage-error-mape">📊 Mean Absolute Percentage Error (MAPE)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-multiple-metrics">🔎 Why use multiple metrics?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-the-results-table">📊 Interpreting the Results Table</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#observations">🔎 Observations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">💡 Takeaways</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
