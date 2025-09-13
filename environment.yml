@@ -1,8 +1,0 @@
-name: book-env
-channels: [conda-forge]
-dependencies:
-  - python=3.11
-  - ipykernel
-  - ipywidgets>=8.1
-  - numpy
-  - pandas
