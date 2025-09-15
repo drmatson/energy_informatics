@@ -1,0 +1,1394 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>📊 Outliers in Data &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '11_outliers';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="🔧 Handling Missing Data" href="10_handling_missing_data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visuals in Exploratory Data Analysis (EDA)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">📊 Outliers in Data</a></li>
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/11_outliers.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>📊 Outliers in Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">📊 Outliers in Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-look-at-the-dataset">1️⃣ First look at the dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-distributions-with-histograms">2️⃣ Visualize distributions with histograms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplots-for-systematic-detection">3️⃣ Boxplots for systematic detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-outliers">4️⃣ Types of outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-outliers">🔹 Logical outliers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errors-data-quality-issues">🔹 Errors (data quality issues)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-outliers">🔹 Statistical outliers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-seaborn-for-a-focused-boxplot">5️⃣ Using Seaborn for a focused boxplot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">🔑 Takeaways</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-outliers-with-the-iqr-rule">🧹 Removing Outliers with the IQR Rule</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-check">Visual check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caution">⚠️ Caution</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-detection-with-z-scores">🔢 Outlier Detection with Z-scores</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Visual check</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#iqr-vs-z-score">⚖️ IQR vs. Z-score</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="outliers-in-data">
+<h1>📊 Outliers in Data<a class="headerlink" href="#outliers-in-data" title="Link to this heading">#</a></h1>
+<p>Outliers are data points that deviate strongly from the rest of the dataset.
+They can be <strong>useful signals</strong> (e.g. extreme weather, holidays) or <strong>errors</strong> (e.g. faulty sensors). Detecting them is important before modeling.</p>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/weather_2022.csv&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="n">weather</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Local time in Tallinn (airport)&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">weather</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">weather</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Local time in Tallinn (airport)&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="n">weather</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>T</th>
+      <th>Po</th>
+      <th>P</th>
+      <th>Pa</th>
+      <th>U</th>
+      <th>DD</th>
+      <th>Ff</th>
+      <th>ff10</th>
+      <th>ff3</th>
+      <th>N</th>
+      <th>...</th>
+      <th>Cm</th>
+      <th>Ch</th>
+      <th>VV</th>
+      <th>Td</th>
+      <th>RRR</th>
+      <th>tR</th>
+      <th>E</th>
+      <th>Tg</th>
+      <th>E'</th>
+      <th>sss</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-12-31 23:00:00</th>
+      <td>5.8</td>
+      <td>744.1</td>
+      <td>747.2</td>
+      <td>-0.7</td>
+      <td>93.0</td>
+      <td>Wind blowing from the south-southwest</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>100%.</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35.0</td>
+      <td>4.8</td>
+      <td>0.1</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 22:00:00</th>
+      <td>5.9</td>
+      <td>744.3</td>
+      <td>747.3</td>
+      <td>-0.5</td>
+      <td>93.0</td>
+      <td>Wind blowing from the south-west</td>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>10.0</td>
+      <td>100%.</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35.0</td>
+      <td>4.8</td>
+      <td>0.2</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 21:00:00</th>
+      <td>5.8</td>
+      <td>744.4</td>
+      <td>747.4</td>
+      <td>-0.3</td>
+      <td>93.0</td>
+      <td>Wind blowing from the south-southwest</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>NaN</td>
+      <td>100%.</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35.0</td>
+      <td>4.8</td>
+      <td>0.2</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 20:00:00</th>
+      <td>5.7</td>
+      <td>744.8</td>
+      <td>747.8</td>
+      <td>-0.5</td>
+      <td>94.0</td>
+      <td>Wind blowing from the south-west</td>
+      <td>4.0</td>
+      <td>9.0</td>
+      <td>NaN</td>
+      <td>100%.</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35.0</td>
+      <td>4.8</td>
+      <td>0.5</td>
+      <td>12.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 19:00:00</th>
+      <td>5.4</td>
+      <td>744.8</td>
+      <td>747.9</td>
+      <td>-0.8</td>
+      <td>96.0</td>
+      <td>Wind blowing from the south-west</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>NaN</td>
+      <td>100%.</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>20.0</td>
+      <td>4.8</td>
+      <td>0.3</td>
+      <td>3.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 28 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 8732 entries, 2022-12-31 23:00:00 to 2022-01-01 00:00:00
+Data columns (total 28 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   T       8732 non-null   float64
+ 1   Po      8732 non-null   float64
+ 2   P       8732 non-null   float64
+ 3   Pa      8624 non-null   float64
+ 4   U       8685 non-null   float64
+ 5   DD      8720 non-null   object 
+ 6   Ff      8721 non-null   float64
+ 7   ff10    1305 non-null   float64
+ 8   ff3     2404 non-null   float64
+ 9   N       8607 non-null   object 
+ 10  WW      8732 non-null   object 
+ 11  W1      8653 non-null   object 
+ 12  W2      8650 non-null   object 
+ 13  Tn      8649 non-null   float64
+ 14  Tx      8649 non-null   float64
+ 15  Cl      2612 non-null   object 
+ 16  Nh      6289 non-null   object 
+ 17  H       6521 non-null   object 
+ 18  Cm      2120 non-null   object 
+ 19  Ch      2091 non-null   object 
+ 20  VV      8682 non-null   float64
+ 21  Td      8685 non-null   float64
+ 22  RRR     8702 non-null   object 
+ 23  tR      8702 non-null   float64
+ 24  E       35 non-null     object 
+ 25  Tg      0 non-null      float64
+ 26  E&#39;      165 non-null    object 
+ 27  sss     150 non-null    object 
+dtypes: float64(14), object(14)
+memory usage: 1.9+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<section id="first-look-at-the-dataset">
+<h2>1️⃣ First look at the dataset<a class="headerlink" href="#first-look-at-the-dataset" title="Link to this heading">#</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> to see the main statistics:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">count</span></code> → number of observations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mean</span></code> / <code class="docutils literal notranslate"><span class="pre">std</span></code> → average and spread</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min</span></code> / <code class="docutils literal notranslate"><span class="pre">max</span></code> → extremes (possible outliers)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">25%</span> <span class="pre">/</span> <span class="pre">50%</span> <span class="pre">/</span> <span class="pre">75%</span></code> → quartiles (used in boxplots)</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">weather</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                 T           Po            P           Pa            U  \
+count  8732.000000  8732.000000  8732.000000  8624.000000  8685.000000   
+mean      7.148465   756.759116   759.825973     0.001020    78.729303   
+std       8.622924     9.152670     9.185894     1.064299    16.945406   
+min     -16.700000   717.700000   720.700000    -6.900000    14.000000   
+25%       0.300000   752.175000   755.200000    -0.500000    67.000000   
+50%       6.700000   757.900000   760.900000     0.000000    84.000000   
+75%      13.000000   762.000000   765.100000     0.500000    93.000000   
+max      32.000000   783.100000   786.300000     9.000000   100.000000   
+
+                Ff         ff10          ff3           Tn           Tx  \
+count  8721.000000  1305.000000  2404.000000  8649.000000  8649.000000   
+mean      3.014219     9.702682    10.350666     4.446549     9.961510   
+std       1.577299     2.169688     2.281426     7.774611     9.296164   
+min       0.000000     1.000000     1.000000   -17.100000   -11.900000   
+25%       2.000000     9.000000     9.000000    -1.500000     1.800000   
+50%       3.000000     9.000000    10.000000     3.700000    10.000000   
+75%       4.000000    11.000000    11.000000    10.300000    16.600000   
+max      10.000000    18.000000    19.000000    26.500000    32.900000   
+
+                VV           Td           tR   Tg  
+count  8682.000000  8685.000000  8702.000000  0.0  
+mean     29.994517     3.202844     3.720294  NaN  
+std       9.763522     7.512051     2.487232  NaN  
+min       0.100000   -18.400000     1.000000  NaN  
+25%      35.000000    -2.600000     3.000000  NaN  
+50%      35.000000     2.200000     3.000000  NaN  
+75%      35.000000     9.200000     3.000000  NaN  
+max      35.000000    21.500000    12.000000  NaN  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualize-distributions-with-histograms">
+<h2>2️⃣ Visualize distributions with histograms<a class="headerlink" href="#visualize-distributions-with-histograms" title="Link to this heading">#</a></h2>
+<p>Histograms help spot unusual spikes or extreme values:</p>
+<p>👉 Look for very long tails or isolated bars.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">ceil</span>
+
+<span class="n">weather</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/497802135ba12fd1076d3e9dbfd862bcebd2faa3ca1530c30a1c489a0a7a250c.png" src="_images/497802135ba12fd1076d3e9dbfd862bcebd2faa3ca1530c30a1c489a0a7a250c.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="boxplots-for-systematic-detection">
+<h2>3️⃣ Boxplots for systematic detection<a class="headerlink" href="#boxplots-for-systematic-detection" title="Link to this heading">#</a></h2>
+<p>Boxplots show quartiles and highlight outliers as points beyond the whiskers.</p>
+<ul class="simple">
+<li><p>Middle box = interquartile range (IQR)</p></li>
+<li><p>Whiskers = typical spread</p></li>
+<li><p>Dots beyond whiskers = potential outliers</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">weather</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/aeac5063068855f327979c89cfdd5165be2f00dade9b2611967aa76770921fb9.png" src="_images/aeac5063068855f327979c89cfdd5165be2f00dade9b2611967aa76770921fb9.png" />
+</div>
+</div>
+</section>
+<section id="types-of-outliers">
+<h2>4️⃣ Types of outliers<a class="headerlink" href="#types-of-outliers" title="Link to this heading">#</a></h2>
+<section id="logical-outliers">
+<h3>🔹 Logical outliers<a class="headerlink" href="#logical-outliers" title="Link to this heading">#</a></h3>
+<p>These are <strong>extreme but valid events</strong> that happen naturally and reflect real-world phenomena.</p>
+<ul class="simple">
+<li><p><strong>Examples in weather/energy data:</strong></p>
+<ul>
+<li><p>A heatwave in midsummer that pushes temperatures way above the usual range.</p></li>
+<li><p>Sudden drops in electricity demand on public holidays like Christmas or New Year’s Eve.</p></li>
+</ul>
+</li>
+<li><p><strong>Why they matter:</strong></p>
+<ul>
+<li><p>They’re not errors — they carry valuable information about unusual but real situations.</p></li>
+<li><p>Depending on your analysis, you may <strong>keep them</strong> (e.g. if forecasting peak demand) or <strong>treat them separately</strong> (e.g. exclude holidays when training a “normal-day” model).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="errors-data-quality-issues">
+<h3>🔹 Errors (data quality issues)<a class="headerlink" href="#errors-data-quality-issues" title="Link to this heading">#</a></h3>
+<p>These outliers come from <strong>faulty measurement, logging, or transmission</strong> problems.</p>
+<ul class="simple">
+<li><p><strong>Examples:</strong></p>
+<ul>
+<li><p>Negative precipitation values (impossible in reality).</p></li>
+<li><p>Sudden spikes because a sensor froze or restarted.</p></li>
+<li><p>Missing units or wrongly scaled inputs (e.g. temperature logged in °F instead of °C for one day).</p></li>
+</ul>
+</li>
+<li><p><strong>Why they matter:</strong></p>
+<ul>
+<li><p>These must <strong>be corrected or removed</strong>, because they don’t represent reality.</p></li>
+<li><p>If left in, they can mislead models and skew statistics (mean, standard deviation, regression coefficients).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="statistical-outliers">
+<h3>🔹 Statistical outliers<a class="headerlink" href="#statistical-outliers" title="Link to this heading">#</a></h3>
+<p>These are points flagged as unusual purely by statistical rules, without immediate context.</p>
+<ul class="simple">
+<li><p><strong>How to detect:</strong></p>
+<ul>
+<li><p><strong>IQR rule (boxplot method):</strong>
+A value is an outlier if it lies below <code class="docutils literal notranslate"><span class="pre">Q1</span> <span class="pre">-</span> <span class="pre">1.5*IQR</span></code> or above <code class="docutils literal notranslate"><span class="pre">Q3</span> <span class="pre">+</span> <span class="pre">1.5*IQR</span></code>.</p></li>
+<li><p><strong>Z-score method:</strong>
+A value more than 3 standard deviations from the mean.</p></li>
+</ul>
+</li>
+<li><p><strong>Examples:</strong></p>
+<ul>
+<li><p>A temperature of 40 °C in a dataset where most days are 15–25 °C.</p></li>
+<li><p>A household’s electricity demand of 200 kWh/day when typical is 10–20 kWh/day.</p></li>
+</ul>
+</li>
+<li><p><strong>Why they matter:</strong></p>
+<ul>
+<li><p>They are “flagged” but not automatically errors — context is key.</p></li>
+<li><p>May overlap with logical outliers (heatwave) or errors (faulty sensor).</p></li>
+<li><p>Often used as a <strong>first-pass filter</strong> to highlight candidates for closer inspection.</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>✅ <strong>Summary:</strong></p>
+<ul class="simple">
+<li><p>Logical outliers = real but unusual → often keep.</p></li>
+<li><p>Errors = invalid → fix/remove.</p></li>
+<li><p>Statistical outliers = suspicious by rules → need domain knowledge to classify.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="using-seaborn-for-a-focused-boxplot">
+<h2>5️⃣ Using Seaborn for a focused boxplot<a class="headerlink" href="#using-seaborn-for-a-focused-boxplot" title="Link to this heading">#</a></h2>
+<p>Example with one variable.</p>
+<p>👉 Easy to see how many values lie far beyond the “typical” whiskers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/electricity-nps price_2022.csv&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">prices</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">prices</span><span class="p">[</span><span class="s1">&#39;Kuupaev (Eesti aeg)&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">prices</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ajatempel (UTC)</th>
+      <th>Kuupaev (Eesti aeg)</th>
+      <th>NPS Lati</th>
+      <th>NPS Leedu</th>
+      <th>NPS Soome</th>
+      <th>NPS Eesti</th>
+      <th>timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1640988000</td>
+      <td>01.01.2022 00:00</td>
+      <td>57.98</td>
+      <td>57.98</td>
+      <td>29.76</td>
+      <td>57.98</td>
+      <td>2022-01-01 00:00:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1640991600</td>
+      <td>01.01.2022 01:00</td>
+      <td>50.05</td>
+      <td>50.05</td>
+      <td>46.60</td>
+      <td>50.05</td>
+      <td>2022-01-01 01:00:00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1640995200</td>
+      <td>01.01.2022 02:00</td>
+      <td>41.33</td>
+      <td>41.33</td>
+      <td>41.33</td>
+      <td>41.33</td>
+      <td>2022-01-01 02:00:00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1640998800</td>
+      <td>01.01.2022 03:00</td>
+      <td>42.18</td>
+      <td>42.18</td>
+      <td>42.18</td>
+      <td>42.18</td>
+      <td>2022-01-01 03:00:00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1641002400</td>
+      <td>01.01.2022 04:00</td>
+      <td>44.37</td>
+      <td>44.37</td>
+      <td>44.37</td>
+      <td>44.37</td>
+      <td>2022-01-01 04:00:00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pr</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;NPS Eesti&#39;</span><span class="p">]]</span>
+<span class="n">pr</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pr</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;NPS Eesti&#39;</span><span class="p">:</span><span class="s1">&#39;value&#39;</span><span class="p">})</span>
+<span class="n">pr</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>value</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>57.98</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>50.05</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>41.33</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>42.18</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>44.37</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">pr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e87d692a999916cd276194c034c210ed341e140d9ed92212e72a190647b1dda1.png" src="_images/e87d692a999916cd276194c034c210ed341e140d9ed92212e72a190647b1dda1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    8760.000000
+mean      192.824273
+std       135.649117
+min        -0.040000
+25%       104.420000
+50%       160.735000
+75%       249.415000
+max      4000.000000
+Name: value, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="takeaways">
+<h2>🔑 Takeaways<a class="headerlink" href="#takeaways" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Always combine <strong>statistics</strong> (<code class="docutils literal notranslate"><span class="pre">.describe()</span></code>) and <strong>visualizations</strong>.</p></li>
+<li><p>Decide if outliers are <strong>real signals</strong> (keep them) or <strong>errors</strong> (fix/remove).</p></li>
+<li><p>Document your reasoning — handling outliers depends on your problem (e.g. for energy forecasting, a Christmas outlier might be crucial!).</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="removing-outliers-with-the-iqr-rule">
+<h1>🧹 Removing Outliers with the IQR Rule<a class="headerlink" href="#removing-outliers-with-the-iqr-rule" title="Link to this heading">#</a></h1>
+<p>The <strong>interquartile range (IQR)</strong> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+IQR = Q3 - Q1
+\]</div>
+<ul class="simple">
+<li><p>Anything below <strong>Q1 − 1.5 × IQR</strong> or above <strong>Q3 + 1.5 × IQR</strong> is flagged as an outlier.</p></li>
+</ul>
+<hr class="docutils" />
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Q1</span> <span class="o">=</span> <span class="n">pr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">pr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+
+<span class="n">lower</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+<span class="n">upper</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+
+<span class="n">filtered</span> <span class="o">=</span> <span class="n">pr</span><span class="p">[</span>
+    <span class="p">(</span><span class="n">pr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">lower</span><span class="p">)</span> <span class="o">&amp;</span>
+    <span class="p">(</span><span class="n">pr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">upper</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original size:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After removing outliers:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original size: 8760
+After removing outliers: 8334
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="visual-check">
+<h2>Visual check<a class="headerlink" href="#visual-check" title="Link to this heading">#</a></h2>
+<p>Before and after boxplots to confirm effect.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">filtered</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/78d53663c6c64fb472c19d01771df286dd8a0970b15cd31fe5ac879686238640.png" src="_images/78d53663c6c64fb472c19d01771df286dd8a0970b15cd31fe5ac879686238640.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="caution">
+<h2>⚠️ Caution<a class="headerlink" href="#caution" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>IQR filtering is <strong>conservative</strong> but can still remove meaningful “logical outliers” (e.g., real holiday demand spikes).</p></li>
+<li><p>Always combine <strong>statistics + domain knowledge</strong> before deciding to drop data.</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="outlier-detection-with-z-scores">
+<h1>🔢 Outlier Detection with Z-scores<a class="headerlink" href="#outlier-detection-with-z-scores" title="Link to this heading">#</a></h1>
+<p>The <strong>Z-score</strong> standardizes each value relative to the mean and standard deviation:</p>
+<div class="math notranslate nohighlight">
+\[
+Z = \frac{x - \mu}{\sigma}
+\]</div>
+<ul class="simple">
+<li><p>Values with |Z| &gt; 3 are often considered outliers (you can adjust the threshold).</p></li>
+<li><p>Works best if the data is roughly normal (bell-shaped).</p></li>
+</ul>
+<hr class="docutils" />
+<section id="id1">
+<h2>Example<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean</span> <span class="o">=</span> <span class="n">pr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">pr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="n">z_scores</span> <span class="o">=</span> <span class="p">(</span><span class="n">pr</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">std</span>
+
+<span class="c1"># Keep only values with |z| &lt;= 3</span>
+<span class="n">filtered2</span> <span class="o">=</span> <span class="n">pr</span><span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">z_scores</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original size:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pr</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;After removing outliers:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original size: 8760
+After removing outliers: 8675
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h2>Visual check<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Before and after boxplots to confirm effect.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">filtered2</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bf88dd57df99806c9d6518cfaf4572ab5f4d20201ef178a9e24e01e508fea063.png" src="_images/bf88dd57df99806c9d6518cfaf4572ab5f4d20201ef178a9e24e01e508fea063.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="iqr-vs-z-score">
+<h1>⚖️ IQR vs. Z-score<a class="headerlink" href="#iqr-vs-z-score" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><strong>IQR rule</strong>:</p>
+<ul>
+<li><p>More robust to skewed distributions.</p></li>
+<li><p>Good default for mixed data.</p></li>
+</ul>
+</li>
+<li><p><strong>Z-score rule</strong>:</p>
+<ul>
+<li><p>Simpler, intuitive.</p></li>
+<li><p>Best if data is symmetric/normal.</p></li>
+<li><p>Sensitive to extreme outliers (can distort mean/std).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="10_handling_missing_data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🔧 Handling Missing Data</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">📊 Outliers in Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-look-at-the-dataset">1️⃣ First look at the dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-distributions-with-histograms">2️⃣ Visualize distributions with histograms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplots-for-systematic-detection">3️⃣ Boxplots for systematic detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-outliers">4️⃣ Types of outliers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logical-outliers">🔹 Logical outliers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errors-data-quality-issues">🔹 Errors (data quality issues)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-outliers">🔹 Statistical outliers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-seaborn-for-a-focused-boxplot">5️⃣ Using Seaborn for a focused boxplot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">🔑 Takeaways</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-outliers-with-the-iqr-rule">🧹 Removing Outliers with the IQR Rule</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-check">Visual check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caution">⚠️ Caution</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-detection-with-z-scores">🔢 Outlier Detection with Z-scores</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Visual check</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#iqr-vs-z-score">⚖️ IQR vs. Z-score</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

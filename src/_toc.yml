@@ -1,16 +1,24 @@
 format: jb-book
 root: intro
 
-chapters:
-  - file: python         # chapter landing page (markdown)
-    sections:
-      - file: 01_introduction_to_python
-      - file: 02_numpy_tutorial
-      - file: 03_pandas_tutorial
-  - file: 04_data_science_cycle
-  - file: visualization         
-    sections:
-      - file: 05_visualization
-      - file: 06_plotly
-      - file: 07_ipywidgets
-      - file: 08_dash
+parts:
+  - caption: Introduction
+    chapters:
+      - file: python
+        sections:
+          - file: 01_introduction_to_python
+          - file: 02_numpy_tutorial
+          - file: 03_pandas_tutorial
+      - file: 04_data_science_cycle
+      - file: visualization
+        sections:
+          - file: 05_visualization
+          - file: 06_plotly
+          - file: 07_ipywidgets
+          - file: 08_dash
+
+  - caption: Data preprocessing
+    chapters:
+      - file: 09_handling_datetime
+      - file: 10_handling_missing_data
+      - file: 11_outliers
