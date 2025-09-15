@@ -1,0 +1,1157 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🕒 Handling Datetime &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '09_handling_datetime';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🔧 Handling Missing Data" href="10_handling_missing_data.html" />
+    <link rel="prev" title="⚡ Dash for Energy Analytics — Mini Tutorial" href="08_dash.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visuals in Exploratory Data Analysis (EDA)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/09_handling_datetime.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🕒 Handling Datetime</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🕒 Handling Datetime</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-indexing-is-important">🔎 Why Indexing is Important</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-datetimeindex">Creating a DatetimeIndex</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">✅ Summary</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-missing-datetime-indices">🕒 Finding Missing Datetime Indices</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-missing-timestamps">🔧 ✨ 🔍 Identify missing timestamps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-with-missingno">🔧 ✨ 📊 🖼️ Visualizing with <code class="docutils literal notranslate"><span class="pre">missingno</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-recap">🔧 ✨ ✅ Workflow Recap</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#daylight-saving-time">Daylight saving time ⏳</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-dst-changes-patterns">🔄 How DST changes patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-forecasting-nightmare">📉 The forecasting nightmare</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixing-the-problem">🛠️ Fixing the problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bigger-picture">🌍 The bigger picture</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="handling-datetime">
+<h1>🕒 Handling Datetime<a class="headerlink" href="#handling-datetime" title="Link to this heading">#</a></h1>
+<section id="why-indexing-is-important">
+<h2>🔎 Why Indexing is Important<a class="headerlink" href="#why-indexing-is-important" title="Link to this heading">#</a></h2>
+<p>Indexing is the <strong>backbone of time series analysis</strong>. In energy informatics, we often deal with <strong>timestamps</strong>:</p>
+<ul class="simple">
+<li><p>⚡ Smart meter readings (every 15 minutes)</p></li>
+<li><p>🌡️ Weather station logs (hourly/daily)</p></li>
+<li><p>💶 Market prices (day-ahead/hourly)</p></li>
+</ul>
+<p>Having a <strong>DatetimeIndex</strong> allows us to:</p>
+<ul class="simple">
+<li><p>⏩ <strong>Resample</strong> data (aggregate from 15-min → hourly, daily, monthly)</p></li>
+<li><p>🔎 <strong>Select slices</strong> naturally (<code class="docutils literal notranslate"><span class="pre">df[&quot;2024-01-10&quot;]</span></code> or <code class="docutils literal notranslate"><span class="pre">df[&quot;2024-01-01&quot;:&quot;2024-01-07&quot;]</span></code>)</p></li>
+<li><p>🧩 <strong>Align datasets</strong> (demand with weather, price with production)</p></li>
+<li><p>🚨 Detect <strong>missing timestamps</strong> → ensure data continuity</p></li>
+</ul>
+<p>Without proper indexing, time series handling becomes error-prone and messy.</p>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">missingno</span> <span class="k">as</span> <span class="nn">msno</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="creating-a-datetimeindex">
+<h1>Creating a DatetimeIndex<a class="headerlink" href="#creating-a-datetimeindex" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hourly demand values for one day</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;demand_MWh&quot;</span><span class="p">:</span> <span class="n">demand</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                     demand_MWh
+2024-01-01 00:00:00         796
+2024-01-01 01:00:00         772
+2024-01-01 02:00:00         655
+2024-01-01 03:00:00         628
+2024-01-01 04:00:00         697
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elering</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/electricity-production and consumption_2022.csv&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">elering</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ajatempel (UTC)</th>
+      <th>Kuupaev (Eesti aeg)</th>
+      <th>Tarbimine</th>
+      <th>Tootmine</th>
+      <th>Planeeritud tarbimine</th>
+      <th>Planeeritud tootmine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1640988000</td>
+      <td>01.01.2022 00:00</td>
+      <td>899.4</td>
+      <td>419.5</td>
+      <td>903.1</td>
+      <td>462.4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1640991600</td>
+      <td>01.01.2022 01:00</td>
+      <td>892.1</td>
+      <td>431.9</td>
+      <td>935.8</td>
+      <td>469.1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1640995200</td>
+      <td>01.01.2022 02:00</td>
+      <td>874.3</td>
+      <td>428.1</td>
+      <td>897.6</td>
+      <td>458.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1640998800</td>
+      <td>01.01.2022 03:00</td>
+      <td>860.1</td>
+      <td>435.7</td>
+      <td>878.5</td>
+      <td>471.9</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1641002400</td>
+      <td>01.01.2022 04:00</td>
+      <td>842.7</td>
+      <td>429.2</td>
+      <td>891.1</td>
+      <td>472.2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">elering</span><span class="p">[</span><span class="s1">&#39;Kuupaev (Eesti aeg)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    01.01.2022 00:00
+1    01.01.2022 01:00
+2    01.01.2022 02:00
+3    01.01.2022 03:00
+4    01.01.2022 04:00
+Name: Kuupaev (Eesti aeg), dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elering</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">elering</span><span class="p">[</span><span class="s1">&#39;Kuupaev (Eesti aeg)&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">elering</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ajatempel (UTC)</th>
+      <th>Kuupaev (Eesti aeg)</th>
+      <th>Tarbimine</th>
+      <th>Tootmine</th>
+      <th>Planeeritud tarbimine</th>
+      <th>Planeeritud tootmine</th>
+      <th>timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1640988000</td>
+      <td>01.01.2022 00:00</td>
+      <td>899.4</td>
+      <td>419.5</td>
+      <td>903.1</td>
+      <td>462.4</td>
+      <td>2022-01-01 00:00:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1640991600</td>
+      <td>01.01.2022 01:00</td>
+      <td>892.1</td>
+      <td>431.9</td>
+      <td>935.8</td>
+      <td>469.1</td>
+      <td>2022-01-01 01:00:00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1640995200</td>
+      <td>01.01.2022 02:00</td>
+      <td>874.3</td>
+      <td>428.1</td>
+      <td>897.6</td>
+      <td>458.6</td>
+      <td>2022-01-01 02:00:00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1640998800</td>
+      <td>01.01.2022 03:00</td>
+      <td>860.1</td>
+      <td>435.7</td>
+      <td>878.5</td>
+      <td>471.9</td>
+      <td>2022-01-01 03:00:00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1641002400</td>
+      <td>01.01.2022 04:00</td>
+      <td>842.7</td>
+      <td>429.2</td>
+      <td>891.1</td>
+      <td>472.2</td>
+      <td>2022-01-01 04:00:00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">day_of_month</span> <span class="o">=</span> <span class="n">elering</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">day_of_month</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">31</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5ac36de2d79e2fbc60589a1f5112cea9581f92140b2770dc868ac3bbeb6450ba.png" src="_images/5ac36de2d79e2fbc60589a1f5112cea9581f92140b2770dc868ac3bbeb6450ba.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elering</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elering</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ajatempel (UTC)</th>
+      <th>Kuupaev (Eesti aeg)</th>
+      <th>Tarbimine</th>
+      <th>Tootmine</th>
+      <th>Planeeritud tarbimine</th>
+      <th>Planeeritud tootmine</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>1640988000</td>
+      <td>01.01.2022 00:00</td>
+      <td>899.4</td>
+      <td>419.5</td>
+      <td>903.1</td>
+      <td>462.4</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>1640991600</td>
+      <td>01.01.2022 01:00</td>
+      <td>892.1</td>
+      <td>431.9</td>
+      <td>935.8</td>
+      <td>469.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>1640995200</td>
+      <td>01.01.2022 02:00</td>
+      <td>874.3</td>
+      <td>428.1</td>
+      <td>897.6</td>
+      <td>458.6</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>1640998800</td>
+      <td>01.01.2022 03:00</td>
+      <td>860.1</td>
+      <td>435.7</td>
+      <td>878.5</td>
+      <td>471.9</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>1641002400</td>
+      <td>01.01.2022 04:00</td>
+      <td>842.7</td>
+      <td>429.2</td>
+      <td>891.1</td>
+      <td>472.2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 19:00:00</th>
+      <td>1672506000</td>
+      <td>31.12.2022 19:00</td>
+      <td>989.4</td>
+      <td>674.4</td>
+      <td>983.3</td>
+      <td>660.0</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 20:00:00</th>
+      <td>1672509600</td>
+      <td>31.12.2022 20:00</td>
+      <td>932.5</td>
+      <td>614.2</td>
+      <td>957.5</td>
+      <td>600.3</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 21:00:00</th>
+      <td>1672513200</td>
+      <td>31.12.2022 21:00</td>
+      <td>889.5</td>
+      <td>609.5</td>
+      <td>921.1</td>
+      <td>590.6</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 22:00:00</th>
+      <td>1672516800</td>
+      <td>31.12.2022 22:00</td>
+      <td>846.5</td>
+      <td>585.2</td>
+      <td>864.6</td>
+      <td>568.2</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 23:00:00</th>
+      <td>1672520400</td>
+      <td>31.12.2022 23:00</td>
+      <td>817.6</td>
+      <td>567.0</td>
+      <td>867.9</td>
+      <td>559.8</td>
+    </tr>
+  </tbody>
+</table>
+<p>8760 rows × 6 columns</p>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summary">
+<h1>✅ Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>A <strong>DatetimeIndex</strong> turns Pandas into a true <strong>time series toolbox</strong>.</p></li>
+<li><p>It simplifies <strong>selection, resampling, merging, and gap detection</strong>.</p></li>
+<li><p>For <strong>energy data</strong>, datetime indexing is a must for robust preprocessing and forecasting.</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="finding-missing-datetime-indices">
+<h1>🕒 Finding Missing Datetime Indices<a class="headerlink" href="#finding-missing-datetime-indices" title="Link to this heading">#</a></h1>
+<p>When working with <strong>time series</strong>, missing data often means that <strong>timestamps are missing</strong> (not just NaN values).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Full hourly index for 3 days</span>
+<span class="n">rng_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;H&quot;</span><span class="p">)</span>
+
+<span class="c1"># Drop some hours to simulate missing timestamps</span>
+<span class="n">rng_missing</span> <span class="o">=</span> <span class="n">rng_full</span><span class="o">.</span><span class="n">delete</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">55</span><span class="p">])</span>
+
+<span class="c1"># Create dataset</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">rng_missing</span><span class="p">))</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="n">demand</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">rng_missing</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DataFrame index length:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Expected full length:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rng_full</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DataFrame index length: 67
+Expected full length: 72
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<section id="identify-missing-timestamps">
+<h2>🔧 ✨ 🔍 Identify missing timestamps<a class="headerlink" href="#identify-missing-timestamps" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reindex to full range</span>
+<span class="n">df_full</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">rng_full</span><span class="p">)</span>
+
+<span class="c1"># Missing indices</span>
+<span class="n">missing_times</span> <span class="o">=</span> <span class="n">df_full</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">df_full</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing timestamps:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_times</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Missing timestamps:
+DatetimeIndex([&#39;2024-01-01 05:00:00&#39;, &#39;2024-01-01 17:00:00&#39;,
+               &#39;2024-01-01 23:00:00&#39;, &#39;2024-01-02 16:00:00&#39;,
+               &#39;2024-01-03 07:00:00&#39;],
+              dtype=&#39;datetime64[ns]&#39;, freq=None)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-with-missingno">
+<h2>🔧 ✨ 📊 🖼️ Visualizing with <code class="docutils literal notranslate"><span class="pre">missingno</span></code><a class="headerlink" href="#visualizing-with-missingno" title="Link to this heading">#</a></h2>
+<p>You can zoom into just the problematic period.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Restrict to one problematic week/day</span>
+<span class="n">week</span> <span class="o">=</span> <span class="n">df_full</span><span class="p">[</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">:</span><span class="s2">&quot;2024-01-03&quot;</span><span class="p">]</span>
+
+<span class="c1"># Missing matrix for this window</span>
+<span class="n">msno</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">week</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/660842e03991b3de7a1009596c436218f367beea98ddc8f79689219f46bebd19.png" src="_images/660842e03991b3de7a1009596c436218f367beea98ddc8f79689219f46bebd19.png" />
+</div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="workflow-recap">
+<h2>🔧 ✨ ✅ Workflow Recap<a class="headerlink" href="#workflow-recap" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Define expected frequency</strong> (<code class="docutils literal notranslate"><span class="pre">pd.date_range</span></code>).</p></li>
+<li><p><strong>Reindex</strong> your DataFrame to this full index.</p></li>
+<li><p>Missing entries show up as <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">.isna()</span></code> or <code class="docutils literal notranslate"><span class="pre">missingno</span></code> to visualize gaps.</p></li>
+</ol>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="daylight-saving-time">
+<h1>Daylight saving time ⏳<a class="headerlink" href="#daylight-saving-time" title="Link to this heading">#</a></h1>
+<p>Twice a year, like clockwork (literally), we shift time. In spring 🌸, we jump forward an hour. In autumn 🍂, we fall back. While it may seem like a minor inconvenience — an extra hour of sleep in October and one less in March — it’s a major challenge for those working with energy data.</p>
+<section id="how-dst-changes-patterns">
+<h2>🔄 How DST changes patterns<a class="headerlink" href="#how-dst-changes-patterns" title="Link to this heading">#</a></h2>
+<p>Daylight Saving Time (DST) isn’t just about adjusting our clocks — it changes how we live. When the clocks shift, so do our routines:</p>
+<p>🌅 MORNINGS start in different lighting conditions, affecting how much electricity we use for heating and lighting.</p>
+<p>🌆 EVENINGS feel longer or shorter, shifting peak energy demand.</p>
+<p>Also:</p>
+<p>⚡ SOLAR ENERGY PRODUCTION shifts as the timing of sunrise and sunset changes, impacting solar generation.</p>
+<p>💡 LIGHT SENSOR-BASED LIGHTING SYSTEMS may not immediately adapt to DST, impacting electricity consumption in both residential and commercial spaces.</p>
+</section>
+<section id="the-forecasting-nightmare">
+<h2>📉 The forecasting nightmare<a class="headerlink" href="#the-forecasting-nightmare" title="Link to this heading">#</a></h2>
+<p>For energy analysts, DST is more than just an inconvenience — it disrupts entire forecasting models:</p>
+<p>SPRING FORWARD creates a 23-hour day, meaning an entire hour of data is missing.</p>
+<p>FALL BACK results in a 25-hour day, adding an extra hour that doesn’t fit neatly into standard models.</p>
+<p>Most forecasting methods assume a consistent 24-hour cycle. When that cycle breaks, so does the accuracy of predictions. Models trained on past data might not adjust properly, leading to errors in energy demand forecasts.</p>
+</section>
+<section id="fixing-the-problem">
+<h2>🛠️ Fixing the problem<a class="headerlink" href="#fixing-the-problem" title="Link to this heading">#</a></h2>
+<p>So, what can we do to adjust forecasting models for DST? Here are a few potential solutions:</p>
+<p>📊 ADJUST DATA WINDOWS DYNAMICALLY: Allow for 23-hour and 25-hour days instead of forcing all days into a 24-hour mold.</p>
+<p>🧠 TAGGING DST IN THE DATA: Introduce a DST variable in models and train separate models for DST and standard time periods.</p>
+<p>📝 SMOOTHING THE ANOMALIES: Discard the extra hour in autumn and interpolate values in spring to maintain consistency.</p>
+<p>🤖 SMARTER MACHINE LEARNING MODELS: Develop adaptive models that detect and adjust for DST shifts automatically.</p>
+</section>
+<section id="the-bigger-picture">
+<h2>🌍 The bigger picture<a class="headerlink" href="#the-bigger-picture" title="Link to this heading">#</a></h2>
+<p>DST is more than a technical nuisance — it fundamentally alters how we interact with energy. Forecasting electricity demand isn’t just about time; it’s about people’s habits, work schedules, and our response to natural light. ⏰</p>
+<p>As the debate on whether to scrap DST altogether continues, energy professionals need to stay adaptable. Whether through clever data adjustments, smarter machine learning models, or hybrid forecasting techniques, acknowledging DST’s impact is key to maintaining accuracy in energy forecasting.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="08_dash.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">⚡ Dash for Energy Analytics — Mini Tutorial</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="10_handling_missing_data.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🔧 Handling Missing Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🕒 Handling Datetime</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-indexing-is-important">🔎 Why Indexing is Important</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-datetimeindex">Creating a DatetimeIndex</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">✅ Summary</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-missing-datetime-indices">🕒 Finding Missing Datetime Indices</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-missing-timestamps">🔧 ✨ 🔍 Identify missing timestamps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-with-missingno">🔧 ✨ 📊 🖼️ Visualizing with <code class="docutils literal notranslate"><span class="pre">missingno</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-recap">🔧 ✨ ✅ Workflow Recap</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#daylight-saving-time">Daylight saving time ⏳</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-dst-changes-patterns">🔄 How DST changes patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-forecasting-nightmare">📉 The forecasting nightmare</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixing-the-problem">🛠️ Fixing the problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bigger-picture">🌍 The bigger picture</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
