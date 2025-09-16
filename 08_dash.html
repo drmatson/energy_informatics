@@ -463,12 +463,17 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smallest-working-app-hello-dash">Smallest Working App (“Hello, Dash”) 👋</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-plotly-figure-time-series-line">Add a Plotly Figure (time series line) 📈</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-callback-dropdown-controls-the-plot">First Callback: Dropdown controls the plot 🎛️</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-inputs-temperature-slider-weekday-dropdown">Multiple Inputs: Temperature slider + weekday dropdown 🌡️📅</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-axis-demand-vs-price-single-figure">Dual-Axis Demand vs Price (single figure) 📈💶</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#date-picker-live-subsetting-of-a-time-series">Date Picker + Live Subsetting of a Time Series 📆</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#periodic-auto-refresh-simulate-streaming">Periodic Auto-Refresh (simulate streaming) ⏱️</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-multi-page-skeleton">Simple Multi-Page Skeleton 🗂️</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"></a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#home-energy-mini-dashboard">Home Energy Mini-Dashboard 🗂️</a></li>
@@ -532,8 +537,9 @@ document.write(`
 </pre></div>
 </div>
 <p>Open the URL in your browser. You should see a page with a title and text.</p>
-</section>
 <hr class="docutils" />
+<p><img alt="w1" src="_images/d1.png" /></p>
+</section>
 <section id="add-a-plotly-figure-time-series-line">
 <h2>Add a Plotly Figure (time series line) 📈<a class="headerlink" href="#add-a-plotly-figure-time-series-line" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">Dash</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">dcc</span>
@@ -560,7 +566,9 @@ document.write(`
 </div>
 <p>Now the page shows an <strong>interactive</strong> Plotly chart (zoom, pan, hover).</p>
 </section>
-<hr class="docutils" />
+<section id="id1">
+<h2><img alt="w1" src="_images/d2.png" /><a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+</section>
 <section id="first-callback-dropdown-controls-the-plot">
 <h2>First Callback: Dropdown controls the plot 🎛️<a class="headerlink" href="#first-callback-dropdown-controls-the-plot" title="Link to this heading">#</a></h2>
 <p>We’ll add a <strong>dropdown</strong> to switch between <strong>Week 1</strong> and <strong>Week 2</strong> data and update the figure via a <strong>callback</strong>.</p>
@@ -603,8 +611,9 @@ document.write(`
     <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
 <hr class="docutils" />
+<p><img alt="w1" src="_images/d3.png" /></p>
+</section>
 <section id="multiple-inputs-temperature-slider-weekday-dropdown">
 <h2>Multiple Inputs: Temperature slider + weekday dropdown 🌡️📅<a class="headerlink" href="#multiple-inputs-temperature-slider-weekday-dropdown" title="Link to this heading">#</a></h2>
 <p>A classic demo: <strong>demand vs temperature</strong> with controls that change the data and re-draw the scatter.</p>
@@ -672,8 +681,9 @@ document.write(`
 
 </pre></div>
 </div>
-</section>
 <hr class="docutils" />
+<p><img alt="w1" src="_images/d4.png" /></p>
+</section>
 <section id="dual-axis-demand-vs-price-single-figure">
 <h2>Dual-Axis Demand vs Price (single figure) 📈💶<a class="headerlink" href="#dual-axis-demand-vs-price-single-figure" title="Link to this heading">#</a></h2>
 <p>Dash doesn’t force multi-axis, that’s Plotly — but we can <strong>drive</strong> it with Dash controls later if we want.</p>
@@ -703,7 +713,9 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<hr class="docutils" />
+<section id="id2">
+<h2><img alt="w1" src="_images/d5.png" /><a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+</section>
 <section id="date-picker-live-subsetting-of-a-time-series">
 <h2>Date Picker + Live Subsetting of a Time Series 📆<a class="headerlink" href="#date-picker-live-subsetting-of-a-time-series" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">Dash</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">dcc</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span>
@@ -744,7 +756,9 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<hr class="docutils" />
+<section id="id3">
+<h2><img alt="w1" src="_images/d6.png" /><a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+</section>
 <section id="periodic-auto-refresh-simulate-streaming">
 <h2>Periodic Auto-Refresh (simulate streaming) ⏱️<a class="headerlink" href="#periodic-auto-refresh-simulate-streaming" title="Link to this heading">#</a></h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">dcc.Interval</span></code> to refresh data/plots (e.g., every 5 seconds).</p>
@@ -782,7 +796,9 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<hr class="docutils" />
+<section id="id4">
+<h2><img alt="w1" src="_images/d7.png" /><a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+</section>
 <section id="simple-multi-page-skeleton">
 <h2>Simple Multi-Page Skeleton 🗂️<a class="headerlink" href="#simple-multi-page-skeleton" title="Link to this heading">#</a></h2>
 <p>Two pages: <strong>“Demand”</strong> and <strong>“Mix”</strong>. Use the URL path to switch.</p>
@@ -830,8 +846,10 @@ document.write(`
 </pre></div>
 </div>
 </section>
+<section id="id5">
+<h2><img alt="w1" src="_images/d8.png" /><a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
 </section>
-<hr class="docutils" />
+</section>
 <section class="tex2jax_ignore mathjax_ignore" id="home-energy-mini-dashboard">
 <h1>Home Energy Mini-Dashboard 🗂️<a class="headerlink" href="#home-energy-mini-dashboard" title="Link to this heading">#</a></h1>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
@@ -1048,6 +1066,7 @@ document.write(`
     <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><img alt="w1" src="_images/d_hems.png" /></p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="deployment-notes">
 <h1>Deployment notes 🚀<a class="headerlink" href="#deployment-notes" title="Link to this heading">#</a></h1>
@@ -1145,12 +1164,17 @@ One free web app, outbound internet restrictions, lower resources; OK for simple
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smallest-working-app-hello-dash">Smallest Working App (“Hello, Dash”) 👋</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-plotly-figure-time-series-line">Add a Plotly Figure (time series line) 📈</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-callback-dropdown-controls-the-plot">First Callback: Dropdown controls the plot 🎛️</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-inputs-temperature-slider-weekday-dropdown">Multiple Inputs: Temperature slider + weekday dropdown 🌡️📅</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-axis-demand-vs-price-single-figure">Dual-Axis Demand vs Price (single figure) 📈💶</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#date-picker-live-subsetting-of-a-time-series">Date Picker + Live Subsetting of a Time Series 📆</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#periodic-auto-refresh-simulate-streaming">Periodic Auto-Refresh (simulate streaming) ⏱️</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-multi-page-skeleton">Simple Multi-Page Skeleton 🗂️</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"></a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#home-energy-mini-dashboard">Home Energy Mini-Dashboard 🗂️</a></li>
