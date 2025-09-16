@@ -22,3 +22,4 @@ parts:
       - file: 09_handling_datetime
       - file: 10_handling_missing_data
       - file: 11_outliers
+      - file: 12_feature_engineering

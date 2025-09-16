@@ -1,5 +1,5 @@
 
-# 👀 Visuals in Exploratory Data Analysis (EDA)
+# 👀 Visualisation
 
 Exploratory Data Analysis (EDA) is the process of **understanding data before modeling**.
 While statistics (like `.describe()`) give summaries, **visualizations reveal patterns, trends, and anomalies** that numbers alone can hide.
