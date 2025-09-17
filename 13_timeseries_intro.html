@@ -1,0 +1,2772 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>⏱️ Time series: trend, seasonality, decomposition. &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '13_timeseries_intro';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="⏱️ Time Series vs. 📌 Timestamped Data" href="ts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelling time series</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/13_timeseries_intro.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>⏱️ Time series: trend, seasonality, decomposition.</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-time-series">What is a Time Series?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calendar-index-hygiene">📅 Calendar &amp; Index Hygiene</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-data">Loading data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features-unique-to-time-series">⏱️ Features Unique to Time Series</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-step-features-calendar-index-based">Time-Step Features (Calendar/Index-Based) 📅</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-features-value-based">Lag Features (Value-Based) 🔁</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tools">Tools</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lags-and-shifts">🔁 Lags and shifts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-lags-in-energy-data">📌 Typical Lags in Energy Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-notation">🧮 Mathematical Notation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#causality-and-leakage">⚠️ Causality and Leakage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-example">⚡ Energy Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-statistics-moving-averages">📊 Rolling Statistics (Moving Averages)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-form-simple-moving-average">🔢 Mathematical Form (Simple Moving Average)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-window-sizes">📅 Choosing Window Sizes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-watch-out-for">⚠️ Things to Watch Out For</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-3-month-moving-average-3ma">📊 What is a 3-Month Moving Average (3MA)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formula">🔢 Formula</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-decomposition">🧮 Relation to Decomposition</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-5-point-moving-average-5ma">📊 What is a 5-Point Moving Average (5MA)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">🔢 Formula</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#role-in-decomposition">🧮 Role in Decomposition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">⚠️ Things to Watch Out For</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-24-moving-average-24ma">📊 What is a 2×4 Moving Average (2×4MA)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">🔢 Formula</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example">⚡ Example</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">🧮 Role in Decomposition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">⚠️ Things to Watch Out For</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#components-trend-seasonality-cycles-irregular">🧩 Components: Trend • Seasonality • Cycles • Irregular</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additive-vs-multiplicative-patterns">🪄 Additive vs Multiplicative Patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-why-visualize-it">🧱 Decomposition: Why Visualize It?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#trend">📈 Trend</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-engineer-trend-features">How to engineer trend features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-with-a-time-step-feature">📈 Linear Regression with a Time-Step Feature</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministicprocess">DeterministicProcess</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-trend">Linear trend</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-linear-trend">Non-linear trend</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trend-from-seasonal-decomposition">Trend from seasonal decomposition</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonality">🧮 Seasonality</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-seasonality">🔹 What is Seasonality?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-seasonality">🔹 Types of Seasonality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#patterns">Patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonality-from-decomposition">Seasonality from decomposition</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-for-creating-demand-profiles">🤝 Clustering for Creating Demand Profiles</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">🔹 How it Works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weekly-profile">Weekly profile</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daily-profile">Daily profile</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estonian-consumption">Estonian consumption</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#de-trending-and-de-seasonalizing">🔧 De-Trending and De-Seasonalizing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#de-trending">📉 De-Trending</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#de-seasonalizing">🔁 De-Seasonalizing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">✅ Summary</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="time-series-trend-seasonality-decomposition">
+<h1>⏱️ Time series: trend, seasonality, decomposition.<a class="headerlink" href="#time-series-trend-seasonality-decomposition" title="Link to this heading">#</a></h1>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="what-is-a-time-series">
+<h1>What is a Time Series?<a class="headerlink" href="#what-is-a-time-series" title="Link to this heading">#</a></h1>
+<p>A <strong>time series</strong> is a set of observations collected at regular (or known) points in time. Unlike ordinary tables where row order doesn’t matter, <strong>order is everything</strong> here: values depend on what came before (autocorrelation). In energy, typical examples are <strong>hourly demand, wind output, PV irradiance, prices</strong>.</p>
+<section id="calendar-index-hygiene">
+<h2>📅 Calendar &amp; Index Hygiene<a class="headerlink" href="#calendar-index-hygiene" title="Link to this heading">#</a></h2>
+<p>Set a proper <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>, ensure <strong>regular frequency</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">freq='h'</span></code>), and verify time zone if relevant. Gaps or duplicated timestamps will <strong>break lags/rolling</strong> silently. Use:</p>
+<ul class="simple">
+<li><p><strong>Sorting</strong> by time before any lag/rolling.</p></li>
+<li><p><strong>Reindexing</strong> to the expected full range to surface missing hours.
+This avoids subtle data leakage later.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span><span class="p">,</span><span class="n">LinearSVR</span>
+
+
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.deterministic</span> <span class="kn">import</span> <span class="n">DeterministicProcess</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span class="n">seasonal_decompose</span>
+
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data">
+<h1>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h1>
+<section id="loading-data">
+<h2>Loading data<a class="headerlink" href="#loading-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">australia</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data/Australia_electricty_data.xlsx&#39;</span><span class="p">)</span>
+<span class="n">australia</span> <span class="o">=</span> <span class="n">australia</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">:</span><span class="s2">&quot;datetime&quot;</span><span class="p">,</span> <span class="s2">&quot;Electricity [GWh]&quot;</span><span class="p">:</span> <span class="s2">&quot;electricity&quot;</span><span class="p">})</span>
+<span class="n">australia</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#plt.style.use(&quot;seaborn-whitegrid&quot;)</span>
+<span class="c1">#plt.figure(figsize=(10,5))</span>
+<span class="c1">#p=sns.lineplot(data= australia);</span>
+<span class="c1">#p.set_ylabel(&quot;Consumption [GWh]&quot;, fontsize = 18);</span>
+<span class="c1">#p.set_xlabel(&quot;Quarters of the year&quot;, fontsize = 18);</span>
+<span class="c1">#plt.xticks(fontsize=12)</span>
+<span class="c1">#plt.yticks(fontsize=13)</span>
+<span class="c1">#plt.legend(&#39;&#39;, frameon=False);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crop</span>
+<span class="n">australia</span> <span class="o">=</span> <span class="n">australia</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1956-03-01&#39;</span><span class="p">:</span><span class="s1">&#39;1985-12-01&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png"><img alt="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png" src="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png" style="width: 1089px; height: 490px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elering</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/electricity-production and consumption_2022.csv&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">elering</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">elering</span><span class="p">[</span><span class="s1">&#39;Kuupaev (Eesti aeg)&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">demand</span> <span class="o">=</span> <span class="n">elering</span><span class="p">[[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;Tarbimine&#39;</span><span class="p">]]</span>
+<span class="n">demand</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Tarbimine&#39;</span><span class="p">:</span><span class="s1">&#39;demand&#39;</span><span class="p">})</span>
+<span class="n">demand</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>899.4</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>892.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>874.3</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>860.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>842.7</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="features-unique-to-time-series">
+<h1>⏱️ Features Unique to Time Series<a class="headerlink" href="#features-unique-to-time-series" title="Link to this heading">#</a></h1>
+<p>Unlike “ordinary” tabular data, time series have <strong>special structure</strong>: order and dependency in time. This gives rise to two <strong>unique kinds of features</strong>:</p>
+<hr class="docutils" />
+<section id="time-step-features-calendar-index-based">
+<h2>Time-Step Features (Calendar/Index-Based) 📅<a class="headerlink" href="#time-step-features-calendar-index-based" title="Link to this heading">#</a></h2>
+<p>These come directly from the <strong>timestamp</strong> of each observation, not from the values.</p>
+<hr class="docutils" />
+</section>
+<section id="lag-features-value-based">
+<h2>Lag Features (Value-Based) 🔁<a class="headerlink" href="#lag-features-value-based" title="Link to this heading">#</a></h2>
+<p>These use the <strong>past values of the target variable (or other variables)</strong> as predictors.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tools">
+<h1>Tools<a class="headerlink" href="#tools" title="Link to this heading">#</a></h1>
+<section id="lags-and-shifts">
+<h2>🔁 Lags and shifts<a class="headerlink" href="#lags-and-shifts" title="Link to this heading">#</a></h2>
+<p>Lags capture the <strong>memory</strong> of a time series — the idea that the <strong>present is influenced by the past</strong>. In energy systems, yesterday’s evening peak often predicts today’s evening peak, and last week’s Monday pattern is a good indicator for this week’s Monday.</p>
+<section id="typical-lags-in-energy-data">
+<h3>📌 Typical Lags in Energy Data<a class="headerlink" href="#typical-lags-in-energy-data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">lag1</span></code></strong> → one step back (1 hour ago). Useful for <strong>short-term persistence</strong>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">lag24</span></code></strong> → same hour yesterday. Captures <strong>daily cycles</strong> (day–night demand patterns).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">lag168</span></code></strong> → same hour last week. Captures <strong>weekly cycles</strong> (workdays vs weekends).</p></li>
+</ul>
+<p>💡 You can also create other domain-specific lags, e.g.:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lag720</span></code> (same hour last month) for monthly seasonality.</p></li>
+<li><p>Lagged weather features: yesterday’s average temperature may explain today’s heating demand.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="mathematical-notation">
+<h3>🧮 Mathematical Notation<a class="headerlink" href="#mathematical-notation" title="Link to this heading">#</a></h3>
+<p>The lecture introduces the <strong>backshift operator</strong> <span class="math notranslate nohighlight">\(B\)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(B y_t = y_{t-1}\)</span> → one-step lag</p></li>
+<li><p><span class="math notranslate nohighlight">\(B^{24} y_t = y_{t-24}\)</span> → daily lag</p></li>
+<li><p><span class="math notranslate nohighlight">\(B^{168} y_t = y_{t-168}\)</span> → weekly lag</p></li>
+</ul>
+<p>This compact notation helps define models like AR (autoregressive) processes:</p>
+<div class="math notranslate nohighlight">
+\[
+y_t = \phi_1 B y_t + \phi_2 B^2 y_t + \dots + \epsilon_t
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="causality-and-leakage">
+<h3>⚠️ Causality and Leakage<a class="headerlink" href="#causality-and-leakage" title="Link to this heading">#</a></h3>
+<p>Be strict about <strong>causality</strong>:</p>
+<ul class="simple">
+<li><p>Always use <strong>past values</strong> to predict the future.</p></li>
+<li><p>When you shift the series to create lags, the first rows will become <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p></li>
+<li><p>Drop those rows before training, otherwise you leak future information into the past.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="energy-example">
+<h3>⚡ Energy Example<a class="headerlink" href="#energy-example" title="Link to this heading">#</a></h3>
+<p>Suppose we want to forecast <strong>electricity demand at 18:00</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lag1</span></code> = demand at 17:00 (captures short persistence).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag24</span></code> = demand at 18:00 yesterday (captures daily cycle).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lag168</span></code> = demand at 18:00 one week ago (captures weekly cycle).</p></li>
+</ul>
+<p>These features together give the model a <strong>memory of recent and recurring patterns</strong>.</p>
+<hr class="docutils" />
+<p>✅ <strong>Summary:</strong></p>
+<ul class="simple">
+<li><p>Lag features = shifted copies of the series.</p></li>
+<li><p>Capture short-term memory (<code class="docutils literal notranslate"><span class="pre">lag1</span></code>), daily repetition (<code class="docutils literal notranslate"><span class="pre">lag24</span></code>), and weekly cycles (<code class="docutils literal notranslate"><span class="pre">lag168</span></code>).</p></li>
+<li><p>Use the backshift operator <span class="math notranslate nohighlight">\(B\)</span> to describe them mathematically.</p></li>
+<li><p>Always enforce causality by dropping rows with missing lags.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demand_lag1h</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">demand_lag1h</span> <span class="o">=</span> <span class="n">demand_lag1h</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span><span class="s1">&#39;lag1h&#39;</span><span class="p">})</span>
+<span class="n">demand_lags</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">demand_lag1h</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demand_lag2h</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">demand_lag2h</span> <span class="o">=</span> <span class="n">demand_lag2h</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span><span class="s1">&#39;lag2h&#39;</span><span class="p">})</span>
+<span class="n">demand_lags</span> <span class="o">=</span> <span class="n">demand_lags</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">demand_lag2h</span><span class="p">)</span>
+<span class="n">demand_lags</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>lag1h</th>
+      <th>lag2h</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>899.4</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>892.1</td>
+      <td>899.4</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>874.3</td>
+      <td>892.1</td>
+      <td>899.4</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>860.1</td>
+      <td>874.3</td>
+      <td>892.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>842.7</td>
+      <td>860.1</td>
+      <td>874.3</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 19:00:00</th>
+      <td>989.4</td>
+      <td>1042.8</td>
+      <td>1085.3</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 20:00:00</th>
+      <td>932.5</td>
+      <td>989.4</td>
+      <td>1042.8</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 21:00:00</th>
+      <td>889.5</td>
+      <td>932.5</td>
+      <td>989.4</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 22:00:00</th>
+      <td>846.5</td>
+      <td>889.5</td>
+      <td>932.5</td>
+    </tr>
+    <tr>
+      <th>2022-12-31 23:00:00</th>
+      <td>817.6</td>
+      <td>846.5</td>
+      <td>889.5</td>
+    </tr>
+  </tbody>
+</table>
+<p>8760 rows × 3 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="rolling-statistics-moving-averages">
+<h2>📊 Rolling Statistics (Moving Averages)<a class="headerlink" href="#rolling-statistics-moving-averages" title="Link to this heading">#</a></h2>
+<p>Rolling statistics are another way of giving a model <strong>context from the past</strong>, but instead of looking at a single lagged value, they summarize behavior over a <strong>window of time</strong>. This smooths out short-term fluctuations and reveals the <strong>underlying signal</strong>.</p>
+<hr class="docutils" />
+<section id="mathematical-form-simple-moving-average">
+<h3>🔢 Mathematical Form (Simple Moving Average)<a class="headerlink" href="#mathematical-form-simple-moving-average" title="Link to this heading">#</a></h3>
+<p>For a rolling mean with window size <span class="math notranslate nohighlight">\(w\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\overline{y}_{t,w} = \frac{1}{w}\sum_{i=0}^{w-1} y_{t-i}
+\]</div>
+<p>Example: if <span class="math notranslate nohighlight">\(w = 24\)</span>, the average of the last 24 hourly demands becomes the new feature.</p>
+</section>
+<hr class="docutils" />
+<section id="choosing-window-sizes">
+<h3>📅 Choosing Window Sizes<a class="headerlink" href="#choosing-window-sizes" title="Link to this heading">#</a></h3>
+<p>The window should reflect the <strong>operational cycle</strong> you want to capture:</p>
+<ul class="simple">
+<li><p><strong>24 (hours)</strong> → smooths intra-day fluctuations → daily baseline demand.</p></li>
+<li><p><strong>168 (hours)</strong> → smooths week-to-week variations → weekly load pattern.</p></li>
+<li><p><strong>720 (hours ≈ 30 days)</strong> → smooths monthly fluctuations.</p></li>
+</ul>
+<p><strong>Rule of thumb:</strong> start with domain knowledge (daily/weekly cycles in energy), then adjust based on data.</p>
+<hr class="docutils" />
+<section id="things-to-watch-out-for">
+<h4>⚠️ Things to Watch Out For<a class="headerlink" href="#things-to-watch-out-for" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Rolling features introduce <strong>NA values at the start</strong> of the series (drop them).</p></li>
+<li><p>Use <strong>causal windows</strong> (past only), not centered windows, to avoid leakage.</p></li>
+<li><p>Too large a window can smooth out important short-term variations.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">australia</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>electricity</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1956-03-01</th>
+      <td>3923</td>
+    </tr>
+    <tr>
+      <th>1956-06-01</th>
+      <td>4436</td>
+    </tr>
+    <tr>
+      <th>1956-09-01</th>
+      <td>4806</td>
+    </tr>
+    <tr>
+      <th>1956-12-01</th>
+      <td>4418</td>
+    </tr>
+    <tr>
+      <th>1957-03-01</th>
+      <td>4339</td>
+    </tr>
+    <tr>
+      <th>1957-06-01</th>
+      <td>4811</td>
+    </tr>
+    <tr>
+      <th>1957-09-01</th>
+      <td>5259</td>
+    </tr>
+    <tr>
+      <th>1957-12-01</th>
+      <td>4735</td>
+    </tr>
+    <tr>
+      <th>1958-03-01</th>
+      <td>4608</td>
+    </tr>
+    <tr>
+      <th>1958-06-01</th>
+      <td>5196</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="what-is-a-3-month-moving-average-3ma">
+<h3>📊 What is a 3-Month Moving Average (3MA)?<a class="headerlink" href="#what-is-a-3-month-moving-average-3ma" title="Link to this heading">#</a></h3>
+<p>A <strong>3-period moving average</strong> (3MA) smooths a time series by replacing each value with the <strong>average of itself and the two neighboring values</strong>.</p>
+<ul class="simple">
+<li><p>It reduces random fluctuations.</p></li>
+<li><p>It highlights the <strong>underlying trend</strong>.</p></li>
+<li><p>It’s especially common in <strong>monthly data</strong> (hence “3-month”), but the same idea applies to any frequency (3-day, 3-hour, etc.).</p></li>
+</ul>
+<hr class="docutils" />
+<section id="formula">
+<h4>🔢 Formula<a class="headerlink" href="#formula" title="Link to this heading">#</a></h4>
+<p>For a 3-point moving average, at time <span class="math notranslate nohighlight">\(t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+MA_t = \frac{y_{t-1} + y_t + y_{t+1}}{3}
+\]</div>
+<p>⚠️ This is a <strong>centered moving average</strong> — it uses one past, one present, and one future observation.</p>
+<p>For forecasting, we usually prefer a <strong>trailing moving average</strong> (past-only):</p>
+<div class="math notranslate nohighlight">
+\[
+MA_t = \frac{y_t + y_{t-1} + y_{t-2}}{3}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="relation-to-decomposition">
+<h4>🧮 Relation to Decomposition<a class="headerlink" href="#relation-to-decomposition" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>3MA is the simplest tool for <strong>trend extraction</strong>.</p></li>
+<li><p>In <strong>seasonal decomposition</strong>, longer MAs are used (e.g., 12MA for monthly data, 2×4MA for quarterly).</p></li>
+<li><p>Still, 3MA is a great entry point for teaching smoothing.</p></li>
+</ul>
+<hr class="docutils" />
+<p>✅ <strong>Summary:</strong></p>
+<ul class="simple">
+<li><p>3MA is a simple way to smooth noise and reveal the trend.</p></li>
+<li><p>Works on any frequency, but popular for monthly/quarterly data.</p></li>
+<li><p>Best for analysis and visualization, less for real-time forecasting.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma3</span> <span class="o">=</span> <span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ma3</span> <span class="o">=</span> <span class="n">ma3</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;electricity&#39;</span><span class="p">:</span><span class="s1">&#39;3-ma&#39;</span><span class="p">})</span>
+<span class="n">ma3</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">australia</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ma_ex</span> <span class="o">=</span> <span class="n">australia</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ma3</span><span class="p">)</span>
+<span class="n">ma_ex</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>electricity</th>
+      <th>3-ma</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1956-03-01</th>
+      <td>3923</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-06-01</th>
+      <td>4436</td>
+      <td>4388.33</td>
+    </tr>
+    <tr>
+      <th>1956-09-01</th>
+      <td>4806</td>
+      <td>4553.33</td>
+    </tr>
+    <tr>
+      <th>1956-12-01</th>
+      <td>4418</td>
+      <td>4521.00</td>
+    </tr>
+    <tr>
+      <th>1957-03-01</th>
+      <td>4339</td>
+      <td>4522.67</td>
+    </tr>
+    <tr>
+      <th>1957-06-01</th>
+      <td>4811</td>
+      <td>4803.00</td>
+    </tr>
+    <tr>
+      <th>1957-09-01</th>
+      <td>5259</td>
+      <td>4935.00</td>
+    </tr>
+    <tr>
+      <th>1957-12-01</th>
+      <td>4735</td>
+      <td>4867.33</td>
+    </tr>
+    <tr>
+      <th>1958-03-01</th>
+      <td>4608</td>
+      <td>4846.33</td>
+    </tr>
+    <tr>
+      <th>1958-06-01</th>
+      <td>5196</td>
+      <td>5137.67</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma_ex</span><span class="p">[[</span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span> <span class="s1">&#39;3-ma&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> 
+                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/7c4efd99fbe4a29d38a329f38dcb5c95a2543b3bbb9770e98184c0b392e1bd8b.png"><img alt="_images/7c4efd99fbe4a29d38a329f38dcb5c95a2543b3bbb9770e98184c0b392e1bd8b.png" src="_images/7c4efd99fbe4a29d38a329f38dcb5c95a2543b3bbb9770e98184c0b392e1bd8b.png" style="width: 1089px; height: 490px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section id="what-is-a-5-point-moving-average-5ma">
+<h3>📊 What is a 5-Point Moving Average (5MA)?<a class="headerlink" href="#what-is-a-5-point-moving-average-5ma" title="Link to this heading">#</a></h3>
+<p>A <strong>5-period moving average</strong> smooths a time series by averaging <strong>five consecutive values</strong>.</p>
+<ul class="simple">
+<li><p>It reduces noise more strongly than 3MA.</p></li>
+<li><p>It captures the <strong>trend</strong> while filtering out short-term fluctuations.</p></li>
+<li><p>It’s often used with <strong>monthly data</strong> (5-month average) or <strong>daily/hourly data</strong> (5-day or 5-hour average).</p></li>
+</ul>
+<hr class="docutils" />
+<section id="id1">
+<h4>🔢 Formula<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>For a <strong>centered 5MA</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+MA_t = \frac{y_{t-2} + y_{t-1} + y_t + y_{t+1} + y_{t+2}}{5}
+\]</div>
+<p>For a <strong>trailing 5MA</strong> (past-only, more useful for forecasting):</p>
+<div class="math notranslate nohighlight">
+\[
+MA_t = \frac{y_t + y_{t-1} + y_{t-2} + y_{t-3} + y_{t-4}}{5}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="role-in-decomposition">
+<h4>🧮 Role in Decomposition<a class="headerlink" href="#role-in-decomposition" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>5MA is more aggressive at smoothing than 3MA.</p></li>
+<li><p>Often used as an intermediate step before extracting seasonal effects.</p></li>
+<li><p>The longer the MA, the smoother the trend, but risk losing detail.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h4>⚠️ Things to Watch Out For<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Centered 5MA</strong> uses future values → good for analysis, not for forecasting.</p></li>
+<li><p><strong>Trailing 5MA</strong> is causal, but it lags behind the actual trend.</p></li>
+<li><p>Window length should reflect the <strong>dominant cycle</strong> (daily, weekly, seasonal).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma5</span> <span class="o">=</span> <span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">ma5</span> <span class="o">=</span> <span class="n">ma5</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;electricity&#39;</span><span class="p">:</span><span class="s1">&#39;5-ma&#39;</span><span class="p">})</span>
+<span class="n">ma5</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">australia</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ma_ex</span> <span class="o">=</span> <span class="n">ma_ex</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ma5</span><span class="p">)</span>
+<span class="n">ma_ex</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>electricity</th>
+      <th>3-ma</th>
+      <th>5-ma</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1956-03-01</th>
+      <td>3923</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-06-01</th>
+      <td>4436</td>
+      <td>4388.33</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-09-01</th>
+      <td>4806</td>
+      <td>4553.33</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-12-01</th>
+      <td>4418</td>
+      <td>4521.00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1957-03-01</th>
+      <td>4339</td>
+      <td>4522.67</td>
+      <td>4384.4</td>
+    </tr>
+    <tr>
+      <th>1957-06-01</th>
+      <td>4811</td>
+      <td>4803.00</td>
+      <td>4562.0</td>
+    </tr>
+    <tr>
+      <th>1957-09-01</th>
+      <td>5259</td>
+      <td>4935.00</td>
+      <td>4726.6</td>
+    </tr>
+    <tr>
+      <th>1957-12-01</th>
+      <td>4735</td>
+      <td>4867.33</td>
+      <td>4712.4</td>
+    </tr>
+    <tr>
+      <th>1958-03-01</th>
+      <td>4608</td>
+      <td>4846.33</td>
+      <td>4750.4</td>
+    </tr>
+    <tr>
+      <th>1958-06-01</th>
+      <td>5196</td>
+      <td>5137.67</td>
+      <td>4921.8</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma_ex</span><span class="p">[[</span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span> <span class="s1">&#39;5-ma&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> 
+                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/f72d0c0332542de140f3fcaf9bd6d2e1cba6489b75f055fac4a51d22eb21ab11.png"><img alt="_images/f72d0c0332542de140f3fcaf9bd6d2e1cba6489b75f055fac4a51d22eb21ab11.png" src="_images/f72d0c0332542de140f3fcaf9bd6d2e1cba6489b75f055fac4a51d22eb21ab11.png" style="width: 1089px; height: 490px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section id="what-is-a-24-moving-average-24ma">
+<h3>📊 What is a 2×4 Moving Average (2×4MA)?<a class="headerlink" href="#what-is-a-24-moving-average-24ma" title="Link to this heading">#</a></h3>
+<p>A <strong>2×4MA</strong> is a two-stage moving average:</p>
+<ol class="arabic simple">
+<li><p>First, take a <strong>4-point moving average</strong> (4MA).</p></li>
+<li><p>Then, take a <strong>2-point moving average</strong> of those results.</p></li>
+</ol>
+<p>This is often used with <strong>quarterly data</strong> to smooth seasonal fluctuations across a full year (4 quarters).</p>
+<hr class="docutils" />
+<section id="id3">
+<h4>🔢 Formula<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>Compute the 4MA:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+MA^{(4)}_t = \frac{y_{t-1} + y_t + y_{t+1} + y_{t+2}}{4}
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Then apply a 2MA:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+MA^{(2 \times 4)}_t = \frac{MA^{(4)}_{t} + MA^{(4)}_{t+1}}{2}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="example">
+<h4>⚡ Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h4>
+<p>Suppose we have <strong>quarterly electricity demand (TWh)</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Quarter</p></th>
+<th class="head"><p>Demand</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Q1</p></td>
+<td><p>120</p></td>
+</tr>
+<tr class="row-odd"><td><p>Q2</p></td>
+<td><p>140</p></td>
+</tr>
+<tr class="row-even"><td><p>Q3</p></td>
+<td><p>130</p></td>
+</tr>
+<tr class="row-odd"><td><p>Q4</p></td>
+<td><p>150</p></td>
+</tr>
+<tr class="row-even"><td><p>Q5</p></td>
+<td><p>160</p></td>
+</tr>
+<tr class="row-odd"><td><p>Q6</p></td>
+<td><p>170</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol class="arabic simple">
+<li><p>Compute 4MA (centered between quarters):</p></li>
+</ol>
+<ul class="simple">
+<li><p>4MA(Q2–Q5) = (140+130+150+160)/4 = 145</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Apply 2MA to adjacent 4MAs to re-center:</p></li>
+</ol>
+<ul class="simple">
+<li><p>2×4MA(Q3) = (4MA(Q2–Q5) + 4MA(Q3–Q6))/2</p></li>
+</ul>
+<p>Now the smoothed value is properly aligned with <strong>Q3</strong>, representing the annual trend-cycle at that quarter.</p>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h4>🧮 Role in Decomposition<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Quarterly data</strong> has 4 periods per year.</p></li>
+<li><p>To extract the <strong>trend-cycle</strong> (remove seasonality), a 4-quarter moving average is natural.</p></li>
+<li><p>But because 4 is even, we need the <strong>2×4MA</strong> to properly center.</p></li>
+<li><p>This method is central to <strong>classical decomposition</strong> (trend + seasonal + irregular).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h4>⚠️ Things to Watch Out For<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>2×4MA is <strong>centered</strong>, so it uses both past and future observations → good for analysis, not forecasting.</p></li>
+<li><p>For real-time forecasting, use <strong>trailing MAs</strong> instead.</p></li>
+</ul>
+<hr class="docutils" />
+<p>✅ <strong>Summary:</strong></p>
+<ul class="simple">
+<li><p>2×4MA = 4MA followed by 2MA → re-centers the moving average.</p></li>
+<li><p>Used with <strong>quarterly data</strong> to estimate the trend-cycle.</p></li>
+<li><p>Essential step in <strong>seasonal decomposition</strong> when the seasonal period is even.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma4</span> <span class="o">=</span> <span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">ma4</span> <span class="o">=</span> <span class="n">ma4</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;electricity&#39;</span><span class="p">:</span><span class="s1">&#39;4-ma&#39;</span><span class="p">})</span>
+<span class="n">ma4</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">australia</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ma_ex</span> <span class="o">=</span> <span class="n">ma_ex</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ma4</span><span class="p">)</span>
+<span class="n">ma_ex</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>electricity</th>
+      <th>3-ma</th>
+      <th>5-ma</th>
+      <th>4-ma</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1956-03-01</th>
+      <td>3923</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-06-01</th>
+      <td>4436</td>
+      <td>4388.33</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-09-01</th>
+      <td>4806</td>
+      <td>4553.33</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-12-01</th>
+      <td>4418</td>
+      <td>4521.00</td>
+      <td>NaN</td>
+      <td>4395.75</td>
+    </tr>
+    <tr>
+      <th>1957-03-01</th>
+      <td>4339</td>
+      <td>4522.67</td>
+      <td>4384.4</td>
+      <td>4499.75</td>
+    </tr>
+    <tr>
+      <th>1957-06-01</th>
+      <td>4811</td>
+      <td>4803.00</td>
+      <td>4562.0</td>
+      <td>4593.50</td>
+    </tr>
+    <tr>
+      <th>1957-09-01</th>
+      <td>5259</td>
+      <td>4935.00</td>
+      <td>4726.6</td>
+      <td>4706.75</td>
+    </tr>
+    <tr>
+      <th>1957-12-01</th>
+      <td>4735</td>
+      <td>4867.33</td>
+      <td>4712.4</td>
+      <td>4786.00</td>
+    </tr>
+    <tr>
+      <th>1958-03-01</th>
+      <td>4608</td>
+      <td>4846.33</td>
+      <td>4750.4</td>
+      <td>4853.25</td>
+    </tr>
+    <tr>
+      <th>1958-06-01</th>
+      <td>5196</td>
+      <td>5137.67</td>
+      <td>4921.8</td>
+      <td>4949.50</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma24</span> <span class="o">=</span> <span class="n">ma_ex</span><span class="p">[</span><span class="s1">&#39;4-ma&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">ma24</span> <span class="o">=</span> <span class="n">ma24</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;4-ma&#39;</span><span class="p">:</span><span class="s1">&#39;2x4-ma&#39;</span><span class="p">})</span>
+<span class="n">ma24</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">australia</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ma_ex</span> <span class="o">=</span> <span class="n">ma_ex</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ma24</span><span class="p">)</span>
+<span class="n">ma_ex</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>electricity</th>
+      <th>3-ma</th>
+      <th>5-ma</th>
+      <th>4-ma</th>
+      <th>2x4-ma</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1956-03-01</th>
+      <td>3923</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-06-01</th>
+      <td>4436</td>
+      <td>4388.33</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-09-01</th>
+      <td>4806</td>
+      <td>4553.33</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1956-12-01</th>
+      <td>4418</td>
+      <td>4521.00</td>
+      <td>NaN</td>
+      <td>4395.75</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1957-03-01</th>
+      <td>4339</td>
+      <td>4522.67</td>
+      <td>4384.4</td>
+      <td>4499.75</td>
+      <td>4447.75</td>
+    </tr>
+    <tr>
+      <th>1957-06-01</th>
+      <td>4811</td>
+      <td>4803.00</td>
+      <td>4562.0</td>
+      <td>4593.50</td>
+      <td>4546.62</td>
+    </tr>
+    <tr>
+      <th>1957-09-01</th>
+      <td>5259</td>
+      <td>4935.00</td>
+      <td>4726.6</td>
+      <td>4706.75</td>
+      <td>4650.12</td>
+    </tr>
+    <tr>
+      <th>1957-12-01</th>
+      <td>4735</td>
+      <td>4867.33</td>
+      <td>4712.4</td>
+      <td>4786.00</td>
+      <td>4746.38</td>
+    </tr>
+    <tr>
+      <th>1958-03-01</th>
+      <td>4608</td>
+      <td>4846.33</td>
+      <td>4750.4</td>
+      <td>4853.25</td>
+      <td>4819.62</td>
+    </tr>
+    <tr>
+      <th>1958-06-01</th>
+      <td>5196</td>
+      <td>5137.67</td>
+      <td>4921.8</td>
+      <td>4949.50</td>
+      <td>4901.38</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma_ex</span><span class="p">[[</span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span> <span class="s1">&#39;2x4-ma&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> 
+                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/a778a8cb22ccfb94bd35ab0ae3282dcb14066ba3556b71eac6cf859a422cc703.png"><img alt="_images/a778a8cb22ccfb94bd35ab0ae3282dcb14066ba3556b71eac6cf859a422cc703.png" src="_images/a778a8cb22ccfb94bd35ab0ae3282dcb14066ba3556b71eac6cf859a422cc703.png" style="width: 1089px; height: 490px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="components-trend-seasonality-cycles-irregular">
+<h1>🧩 Components: Trend • Seasonality • Cycles • Irregular<a class="headerlink" href="#components-trend-seasonality-cycles-irregular" title="Link to this heading">#</a></h1>
+<p>Decompose a series into:</p>
+<ul class="simple">
+<li><p><strong>Trend</strong>: long-run increase/decrease (e.g., electrification).</p></li>
+<li><p><strong>Seasonality</strong>: fixed-frequency patterns (hourly/daily/weekly/annual).</p></li>
+<li><p><strong>Cycle</strong>: recurring but not fixed-length (e.g., business cycles).</p></li>
+<li><p><strong>Irregular</strong>: shocks, holidays, outages.
+Knowing your components guides <strong>features</strong> and <strong>models</strong> (seasonal lags, holiday flags).</p></li>
+</ul>
+<hr class="docutils" />
+<section id="additive-vs-multiplicative-patterns">
+<h2>🪄 Additive vs Multiplicative Patterns<a class="headerlink" href="#additive-vs-multiplicative-patterns" title="Link to this heading">#</a></h2>
+<p>If seasonal amplitude is roughly <strong>constant</strong>, an <strong>additive</strong> view fits: <span class="math notranslate nohighlight">\(y_t = T_t + S_t + R_t\)</span>.
+If amplitude <strong>scales with level</strong>, prefer <strong>multiplicative</strong>: <span class="math notranslate nohighlight">\(y_t = T_t \times S_t \times R_t\)</span>.
+A log transform converts multiplicative relations to additive, making them easier to model or decompose.</p>
+</section>
+<section id="decomposition-why-visualize-it">
+<h2>🧱 Decomposition: Why Visualize It?<a class="headerlink" href="#decomposition-why-visualize-it" title="Link to this heading">#</a></h2>
+<p>Decomposition (trend/seasonal/remainder) explains <strong>why</strong> your model needs certain features:</p>
+<ul class="simple">
+<li><p>Large seasonal component → use <strong>seasonal lags</strong> and <strong>cyclical encodings</strong>.</p></li>
+<li><p>Strong trend → consider <strong>differencing</strong> or trend features.</p></li>
+<li><p>Large remainder → consider <strong>holiday/outage</strong> flags.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1500x500 with 0 Axes&gt;
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/f89fb6e96401da95ab958e234ea631b19e2f1398d5ce25a7b8d21c905611f6ce.png"><img alt="_images/f89fb6e96401da95ab958e234ea631b19e2f1398d5ce25a7b8d21c905611f6ce.png" src="_images/f89fb6e96401da95ab958e234ea631b19e2f1398d5ce25a7b8d21c905611f6ce.png" style="width: 1491px; height: 488px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="trend">
+<h1>📈 Trend<a class="headerlink" href="#trend" title="Link to this heading">#</a></h1>
+<p><strong>Definition:</strong> Features that capture the <strong>long-term increase or decrease</strong> in the series.</p>
+<p>Trends reflect <strong>structural changes</strong> in energy systems:</p>
+<ul class="simple">
+<li><p>📉 Decline in fossil fuel usage.</p></li>
+<li><p>📈 Growth in electrification, EV adoption, and heat pumps.</p></li>
+<li><p>💶 Energy prices drifting upward due to market conditions.</p></li>
+</ul>
+<section id="how-to-engineer-trend-features">
+<h2>How to engineer trend features<a class="headerlink" href="#how-to-engineer-trend-features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Time index as a numeric variable</strong> → e.g., days since start.</p></li>
+<li><p><strong>Rolling averages</strong> → smooth out short-term noise to highlight trend.</p></li>
+<li><p><strong>Detrending</strong> → remove trend first, then model residuals.</p></li>
+<li><p><strong>Polynomial trend terms</strong> → quadratic or cubic trends if growth is nonlinear.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">australia</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+<span class="n">australia</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>electricity</th>
+      <th>time</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1956-03-01</th>
+      <td>3923</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1956-06-01</th>
+      <td>4436</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1956-09-01</th>
+      <td>4806</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1956-12-01</th>
+      <td>4418</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1957-03-01</th>
+      <td>4339</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="linear-regression-with-a-time-step-feature">
+<h2>📈 Linear Regression with a Time-Step Feature<a class="headerlink" href="#linear-regression-with-a-time-step-feature" title="Link to this heading">#</a></h2>
+<p>One of the simplest ways to capture <strong>trend</strong> in a time series is by using <strong>time itself as a predictor</strong>.</p>
+<p>We assume the target evolves approximately as a <strong>linear function of time</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+y_t = \text{weight} \times t + \text{bias} + \epsilon_t
+\]</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">(t)</span></code> → the time-step feature (e.g., hours since start).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">weight</span></code> → slope, representing the <strong>rate of change</strong> (trend).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bias</span></code> → intercept, the baseline level at the start.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ε</span></code> → error term (irregular fluctuations not explained by trend).</p></li>
+</ul>
+<p>✅ <strong>Summary</strong></p>
+<ul class="simple">
+<li><p>Linear regression on a time-step feature = modeling the <strong>trend component</strong>.</p></li>
+<li><p>Useful as a <strong>baseline model</strong>.</p></li>
+<li><p>Limitations: can’t capture seasonality or nonlinear patterns, but easy to interpret.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plt.style.use(&quot;seaborn-whitegrid&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span>
+    <span class="s2">&quot;figure&quot;</span><span class="p">,</span>
+    <span class="n">autolayout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">titlesize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">titleweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span>
+    <span class="s2">&quot;axes&quot;</span><span class="p">,</span>
+    <span class="n">labelweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+    <span class="n">labelsize</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">,</span>
+    <span class="n">titleweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+    <span class="n">titlesize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">titlepad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;electricity&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">australia</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.75&#39;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">australia</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scatter_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.25&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Time Plot of Electricity&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/2bab3dd224c324b80833b7fbd386d44c16f4e175956801d104e90545a5a7f033.png"><img alt="_images/2bab3dd224c324b80833b7fbd386d44c16f4e175956801d104e90545a5a7f033.png" src="_images/2bab3dd224c324b80833b7fbd386d44c16f4e175956801d104e90545a5a7f033.png" style="width: 1489px; height: 490px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training data</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">australia</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>  <span class="c1"># features</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">australia</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;electricity&#39;</span><span class="p">]</span>  <span class="c1"># target</span>
+
+<span class="c1"># Train the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Store the fitted values as a time series with the same time index as</span>
+<span class="c1"># the training data</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Slope :&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Intercept Value:&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope : [230.78789499]
+
+Intercept Value: 1530.4702479338812
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="deterministicprocess">
+<h2>DeterministicProcess<a class="headerlink" href="#deterministicprocess" title="Link to this heading">#</a></h2>
+<section id="linear-trend">
+<h3>Linear trend<a class="headerlink" href="#linear-trend" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dp</span> <span class="o">=</span> <span class="n">DeterministicProcess</span><span class="p">(</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">australia</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>  <span class="c1"># dates from the training data</span>
+    <span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>       <span class="c1"># dummy feature for the bias (y_intercept)</span>
+    <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>             <span class="c1"># the time dummy (trend)</span>
+    <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># drop terms if necessary to avoid collinearity</span>
+<span class="p">)</span>
+<span class="c1"># `in_sample` creates features for the dates given in the `index` argument</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">in_sample</span><span class="p">()</span>
+
+<span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>const</th>
+      <th>trend</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1956-03-01</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1956-06-01</th>
+      <td>1.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1956-09-01</th>
+      <td>1.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>1956-12-01</th>
+      <td>1.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>1957-03-01</th>
+      <td>1.0</td>
+      <td>5.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">australia</span><span class="p">[</span><span class="s2">&quot;electricity&quot;</span><span class="p">]</span>  <span class="c1"># the target</span>
+
+<span class="c1"># The intercept is the same as the `const` feature from</span>
+<span class="c1"># DeterministicProcess. LinearRegression behaves badly with duplicated</span>
+<span class="c1"># features, so we need to be sure to exclude it here.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Electricity - Linear Trend&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Trend&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/108b50bb5e3a516ba0e46631d5e01dd11d5d6586f02a82032ac63a57004004e4.png"><img alt="_images/108b50bb5e3a516ba0e46631d5e01dd11d5d6586f02a82032ac63a57004004e4.png" src="_images/108b50bb5e3a516ba0e46631d5e01dd11d5d6586f02a82032ac63a57004004e4.png" style="width: 1489px; height: 490px;" />
+</a>
+</div>
+</div>
+</section>
+<section id="non-linear-trend">
+<h3>Non-linear trend<a class="headerlink" href="#non-linear-trend" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dp</span> <span class="o">=</span> <span class="n">DeterministicProcess</span><span class="p">(</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">australia</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>  <span class="c1"># dates from the training data</span>
+    <span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>       <span class="c1"># dummy feature for the bias (y_intercept)</span>
+    <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>             <span class="c1"># the time dummy (trend)</span>
+    <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># drop terms if necessary to avoid collinearity</span>
+<span class="p">)</span>
+<span class="c1"># `in_sample` creates features for the dates given in the `index` argument</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">in_sample</span><span class="p">()</span>
+
+<span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>const</th>
+      <th>trend</th>
+      <th>trend_squared</th>
+      <th>trend_cubed</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1956-03-01</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1956-06-01</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>1956-09-01</th>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>9.0</td>
+      <td>27.0</td>
+    </tr>
+    <tr>
+      <th>1956-12-01</th>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>16.0</td>
+      <td>64.0</td>
+    </tr>
+    <tr>
+      <th>1957-03-01</th>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>25.0</td>
+      <td>125.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">australia</span><span class="p">[</span><span class="s2">&quot;electricity&quot;</span><span class="p">]</span>  <span class="c1"># the target</span>
+
+<span class="c1"># The intercept is the same as the `const` feature from</span>
+<span class="c1"># DeterministicProcess. LinearRegression behaves badly with duplicated</span>
+<span class="c1"># features, so we need to be sure to exclude it here.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Electricity - Non-linear Trend&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Trend&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/b13e1a011b9e36ac017461d980a732e379c427ea3bde26cc55bfd2530fd28657.png"><img alt="_images/b13e1a011b9e36ac017461d980a732e379c427ea3bde26cc55bfd2530fd28657.png" src="_images/b13e1a011b9e36ac017461d980a732e379c427ea3bde26cc55bfd2530fd28657.png" style="width: 1489px; height: 490px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section id="trend-from-seasonal-decomposition">
+<h2>Trend from seasonal decomposition<a class="headerlink" href="#trend-from-seasonal-decomposition" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">=</span><span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1">#fig=result.plot()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">result</span><span class="o">.</span><span class="n">trend</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/74831125f3bac78d4102103fc3d286748a21babbf78127123f231113c011863a.png"><img alt="_images/74831125f3bac78d4102103fc3d286748a21babbf78127123f231113c011863a.png" src="_images/74831125f3bac78d4102103fc3d286748a21babbf78127123f231113c011863a.png" style="width: 1489px; height: 490px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="seasonality">
+<h1>🧮 Seasonality<a class="headerlink" href="#seasonality" title="Link to this heading">#</a></h1>
+<p><strong>Seasonality</strong> refers to <strong>repeated patterns</strong> in a time series that occur at <strong>regular intervals</strong>. Unlike trend (which is long-term drift), seasonality is <strong>cyclical and predictable</strong>.</p>
+<hr class="docutils" />
+<section id="what-is-seasonality">
+<h2>🔹 What is Seasonality?<a class="headerlink" href="#what-is-seasonality" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A <strong>systematic, calendar-related movement</strong> in data.</p></li>
+<li><p>Patterns repeat after a <strong>fixed period</strong>: hourly, daily, weekly, yearly.</p></li>
+<li><p>Driven by human activity, nature, or markets.</p></li>
+</ul>
+<p>Mathematically:</p>
+<div class="math notranslate nohighlight">
+\[
+y_t = T_t + S_t + R_t
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(S_t\)</span> is the seasonal component.</p>
+<hr class="docutils" />
+</section>
+<section id="types-of-seasonality">
+<h2>🔹 Types of Seasonality<a class="headerlink" href="#types-of-seasonality" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Daily (intraday)</strong> → electricity demand peaks in morning &amp; evening, drops at night.</p></li>
+<li><p><strong>Weekly</strong> → weekdays (higher demand) vs weekends (lower demand).</p></li>
+<li><p><strong>Annual</strong> → winter heating, summer cooling, holiday effects.</p></li>
+</ol>
+</section>
+<section id="patterns">
+<h2>Patterns<a class="headerlink" href="#patterns" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Hour&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">);</span>
+    
+<span class="n">weeks</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">demand</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;W&#39;</span><span class="p">))]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">weeks</span><span class="p">)):</span>
+    <span class="n">weeks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">weeks</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>      
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/0a87bb93a371f15b3adf5e95dbaf8bf460a0170a6a47aa91ae117ed359ea0730.png"><img alt="_images/0a87bb93a371f15b3adf5e95dbaf8bf460a0170a6a47aa91ae117ed359ea0730.png" src="_images/0a87bb93a371f15b3adf5e95dbaf8bf460a0170a6a47aa91ae117ed359ea0730.png" style="width: 1489px; height: 490px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Hour&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">);</span>
+    
+<span class="n">weeks</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">demand</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;D&#39;</span><span class="p">))]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">weeks</span><span class="p">)):</span>
+    <span class="n">weeks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">weeks</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>      
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/7b797705d486eb1b94a14e0a29270c6345420bc0fea758149493a8a27c0695d7.png"><img alt="_images/7b797705d486eb1b94a14e0a29270c6345420bc0fea758149493a8a27c0695d7.png" src="_images/7b797705d486eb1b94a14e0a29270c6345420bc0fea758149493a8a27c0695d7.png" style="width: 990px; height: 490px;" />
+</a>
+</div>
+</div>
+</section>
+<section id="seasonality-from-decomposition">
+<h2>Seasonality from decomposition<a class="headerlink" href="#seasonality-from-decomposition" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">=</span><span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">24</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">result</span><span class="o">.</span><span class="n">seasonal</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/728b4c65088a9c061011a95f9231549e9c1fe1f17da771291c953dd178be1cb6.png"><img alt="_images/728b4c65088a9c061011a95f9231549e9c1fe1f17da771291c953dd178be1cb6.png" src="_images/728b4c65088a9c061011a95f9231549e9c1fe1f17da771291c953dd178be1cb6.png" style="width: 1990px; height: 489px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="clustering-for-creating-demand-profiles">
+<h1>🤝 Clustering for Creating Demand Profiles<a class="headerlink" href="#clustering-for-creating-demand-profiles" title="Link to this heading">#</a></h1>
+<p>Clustering groups <strong>similar days (or hours)</strong> together, so we can discover <strong>typical demand patterns</strong>. This is especially useful in energy:</p>
+<ul class="simple">
+<li><p>⚡ To identify <strong>typical daily load shapes</strong> (e.g., weekdays vs weekends).</p></li>
+<li><p>🏠 To classify customers by <strong>consumption behavior</strong>.</p></li>
+<li><p>📊 To reduce data complexity by summarizing demand into a few representative clusters.</p></li>
+</ul>
+<hr class="docutils" />
+<section id="how-it-works">
+<h2>🔹 How it Works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Prepare the data</strong>:</p>
+<ul class="simple">
+<li><p>Take daily demand curves (e.g., 24 hourly values per day).</p></li>
+<li><p>Normalize each day (so clustering is about <em>shape</em>, not absolute size).</p></li>
+</ul>
+</li>
+<li><p><strong>Apply a clustering algorithm</strong>:</p>
+<ul class="simple">
+<li><p><strong>K-Means</strong> (most common) → finds <code class="docutils literal notranslate"><span class="pre">k</span></code> typical demand profiles.</p></li>
+<li><p><strong>Hierarchical clustering</strong> → builds a tree of profiles.</p></li>
+<li><p><strong>DBSCAN</strong> → detects irregular demand days as anomalies.</p></li>
+</ul>
+</li>
+<li><p><strong>Interpret clusters</strong>:</p>
+<ul class="simple">
+<li><p>Each cluster represents a <strong>profile</strong> (e.g., “workday”, “weekend”, “holiday”).</p></li>
+<li><p>The cluster centers = <strong>typical demand shapes</strong>.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="weekly-profile">
+<h2>Weekly profile<a class="headerlink" href="#weekly-profile" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+
+<span class="k">def</span> <span class="nf">plot_clusters</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="n">periods</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span> <span class="o">=</span> <span class="n">f</span><span class="p">))]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">periods</span><span class="p">)):</span>
+        <span class="n">periods</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">periods</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="n">periods</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">periods</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">cluster_found</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">cluster_values</span><span class="p">,</span> <span class="n">cluster_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+    <span class="n">cluster_found_sr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">cluster_found</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">cluster_found_sr</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span> <span class="p">)</span>
+
+
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">color_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;cyan&#39;</span><span class="p">]</span>
+    <span class="n">color_list</span> <span class="o">=</span> <span class="n">color_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:(</span><span class="n">c</span><span class="p">)]</span>
+   
+
+    
+    <span class="k">for</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cluster_values</span><span class="p">,</span> <span class="n">color_list</span><span class="p">):</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.050</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Cluster </span><span class="si">{</span><span class="n">cluster</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="p">)</span>
+        
+        <span class="n">median_centroid</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+        
+        <span class="n">median_centroid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span>
+        <span class="p">)</span>
+        
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">plt</span><span class="p">;</span>
+
+<span class="n">plot_clusters</span><span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="s1">&#39;Demand&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/1b24f3a04c576d4594b8380c2168df7bdf9a2aa37516ec3ac226a3d536f78fa7.png"><img alt="_images/1b24f3a04c576d4594b8380c2168df7bdf9a2aa37516ec3ac226a3d536f78fa7.png" src="_images/1b24f3a04c576d4594b8380c2168df7bdf9a2aa37516ec3ac226a3d536f78fa7.png" style="width: 1989px; height: 989px;" />
+</a>
+</div>
+</div>
+</section>
+<section id="daily-profile">
+<h2>Daily profile<a class="headerlink" href="#daily-profile" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_clusters</span><span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="s1">&#39;Consumption&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/6268fc055157b043d3095668461465cc59f6f0b8cdb2519e2a86fd0a3fc3b371.png"><img alt="_images/6268fc055157b043d3095668461465cc59f6f0b8cdb2519e2a86fd0a3fc3b371.png" src="_images/6268fc055157b043d3095668461465cc59f6f0b8cdb2519e2a86fd0a3fc3b371.png" style="width: 1989px; height: 989px;" />
+</a>
+</div>
+</div>
+</section>
+<section id="estonian-consumption">
+<h2>Estonian consumption<a class="headerlink" href="#estonian-consumption" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="de-trending-and-de-seasonalizing">
+<h1>🔧 De-Trending and De-Seasonalizing<a class="headerlink" href="#de-trending-and-de-seasonalizing" title="Link to this heading">#</a></h1>
+<p>Many forecasting models (like ARIMA, regression, or ML methods) work best when the time series is <strong>stationary</strong> — meaning its statistical properties (mean, variance) don’t change over time.</p>
+<ul class="simple">
+<li><p>📉 <strong>Trend</strong> → long-term increase or decrease in the series.</p></li>
+<li><p>🔁 <strong>Seasonality</strong> → repeating patterns (daily, weekly, yearly).
+Removing these components = <strong>detrending</strong> and <strong>deseasonalizing</strong>.</p></li>
+</ul>
+<hr class="docutils" />
+<section id="de-trending">
+<h2>📉 De-Trending<a class="headerlink" href="#de-trending" title="Link to this heading">#</a></h2>
+<p><strong>Goal:</strong> Remove the long-term upward/downward drift.</p>
+<section id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>Differencing:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+  y'_t = y_t - y_{t-1}
+  \]</div>
+<p>Removes linear trend by taking first differences.</p>
+</li>
+<li><p><strong>Regression on time:</strong>
+Fit <span class="math notranslate nohighlight">\(y_t = a \cdot t + b\)</span>, then subtract the fitted trend.</p></li>
+<li><p><strong>Moving averages:</strong>
+Use rolling mean to estimate trend, subtract it from the original series.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">australia</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>electricity</th>
+      <th>time</th>
+    </tr>
+    <tr>
+      <th>datetime</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1956-03-01</th>
+      <td>3923</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1956-06-01</th>
+      <td>4436</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1956-09-01</th>
+      <td>4806</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1956-12-01</th>
+      <td>4418</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1957-03-01</th>
+      <td>4339</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1957-06-01</th>
+      <td>4811</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1957-09-01</th>
+      <td>5259</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1957-12-01</th>
+      <td>4735</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>1958-03-01</th>
+      <td>4608</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>1958-06-01</th>
+      <td>5196</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png"><img alt="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png" src="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png" style="width: 1089px; height: 490px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">au_result</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">au_result</span><span class="o">.</span><span class="n">trend</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/04f366f0cc2eb73bdc9d38d867ee9c8653f26a3c10925b9a3b132c51867da185.png"><img alt="_images/04f366f0cc2eb73bdc9d38d867ee9c8653f26a3c10925b9a3b132c51867da185.png" src="_images/04f366f0cc2eb73bdc9d38d867ee9c8653f26a3c10925b9a3b132c51867da185.png" style="width: 1089px; height: 490px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">de_trend</span> <span class="o">=</span> <span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">-</span> <span class="n">au_result</span><span class="o">.</span><span class="n">trend</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">de_trend</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;De-trended&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/d07430b868700d10cdc97c1a6e32b34e67fd3e78d049ce28c11787aca604d21d.png"><img alt="_images/d07430b868700d10cdc97c1a6e32b34e67fd3e78d049ce28c11787aca604d21d.png" src="_images/d07430b868700d10cdc97c1a6e32b34e67fd3e78d049ce28c11787aca604d21d.png" style="width: 1089px; height: 490px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<section id="de-seasonalizing">
+<h2>🔁 De-Seasonalizing<a class="headerlink" href="#de-seasonalizing" title="Link to this heading">#</a></h2>
+<p><strong>Goal:</strong> Remove repeating cycles (daily, weekly, annual).</p>
+<section id="id6">
+<h3>Methods<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>Seasonal differencing:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+  y'_t = y_t - y_{t-s}
+  \]</div>
+<p>where <span class="math notranslate nohighlight">\(s\)</span> is the seasonal period (24 for daily, 168 for weekly).</p>
+</li>
+<li><p><strong>Divide by seasonal indices:</strong>
+Estimate seasonal factors (e.g., average demand by month), then divide the series by them.</p></li>
+<li><p><strong>Classical decomposition (additive/multiplicative):</strong>
+Separate series into trend + seasonal + remainder.</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">au_result</span><span class="o">.</span><span class="n">seasonal</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/901caa6609b80acbaec11fb290b081d08ceab01689c11fc3e7b107d1adc200c7.png"><img alt="_images/901caa6609b80acbaec11fb290b081d08ceab01689c11fc3e7b107d1adc200c7.png" src="_images/901caa6609b80acbaec11fb290b081d08ceab01689c11fc3e7b107d1adc200c7.png" style="width: 1089px; height: 490px;" />
+</a>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">de_trend</span> <span class="o">=</span> <span class="n">de_trend</span> <span class="o">-</span> <span class="n">au_result</span><span class="o">.</span><span class="n">seasonal</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">de_trend</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;De-seasoned&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="_images/93a9265c315bab1f6a18c504eb6301722fb378003beb1ff0af6d50578726633a.png"><img alt="_images/93a9265c315bab1f6a18c504eb6301722fb378003beb1ff0af6d50578726633a.png" src="_images/93a9265c315bab1f6a18c504eb6301722fb378003beb1ff0af6d50578726633a.png" style="width: 1089px; height: 490px;" />
+</a>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>✅ Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>De-trending</strong> removes long-term growth/decline.</p></li>
+<li><p><strong>De-seasonalizing</strong> removes repeating patterns.</p></li>
+<li><p>Both steps help models focus on <strong>stationary residuals</strong>, which are easier to forecast.</p></li>
+<li><p>Once forecasting is done, you can <strong>add back the trend and seasonality</strong> to reconstruct final predictions.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">⏱️ Time Series vs. 📌 Timestamped Data</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-time-series">What is a Time Series?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calendar-index-hygiene">📅 Calendar &amp; Index Hygiene</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-data">Loading data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features-unique-to-time-series">⏱️ Features Unique to Time Series</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-step-features-calendar-index-based">Time-Step Features (Calendar/Index-Based) 📅</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-features-value-based">Lag Features (Value-Based) 🔁</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tools">Tools</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lags-and-shifts">🔁 Lags and shifts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-lags-in-energy-data">📌 Typical Lags in Energy Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-notation">🧮 Mathematical Notation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#causality-and-leakage">⚠️ Causality and Leakage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-example">⚡ Energy Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-statistics-moving-averages">📊 Rolling Statistics (Moving Averages)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-form-simple-moving-average">🔢 Mathematical Form (Simple Moving Average)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-window-sizes">📅 Choosing Window Sizes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-watch-out-for">⚠️ Things to Watch Out For</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-3-month-moving-average-3ma">📊 What is a 3-Month Moving Average (3MA)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formula">🔢 Formula</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-decomposition">🧮 Relation to Decomposition</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-5-point-moving-average-5ma">📊 What is a 5-Point Moving Average (5MA)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">🔢 Formula</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#role-in-decomposition">🧮 Role in Decomposition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">⚠️ Things to Watch Out For</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-24-moving-average-24ma">📊 What is a 2×4 Moving Average (2×4MA)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">🔢 Formula</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example">⚡ Example</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">🧮 Role in Decomposition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">⚠️ Things to Watch Out For</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#components-trend-seasonality-cycles-irregular">🧩 Components: Trend • Seasonality • Cycles • Irregular</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additive-vs-multiplicative-patterns">🪄 Additive vs Multiplicative Patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-why-visualize-it">🧱 Decomposition: Why Visualize It?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#trend">📈 Trend</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-engineer-trend-features">How to engineer trend features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-with-a-time-step-feature">📈 Linear Regression with a Time-Step Feature</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deterministicprocess">DeterministicProcess</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-trend">Linear trend</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-linear-trend">Non-linear trend</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trend-from-seasonal-decomposition">Trend from seasonal decomposition</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonality">🧮 Seasonality</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-seasonality">🔹 What is Seasonality?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-seasonality">🔹 Types of Seasonality</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#patterns">Patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonality-from-decomposition">Seasonality from decomposition</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-for-creating-demand-profiles">🤝 Clustering for Creating Demand Profiles</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">🔹 How it Works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weekly-profile">Weekly profile</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daily-profile">Daily profile</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estonian-consumption">Estonian consumption</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#de-trending-and-de-seasonalizing">🔧 De-Trending and De-Seasonalizing</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#de-trending">📉 De-Trending</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#de-seasonalizing">🔁 De-Seasonalizing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">✅ Summary</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
