@@ -250,6 +250,9 @@
 
 
 
+
+
+
 <li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
 
 
@@ -312,7 +315,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelling time series</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_timeseries_intro.html">Time series: trend, seasonality, decomposition.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
 
 
 
@@ -485,15 +488,57 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-tips">✅ Key Tips</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#area-plots">🌈 Area Plots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use">When to use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-avoid">When to avoid</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-basic-area-single-series">Example 1 — Basic area (single series)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-stacked-area-multiple-series">Example 2 — Stacked area (multiple series)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-100-stacked-area-share-over-time">Example 3 — 100% stacked area (share over time)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-seaborn-styling-for-area">Example 4 — Seaborn styling for area</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-cumulative-area-month-to-date-energy">Example 5 — Cumulative area (month-to-date energy)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-gaps-negatives">Handling gaps &amp; negatives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readability-tips">Readability tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-figure">Save the figure</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pie-charts">🥧 Pie Charts</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">When to use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">When to avoid</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-basic-pie-matplotlib">Example 1 — Basic pie (Matplotlib)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-donut-ring-chart">Example 2 — Donut (ring) chart</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-nested-donut-two-levels">Example 3 — Nested donut (two levels)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-seaborn-styling-for-pies">Example 4 — Seaborn styling for pies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-advice">Practical advice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Save the figure</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-plots-categorical-data">📊 Bar Plots (Categorical Data)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-bar-plots">🔎 Why use bar plots?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">⚡ Energy Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">✅ Key Tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">✅ Key Tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacked-bar-plot">📊 Stacked Bar Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">When to use</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-shape">Data shape</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-stacked-bars-with-totals-matplotlib-pandas">Example 1 — Stacked bars with totals (Matplotlib + Pandas)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-100-stacked-composition-only">Example 2 — 100% stacked (composition only)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-horizontal-stacked-bars">Example 3 — Horizontal stacked bars</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#styling-readability">Styling &amp; readability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-negatives-surplus-deficits">Handling negatives (surplus/deficits)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pitfalls">Common pitfalls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Save the figure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn-variants">Seaborn variants</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quick-win-seaborn-styling-pandas-stacking">A) Quick win — seaborn styling + pandas stacking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-full-control-manual-stacking-with-seaborn-palette">B) Full control — manual stacking with seaborn palette</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-100-stacked-composition-only-with-seaborn-palette">C) 100% stacked (composition only) with seaborn palette</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-kde-kernel-density-estimate">📊 Histogram &amp; KDE (Kernel Density Estimate)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-them">🔎 Why use them?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">⚡ Energy Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-histogram-kde">✅ How to Read a Histogram + KDE</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-distributions-summer-vs-winter-demand">🌞❄️ Comparing Distributions: Summer vs Winter Demand</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-this-plot">✅ How to Read This Plot</a></li>
@@ -514,7 +559,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplot-with-regression-line">🔴 Scatterplot with Regression Line</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-scatterplots-with-regression">🔎 Why use scatterplots with regression?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">⚡ Energy Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">⚡ Energy Example</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-it">✅ How to Read It</a></li>
 </ul>
 </li>
@@ -547,9 +592,22 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sankey-diagram-energy-flows">🔀 Sankey Diagram (Energy Flows)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-interactive-plotly">Option A — Interactive (Plotly)</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-colors-sizes-and-titles">Customizing Colors, Sizes, and Titles</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib-line-styles-markers-title-grid">Matplotlib: Line styles, markers, title, grid</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn-palettes-and-context">Seaborn: Palettes and context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn-palettes-and-context">Seaborn: Palettes and context</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-palette-for-hue-with-discrete-labels">1) Categorical palette (for <code class="docutils literal notranslate"><span class="pre">hue</span></code> with discrete labels)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-palette-low-high-intensity">2) Sequential palette (low → high intensity)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diverging-palette-deviation-around-a-midpoint">3) Diverging palette (deviation around a midpoint)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-series-plot-with-a-specific-color">4) Single-series plot with a specific color</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-color-mapping-dict-for-consistent-branding">5) Stable color mapping (dict) for consistent branding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-palette-preview-helper-optional">6) Quick palette preview helper (optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cheatsheet">Cheatsheet</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
@@ -573,6 +631,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 </pre></div>
@@ -691,6 +750,321 @@ document.write(`
 </div>
 </section>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="area-plots">
+<h1>🌈 Area Plots<a class="headerlink" href="#area-plots" title="Link to this heading">#</a></h1>
+<p>Area charts are <strong>line charts with the area filled</strong> under the curve. They show how a quantity evolves over time while emphasizing <strong>magnitude</strong>. Stacked area charts add a <strong>composition</strong> view (parts-of-whole over time).</p>
+<section id="when-to-use">
+<h2>When to use<a class="headerlink" href="#when-to-use" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>You want a <strong>time trend</strong> and the <strong>total magnitude</strong> to stand out.</p></li>
+<li><p><strong>Stacked</strong>: you need <strong>composition over time</strong> (e.g., end-use contributions each hour).</p></li>
+<li><p><strong>Cumulative totals</strong> (e.g., month-to-date energy).</p></li>
+</ul>
+</section>
+<section id="when-to-avoid">
+<h2>When to avoid<a class="headerlink" href="#when-to-avoid" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Many overlapping series with frequent crossings → consider <strong>lines</strong> or <strong>small multiples</strong>.</p></li>
+<li><p>Precise comparison of sub-series at a time point → consider <strong>grouped bars</strong>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="example-1-basic-area-single-series">
+<h2>Example 1 — Basic area (single series)<a class="headerlink" href="#example-1-basic-area-single-series" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example hourly demand (kW)</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2025-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">))))</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hourly Demand — Area&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;kW&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/437411fe3bf36163dd013b52882deb3160e2d8a4000b68f193d56a0b1400bcbe.png" src="_images/437411fe3bf36163dd013b52882deb3160e2d8a4000b68f193d56a0b1400bcbe.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="example-2-stacked-area-multiple-series">
+<h2>Example 2 — Stacked area (multiple series)<a class="headerlink" href="#example-2-stacked-area-multiple-series" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">end_uses</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Heating&#39;</span><span class="p">,</span> <span class="s1">&#39;EV&#39;</span><span class="p">,</span> <span class="s1">&#39;Appliances&#39;</span><span class="p">,</span> <span class="s1">&#39;Lighting&#39;</span><span class="p">]</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2025-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+<span class="n">wide</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">c</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">end_uses</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">wide</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hourly Demand by End-Use — Stacked Area (kW)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;kW&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;End-use&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3b4052167a15d905f694a8956e8b7855423254bc4d3ff193d7b1756647ab3b33.png" src="_images/3b4052167a15d905f694a8956e8b7855423254bc4d3ff193d7b1756647ab3b33.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="example-3-100-stacked-area-share-over-time">
+<h2>Example 3 — 100% stacked area (share over time)<a class="headerlink" href="#example-3-100-stacked-area-share-over-time" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shares</span> <span class="o">=</span> <span class="p">(</span><span class="n">wide</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">wide</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">shares</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hourly Demand — Share by End-Use (100%)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Share&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e1fab5e0d7508a64842597eb4edbc75a7adae5373f84011d338d51f90137cc7e.png" src="_images/e1fab5e0d7508a64842597eb4edbc75a7adae5373f84011d338d51f90137cc7e.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="example-4-seaborn-styling-for-area">
+<h2>Example 4 — Seaborn styling for area<a class="headerlink" href="#example-4-seaborn-styling-for-area" title="Link to this heading">#</a></h2>
+<p>Seaborn has no dedicated area primitive, but you can use <strong>Pandas/Matplotlib area</strong> with seaborn themes/palettes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;whitegrid&#39;</span><span class="p">)</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;tab10&#39;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="n">wide</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">wide</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">palette</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Hourly Demand by End-Use — Stacked Area (Seaborn palette)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;kW&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;End-use&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6e821ca106ee7458a151ed1f490923b861df87712b433b10258b9187ea2dc50a.png" src="_images/6e821ca106ee7458a151ed1f490923b861df87712b433b10258b9187ea2dc50a.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="example-5-cumulative-area-month-to-date-energy">
+<h2>Example 5 — Cumulative area (month-to-date energy)<a class="headerlink" href="#example-5-cumulative-area-month-to-date-energy" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_kwh</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">cum</span> <span class="o">=</span> <span class="n">energy_kwh</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">cum</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;area&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Cumulative Energy (Month-to-Date)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;kWh&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/94e9321d4b581282b757c47d11efb68c709b46633ab2cc61fc6738009f1e6cc2.png" src="_images/94e9321d4b581282b757c47d11efb68c709b46633ab2cc61fc6738009f1e6cc2.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="handling-gaps-negatives">
+<h2>Handling gaps &amp; negatives<a class="headerlink" href="#handling-gaps-negatives" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Missing data</strong>: interpolate or <code class="docutils literal notranslate"><span class="pre">fillna(0)</span></code> so areas don’t drop to zero unexpectedly.</p></li>
+<li><p><strong>Negatives</strong>: stacked areas assume non-negative parts. For import/export, consider <strong>baseline shift</strong> (positive above, negative below 0) or use <strong>line + bars</strong>.</p></li>
+</ul>
+</section>
+<section id="readability-tips">
+<h2>Readability tips<a class="headerlink" href="#readability-tips" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Keep <strong>series order</strong> consistent across figures.</p></li>
+<li><p>Limit stacked series (~2–6) to avoid visual mud.</p></li>
+<li><p>Put the <strong>legend outside</strong> to reduce clutter.</p></li>
+<li><p>Use <strong>small multiples</strong> when many series are important.</p></li>
+</ul>
+</section>
+<section id="save-the-figure">
+<h2>Save the figure<a class="headerlink" href="#save-the-figure" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;fig_area_stacked.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pie-charts">
+<h1>🥧 Pie Charts<a class="headerlink" href="#pie-charts" title="Link to this heading">#</a></h1>
+<p>Pie charts show <strong>composition of a single total</strong>. They’re best when you have <strong>few categories (≤5–6)</strong> and the goal is to communicate <strong>share</strong> at one point in time.</p>
+<section id="id1">
+<h2>When to use<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>You need a <strong>quick sense of proportions</strong> for a single snapshot (e.g., today’s energy mix).</p></li>
+<li><p>The audience is non‑technical and prefers a simple breakdown.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>When to avoid<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Many categories or small differences → consider <strong>bar charts</strong> or a <strong>100% stacked bar</strong> instead.</p></li>
+<li><p>Comparing <strong>multiple snapshots over time</strong> → use 100% stacked bars or a heatmap.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="example-1-basic-pie-matplotlib">
+<h2>Example 1 — Basic pie (Matplotlib)<a class="headerlink" href="#example-1-basic-pie-matplotlib" title="Link to this heading">#</a></h2>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">startangle=90</span></code> places the first slice at 12 o’clock.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">axis('equal')</span></code> keeps the pie circular.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Heating&#39;</span><span class="p">,</span> <span class="s1">&#39;EV&#39;</span><span class="p">,</span> <span class="s1">&#39;Appliances&#39;</span><span class="p">,</span> <span class="s1">&#39;Lighting&#39;</span><span class="p">]</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+    <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.0f%%</span><span class="s1">&#39;</span><span class="p">,</span>   <span class="c1"># show whole‑percent labels</span>
+    <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">counterclock</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Household Electricity Use — Composition (Today)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>  <span class="c1"># ensure a circle</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/959a271c6cb6107fdc81f70e2627fffa0ae9251c958e8f7b8da05ad7abd385a1.png" src="_images/959a271c6cb6107fdc81f70e2627fffa0ae9251c958e8f7b8da05ad7abd385a1.png" />
+</div>
+</div>
+</section>
+<section id="example-2-donut-ring-chart">
+<h2>Example 2 — Donut (ring) chart<a class="headerlink" href="#example-2-donut-ring-chart" title="Link to this heading">#</a></h2>
+<p>A donut chart is a pie chart with a <strong>hole</strong> in the middle—often easier to read.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Heating&#39;</span><span class="p">,</span> <span class="s1">&#39;EV&#39;</span><span class="p">,</span> <span class="s1">&#39;Appliances&#39;</span><span class="p">,</span> <span class="s1">&#39;Lighting&#39;</span><span class="p">]</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">wedges</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">autotexts</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+    <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.0f%%</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">counterclock</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">wedgeprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span><span class="mf">0.35</span><span class="p">,</span> <span class="s1">&#39;edgecolor&#39;</span><span class="p">:</span><span class="s1">&#39;white&#39;</span><span class="p">}</span>  <span class="c1"># width &lt; 1.0 creates the hole</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Household Electricity Use — Donut Composition&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/00b7513c347cce1097e84da768ab0109fe66a0b96ca3818b5d362bdf979f5294.png" src="_images/00b7513c347cce1097e84da768ab0109fe66a0b96ca3818b5d362bdf979f5294.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="example-3-nested-donut-two-levels">
+<h2>Example 3 — Nested donut (two levels)<a class="headerlink" href="#example-3-nested-donut-two-levels" title="Link to this heading">#</a></h2>
+<p>Two rings let you show <strong>high‑level vs. detailed composition</strong>.</p>
+<p><strong>Tip:</strong> Keep level‑to‑level colors related (e.g., shades of green for renewables).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Outer ring: energy source family</span>
+<span class="n">outer_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Renewables&#39;</span><span class="p">,</span> <span class="s1">&#39;Fossils&#39;</span><span class="p">]</span>
+<span class="n">outer</span> <span class="o">=</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+
+<span class="c1"># Inner ring: breakdown of each family (must sum to the family total)</span>
+<span class="n">inner_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Wind&#39;</span><span class="p">,</span> <span class="s1">&#39;Solar&#39;</span><span class="p">,</span> <span class="s1">&#39;Hydro&#39;</span><span class="p">,</span> <span class="s1">&#39;Coal&#39;</span><span class="p">,</span> <span class="s1">&#39;Gas&#39;</span><span class="p">,</span> <span class="s1">&#39;Oil&#39;</span><span class="p">]</span>
+<span class="n">inner</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># sums to 60 + 40 = 100</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="c1"># Outer ring</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">outer</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">outer_labels</span><span class="p">,</span> <span class="n">labeldistance</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+       <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.0f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">pctdistance</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+       <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">counterclock</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+       <span class="n">wedgeprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">))</span>
+<span class="c1"># Inner ring</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">inner</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">inner_labels</span><span class="p">,</span> <span class="n">labeldistance</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+       <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.0f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">pctdistance</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+       <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">counterclock</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+       <span class="n">wedgeprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Energy Mix — Two Level Composition&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0a5762851cd7992a6cc1bf7b610112a0ada30ac212d96fbbb2b4a79c1af4852c.png" src="_images/0a5762851cd7992a6cc1bf7b610112a0ada30ac212d96fbbb2b4a79c1af4852c.png" />
+</div>
+</div>
+</section>
+<section id="example-4-seaborn-styling-for-pies">
+<h2>Example 4 — Seaborn styling for pies<a class="headerlink" href="#example-4-seaborn-styling-for-pies" title="Link to this heading">#</a></h2>
+<p>Seaborn doesn’t draw pies directly, but you can <strong>apply seaborn theme &amp; palette</strong> to Matplotlib pies.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;whitegrid&#39;</span><span class="p">)</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;tab10&#39;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.0f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+       <span class="n">counterclock</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">palette</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Household Electricity Use — Seaborn Palette&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a7619c4416347408ef16c8e041f9d4be7774049863816c5ed6ead07dc62cf30d.png" src="_images/a7619c4416347408ef16c8e041f9d4be7774049863816c5ed6ead07dc62cf30d.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="practical-advice">
+<h2>Practical advice<a class="headerlink" href="#practical-advice" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Limit slices</strong>: ≤6 is ideal. Group tiny categories into <strong>“Other”</strong>.</p></li>
+<li><p><strong>Order slices</strong> by value (descending) and choose a <strong>consistent start angle</strong> across figures.</p></li>
+<li><p>Prefer <strong>donut</strong> for readability; place the <strong>total</strong> or key number in the center (e.g., <code class="docutils literal notranslate"><span class="pre">sum(values)</span></code> kWh).</p></li>
+<li><p>Put a <strong>legend outside</strong> if labels are long: <code class="docutils literal notranslate"><span class="pre">plt.legend(bbox_to_anchor=(1.02,</span> <span class="pre">1),</span> <span class="pre">loc='upper</span> <span class="pre">left')</span></code>.</p></li>
+<li><p>For <strong>time comparisons</strong>, use a <strong>100% stacked bar</strong> instead of multiple pies.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>Save the figure<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;fig_pie_energy_mix.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section class="tex2jax_ignore mathjax_ignore" id="bar-plots-categorical-data">
 <h1>📊 Bar Plots (Categorical Data)<a class="headerlink" href="#bar-plots-categorical-data" title="Link to this heading">#</a></h1>
 <p>A <strong>bar plot</strong> displays data using rectangular bars, where the <strong>length of each bar</strong> represents the value of a category.
@@ -705,8 +1079,8 @@ It’s best for <strong>comparing discrete groups</strong>.</p>
 </ul>
 <hr class="docutils" />
 </section>
-<section id="id1">
-<h2>⚡ Energy Example<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h2>⚡ Energy Example<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Compare how much electricity is produced from <strong>Solar, Wind, and Hydro</strong>.</p></li>
 <li><p>Show <strong>regional demand</strong> (North vs South vs East vs West).</p></li>
@@ -714,8 +1088,8 @@ It’s best for <strong>comparing discrete groups</strong>.</p>
 </ul>
 <hr class="docutils" />
 </section>
-<section id="id2">
-<h2>✅ Key Tips<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h2>✅ Key Tips<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Use <strong>vertical bars</strong> for simple category names (e.g., Solar, Wind).</p></li>
 <li><p>Use <strong>horizontal bars</strong> for long labels (e.g., “North-East Interconnection Zone”).</p></li>
@@ -760,6 +1134,260 @@ It’s best for <strong>comparing discrete groups</strong>.</p>
 </div>
 </div>
 </section>
+<section id="stacked-bar-plot">
+<h2>📊 Stacked Bar Plot<a class="headerlink" href="#stacked-bar-plot" title="Link to this heading">#</a></h2>
+<p>Stacked bar charts are great when you want to compare <strong>totals</strong> across categories (x‑axis) <strong>and</strong> show how each total splits into <strong>sub‑categories</strong> (stack segments). In energy analytics, a classic use case is showing <strong>daily electricity consumption split by end‑use</strong> (heating, EV charging, appliances, etc.).</p>
+<section id="id6">
+<h3>When to use<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Compare <strong>parts to whole</strong> across groups (e.g., days, buildings, customer segments).</p></li>
+<li><p>The <strong>total matters</strong> and the <strong>composition matters</strong>.</p></li>
+<li><p>Number of stacks is modest (2–6). For more segments, consider small multiples or a heatmap.</p></li>
+</ul>
+<p>Avoid if you need to compare <strong>individual sub‑category values across many groups</strong>—use grouped bars instead.</p>
+</section>
+<hr class="docutils" />
+<section id="data-shape">
+<h3>Data shape<a class="headerlink" href="#data-shape" title="Link to this heading">#</a></h3>
+<p>Two common shapes:</p>
+<ol class="arabic simple">
+<li><p><strong>Wide</strong>: one column per sub‑category (easy to stack directly).</p></li>
+<li><p><strong>Long/tidy</strong>: columns like <code class="docutils literal notranslate"><span class="pre">[group,</span> <span class="pre">subcategory,</span> <span class="pre">value]</span></code> → pivot wider before plotting.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="example-1-stacked-bars-with-totals-matplotlib-pandas">
+<h3>Example 1 — Stacked bars with totals (Matplotlib + Pandas)<a class="headerlink" href="#example-1-stacked-bars-with-totals-matplotlib-pandas" title="Link to this heading">#</a></h3>
+<p><strong>What to look for:</strong></p>
+<ul class="simple">
+<li><p>Overall <strong>daily totals</strong> (bar height) and how they split across end‑uses.</p></li>
+<li><p>Changes in composition (e.g., Heating decreases while EV increases on weekends).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">days</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2025-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="n">end_uses</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Heating&#39;</span><span class="p">,</span> <span class="s1">&#39;EV&#39;</span><span class="p">,</span> <span class="s1">&#39;Appliances&#39;</span><span class="p">,</span> <span class="s1">&#39;Lighting&#39;</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;day&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">end_uses</span><span class="p">)),</span>
+    <span class="s1">&#39;end_use&#39;</span><span class="p">:</span> <span class="n">end_uses</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">days</span><span class="p">),</span>
+    <span class="s1">&#39;kwh&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">days</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">end_uses</span><span class="p">))</span>
+<span class="p">})</span>
+
+<span class="c1"># Pivot to wide format for stacking</span>
+<span class="n">wide</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;end_use&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;kwh&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># --- Plot</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">wide</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Daily Electricity Consumption by End-Use (kWh)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;kWh&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;End-use&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Optional: annotate bar totals on top</span>
+<span class="n">totals</span> <span class="o">=</span> <span class="n">wide</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">total</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">totals</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">total</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e7f6ff3ac999961e8f3bb71dec97982e5eac42be4d7ce72d22c13e0d37cd61df.png" src="_images/e7f6ff3ac999961e8f3bb71dec97982e5eac42be4d7ce72d22c13e0d37cd61df.png" />
+</div>
+</div>
+</section>
+<section id="example-2-100-stacked-composition-only">
+<h3>Example 2 — 100% stacked (composition only)<a class="headerlink" href="#example-2-100-stacked-composition-only" title="Link to this heading">#</a></h3>
+<p>Use this when you want to compare <strong>shares</strong> rather than absolute values.
+<strong>Tip:</strong> Label the y‑axis as <strong>share</strong> or <strong>%</strong> to avoid confusion.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shares</span> <span class="o">=</span> <span class="p">(</span><span class="n">wide</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">wide</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># row-normalize to 1.0</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">shares</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Daily Electricity Consumption — Share by End-Use (100%)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Share&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;End-use&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8719d4854d5a5f0c3cf1ae096d1f7cf9e18ea7ee9a23e83af985b2b71573eae8.png" src="_images/8719d4854d5a5f0c3cf1ae096d1f7cf9e18ea7ee9a23e83af985b2b71573eae8.png" />
+</div>
+</div>
+</section>
+<section id="example-3-horizontal-stacked-bars">
+<h3>Example 3 — Horizontal stacked bars<a class="headerlink" href="#example-3-horizontal-stacked-bars" title="Link to this heading">#</a></h3>
+<p>Horizontal layout improves legibility when you have <strong>long category labels</strong> or many groups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">wide</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Daily Electricity Consumption by End-Use (kWh) — Horizontal&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;kWh&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;End-use&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/03e686972310262d27cf57e7f7a58388ae3636d700849f4a1fdc93b5a983eb88.png" src="_images/03e686972310262d27cf57e7f7a58388ae3636d700849f4a1fdc93b5a983eb88.png" />
+</div>
+</div>
+</section>
+<section id="styling-readability">
+<h3>Styling &amp; readability<a class="headerlink" href="#styling-readability" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Order stacks</strong> consistently (e.g., Heating at bottom, Lighting at top) to help pattern recognition.</p></li>
+<li><p>Keep <strong>legend outside</strong> the plot area to reduce clutter.</p></li>
+<li><p>Use <strong>number formatting</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">f&quot;{total:.1f}&quot;</span></code>) for clean annotations.</p></li>
+<li><p>For <strong>many groups</strong>, rotate x‑tick labels or switch to horizontal bars.</p></li>
+<li><p>Prefer <strong>colorblind‑friendly</strong> palettes if you manually set colors.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="handling-negatives-surplus-deficits">
+<h3>Handling negatives (surplus/deficits)<a class="headerlink" href="#handling-negatives-surplus-deficits" title="Link to this heading">#</a></h3>
+<p>Stacked bars assume non‑negative parts. If you have negative values (e.g., export vs import), consider:</p>
+<ul class="simple">
+<li><p><strong>Diverging bars</strong> (positive above, negative below zero).</p></li>
+<li><p>A <strong>waterfall chart</strong> for cumulative effects.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="common-pitfalls">
+<h3>Common pitfalls<a class="headerlink" href="#common-pitfalls" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Too many segments</strong>: hard to compare; consider grouped bars or small multiples.</p></li>
+<li><p><strong>Hiding scale</strong> in 100% stacked bars: great for composition but loses magnitude.</p></li>
+<li><p><strong>Inconsistent ordering/colors</strong> across plots: harms comparability.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id7">
+<h3>Save the figure<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;fig_stacked_bar_daily_kwh.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Summary:</strong> Use stacked bars when both the <strong>total</strong> and its <strong>composition</strong> matter. For share‑only insights, use 100% stacked. Keep stacks ordered and labels readable.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="seaborn-variants">
+<h2>Seaborn variants<a class="headerlink" href="#seaborn-variants" title="Link to this heading">#</a></h2>
+<p>Although seaborn doesn’t provide a native <strong>stacked bar</strong> for categorical data, you have two solid options:</p>
+<section id="a-quick-win-seaborn-styling-pandas-stacking">
+<h3>A) Quick win — seaborn styling + pandas stacking<a class="headerlink" href="#a-quick-win-seaborn-styling-pandas-stacking" title="Link to this heading">#</a></h3>
+<p>Use seaborn for theme/colors and keep Pandas’ <code class="docutils literal notranslate"><span class="pre">stacked=True</span></code> under the hood.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="c1"># Reuse `wide` and `end_uses` from above</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;tab10&quot;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">wide</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">wide</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">palette</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Daily Electricity Consumption by End-Use (kWh) — Seaborn styled&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;kWh&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;End-use&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6213c399645c49b21f2c4e982201171ef70dee3de389970e72acf9a1eda90917.png" src="_images/6213c399645c49b21f2c4e982201171ef70dee3de389970e72acf9a1eda90917.png" />
+</div>
+</div>
+<p><strong>Why this works:</strong> seaborn themes/palettes affect Matplotlib globally, so you get seaborn aesthetics while keeping a stacked bar.</p>
+</section>
+<section id="b-full-control-manual-stacking-with-seaborn-palette">
+<h3>B) Full control — manual stacking with seaborn palette<a class="headerlink" href="#b-full-control-manual-stacking-with-seaborn-palette" title="Link to this heading">#</a></h3>
+<p>Build stacks explicitly with <code class="docutils literal notranslate"><span class="pre">plt.bar</span></code>, using seaborn’s palette for consistent styling.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;tab10&quot;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">wide</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wide</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">wide</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">bottom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wide</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">wide</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">wide</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">bottom</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">bottom</span> <span class="o">+=</span> <span class="n">wide</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Daily Electricity Consumption by End-Use (kWh) — Manual stack (Seaborn colors)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;kWh&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;End-use&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/82ae67844754beacefcd94d7c7fe9d3c497449f934681a12e2684dbe994b08cc.png" src="_images/82ae67844754beacefcd94d7c7fe9d3c497449f934681a12e2684dbe994b08cc.png" />
+</div>
+</div>
+</section>
+<section id="c-100-stacked-composition-only-with-seaborn-palette">
+<h3>C) 100% stacked (composition only) with seaborn palette<a class="headerlink" href="#c-100-stacked-composition-only-with-seaborn-palette" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">ticker</span> <span class="k">as</span> <span class="n">mtick</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="n">shares</span> <span class="o">=</span> <span class="p">(</span><span class="n">wide</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">wide</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;tab10&quot;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">shares</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shares</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">shares</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">bottom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shares</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shares</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shares</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">bottom</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">bottom</span> <span class="o">+=</span> <span class="n">shares</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mtick</span><span class="o">.</span><span class="n">PercentFormatter</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Daily Electricity Consumption — Share by End-Use (100%) — Seaborn palette&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Share&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;End-use&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a158c970821104bb5a1fd4cb9140e29018f51b7c986f1c2c9e65ba53c740b116.png" src="_images/a158c970821104bb5a1fd4cb9140e29018f51b7c986f1c2c9e65ba53c740b116.png" />
+</div>
+</div>
+<p><strong>Notes</strong></p>
+<ul class="simple">
+<li><p>Seaborn’s <code class="docutils literal notranslate"><span class="pre">barplot</span></code>/<code class="docutils literal notranslate"><span class="pre">catplot(kind='bar')</span></code> does <strong>grouped</strong> bars with <code class="docutils literal notranslate"><span class="pre">hue</span></code>, not stacked. That’s why we either (A) rely on Pandas stacking with seaborn theming, or (B) build stacks manually with <code class="docutils literal notranslate"><span class="pre">plt.bar</span></code> and a seaborn palette.</p></li>
+<li><p>Keep the <strong>palette order</strong> consistent across figures for comparability.</p></li>
+<li><p>For many dates/categories, consider rotating tick labels or switching to <strong>horizontal</strong> bars using <code class="docutils literal notranslate"><span class="pre">barh</span></code> in the manual approach.</p></li>
+</ul>
+</section>
+</section>
 </section>
 <hr class="docutils" />
 <section class="tex2jax_ignore mathjax_ignore" id="histogram-kde-kernel-density-estimate">
@@ -776,8 +1404,8 @@ A <strong>KDE (Kernel Density Estimate)</strong> is a smoothed curve that approx
 </ul>
 <hr class="docutils" />
 </section>
-<section id="id3">
-<h2>⚡ Energy Example<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id8">
+<h2>⚡ Energy Example<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Histogram of <strong>hourly demand</strong> shows which demand levels are most frequent.</p></li>
 <li><p>Adding KDE gives a <strong>smooth curve</strong>, making it easier to see peaks and spread.</p></li>
@@ -811,9 +1439,6 @@ A <strong>KDE (Kernel Density Estimate)</strong> is a smoothed curve that approx
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/c42307885ff3c23fa477578d998b96b586fbe3d4d428c9ff39eb6ed7d4dedd71.png" src="_images/c42307885ff3c23fa477578d998b96b586fbe3d4d428c9ff39eb6ed7d4dedd71.png" />
-</div>
 </div>
 </section>
 <hr class="docutils" />
@@ -841,9 +1466,6 @@ With Seaborn, we can add a <strong><code class="docutils literal notranslate"><s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/2aeab974a5b39c52417a3aec05d5358579d7a24338c228342272067ea9e60484.png" src="_images/2aeab974a5b39c52417a3aec05d5358579d7a24338c228342272067ea9e60484.png" />
 </div>
 </div>
 <section id="how-to-read-this-plot">
@@ -924,9 +1546,6 @@ By adding <strong>color (hue), size, or style</strong>, we can visualize more di
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/18561ca578e6980f4dbfe70fa98b809ff91bc20333ec0eb89de6acdc67867d71.png" src="_images/18561ca578e6980f4dbfe70fa98b809ff91bc20333ec0eb89de6acdc67867d71.png" />
-</div>
 </div>
 <hr class="docutils" />
 </section>
@@ -954,9 +1573,6 @@ By adding <strong>color (hue), size, or style</strong>, we can visualize more di
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/ec84f797fdab4c4aef1e5df622d9dec34aa57683d0cea3d9527dd5a32ab02e62.png" src="_images/ec84f797fdab4c4aef1e5df622d9dec34aa57683d0cea3d9527dd5a32ab02e62.png" />
 </div>
 </div>
 </section>
@@ -992,9 +1608,6 @@ By adding <strong>color (hue), size, or style</strong>, we can visualize more di
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/3d6f910cb8ce2cb41e7505b0daccc0b5eeeaaa3c3b3c31d8dc6e61fe7d007b67.png" src="_images/3d6f910cb8ce2cb41e7505b0daccc0b5eeeaaa3c3b3c31d8dc6e61fe7d007b67.png" />
-</div>
 </div>
 </section>
 <section id="price-vs-demand-with-heteroskedastic-noise">
@@ -1021,9 +1634,6 @@ By adding <strong>color (hue), size, or style</strong>, we can visualize more di
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/79fcf10fc946b4d8b65594457e93d5baa94d58e4e966e74580fb84ebe2612a99.png" src="_images/79fcf10fc946b4d8b65594457e93d5baa94d58e4e966e74580fb84ebe2612a99.png" />
-</div>
 </div>
 </section>
 <section id="demand-vs-temperature-by-season-facets">
@@ -1047,9 +1657,6 @@ By adding <strong>color (hue), size, or style</strong>, we can visualize more di
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/6eb912dee311dd53293b99c67f2883e93b9c97acb4a9520936f6d039758b36a1.png" src="_images/6eb912dee311dd53293b99c67f2883e93b9c97acb4a9520936f6d039758b36a1.png" />
-</div>
 </div>
 </section>
 </section>
@@ -1067,8 +1674,8 @@ Adding a <strong>regression line</strong> helps visualize the underlying trend.<
 </ul>
 <hr class="docutils" />
 </section>
-<section id="id4">
-<h3>⚡ Energy Example<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h3>⚡ Energy Example<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Demand vs Temperature</strong>: colder or hotter days often increase demand (heating/cooling).</p></li>
 <li><p><strong>Wind speed vs Wind generation</strong>: higher wind speeds usually increase output, up to turbine limits.</p></li>
@@ -1091,9 +1698,6 @@ Adding a <strong>regression line</strong> helps visualize the underlying trend.<
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/ce8d669996578e9d7980fabf13a9717626420dda8c57c8ad0bd4dc0095df6bdf.png" src="_images/ce8d669996578e9d7980fabf13a9717626420dda8c57c8ad0bd4dc0095df6bdf.png" />
 </div>
 </div>
 </section>
@@ -1148,9 +1752,6 @@ It highlights the <strong>median, spread, and potential outliers</strong>.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/cfdfc15a6fbf2ef1fd30cb60f6a29c17212b84e132981a9ee9db8a36f8349b98.png" src="_images/cfdfc15a6fbf2ef1fd30cb60f6a29c17212b84e132981a9ee9db8a36f8349b98.png" />
-</div>
 </div>
 </section>
 <section id="how-to-read-a-boxplot">
@@ -1202,9 +1803,6 @@ It shows the <strong>distribution shape</strong> of the data, not just summary s
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/24c4b2d210b7dabdabb2121316fff8f8f4112a509ec5a64aee7c51f98485876b.png" src="_images/24c4b2d210b7dabdabb2121316fff8f8f4112a509ec5a64aee7c51f98485876b.png" />
 </div>
 </div>
 </section>
@@ -1260,91 +1858,6 @@ Correlation values range from <strong>-1 to +1</strong>:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>demand</th>
-      <th>temp</th>
-      <th>wind</th>
-      <th>humidity</th>
-      <th>solar</th>
-      <th>pressure</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>demand</th>
-      <td>1.000000</td>
-      <td>-0.857143</td>
-      <td>-0.172062</td>
-      <td>0.857143</td>
-      <td>-0.916261</td>
-      <td>0.851216</td>
-    </tr>
-    <tr>
-      <th>temp</th>
-      <td>-0.857143</td>
-      <td>1.000000</td>
-      <td>0.401478</td>
-      <td>-1.000000</td>
-      <td>0.988598</td>
-      <td>-0.996546</td>
-    </tr>
-    <tr>
-      <th>wind</th>
-      <td>-0.172062</td>
-      <td>0.401478</td>
-      <td>1.000000</td>
-      <td>-0.401478</td>
-      <td>0.376156</td>
-      <td>-0.454865</td>
-    </tr>
-    <tr>
-      <th>humidity</th>
-      <td>0.857143</td>
-      <td>-1.000000</td>
-      <td>-0.401478</td>
-      <td>1.000000</td>
-      <td>-0.988598</td>
-      <td>0.996546</td>
-    </tr>
-    <tr>
-      <th>solar</th>
-      <td>-0.916261</td>
-      <td>0.988598</td>
-      <td>0.376156</td>
-      <td>-0.988598</td>
-      <td>1.000000</td>
-      <td>-0.988687</td>
-    </tr>
-    <tr>
-      <th>pressure</th>
-      <td>0.851216</td>
-      <td>-0.996546</td>
-      <td>-0.454865</td>
-      <td>0.996546</td>
-      <td>-0.988687</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1354,9 +1867,6 @@ Correlation values range from <strong>-1 to +1</strong>:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/6cfe722b8da0fda97a96edf6fdf61ead3332f04e00fe212ae4e46adbc38a6dff.png" src="_images/6cfe722b8da0fda97a96edf6fdf61ead3332f04e00fe212ae4e46adbc38a6dff.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -1386,9 +1896,6 @@ This groups together variables that have <strong>similar correlation patterns</s
 <span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/2edebb613cf2f739c8416cc9dbc82879a9d9e88d0204f0b8c92a33cf6e630ae3.png" src="_images/2edebb613cf2f739c8416cc9dbc82879a9d9e88d0204f0b8c92a33cf6e630ae3.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -1435,9 +1942,6 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/efc7a69691f2214de5e506769c42819f21ea8bc965066a3e2ac1be37d02ff77f.png" src="_images/efc7a69691f2214de5e506769c42819f21ea8bc965066a3e2ac1be37d02ff77f.png" />
-</div>
 </div>
 <hr class="docutils" />
 <section id="how-to-read-a-pairplot">
@@ -1455,6 +1959,69 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 <hr class="docutils" />
 <p>👉 Pairplots are especially useful at the <strong>start of EDA</strong> to see how demand relates to multiple weather features before building models.</p>
 </section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="sankey-diagram-energy-flows">
+<h1>🔀 Sankey Diagram (Energy Flows)<a class="headerlink" href="#sankey-diagram-energy-flows" title="Link to this heading">#</a></h1>
+<p>Sankey diagrams show <strong>flows between stages</strong> with widths proportional to the <strong>magnitude</strong> (e.g., kWh). Great for visualizing <strong>where energy comes from and where it goes</strong>.</p>
+<hr class="docutils" />
+<section id="option-a-interactive-plotly">
+<h2>Option A — Interactive (Plotly)<a class="headerlink" href="#option-a-interactive-plotly" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="c1"># Nodes (unique list of stages)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Grid&quot;</span><span class="p">,</span> <span class="s2">&quot;PV&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;House Loads&quot;</span><span class="p">,</span> <span class="s2">&quot;EV Charging&quot;</span><span class="p">,</span> <span class="s2">&quot;Battery&quot;</span><span class="p">,</span> <span class="s2">&quot;Losses&quot;</span><span class="p">,</span> <span class="s2">&quot;Export&quot;</span>
+<span class="p">]</span>
+
+<span class="c1"># Helper to refer to node indices</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">)}</span>
+
+<span class="c1"># Links: sources -&gt; targets with values (kWh for a sample day)</span>
+<span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Grid&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Grid&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Grid&quot;</span><span class="p">],</span>     <span class="c1"># Grid to House/EV/Losses</span>
+    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;PV&quot;</span><span class="p">],</span>   <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;PV&quot;</span><span class="p">],</span>   <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;PV&quot;</span><span class="p">],</span>       <span class="c1"># PV to House/Battery/Export</span>
+    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Battery&quot;</span><span class="p">]</span>                               <span class="c1"># Battery to House (discharge)</span>
+<span class="p">]</span>
+<span class="n">targets</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;House Loads&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;EV Charging&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Losses&quot;</span><span class="p">],</span>
+    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;House Loads&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Battery&quot;</span><span class="p">],</span>     <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Export&quot;</span><span class="p">],</span>
+    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;House Loads&quot;</span><span class="p">]</span>
+<span class="p">]</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>   <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>   <span class="mi">4</span><span class="p">]</span>  <span class="c1"># sums per your data</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Sankey</span><span class="p">(</span>
+    <span class="n">arrangement</span><span class="o">=</span><span class="s2">&quot;snap&quot;</span><span class="p">,</span>  <span class="c1"># keeps node positions reasonable without overlap</span>
+    <span class="n">node</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">labels</span>
+        <span class="c1"># You can add &#39;color&#39; list here for custom colors</span>
+    <span class="p">),</span>
+    <span class="n">link</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">source</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
+        <span class="n">target</span><span class="o">=</span><span class="n">targets</span><span class="p">,</span>
+        <span class="n">value</span><span class="o">=</span><span class="n">values</span>
+        <span class="c1"># You can add &#39;color&#39; list here to color the links</span>
+    <span class="p">)</span>
+<span class="p">)])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Daily Energy Flows (kWh)&quot;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f1af17457355720d9e4c684b2303fb9cc96177c21ac76907dcfd6dc2534b6ffa.png" src="_images/f1af17457355720d9e4c684b2303fb9cc96177c21ac76907dcfd6dc2534b6ffa.png" />
+</div>
+</div>
+<p><strong>Tips</strong></p>
+<ul class="simple">
+<li><p>Keep node labels concise and <strong>unique</strong>.</p></li>
+<li><p>Group tiny flows into <strong>“Other”</strong> to keep the chart readable.</p></li>
+<li><p>Plotly hover tooltips show exact kWh; legend toggling works at the node level.</p></li>
+</ul>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="customizing-colors-sizes-and-titles">
@@ -1499,6 +2066,278 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 <img alt="_images/a926cd4ad4091c23ade5ceb9d3ceaaa4eea1a92f77deb929ed1609932b2738a3.png" src="_images/a926cd4ad4091c23ade5ceb9d3ceaaa4eea1a92f77deb929ed1609932b2738a3.png" />
 </div>
 </div>
+<hr class="docutils" />
+<section id="categorical-palette-for-hue-with-discrete-labels">
+<h3>1) Categorical palette (for <code class="docutils literal notranslate"><span class="pre">hue</span></code> with discrete labels)<a class="headerlink" href="#categorical-palette-for-hue-with-discrete-labels" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="c1"># --- time axis: 7 days hourly ---</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2025-01-01&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">7</span><span class="o">*</span><span class="mi">24</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+<span class="n">hour</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">hour</span><span class="o">.</span><span class="n">values</span>
+<span class="n">day</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- total demand (MW): diurnal + weekend dip + noise ---</span>
+<span class="n">is_weekend</span> <span class="o">=</span> <span class="p">(</span><span class="n">idx</span><span class="o">.</span><span class="n">weekday</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">cycle</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">hour</span> <span class="o">-</span> <span class="mi">7</span><span class="p">)</span><span class="o">/</span><span class="mf">24.0</span><span class="p">)</span>
+<span class="n">weekend</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_weekend</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mf">2.5</span> <span class="o">+</span> <span class="n">cycle</span> <span class="o">+</span> <span class="n">weekend</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">idx</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">:</span> <span class="n">day</span><span class="p">,</span> <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="n">hour</span><span class="p">,</span> <span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="n">demand</span><span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- end-use composition (for categorical hue &amp; daily bars) ---</span>
+<span class="n">cats</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Heating&quot;</span><span class="p">,</span><span class="s2">&quot;EV&quot;</span><span class="p">,</span><span class="s2">&quot;Lighting&quot;</span><span class="p">,</span><span class="s2">&quot;Appliances&quot;</span><span class="p">]</span>
+<span class="n">heating</span>   <span class="o">=</span> <span class="mf">0.32</span> <span class="o">+</span> <span class="mf">0.12</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">hour</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span><span class="o">/</span><span class="mf">24.0</span><span class="p">)</span>
+<span class="n">ev</span>        <span class="o">=</span> <span class="mf">0.08</span> <span class="o">+</span> <span class="mf">0.12</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">hour</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)</span><span class="o">/</span><span class="mf">3.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">lighting</span>  <span class="o">=</span> <span class="mf">0.07</span> <span class="o">+</span> <span class="mf">0.06</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">hour</span> <span class="o">-</span> <span class="mi">7</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.06</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">hour</span> <span class="o">-</span> <span class="mi">21</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">appliance</span> <span class="o">=</span> <span class="mf">0.20</span> <span class="o">+</span> <span class="mf">0.04</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">raw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">heating</span><span class="p">,</span> <span class="n">ev</span><span class="p">,</span> <span class="n">lighting</span><span class="p">,</span> <span class="n">appliance</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">shares</span> <span class="o">=</span> <span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">raw</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">kwh</span> <span class="o">=</span> <span class="n">shares</span> <span class="o">*</span> <span class="n">demand</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
+
+<span class="c1"># Name the index so reset_index creates a &#39;time&#39; column</span>
+<span class="n">enduse_wide</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">kwh</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cats</span><span class="p">)</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+
+<span class="n">df_enduse</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">enduse_wide</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>                      <span class="c1"># now has &#39;time&#39;</span>
+      <span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;end_use&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;kwh&quot;</span><span class="p">)</span>
+      <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;day&quot;</span><span class="p">,</span><span class="s2">&quot;hour&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">df_agg</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_enduse</span>
+          <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">day</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">))</span>
+          <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;day&quot;</span><span class="p">,</span><span class="s2">&quot;end_use&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;kwh&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># --- sequential heatmap grid: hour x day ---</span>
+<span class="n">pivot_2d</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">day_str</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+              <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;day_str&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;mean&quot;</span><span class="p">))</span>
+
+<span class="c1"># --- diverging error surface: forecast - actual ---</span>
+<span class="n">bias</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">hour</span> <span class="o">-</span> <span class="mi">19</span><span class="p">)</span><span class="o">/</span><span class="mf">4.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">demand</span> <span class="o">+</span> <span class="n">bias</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">err</span> <span class="o">=</span> <span class="n">pred</span> <span class="o">-</span> <span class="n">demand</span>
+<span class="n">err_grid</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="n">hour</span><span class="p">,</span> <span class="s2">&quot;day_str&quot;</span><span class="p">:</span> <span class="n">idx</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="s2">&quot;err&quot;</span><span class="p">:</span> <span class="n">err</span><span class="p">})</span>
+            <span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;day_str&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;err&quot;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;df:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+      <span class="s2">&quot;| df_enduse:&quot;</span><span class="p">,</span> <span class="n">df_enduse</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+      <span class="s2">&quot;| df_agg:&quot;</span><span class="p">,</span> <span class="n">df_agg</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+      <span class="s2">&quot;| pivot_2d:&quot;</span><span class="p">,</span> <span class="n">pivot_2d</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+      <span class="s2">&quot;| err_grid:&quot;</span><span class="p">,</span> <span class="n">err_grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>df: (168, 3) | df_enduse: (672, 5) | df_agg: (28, 3) | pivot_2d: (24, 7) | err_grid: (24, 7)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Global style &amp; readable sizing</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+
+<span class="c1"># Pick a color-blind friendly categorical palette</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_palette</span><span class="p">(</span><span class="s2">&quot;colorblind&quot;</span><span class="p">)</span>  <span class="c1"># or &quot;Set2&quot;, &quot;tab10&quot;, &quot;Paired&quot;</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df_enduse</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;kwh&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;end_use&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="s2">&quot;stack&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribution of Hourly Energy by End-Use&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Energy per Hour [kWh]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a5ef9d79f35f7a2cd84a9d87badaef5a238c443e925adac37343679f2c8e4dae.png" src="_images/a5ef9d79f35f7a2cd84a9d87badaef5a238c443e925adac37343679f2c8e4dae.png" />
+</div>
+</div>
+<blockquote>
+<div><p>Use categorical palettes when <code class="docutils literal notranslate"><span class="pre">hue</span></code> is <strong>unordered</strong> categories (Heating, EV, …).</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="sequential-palette-low-high-intensity">
+<h3>2) Sequential palette (low → high intensity)<a class="headerlink" href="#sequential-palette-low-high-intensity" title="Link to this heading">#</a></h3>
+<p>Great for <strong>continuous</strong> data mapped to color (heatmaps, 2D hist, KDE shading).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+
+<span class="c1"># Perceptually-uniform colormap</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># ---- 1D KDE: use a single color sampled from the colormap ----</span>
+<span class="n">kde_color</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="mf">0.6</span><span class="p">)</span>  <span class="c1"># pick any t in [0,1]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span>
+    <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">kde_color</span><span class="p">,</span>
+    <span class="n">bw_adjust</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Demand Density (Sequential Palette)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># ---- Heatmap: the colormap *is* used here ----</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">pivot_2d</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(),</span>  <span class="c1"># ensure hour ascending</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Demand [MW]&quot;</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Demand Heatmap (Sequential)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f9c23e4473e668066cea62e1dc888167c8678a2f2be6719cb632b7dbf204bcaf.png" src="_images/f9c23e4473e668066cea62e1dc888167c8678a2f2be6719cb632b7dbf204bcaf.png" />
+<img alt="_images/0d3f496d5b9e513d3076576d18c377b560dc5be3d3118cf612f57335e6e18c62.png" src="_images/0d3f496d5b9e513d3076576d18c377b560dc5be3d3118cf612f57335e6e18c62.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="diverging-palette-deviation-around-a-midpoint">
+<h3>3) Diverging palette (deviation around a midpoint)<a class="headerlink" href="#diverging-palette-deviation-around-a-midpoint" title="Link to this heading">#</a></h3>
+<p>Use when coloring <strong>positive vs negative</strong> deviations (e.g., error vs baseline).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+
+<span class="c1"># If df has no &#39;err&#39; column yet, recreate it (same logic as before)</span>
+<span class="k">if</span> <span class="s2">&quot;err&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">hour</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;hour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">bias</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">hour</span> <span class="o">-</span> <span class="mi">19</span><span class="p">)</span><span class="o">/</span><span class="mf">4.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">+</span> <span class="n">bias</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">err</span><span class="o">=</span><span class="n">pred</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+
+<span class="c1"># Diverging colormap</span>
+<span class="n">div_cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">diverging_palette</span><span class="p">(</span><span class="mi">240</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># blue↔red</span>
+
+<span class="c1"># ---- 1D KDE: use a single color sampled from the colormap ----</span>
+<span class="n">kde_color</span> <span class="o">=</span> <span class="n">div_cmap</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span>   <span class="c1"># bluish side; try 0.85 for red side</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;err&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">kde_color</span><span class="p">,</span> <span class="n">bw_adjust</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Forecast Error Distribution (Diverging)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Error [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># ---- Diverging heatmap (centered at 0) ----</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">err_grid</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">div_cmap</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Error [MW]&quot;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Error Heatmap (Centered at 0)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1bf39e196b374a7f335d9f20ed80e6b8ed5e83e238f8f235f84adf3922501e81.png" src="_images/1bf39e196b374a7f335d9f20ed80e6b8ed5e83e238f8f235f84adf3922501e81.png" />
+<img alt="_images/b95e1ee5996b9fe3544c5e2ef9d71bb7146300a9c5b86433b6f878fcbc01a607.png" src="_images/b95e1ee5996b9fe3544c5e2ef9d71bb7146300a9c5b86433b6f878fcbc01a607.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="single-series-plot-with-a-specific-color">
+<h3>4) Single-series plot with a specific color<a class="headerlink" href="#single-series-plot-with-a-specific-color" title="Link to this heading">#</a></h3>
+<p>Your original histogram—explicit color string:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">);</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribution of Hourly Demand&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Demand [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4e4a69a006e97758c594d0fd35cfbbcd6bfe941e081448b256c02f87a29cf5af.png" src="_images/4e4a69a006e97758c594d0fd35cfbbcd6bfe941e081448b256c02f87a29cf5af.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="stable-color-mapping-dict-for-consistent-branding">
+<h3>5) Stable color mapping (dict) for consistent branding<a class="headerlink" href="#stable-color-mapping-dict-for-consistent-branding" title="Link to this heading">#</a></h3>
+<p>Guarantee the <strong>same color per category</strong> across all plots.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+
+<span class="c1"># Build a stable color map from df_agg</span>
+<span class="n">cats</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">df_agg</span><span class="p">[</span><span class="s2">&quot;end_use&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;Set2&quot;</span><span class="p">,</span> <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">cats</span><span class="p">))</span>
+<span class="n">COLOR_MAP</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cats</span><span class="p">,</span> <span class="n">palette</span><span class="p">))</span>   <span class="c1"># {&quot;Heating&quot;: (r,g,b), ...}</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">df_agg</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;kwh&quot;</span><span class="p">,</span>
+    <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;end_use&quot;</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="n">COLOR_MAP</span><span class="p">,</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">,</span> <span class="n">errorbar</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Daily kWh by End-Use&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Day&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;kWh&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;End-use&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e8e67da53501f44a0bade77127c8caf3d854f72854a4f5b97393e649d959ad03.png" src="_images/e8e67da53501f44a0bade77127c8caf3d854f72854a4f5b97393e649d959ad03.png" />
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="quick-palette-preview-helper-optional">
+<h3>6) Quick palette preview helper (optional)<a class="headerlink" href="#quick-palette-preview-helper-optional" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_palette</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">name</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">palplot</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">show_palette</span><span class="p">(</span><span class="s2">&quot;colorblind&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">show_palette</span><span class="p">(</span><span class="s2">&quot;Set2&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">show_palette</span><span class="p">(</span><span class="s2">&quot;tab10&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6ca8ccdf3ca0364817bfd4371846a7581a0aa9b3509016e74c57db5e0c3974a5.png" src="_images/6ca8ccdf3ca0364817bfd4371846a7581a0aa9b3509016e74c57db5e0c3974a5.png" />
+<img alt="_images/5c83143fe18a36928615e1b8a5b104017d7e5f3735961374de6e4e247320d4ad.png" src="_images/5c83143fe18a36928615e1b8a5b104017d7e5f3735961374de6e4e247320d4ad.png" />
+<img alt="_images/3c0753051e70f9dfe27bce08e1e09528a211b1bb4956286863e82c384fdf0b58.png" src="_images/3c0753051e70f9dfe27bce08e1e09528a211b1bb4956286863e82c384fdf0b58.png" />
+</div>
+</div>
+</section>
+<section id="cheatsheet">
+<h3>Cheatsheet<a class="headerlink" href="#cheatsheet" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Categorical:</strong> <code class="docutils literal notranslate"><span class="pre">&quot;colorblind&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Set2&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;tab10&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Paired&quot;</span></code>.</p></li>
+<li><p><strong>Sequential:</strong> <code class="docutils literal notranslate"><span class="pre">&quot;viridis&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cividis&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;mako&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;flare&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Blues&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Greens&quot;</span></code>.</p></li>
+<li><p><strong>Diverging:</strong> <code class="docutils literal notranslate"><span class="pre">sns.diverging_palette(240,</span> <span class="pre">10,</span> <span class="pre">as_cmap=True)</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;icefire&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;coolwarm&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;RdBu_r&quot;</span></code>.</p></li>
+</ul>
+</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="summary">
@@ -1590,15 +2429,57 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-tips">✅ Key Tips</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#area-plots">🌈 Area Plots</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use">When to use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-avoid">When to avoid</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-basic-area-single-series">Example 1 — Basic area (single series)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-stacked-area-multiple-series">Example 2 — Stacked area (multiple series)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-100-stacked-area-share-over-time">Example 3 — 100% stacked area (share over time)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-seaborn-styling-for-area">Example 4 — Seaborn styling for area</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-cumulative-area-month-to-date-energy">Example 5 — Cumulative area (month-to-date energy)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-gaps-negatives">Handling gaps &amp; negatives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#readability-tips">Readability tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-figure">Save the figure</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pie-charts">🥧 Pie Charts</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">When to use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">When to avoid</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-basic-pie-matplotlib">Example 1 — Basic pie (Matplotlib)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-donut-ring-chart">Example 2 — Donut (ring) chart</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-nested-donut-two-levels">Example 3 — Nested donut (two levels)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-seaborn-styling-for-pies">Example 4 — Seaborn styling for pies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-advice">Practical advice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Save the figure</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-plots-categorical-data">📊 Bar Plots (Categorical Data)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-bar-plots">🔎 Why use bar plots?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">⚡ Energy Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">✅ Key Tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">✅ Key Tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacked-bar-plot">📊 Stacked Bar Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">When to use</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-shape">Data shape</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-stacked-bars-with-totals-matplotlib-pandas">Example 1 — Stacked bars with totals (Matplotlib + Pandas)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-100-stacked-composition-only">Example 2 — 100% stacked (composition only)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-horizontal-stacked-bars">Example 3 — Horizontal stacked bars</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#styling-readability">Styling &amp; readability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-negatives-surplus-deficits">Handling negatives (surplus/deficits)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-pitfalls">Common pitfalls</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Save the figure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn-variants">Seaborn variants</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-quick-win-seaborn-styling-pandas-stacking">A) Quick win — seaborn styling + pandas stacking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-full-control-manual-stacking-with-seaborn-palette">B) Full control — manual stacking with seaborn palette</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-100-stacked-composition-only-with-seaborn-palette">C) 100% stacked (composition only) with seaborn palette</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-kde-kernel-density-estimate">📊 Histogram &amp; KDE (Kernel Density Estimate)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-them">🔎 Why use them?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">⚡ Energy Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">⚡ Energy Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-histogram-kde">✅ How to Read a Histogram + KDE</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-distributions-summer-vs-winter-demand">🌞❄️ Comparing Distributions: Summer vs Winter Demand</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-this-plot">✅ How to Read This Plot</a></li>
@@ -1619,7 +2500,7 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatterplot-with-regression-line">🔴 Scatterplot with Regression Line</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-scatterplots-with-regression">🔎 Why use scatterplots with regression?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">⚡ Energy Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">⚡ Energy Example</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-it">✅ How to Read It</a></li>
 </ul>
 </li>
@@ -1652,9 +2533,22 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 </li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sankey-diagram-energy-flows">🔀 Sankey Diagram (Energy Flows)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-interactive-plotly">Option A — Interactive (Plotly)</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-colors-sizes-and-titles">Customizing Colors, Sizes, and Titles</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib-line-styles-markers-title-grid">Matplotlib: Line styles, markers, title, grid</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn-palettes-and-context">Seaborn: Palettes and context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn-palettes-and-context">Seaborn: Palettes and context</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-palette-for-hue-with-discrete-labels">1) Categorical palette (for <code class="docutils literal notranslate"><span class="pre">hue</span></code> with discrete labels)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-palette-low-high-intensity">2) Sequential palette (low → high intensity)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diverging-palette-deviation-around-a-midpoint">3) Diverging palette (deviation around a midpoint)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-series-plot-with-a-specific-color">4) Single-series plot with a specific color</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-color-mapping-dict-for-consistent-branding">5) Stable color mapping (dict) for consistent branding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-palette-preview-helper-optional">6) Quick palette preview helper (optional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cheatsheet">Cheatsheet</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
