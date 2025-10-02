@@ -253,8 +253,8 @@
 
 
 
-
 <li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
 
 
 
@@ -593,10 +593,6 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sankey-diagram-energy-flows">🔀 Sankey Diagram (Energy Flows)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-interactive-plotly">Option A — Interactive (Plotly)</a></li>
-</ul>
-</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-colors-sizes-and-titles">Customizing Colors, Sizes, and Titles</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matplotlib-line-styles-markers-title-grid">Matplotlib: Line styles, markers, title, grid</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seaborn-palettes-and-context">Seaborn: Palettes and context</a><ul class="nav section-nav flex-column">
@@ -636,6 +632,8 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">display</span>
 </pre></div>
 </div>
 </div>
@@ -2087,68 +2085,6 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 </section>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="sankey-diagram-energy-flows">
-<h1>🔀 Sankey Diagram (Energy Flows)<a class="headerlink" href="#sankey-diagram-energy-flows" title="Link to this heading">#</a></h1>
-<p>Sankey diagrams show <strong>flows between stages</strong> with widths proportional to the <strong>magnitude</strong> (e.g., kWh). Great for visualizing <strong>where energy comes from and where it goes</strong>.</p>
-<hr class="docutils" />
-<section id="option-a-interactive-plotly">
-<h2>Option A — Interactive (Plotly)<a class="headerlink" href="#option-a-interactive-plotly" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
-
-<span class="c1"># Nodes (unique list of stages)</span>
-<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;Grid&quot;</span><span class="p">,</span> <span class="s2">&quot;PV&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;House Loads&quot;</span><span class="p">,</span> <span class="s2">&quot;EV Charging&quot;</span><span class="p">,</span> <span class="s2">&quot;Battery&quot;</span><span class="p">,</span> <span class="s2">&quot;Losses&quot;</span><span class="p">,</span> <span class="s2">&quot;Export&quot;</span>
-<span class="p">]</span>
-
-<span class="c1"># Helper to refer to node indices</span>
-<span class="n">idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">)}</span>
-
-<span class="c1"># Links: sources -&gt; targets with values (kWh for a sample day)</span>
-<span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Grid&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Grid&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Grid&quot;</span><span class="p">],</span>     <span class="c1"># Grid to House/EV/Losses</span>
-    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;PV&quot;</span><span class="p">],</span>   <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;PV&quot;</span><span class="p">],</span>   <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;PV&quot;</span><span class="p">],</span>       <span class="c1"># PV to House/Battery/Export</span>
-    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Battery&quot;</span><span class="p">]</span>                               <span class="c1"># Battery to House (discharge)</span>
-<span class="p">]</span>
-<span class="n">targets</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;House Loads&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;EV Charging&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Losses&quot;</span><span class="p">],</span>
-    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;House Loads&quot;</span><span class="p">],</span> <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Battery&quot;</span><span class="p">],</span>     <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;Export&quot;</span><span class="p">],</span>
-    <span class="n">idx</span><span class="p">[</span><span class="s2">&quot;House Loads&quot;</span><span class="p">]</span>
-<span class="p">]</span>
-<span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>   <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>   <span class="mi">4</span><span class="p">]</span>  <span class="c1"># sums per your data</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Sankey</span><span class="p">(</span>
-    <span class="n">arrangement</span><span class="o">=</span><span class="s2">&quot;snap&quot;</span><span class="p">,</span>  <span class="c1"># keeps node positions reasonable without overlap</span>
-    <span class="n">node</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-        <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="n">labels</span>
-        <span class="c1"># You can add &#39;color&#39; list here for custom colors</span>
-    <span class="p">),</span>
-    <span class="n">link</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-        <span class="n">source</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
-        <span class="n">target</span><span class="o">=</span><span class="n">targets</span><span class="p">,</span>
-        <span class="n">value</span><span class="o">=</span><span class="n">values</span>
-        <span class="c1"># You can add &#39;color&#39; list here to color the links</span>
-    <span class="p">)</span>
-<span class="p">)])</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="s2">&quot;Daily Energy Flows (kWh)&quot;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-</div>
-</div>
-<p><strong>Tips</strong></p>
-<ul class="simple">
-<li><p>Keep node labels concise and <strong>unique</strong>.</p></li>
-<li><p>Group tiny flows into <strong>“Other”</strong> to keep the chart readable.</p></li>
-<li><p>Plotly hover tooltips show exact kWh; legend toggling works at the node level.</p></li>
-</ul>
-</section>
-</section>
 <section class="tex2jax_ignore mathjax_ignore" id="customizing-colors-sizes-and-titles">
 <h1>Customizing Colors, Sizes, and Titles<a class="headerlink" href="#customizing-colors-sizes-and-titles" title="Link to this heading">#</a></h1>
 <section id="matplotlib-line-styles-markers-title-grid">
@@ -2179,7 +2115,7 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0fb0959be13f3e038ff6db1a2bd482bdcb7bcfd42eef390d6e05e5a2704f86bf.png" src="_images/0fb0959be13f3e038ff6db1a2bd482bdcb7bcfd42eef390d6e05e5a2704f86bf.png" />
+<img alt="_images/3bdabc77f5d8858dc42f895aabb815bf3c5e48bbb9c91f41892ec5ad155c7637.png" src="_images/3bdabc77f5d8858dc42f895aabb815bf3c5e48bbb9c91f41892ec5ad155c7637.png" />
 </div>
 </div>
 </section>
@@ -2200,7 +2136,7 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0340c7155e3bce714be551314c6f1dff003b37218c62078488ac633b66a170ce.png" src="_images/0340c7155e3bce714be551314c6f1dff003b37218c62078488ac633b66a170ce.png" />
+<img alt="_images/a926cd4ad4091c23ade5ceb9d3ceaaa4eea1a92f77deb929ed1609932b2738a3.png" src="_images/a926cd4ad4091c23ade5ceb9d3ceaaa4eea1a92f77deb929ed1609932b2738a3.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -2679,10 +2615,6 @@ It combines multiple <strong>scatterplots</strong> into a grid, with histograms 
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-a-pairplot">✅ How to Read a Pairplot</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sankey-diagram-energy-flows">🔀 Sankey Diagram (Energy Flows)</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-interactive-plotly">Option A — Interactive (Plotly)</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-colors-sizes-and-titles">Customizing Colors, Sizes, and Titles</a><ul class="visible nav section-nav flex-column">
