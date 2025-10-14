@@ -298,6 +298,7 @@
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
 
 
@@ -312,11 +313,14 @@
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA) — mini-guide for energy data</a></li>
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelling time series</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
 
 
 
@@ -478,7 +482,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-indexing-is-important">🔎 Why Indexing is Important</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-datetimeindex">Creating a DatetimeIndex</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-datetimeindex">Creating a DatetimeIndex</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions:</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">✅ Summary</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-missing-datetime-indices">🕒 Finding Missing Datetime Indices</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-missing-timestamps">🔧 ✨ 🔍 Identify missing timestamps</a></li>
@@ -487,6 +495,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#daylight-saving-time">Daylight saving time ⏳</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-dst-changes-patterns">🔄 How DST changes patterns</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-forecasting-nightmare">📉 The forecasting nightmare</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixing-the-problem">🛠️ Fixing the problem</a></li>
@@ -544,6 +553,12 @@ document.write(`
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="creating-a-datetimeindex">
 <h1>Creating a DatetimeIndex<a class="headerlink" href="#creating-a-datetimeindex" title="Link to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p>Why use a <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> instead of a plain column for time series?</p></li>
+<li><p>What’s the difference between <strong>missing values</strong> vs <strong>missing timestamps</strong>?</p></li>
+<li><p>Give two operations that become simpler once your frame has a <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>.</p></li>
+<li><p>When would you prefer <strong>periodic</strong> frequency (e.g., <code class="docutils literal notranslate"><span class="pre">freq=&quot;h&quot;</span></code>) vs leaving the index irregular?</p></li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hourly demand values for one day</span>
@@ -566,6 +581,14 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="questions">
+<h2>Questions:<a class="headerlink" href="#questions" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>You get a CSV with <strong>semicolon</strong> separators and <strong>comma</strong> decimals. Show how you’d read it with Pandas.</p></li>
+<li><p>A column <code class="docutils literal notranslate"><span class="pre">'Kuupaev</span> <span class="pre">(Eesti</span> <span class="pre">aeg)'</span></code> stores <strong>day-first</strong> dates. Parse it to <code class="docutils literal notranslate"><span class="pre">datetime</span></code> correctly.</p></li>
+<li><p>After parsing, set the parsed column as index and ensure it’s <strong>monotonic increasing</strong>; raise if not.</p></li>
+<li><p>Detect and drop <strong>duplicate timestamps</strong>—then justify whether dropping or aggregating is better.</p></li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elering</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/electricity-production and consumption_2022.csv&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
@@ -757,6 +780,14 @@ Name: Kuupaev (Eesti aeg), dtype: object
 </table>
 </div></div></div>
 </div>
+</section>
+<section id="id1">
+<h2>Questions:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">hour</span></code>, <code class="docutils literal notranslate"><span class="pre">dayofweek</span></code>, and <code class="docutils literal notranslate"><span class="pre">is_weekend</span></code> features from the index.</p></li>
+<li><p>Plot the distribution of <strong>day of month</strong>; what bias might you expect in utility data?</p></li>
+<li><p>Extract <strong>season</strong> (winter/spring/summer/autumn) from timestamps for an energy forecast.</p></li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">day_of_month</span> <span class="o">=</span> <span class="n">elering</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
@@ -923,6 +954,7 @@ Name: Kuupaev (Eesti aeg), dtype: object
 </div></div></div>
 </div>
 </section>
+</section>
 <section class="tex2jax_ignore mathjax_ignore" id="summary">
 <h1>✅ Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h1>
 <ul class="simple">
@@ -1016,7 +1048,15 @@ DatetimeIndex([&#39;2024-01-01 05:00:00&#39;, &#39;2024-01-01 17:00:00&#39;,
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="daylight-saving-time">
 <h1>Daylight saving time ⏳<a class="headerlink" href="#daylight-saving-time" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>Questions:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Convert a naïve <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code> to <strong>Europe/Tallinn</strong> and explain what changes.</p></li>
+<li><p>On the <strong>“fall back”</strong> day (25 hours), how would you aggregate <strong>daily</strong> energy fairly?</p></li>
+<li><p>On the <strong>“spring forward”</strong> day (23 hours), how do you align model inputs with ground truth?</p></li>
+</ol>
 <p>Twice a year, like clockwork (literally), we shift time. In spring 🌸, we jump forward an hour. In autumn 🍂, we fall back. While it may seem like a minor inconvenience — an extra hour of sleep in October and one less in March — it’s a major challenge for those working with energy data.</p>
+</section>
 <section id="how-dst-changes-patterns">
 <h2>🔄 How DST changes patterns<a class="headerlink" href="#how-dst-changes-patterns" title="Link to this heading">#</a></h2>
 <p>Daylight Saving Time (DST) isn’t just about adjusting our clocks — it changes how we live. When the clocks shift, so do our routines:</p>
@@ -1116,7 +1156,11 @@ DatetimeIndex([&#39;2024-01-01 05:00:00&#39;, &#39;2024-01-01 17:00:00&#39;,
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-indexing-is-important">🔎 Why Indexing is Important</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-datetimeindex">Creating a DatetimeIndex</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-datetimeindex">Creating a DatetimeIndex</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions:</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">✅ Summary</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-missing-datetime-indices">🕒 Finding Missing Datetime Indices</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identify-missing-timestamps">🔧 ✨ 🔍 Identify missing timestamps</a></li>
@@ -1125,6 +1169,7 @@ DatetimeIndex([&#39;2024-01-01 05:00:00&#39;, &#39;2024-01-01 17:00:00&#39;,
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#daylight-saving-time">Daylight saving time ⏳</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Questions:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-dst-changes-patterns">🔄 How DST changes patterns</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-forecasting-nightmare">📉 The forecasting nightmare</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixing-the-problem">🛠️ Fixing the problem</a></li>

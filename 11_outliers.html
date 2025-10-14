@@ -300,6 +300,7 @@
 
 
 
+
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">📊 Outliers in Data</a></li>
 
 
@@ -314,11 +315,14 @@
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA) — mini-guide for energy data</a></li>
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelling time series</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
 
 
 
@@ -477,6 +481,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">📊 Outliers in Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-look-at-the-dataset">1️⃣ First look at the dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-distributions-with-histograms">2️⃣ Visualize distributions with histograms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplots-for-systematic-detection">3️⃣ Boxplots for systematic detection</a></li>
@@ -518,6 +523,13 @@ document.write(`
 <h1>📊 Outliers in Data<a class="headerlink" href="#outliers-in-data" title="Link to this heading">#</a></h1>
 <p>Outliers are data points that deviate strongly from the rest of the dataset.
 They can be <strong>useful signals</strong> (e.g. extreme weather, holidays) or <strong>errors</strong> (e.g. faulty sensors). Detecting them is important before modeling.</p>
+<section id="questions">
+<h2>Questions:<a class="headerlink" href="#questions" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>What’s the difference between a <strong>logical outlier</strong> and a <strong>data error</strong>? Give one energy example of each.</p></li>
+<li><p>Which plot would you pick to spot outliers quickly—<strong>boxplot, histogram, or scatter vs time</strong>—and why?</p></li>
+<li><p>After detecting outliers, list three choices  and when you’d prefer each.</p></li>
+</ol>
 <hr class="docutils" />
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -784,6 +796,7 @@ memory usage: 1.9+ MB
 </div>
 </div>
 </div>
+</section>
 <section id="first-look-at-the-dataset">
 <h2>1️⃣ First look at the dataset<a class="headerlink" href="#first-look-at-the-dataset" title="Link to this heading">#</a></h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> to see the main statistics:</p>
@@ -1349,6 +1362,7 @@ After removing outliers: 8675
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">📊 Outliers in Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-look-at-the-dataset">1️⃣ First look at the dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-distributions-with-histograms">2️⃣ Visualize distributions with histograms</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplots-for-systematic-detection">3️⃣ Boxplots for systematic detection</a></li>

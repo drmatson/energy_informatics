@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '12_feature_engineering';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="⏱️ Time Series vs. 📌 Timestamped Data" href="ts.html" />
+    <link rel="next" title="Principal Component Analysis (PCA) — mini-guide for energy data" href="13_pca.html" />
     <link rel="prev" title="📊 Outliers in Data" href="11_outliers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -300,6 +300,7 @@
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
 
 
@@ -314,11 +315,14 @@
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA) — mini-guide for energy data</a></li>
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelling time series</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
 
 
 
@@ -477,6 +481,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔧 Feature Engineering Tutorial</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-feature-engineering">✨ What is Feature Engineering?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">Setup &amp; Imports 🛠️</a></li>
 </ul>
@@ -580,6 +585,16 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="feature-engineering-tutorial">
 <h1>🔧 Feature Engineering Tutorial<a class="headerlink" href="#feature-engineering-tutorial" title="Link to this heading">#</a></h1>
 <hr class="docutils" />
+<section id="questions">
+<h2>Questions:<a class="headerlink" href="#questions" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>For hourly load forecasting, name <strong>three basic features</strong> you’d add first (no code), and why each helps.</p></li>
+<li><p>What’s the difference between a <strong>lag feature</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">lag24</span></code>) and a <strong>rolling mean</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">roll24_mean</span></code>)? Give one use case for each.</p></li>
+<li><p>Why encode hour-of-day and day-of-year with <strong>sin/cos</strong> instead of integers? Give a 1-sentence explanation.</p></li>
+<li><p>What is <strong>target leakage</strong>? Give one example of a feature that would leak for day-ahead load forecasting.</p></li>
+<li><p>For tree models vs linear models: when would you <strong>standardize/scale</strong> features, and when is it usually unnecessary?</p></li>
+</ol>
+</section>
 <section id="what-is-feature-engineering">
 <h2>✨ What is Feature Engineering?<a class="headerlink" href="#what-is-feature-engineering" title="Link to this heading">#</a></h2>
 <p>Feature engineering = creating, transforming, and selecting variables to make models smarter.
@@ -4891,11 +4906,11 @@ dtype: float64
       </div>
     </a>
     <a class="right-next"
-       href="ts.html"
+       href="13_pca.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">⏱️ Time Series vs. 📌 Timestamped Data</p>
+        <p class="prev-next-title">Principal Component Analysis (PCA) — mini-guide for energy data</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4916,6 +4931,7 @@ dtype: float64
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔧 Feature Engineering Tutorial</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-feature-engineering">✨ What is Feature Engineering?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">Setup &amp; Imports 🛠️</a></li>
 </ul>

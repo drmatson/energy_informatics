@@ -298,6 +298,7 @@
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
 
 
@@ -312,11 +313,14 @@
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA) — mini-guide for energy data</a></li>
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelling time series</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
 
 
 
@@ -474,7 +478,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔧 Handling Missing Data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔧 Handling Missing Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">🔹Questions:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions:</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-missing-data">🔎 Detecting Missing Data</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#primitive-tools">🔧  Primitive tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-missing-data-with-missingno">🖼️ Visualizing Missing Data with <code class="docutils literal notranslate"><span class="pre">missingno</span></code></a><ul class="nav section-nav flex-column">
@@ -491,6 +499,7 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question:</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data-mechanisms">🔧 Missing Data Mechanisms</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcar-missing-completely-at-random">✨ MCAR — Missing Completely at Random</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mar-missing-at-random">✨ MAR — Missing At Random</a></li>
@@ -551,15 +560,13 @@ document.write(`
 <hr class="docutils" />
 <section class="tex2jax_ignore mathjax_ignore" id="handling-missing-data">
 <h1>🔧 Handling Missing Data<a class="headerlink" href="#handling-missing-data" title="Link to this heading">#</a></h1>
-<p>Data preprocessing is a crucial step in the <strong>Data Science Lifecycle</strong>.
-In energy datasets (demand, production, weather, prices), we often face <strong>missing values</strong> due to:</p>
-<ul class="simple">
-<li><p>⚡ Communication problems (smart meter failed to send data)</p></li>
-<li><p>🌡️ Sensor malfunctions in extreme temperatures</p></li>
-<li><p>📅 Reporting delays (holidays, manual inputs skipped)</p></li>
-</ul>
-<p>Many algorithms <strong>cannot handle NaNs</strong>, so we need strategies to <strong>detect, understand, and fix</strong> missing values.</p>
-<hr class="docutils" />
+<section id="questions">
+<h2>🔹Questions:<a class="headerlink" href="#questions" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>What’s the difference between an empty string <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, and <code class="docutils literal notranslate"><span class="pre">NaN</span></code>?</p></li>
+<li><p>Name two reasons data might be missing in energy datasets.</p></li>
+</ol>
+<p>Data preprocessing is a crucial step in the <strong>Data Science Lifecycle</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/weather_2022.csv&#39;</span><span class="p">,</span>  <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">index_col</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
@@ -936,6 +943,24 @@ In energy datasets (demand, production, weather, prices), we often face <strong>
 <p>5 rows × 28 columns</p>
 </div></div></div>
 </div>
+<p>In energy datasets (demand, production, weather, prices), we often face <strong>missing values</strong> due to:</p>
+<ul class="simple">
+<li><p>⚡ Communication problems (smart meter failed to send data)</p></li>
+<li><p>🌡️ Sensor malfunctions in extreme temperatures</p></li>
+<li><p>📅 Reporting delays (holidays, manual inputs skipped)</p></li>
+</ul>
+<p>Many algorithms <strong>cannot handle NaNs</strong>, so we need strategies to <strong>detect, understand, and fix</strong> missing values.</p>
+<hr class="docutils" />
+</section>
+<section id="id1">
+<h2>Questions:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>How do you quickly count NaNs per column in pandas?</p></li>
+<li><p>How would you find rows where any column is missing?</p></li>
+<li><p>When is dropna() acceptable, and when is it risky?</p></li>
+<li><p>Why might filling numeric features with mean be worse than median?</p></li>
+</ol>
+</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="detecting-missing-data">
 <h1>🔎 Detecting Missing Data<a class="headerlink" href="#detecting-missing-data" title="Link to this heading">#</a></h1>
@@ -1179,6 +1204,12 @@ The <a class="reference external" href="https://github.com/ResidentMario/missing
 </section>
 </section>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="question">
+<h1>Question:<a class="headerlink" href="#question" title="Link to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p>What’s the difference between MCAR, MAR, and MNAR in one sentence each?</p></li>
+</ol>
+</section>
 <section class="tex2jax_ignore mathjax_ignore" id="missing-data-mechanisms">
 <h1>🔧 Missing Data Mechanisms<a class="headerlink" href="#missing-data-mechanisms" title="Link to this heading">#</a></h1>
 <p>Understanding <strong>why</strong> data is missing helps us choose the right handling strategy.</p>
@@ -1243,7 +1274,6 @@ The <a class="reference external" href="https://github.com/ResidentMario/missing
 </ul>
 <hr class="docutils" />
 <p>👉 A practical tip: always check if missing values are <strong>correlated with other features</strong> (season, region, device). If yes → it’s likely <strong>MAR</strong>. If missingness clusters at <strong>extremes of the variable itself</strong>, it might be <strong>MNAR</strong>.</p>
-<hr class="docutils" />
 </section>
 </section>
 <hr class="docutils" />
@@ -3800,7 +3830,11 @@ dtype: int64
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔧 Handling Missing Data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🔧 Handling Missing Data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">🔹Questions:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Questions:</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#detecting-missing-data">🔎 Detecting Missing Data</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#primitive-tools">🔧  Primitive tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-missing-data-with-missingno">🖼️ Visualizing Missing Data with <code class="docutils literal notranslate"><span class="pre">missingno</span></code></a><ul class="nav section-nav flex-column">
@@ -3817,6 +3851,7 @@ dtype: int64
 </li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#question">Question:</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data-mechanisms">🔧 Missing Data Mechanisms</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcar-missing-completely-at-random">✨ MCAR — Missing Completely at Random</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mar-missing-at-random">✨ MAR — Missing At Random</a></li>

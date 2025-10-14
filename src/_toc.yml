@@ -23,7 +23,8 @@ parts:
       - file: 10_handling_missing_data
       - file: 11_outliers
       - file: 12_feature_engineering
+      - file: 13_pca
   - caption: Modelling time series
     chapters:
       - file: ts
-      - file: 13_timeseries_intro
+      - file: 14_timeseries_intro
