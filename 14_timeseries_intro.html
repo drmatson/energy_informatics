@@ -62,6 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '14_timeseries_intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="⏱️ Decomposition, ACF/PACF, SARIMA" href="15_statistical_models_ts.html" />
     <link rel="prev" title="⏱️ Time Series vs. 📌 Timestamped Data" href="ts.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -314,7 +315,7 @@
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA) — mini-guide for energy data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
 
 
 </ul>
@@ -323,6 +324,15 @@
 <li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">⏱️ Time series: trend, seasonality, decomposition.</a></li>
 
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Decomposition, ACF/PACF, SARIMA</a></li>
 
 
 
@@ -653,7 +663,7 @@ This avoids subtle data leakage later.</p></li>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crop</span>
 <span class="n">australia</span> <span class="o">=</span> <span class="n">australia</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1956-03-01&#39;</span><span class="p">:</span><span class="s1">&#39;1985-12-01&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -661,7 +671,7 @@ This avoids subtle data leakage later.</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png"><img alt="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png" src="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png" style="width: 1089px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/b3956e01e8331b68a834f55e0b525a3242748f72e41cc631ce4a74ebe2dcfe2b.png"><img alt="_images/b3956e01e8331b68a834f55e0b525a3242748f72e41cc631ce4a74ebe2dcfe2b.png" src="_images/b3956e01e8331b68a834f55e0b525a3242748f72e41cc631ce4a74ebe2dcfe2b.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -1171,13 +1181,13 @@ MA_t = \frac{y_t + y_{t-1} + y_{t-2}}{3}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma_ex</span><span class="p">[[</span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span> <span class="s1">&#39;3-ma&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> 
-                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/7c4efd99fbe4a29d38a329f38dcb5c95a2543b3bbb9770e98184c0b392e1bd8b.png"><img alt="_images/7c4efd99fbe4a29d38a329f38dcb5c95a2543b3bbb9770e98184c0b392e1bd8b.png" src="_images/7c4efd99fbe4a29d38a329f38dcb5c95a2543b3bbb9770e98184c0b392e1bd8b.png" style="width: 1089px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/4998d7a465b3213a766ee90b3257c12647a7658fad2428ec75f03f46269b312c.png"><img alt="_images/4998d7a465b3213a766ee90b3257c12647a7658fad2428ec75f03f46269b312c.png" src="_images/4998d7a465b3213a766ee90b3257c12647a7658fad2428ec75f03f46269b312c.png" style="width: 789px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -1330,13 +1340,13 @@ MA_t = \frac{y_t + y_{t-1} + y_{t-2} + y_{t-3} + y_{t-4}}{5}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma_ex</span><span class="p">[[</span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span> <span class="s1">&#39;5-ma&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> 
-                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/f72d0c0332542de140f3fcaf9bd6d2e1cba6489b75f055fac4a51d22eb21ab11.png"><img alt="_images/f72d0c0332542de140f3fcaf9bd6d2e1cba6489b75f055fac4a51d22eb21ab11.png" src="_images/f72d0c0332542de140f3fcaf9bd6d2e1cba6489b75f055fac4a51d22eb21ab11.png" style="width: 1089px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/6b84da6b3c5e70e50c539111759431a05ff600ecb39898fb0a83751de8dd1f26.png"><img alt="_images/6b84da6b3c5e70e50c539111759431a05ff600ecb39898fb0a83751de8dd1f26.png" src="_images/6b84da6b3c5e70e50c539111759431a05ff600ecb39898fb0a83751de8dd1f26.png" style="width: 789px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -1687,13 +1697,13 @@ MA^{(2 \times 4)}_t = \frac{MA^{(4)}_{t} + MA^{(4)}_{t+1}}{2}
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma_ex</span><span class="p">[[</span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span> <span class="s1">&#39;2x4-ma&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> 
-                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+                                  <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/a778a8cb22ccfb94bd35ab0ae3282dcb14066ba3556b71eac6cf859a422cc703.png"><img alt="_images/a778a8cb22ccfb94bd35ab0ae3282dcb14066ba3556b71eac6cf859a422cc703.png" src="_images/a778a8cb22ccfb94bd35ab0ae3282dcb14066ba3556b71eac6cf859a422cc703.png" style="width: 1089px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/7f93637a120abc8aa87c42351443789e0e8102c6471f811625bffb7857353f84.png"><img alt="_images/7f93637a120abc8aa87c42351443789e0e8102c6471f811625bffb7857353f84.png" src="_images/7f93637a120abc8aa87c42351443789e0e8102c6471f811625bffb7857353f84.png" style="width: 789px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -1729,16 +1739,16 @@ A log transform converts multiplicative relations to additive, making them easie
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">fig</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">));</span>
+<span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1500x500 with 0 Axes&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1000x400 with 0 Axes&gt;
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/f89fb6e96401da95ab958e234ea631b19e2f1398d5ce25a7b8d21c905611f6ce.png"><img alt="_images/f89fb6e96401da95ab958e234ea631b19e2f1398d5ce25a7b8d21c905611f6ce.png" src="_images/f89fb6e96401da95ab958e234ea631b19e2f1398d5ce25a7b8d21c905611f6ce.png" style="width: 1491px; height: 488px;" />
+<a class="reference internal image-reference" href="_images/3c4be16b47f0586bfd7a53720dfca22f5e5e563cdc6753763a82164f543396eb.png"><img alt="_images/3c4be16b47f0586bfd7a53720dfca22f5e5e563cdc6753763a82164f543396eb.png" src="_images/3c4be16b47f0586bfd7a53720dfca22f5e5e563cdc6753763a82164f543396eb.png" style="width: 791px; height: 388px;" />
 </a>
 </div>
 </div>
@@ -1853,7 +1863,7 @@ y_t = \text{weight} \times t + \text{bias} + \epsilon_t
 <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span>
     <span class="s2">&quot;figure&quot;</span><span class="p">,</span>
     <span class="n">autolayout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
     <span class="n">titlesize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
     <span class="n">titleweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -1865,7 +1875,7 @@ y_t = \text{weight} \times t + \text{bias} + \epsilon_t
     <span class="n">titlesize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
     <span class="n">titlepad</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+<span class="c1">#%config InlineBackend.figure_format = &#39;retina&#39;</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;electricity&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">australia</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.75&#39;</span><span class="p">)</span>
@@ -1875,7 +1885,7 @@ y_t = \text{weight} \times t + \text{bias} + \epsilon_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/2bab3dd224c324b80833b7fbd386d44c16f4e175956801d104e90545a5a7f033.png"><img alt="_images/2bab3dd224c324b80833b7fbd386d44c16f4e175956801d104e90545a5a7f033.png" src="_images/2bab3dd224c324b80833b7fbd386d44c16f4e175956801d104e90545a5a7f033.png" style="width: 1489px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/b2c534def152cbf7113f168f3e435ff9d1ead8f61bae294c47dd3d178aa9a046.png"><img alt="_images/b2c534def152cbf7113f168f3e435ff9d1ead8f61bae294c47dd3d178aa9a046.png" src="_images/b2c534def152cbf7113f168f3e435ff9d1ead8f61bae294c47dd3d178aa9a046.png" style="width: 789px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2002,7 +2012,7 @@ Intercept Value: 1530.4702479338812
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/108b50bb5e3a516ba0e46631d5e01dd11d5d6586f02a82032ac63a57004004e4.png"><img alt="_images/108b50bb5e3a516ba0e46631d5e01dd11d5d6586f02a82032ac63a57004004e4.png" src="_images/108b50bb5e3a516ba0e46631d5e01dd11d5d6586f02a82032ac63a57004004e4.png" style="width: 1489px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/b7f0eaf85338875cf9f12afcb8c9282bcd051d0efbbc3df7cf488b3000195fa8.png"><img alt="_images/b7f0eaf85338875cf9f12afcb8c9282bcd051d0efbbc3df7cf488b3000195fa8.png" src="_images/b7f0eaf85338875cf9f12afcb8c9282bcd051d0efbbc3df7cf488b3000195fa8.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2114,7 +2124,7 @@ Intercept Value: 1530.4702479338812
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/b13e1a011b9e36ac017461d980a732e379c427ea3bde26cc55bfd2530fd28657.png"><img alt="_images/b13e1a011b9e36ac017461d980a732e379c427ea3bde26cc55bfd2530fd28657.png" src="_images/b13e1a011b9e36ac017461d980a732e379c427ea3bde26cc55bfd2530fd28657.png" style="width: 1489px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/597b8476a0cbfe0abc548166356dcea47f953893bc77c52ce46c8f5e54281c4e.png"><img alt="_images/597b8476a0cbfe0abc548166356dcea47f953893bc77c52ce46c8f5e54281c4e.png" src="_images/597b8476a0cbfe0abc548166356dcea47f953893bc77c52ce46c8f5e54281c4e.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2127,13 +2137,13 @@ Intercept Value: 1530.4702479338812
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">=</span><span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <span class="c1">#fig=result.plot()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
 <span class="n">result</span><span class="o">.</span><span class="n">trend</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/74831125f3bac78d4102103fc3d286748a21babbf78127123f231113c011863a.png"><img alt="_images/74831125f3bac78d4102103fc3d286748a21babbf78127123f231113c011863a.png" src="_images/74831125f3bac78d4102103fc3d286748a21babbf78127123f231113c011863a.png" style="width: 1489px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/be2017cdc11c8fd3a9aca8d101d1c5a0506731c3a166c601acbfdf1e73683141.png"><img alt="_images/be2017cdc11c8fd3a9aca8d101d1c5a0506731c3a166c601acbfdf1e73683141.png" src="_images/be2017cdc11c8fd3a9aca8d101d1c5a0506731c3a166c601acbfdf1e73683141.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2170,7 +2180,7 @@ y_t = T_t + S_t + R_t
 <h2>Patterns<a class="headerlink" href="#patterns" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">));</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Hour&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">);</span>
     
@@ -2185,13 +2195,13 @@ y_t = T_t + S_t + R_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/0a87bb93a371f15b3adf5e95dbaf8bf460a0170a6a47aa91ae117ed359ea0730.png"><img alt="_images/0a87bb93a371f15b3adf5e95dbaf8bf460a0170a6a47aa91ae117ed359ea0730.png" src="_images/0a87bb93a371f15b3adf5e95dbaf8bf460a0170a6a47aa91ae117ed359ea0730.png" style="width: 1489px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/a6ceac9aa68d8fa69d4d9b21d2f16a4501ff8251c3e51c7bb8b1b303964c6c2c.png"><img alt="_images/a6ceac9aa68d8fa69d4d9b21d2f16a4501ff8251c3e51c7bb8b1b303964c6c2c.png" src="_images/a6ceac9aa68d8fa69d4d9b21d2f16a4501ff8251c3e51c7bb8b1b303964c6c2c.png" style="width: 789px; height: 390px;" />
 </a>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">));</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Hour&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">);</span>
     
@@ -2206,7 +2216,7 @@ y_t = T_t + S_t + R_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/7b797705d486eb1b94a14e0a29270c6345420bc0fea758149493a8a27c0695d7.png"><img alt="_images/7b797705d486eb1b94a14e0a29270c6345420bc0fea758149493a8a27c0695d7.png" src="_images/7b797705d486eb1b94a14e0a29270c6345420bc0fea758149493a8a27c0695d7.png" style="width: 990px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/960b004f32450dab9dfde4cdc3805fb3e4ccc72cce153a27cc7311756a6928e5.png"><img alt="_images/960b004f32450dab9dfde4cdc3805fb3e4ccc72cce153a27cc7311756a6928e5.png" src="_images/960b004f32450dab9dfde4cdc3805fb3e4ccc72cce153a27cc7311756a6928e5.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2216,13 +2226,13 @@ y_t = T_t + S_t + R_t
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">=</span><span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">24</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
 <span class="n">result</span><span class="o">.</span><span class="n">seasonal</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/728b4c65088a9c061011a95f9231549e9c1fe1f17da771291c953dd178be1cb6.png"><img alt="_images/728b4c65088a9c061011a95f9231549e9c1fe1f17da771291c953dd178be1cb6.png" src="_images/728b4c65088a9c061011a95f9231549e9c1fe1f17da771291c953dd178be1cb6.png" style="width: 1990px; height: 489px;" />
+<a class="reference internal image-reference" href="_images/3f65506d454c5c3bacb079911ec29bf6a008f31de1eac67d82ee15a2173a3257.png"><img alt="_images/3f65506d454c5c3bacb079911ec29bf6a008f31de1eac67d82ee15a2173a3257.png" src="_images/3f65506d454c5c3bacb079911ec29bf6a008f31de1eac67d82ee15a2173a3257.png" style="width: 989px; height: 290px;" />
 </a>
 </div>
 </div>
@@ -2288,7 +2298,7 @@ y_t = T_t + S_t + R_t
 
 
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
     <span class="n">color_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;cyan&#39;</span><span class="p">]</span>
     <span class="n">color_list</span> <span class="o">=</span> <span class="n">color_list</span><span class="p">[</span><span class="mi">0</span><span class="p">:(</span><span class="n">c</span><span class="p">)]</span>
    
@@ -2307,11 +2317,11 @@ y_t = T_t + S_t + R_t
         
 
     <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">plt</span><span class="p">;</span>
 
@@ -2320,7 +2330,7 @@ y_t = T_t + S_t + R_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/1b24f3a04c576d4594b8380c2168df7bdf9a2aa37516ec3ac226a3d536f78fa7.png"><img alt="_images/1b24f3a04c576d4594b8380c2168df7bdf9a2aa37516ec3ac226a3d536f78fa7.png" src="_images/1b24f3a04c576d4594b8380c2168df7bdf9a2aa37516ec3ac226a3d536f78fa7.png" style="width: 1989px; height: 989px;" />
+<a class="reference internal image-reference" href="_images/0b55ad24da62b5094f9ae7336b930176825c55fb16068a8a99b6e18d452411d4.png"><img alt="_images/0b55ad24da62b5094f9ae7336b930176825c55fb16068a8a99b6e18d452411d4.png" src="_images/0b55ad24da62b5094f9ae7336b930176825c55fb16068a8a99b6e18d452411d4.png" style="width: 789px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2334,7 +2344,7 @@ y_t = T_t + S_t + R_t
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/6268fc055157b043d3095668461465cc59f6f0b8cdb2519e2a86fd0a3fc3b371.png"><img alt="_images/6268fc055157b043d3095668461465cc59f6f0b8cdb2519e2a86fd0a3fc3b371.png" src="_images/6268fc055157b043d3095668461465cc59f6f0b8cdb2519e2a86fd0a3fc3b371.png" style="width: 1989px; height: 989px;" />
+<a class="reference internal image-reference" href="_images/69d55d1288320f8bc40f150ba807a4c032242964a5608d9156b0e8a54a50dad4.png"><img alt="_images/69d55d1288320f8bc40f150ba807a4c032242964a5608d9156b0e8a54a50dad4.png" src="_images/69d55d1288320f8bc40f150ba807a4c032242964a5608d9156b0e8a54a50dad4.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2461,7 +2471,7 @@ Use rolling mean to estimate trend, subtract it from the original series.</p></l
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -2469,20 +2479,20 @@ Use rolling mean to estimate trend, subtract it from the original series.</p></l
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png"><img alt="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png" src="_images/1ac260b502f81ee0fe717bc083118338bad6711802dc53dab3b4d894b9ea132b.png" style="width: 1089px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/b3956e01e8331b68a834f55e0b525a3242748f72e41cc631ce4a74ebe2dcfe2b.png"><img alt="_images/b3956e01e8331b68a834f55e0b525a3242748f72e41cc631ce4a74ebe2dcfe2b.png" src="_images/b3956e01e8331b68a834f55e0b525a3242748f72e41cc631ce4a74ebe2dcfe2b.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">au_result</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">australia</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
 <span class="n">au_result</span><span class="o">.</span><span class="n">trend</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/04f366f0cc2eb73bdc9d38d867ee9c8653f26a3c10925b9a3b132c51867da185.png"><img alt="_images/04f366f0cc2eb73bdc9d38d867ee9c8653f26a3c10925b9a3b132c51867da185.png" src="_images/04f366f0cc2eb73bdc9d38d867ee9c8653f26a3c10925b9a3b132c51867da185.png" style="width: 1089px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/be2017cdc11c8fd3a9aca8d101d1c5a0506731c3a166c601acbfdf1e73683141.png"><img alt="_images/be2017cdc11c8fd3a9aca8d101d1c5a0506731c3a166c601acbfdf1e73683141.png" src="_images/be2017cdc11c8fd3a9aca8d101d1c5a0506731c3a166c601acbfdf1e73683141.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2495,7 +2505,7 @@ Use rolling mean to estimate trend, subtract it from the original series.</p></l
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">de_trend</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;De-trended&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -2503,7 +2513,7 @@ Use rolling mean to estimate trend, subtract it from the original series.</p></l
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/d07430b868700d10cdc97c1a6e32b34e67fd3e78d049ce28c11787aca604d21d.png"><img alt="_images/d07430b868700d10cdc97c1a6e32b34e67fd3e78d049ce28c11787aca604d21d.png" src="_images/d07430b868700d10cdc97c1a6e32b34e67fd3e78d049ce28c11787aca604d21d.png" style="width: 1089px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/31ee511d90184d03d1b1aa9710ab0131ed9120c0521da9290a9f76ab1e3e4cd5.png"><img alt="_images/31ee511d90184d03d1b1aa9710ab0131ed9120c0521da9290a9f76ab1e3e4cd5.png" src="_images/31ee511d90184d03d1b1aa9710ab0131ed9120c0521da9290a9f76ab1e3e4cd5.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2530,13 +2540,13 @@ Separate series into trend + seasonal + remainder.</p></li>
 <hr class="docutils" />
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
 <span class="n">au_result</span><span class="o">.</span><span class="n">seasonal</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/901caa6609b80acbaec11fb290b081d08ceab01689c11fc3e7b107d1adc200c7.png"><img alt="_images/901caa6609b80acbaec11fb290b081d08ceab01689c11fc3e7b107d1adc200c7.png" src="_images/901caa6609b80acbaec11fb290b081d08ceab01689c11fc3e7b107d1adc200c7.png" style="width: 1089px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/87b055bdcb30120e1a4bc51f7ffd36a3ab832098f97909b8fe0df23c2f91d3ba.png"><img alt="_images/87b055bdcb30120e1a4bc51f7ffd36a3ab832098f97909b8fe0df23c2f91d3ba.png" src="_images/87b055bdcb30120e1a4bc51f7ffd36a3ab832098f97909b8fe0df23c2f91d3ba.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2549,7 +2559,7 @@ Separate series into trend + seasonal + remainder.</p></li>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">de_trend</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;De-seasoned&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -2557,7 +2567,7 @@ Separate series into trend + seasonal + remainder.</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="_images/93a9265c315bab1f6a18c504eb6301722fb378003beb1ff0af6d50578726633a.png"><img alt="_images/93a9265c315bab1f6a18c504eb6301722fb378003beb1ff0af6d50578726633a.png" src="_images/93a9265c315bab1f6a18c504eb6301722fb378003beb1ff0af6d50578726633a.png" style="width: 1089px; height: 490px;" />
+<a class="reference internal image-reference" href="_images/0caa91e326d99a4da3a7d8e75f681795a7e0d2352a4776471fc03f52aabe2fcf.png"><img alt="_images/0caa91e326d99a4da3a7d8e75f681795a7e0d2352a4776471fc03f52aabe2fcf.png" src="_images/0caa91e326d99a4da3a7d8e75f681795a7e0d2352a4776471fc03f52aabe2fcf.png" style="width: 790px; height: 390px;" />
 </a>
 </div>
 </div>
@@ -2613,6 +2623,15 @@ Separate series into trend + seasonal + remainder.</p></li>
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">⏱️ Time Series vs. 📌 Timestamped Data</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="15_statistical_models_ts.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">⏱️ Decomposition, ACF/PACF, SARIMA</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

@@ -1,0 +1,3030 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>⏱️ Statistical models: ACF/PACF, SARIMA &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '15_statistical_models_ts';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="⏱️ Time series: trend, seasonality, decomposition." href="14_timeseries_intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelling time series</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/15_statistical_models_ts.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>⏱️ Statistical models: ACF/PACF, SARIMA</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data">📦 Get data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stationarity-check-adf">🧪 Stationarity check (ADF)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-stationary">🤔 What is “stationary”?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-adf-test-do">🧠 What does ADF test do?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-care">🔍 Why do we care?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-steps-youll-follow">👣 Quick steps you’ll follow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-the-result">📖 How to read the result</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-outcomes">✅ Typical outcomes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">🤔 Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition">🧩 Decomposition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decompose-resid-plot-what-youre-looking-at">🧩 <code class="docutils literal notranslate"><span class="pre">decompose.resid.plot()</span></code> — what you’re looking at</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-residuals-here">🧠 What are “residuals” here?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-the-plot-look-like">👀 What should the plot look like?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#good-signs">✅ Good signs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#red-flags">⚠️ Red flags</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">🧪 Stationarity check (ADF)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adf-results-interpretation">🧪 ADF results — interpretation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-means-plain-simple">✅ What this means (plain &amp; simple)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation-make-it-stationary-diffs-logs-seasonality">⚙️ Data transformation.  Make It Stationary (Diffs, Logs, Seasonality)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quarterly-seasonality">🗓️ Quarterly seasonality</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonal-differencing-lag-4">🔧 Seasonal differencing (lag = 4)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dropna-cleanup">🧹 <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-it">📌 When to use it</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">🧪 Stationarity check (ADF)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plain-takeaway">✅ Plain takeaway</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters">🧠 Why this matters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">🔎 Next steps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">🔎 Next steps</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-autocorrelation-function">📈 ACF — Autocorrelation Function</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-acf">🤔 What is ACF?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-use-it">🧠 Why do we use it?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-the-acf-plot">🔍 How to read the ACF plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stationarity-tip-before-acf">🧪 Stationarity tip before ACF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-common-patterns">🧭 Interpreting common patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pitfalls-tips">⚠️ Pitfalls &amp; tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-on-raw-data">🧩 ACF on raw data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-on-diff-data">🧩 ACF on diff data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-partial-autocorrelation-function">📐 PACF — Partial Autocorrelation Function</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pacf">🤔 What is PACF?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">🧠 Why do we use it?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-the-pacf-plot">🔍 How to read the PACF plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-you-plot-pacf">🧪 Before you plot PACF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-vs-acf-cheat-sheet">🧩 PACF vs ACF (cheat sheet)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">🧭 Interpreting common patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-vs-pacf-quick-cheat-sheet">🧩 ACF vs PACF (quick cheat sheet)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaway">🎯 Takeaway</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-on-raw-data">🧩 PACF on raw data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-on-diff-data">🧩 PACF on diff data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ar-arima-intuition-quick-practice">📈 AR / ARIMA — intuition + quick practice</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#big-picture">🤔 Big picture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">🧪 Stationarity check (ADF)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-model">🧩 Decomposition + model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-decompose-first">Why decompose first?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Stationarity check (ADF) 🧪</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arima-fit">🧮 ARIMA fit</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation-model">🧩 Transformation + model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">🧪Stationarity check (ADF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acf">🔍 ACF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf">🔍 PACF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">🧮 ARIMA fit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#residuals">Residuals</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-residuals">ACF (residuals)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-residuals">PACF (residuals)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restore">🔢  Restore</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cumsum-cumulative-sum-tutorial-style">CUMSUM — cumulative sum (tutorial style)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#restore-data">Restore data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonal-arima-sarima">📅 Seasonal ARIMA (SARIMA)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-sarima">🧩 What is SARIMA?</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="statistical-models-acf-pacf-sarima">
+<h1>⏱️ Statistical models: ACF/PACF, SARIMA<a class="headerlink" href="#statistical-models-acf-pacf-sarima" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span> 
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span><span class="p">,</span><span class="n">LinearSVR</span>
+
+
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_pacf</span>
+
+
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.deterministic</span> <span class="kn">import</span> <span class="n">DeterministicProcess</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span class="n">seasonal_decompose</span>
+
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.sarimax</span> <span class="kn">import</span> <span class="n">SARIMAX</span>
+
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="get-data">
+<h1>📦 Get data<a class="headerlink" href="#get-data" title="Link to this heading">#</a></h1>
+<p>We load the Australia electricity dataset, parse the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> index, and create a <em>short window</em> subset.<br />
+A compact window makes patterns easy to see before we scale up.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data/Australia_electricty_data.xlsx&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Unnamed: 0&quot;</span><span class="p">:</span><span class="s2">&quot;datetime&quot;</span><span class="p">,</span> <span class="s2">&quot;Electricity [GWh]&quot;</span><span class="p">:</span> <span class="s2">&quot;electricity&quot;</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1">#plt.style.use(&quot;seaborn-whitegrid&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span> <span class="n">df</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Production [GWh]&quot;</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Quarters of the year&quot;</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            electricity
+datetime               
+1956-03-01         3923
+1956-06-01         4436
+1956-09-01         4806
+1956-12-01         4418
+1957-03-01         4339
+</pre></div>
+</div>
+<img alt="_images/d46cfb0f8e009eac5e134860e7a04686b5454519a6e7089484375ff56fb83a9f.png" src="_images/d46cfb0f8e009eac5e134860e7a04686b5454519a6e7089484375ff56fb83a9f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;1956-03-01&#39;</span><span class="p">:</span><span class="s1">&#39;1968-12-01&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/226a84db9235b78136f8998f8f19f48931e26984acea632a72374fa4cb6d3316.png" src="_images/226a84db9235b78136f8998f8f19f48931e26984acea632a72374fa4cb6d3316.png" />
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="stationarity-check-adf">
+<h1>🧪 Stationarity check (ADF)<a class="headerlink" href="#stationarity-check-adf" title="Link to this heading">#</a></h1>
+<section id="what-is-stationary">
+<h2>🤔 What is “stationary”?<a class="headerlink" href="#what-is-stationary" title="Link to this heading">#</a></h2>
+<p>A time series is <strong>stationary</strong> if its behavior doesn’t drift over time — the average level and the “wiggliness” (variance) don’t keep changing.
+Think: <em>no creeping trend, no growing swings.</em></p>
+</section>
+<section id="what-does-adf-test-do">
+<h2>🧠 What does ADF test do?<a class="headerlink" href="#what-does-adf-test-do" title="Link to this heading">#</a></h2>
+<p><strong>ADF (Augmented Dickey–Fuller)</strong> checks if your series acts like a <strong>random walk</strong> (non-stationary).</p>
+<ul class="simple">
+<li><p><strong>Null (H₀):</strong> series is <strong>non-stationary</strong> (has a unit root).</p></li>
+<li><p><strong>If p-value is small:</strong> we <strong>reject H₀</strong> → the series looks <strong>stationary</strong> (under the way you tested it).</p></li>
+</ul>
+</section>
+<section id="why-do-we-care">
+<h2>🔍 Why do we care?<a class="headerlink" href="#why-do-we-care" title="Link to this heading">#</a></h2>
+<p>Most statistical models (ACF/PACF logic, ARIMA pieces) work best on <strong>stationary</strong> data.
+If your series isn’t stationary, you usually <strong>difference</strong> it (and for quarterly/monthly data, also <strong>seasonal-difference</strong>).</p>
+</section>
+<section id="quick-steps-youll-follow">
+<h2>👣 Quick steps you’ll follow<a class="headerlink" href="#quick-steps-youll-follow" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Plot your series — do you see a trend/seasonality?</p></li>
+<li><p>(Optional but common) Difference it:</p>
+<ul class="simple">
+<li><p><strong>First difference:</strong> <code class="docutils literal notranslate"><span class="pre">y.diff()</span></code></p></li>
+<li><p><strong>Seasonal difference (quarterly):</strong> <code class="docutils literal notranslate"><span class="pre">y.diff(4)</span></code></p></li>
+<li><p>Often: <strong>seasonal + first:</strong> <code class="docutils literal notranslate"><span class="pre">y.diff(4).diff()</span></code></p></li>
+</ul>
+</li>
+<li><p>Run <strong>ADF</strong> on the series you plan to model.</p></li>
+<li><p>Look at <strong>p-value</strong> and <strong>ADF statistic</strong>.</p></li>
+</ol>
+</section>
+<section id="how-to-read-the-result">
+<h2>📖 How to read the result<a class="headerlink" href="#how-to-read-the-result" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>p &lt; 0.05</strong> → good evidence of <strong>stationarity</strong> ✅</p></li>
+<li><p><strong>p ≥ 0.05</strong> → likely <strong>non-stationary</strong> ❌ (try differencing and test again)</p></li>
+</ul>
+<p>You’ll also see:</p>
+<ul class="simple">
+<li><p><strong>ADF statistic</strong> (more negative = stronger stationarity signal)</p></li>
+<li><p><strong>Critical values</strong> (1%, 5%, 10%) to compare with the ADF statistic</p></li>
+<li><p><strong>Lags used</strong> (ADF adds past differences so the test behaves well)</p></li>
+</ul>
+</section>
+<section id="typical-outcomes">
+<h2>✅ Typical outcomes<a class="headerlink" href="#typical-outcomes" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>After <strong><code class="docutils literal notranslate"><span class="pre">diff(4).diff()</span></code></strong>, p gets small → series is ready for ARIMA/SARIMA modeling.</p></li>
+<li><p>If p stays large, consider more careful detrending, transformations (e.g., log), or check for structural breaks.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fuller</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ADF Statistic: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p-value: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Critical Values:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s1">: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADF Statistic: 2.233387
+p-value: 0.998909
+Critical Values:
+	1%: -3.578
+	5%: -2.925
+	10%: -2.601
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretation">
+<h2>🤔 Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The <strong>ADF statistic</strong> is <strong>+2.23</strong> (a positive number), while the critical values are <strong>negative</strong> (e.g., −2.93 at 5%).</p></li>
+<li><p>Because <strong>+2.23 is nowhere near (i.e., not less than)</strong> any critical value, and the <strong>p-value ≈ 0.999</strong> is very large, we <strong>cannot reject</strong> the null hypothesis (<strong>H₀: unit root / non-stationary</strong>).</p></li>
+<li><p><strong>Conclusion:</strong> the series in its current form is <strong>non-stationary</strong> ❌.</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="decomposition">
+<h1>🧩 Decomposition<a class="headerlink" href="#decomposition" title="Link to this heading">#</a></h1>
+<p><strong>Why decompose?</strong><br />
+Split the series into <strong>Trend</strong>, <strong>Seasonal</strong> (quarterly, period=4), and <strong>Remainder</strong>.</p>
+<ul class="simple">
+<li><p>Trend: long-run movement</p></li>
+<li><p>Seasonal: repeated intra-year pattern</p></li>
+<li><p>Remainder: short-term noise<br />
+This guides differencing and seasonal model choices.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decompose</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span>
+                               <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">decompose</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1500x1000 with 0 Axes&gt;
+</pre></div>
+</div>
+<img alt="_images/0e2f007a910a8423df3911c83d132c1997406a22ddc857187f533ff377a86abe.png" src="_images/0e2f007a910a8423df3911c83d132c1997406a22ddc857187f533ff377a86abe.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">decompose</span><span class="o">.</span><span class="n">resid</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0e61ae2b08866333607e6832a3dd0a53d6c1ebf222b5c73965b520621079b010.png" src="_images/0e61ae2b08866333607e6832a3dd0a53d6c1ebf222b5c73965b520621079b010.png" />
+</div>
+</div>
+<section id="decompose-resid-plot-what-youre-looking-at">
+<h2>🧩 <code class="docutils literal notranslate"><span class="pre">decompose.resid.plot()</span></code> — what you’re looking at<a class="headerlink" href="#decompose-resid-plot-what-youre-looking-at" title="Link to this heading">#</a></h2>
+<section id="what-are-residuals-here">
+<h3>🧠 What are “residuals” here?<a class="headerlink" href="#what-are-residuals-here" title="Link to this heading">#</a></h3>
+<p>After classical decomposition, your series is split into:</p>
+<ul class="simple">
+<li><p><strong>Trend</strong> ➕ <strong>Seasonal</strong> ➕ <strong>Remainder (residuals)</strong>
+<code class="docutils literal notranslate"><span class="pre">decompose.resid</span></code> is that <strong>remainder</strong>: whatever is <strong>left over</strong> after removing trend and seasonality.</p></li>
+</ul>
+</section>
+<section id="what-should-the-plot-look-like">
+<h3>👀 What should the plot look like?<a class="headerlink" href="#what-should-the-plot-look-like" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>No obvious pattern</strong>: residuals should “wiggle” around zero with <strong>roughly constant spread</strong>.</p></li>
+<li><p><strong>Short bursts</strong> are okay, but <strong>persistent waves</strong> or <strong>repeating cycles</strong> mean trend/seasonality weren’t fully removed.</p></li>
+<li><p><strong>Outliers</strong> will stick out as tall spikes — flag them.</p></li>
+</ul>
+</section>
+<section id="good-signs">
+<h3>✅ Good signs<a class="headerlink" href="#good-signs" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Residuals look like <strong>white noise</strong> (no visible structure).</p></li>
+<li><p>Mean ≈ 0; variance doesn’t grow/shrink over time.</p></li>
+<li><p>ACF of residuals has <strong>no significant lags</strong> (optional follow-up check).</p></li>
+</ul>
+</section>
+<section id="red-flags">
+<h3>⚠️ Red flags<a class="headerlink" href="#red-flags" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Leftover seasonality</strong> (e.g., repeating pattern every 4 quarters).</p></li>
+<li><p><strong>Drift</strong> or a <strong>slow wave</strong> → trend not fully captured.</p></li>
+<li><p><strong>Heteroskedasticity</strong> (spread changes over time) — maybe try a <strong>log transform</strong> before decomposing.</p></li>
+</ul>
+</section>
+</section>
+<section id="id1">
+<h2>🧪 Stationarity check (ADF)<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fuller</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">decompose</span><span class="o">.</span><span class="n">resid</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ADF Statistic: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p-value: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Critical Values:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s1">: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADF Statistic: -11.701448
+p-value: 0.000000
+Critical Values:
+	1%: -3.585
+	5%: -2.928
+	10%: -2.602
+</pre></div>
+</div>
+</div>
+</div>
+<section id="adf-results-interpretation">
+<h3>🧪 ADF results — interpretation<a class="headerlink" href="#adf-results-interpretation" title="Link to this heading">#</a></h3>
+<section id="what-this-means-plain-simple">
+<h4>✅ What this means (plain &amp; simple)<a class="headerlink" href="#what-this-means-plain-simple" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>The <strong>ADF statistic</strong> is <strong>−11.70</strong>, which is <strong>much more negative</strong> than all the critical values (−3.59, −2.93, −2.60).</p></li>
+<li><p>The <strong>p-value ≈ 0.000000</strong> is effectively <strong>zero</strong>.</p></li>
+<li><p>👉 We <strong>reject the null</strong> hypothesis of a unit root. The series, <strong>as tested</strong>, is <strong>stationary</strong>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="data-transformation-make-it-stationary-diffs-logs-seasonality">
+<h1>⚙️ Data transformation.  Make It Stationary (Diffs, Logs, Seasonality)<a class="headerlink" href="#data-transformation-make-it-stationary-diffs-logs-seasonality" title="Link to this heading">#</a></h1>
+<section id="quarterly-seasonality">
+<h2>🗓️ Quarterly seasonality<a class="headerlink" href="#quarterly-seasonality" title="Link to this heading">#</a></h2>
+<p>Your electricity series is <strong>quarterly</strong>: Mar/Jun/Sep/Dec repeat every year. That means values <strong>t</strong> and <strong>t−4</strong> are in the <strong>same quarter</strong> a year apart.</p>
+<section id="seasonal-differencing-lag-4">
+<h3>🔧 Seasonal differencing (lag = 4)<a class="headerlink" href="#seasonal-differencing-lag-4" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">diff(4)</span></code> computes:
+[
+y_t - y_{t-4}
+]
+This <strong>removes the recurring seasonal level</strong> (the “same quarter last year” effect). After this step:</p>
+<ul class="simple">
+<li><p>Seasonal pattern is largely <strong>canceled out</strong> ✅</p></li>
+<li><p>The series becomes <strong>more stationary</strong> (flatter mean), making ACF/PACF easier to read ✅</p></li>
+<li><p>You’re preparing the data for <strong>seasonal models</strong> (e.g., SARIMA with period 4) ✅</p></li>
+</ul>
+</section>
+<section id="dropna-cleanup">
+<h3>🧹 <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> cleanup<a class="headerlink" href="#dropna-cleanup" title="Link to this heading">#</a></h3>
+<p>The first 4 values can’t compute <code class="docutils literal notranslate"><span class="pre">y_t</span> <span class="pre">-</span> <span class="pre">y_{t-4}</span></code>, so they become <strong>NaN</strong>.
+<code class="docutils literal notranslate"><span class="pre">dropna()</span></code> simply <strong>removes</strong> those initial missing rows.</p>
+</section>
+<section id="when-to-use-it">
+<h3>📌 When to use it<a class="headerlink" href="#when-to-use-it" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>For <strong>quarterly</strong> data with strong <strong>yearly</strong> seasonality → use <code class="docutils literal notranslate"><span class="pre">diff(4)</span></code>.</p></li>
+<li><p>For <strong>monthly</strong> data → you’d typically use <code class="docutils literal notranslate"><span class="pre">diff(12)</span></code>.</p></li>
+<li><p>Often you’ll then add a <strong>first difference</strong> too (e.g., <code class="docutils literal notranslate"><span class="pre">diff(4).diff()</span></code>) if a <strong>trend</strong> is still present.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">au_elec_series_short_seas</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">au_elec_series_short_seas</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d6da0df61541e239d4cc1be6cf9442d7e1f285aadf42a055125885b802702cf9.png" src="_images/d6da0df61541e239d4cc1be6cf9442d7e1f285aadf42a055125885b802702cf9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">au_elec_series_short_diff</span> <span class="o">=</span> <span class="n">au_elec_series_short_seas</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c629417898d9a2550d37bc6fb5fa633ed712678fd69e1362fedff9ca68f728a9.png" src="_images/c629417898d9a2550d37bc6fb5fa633ed712678fd69e1362fedff9ca68f728a9.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id2">
+<h2>🧪 Stationarity check (ADF)<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="plain-takeaway">
+<h3>✅ Plain takeaway<a class="headerlink" href="#plain-takeaway" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The <strong>ADF statistic</strong> is <strong>−7.22</strong>, which is <strong>far more negative</strong> than all critical values (−3.59, −2.93, −2.60).</p></li>
+<li><p>The <strong>p-value ≈ 0</strong> ⇒ very strong evidence <strong>against</strong> the unit-root (non-stationary) null.</p></li>
+<li><p><strong>Conclusion:</strong> the series (as tested) is <strong>stationary</strong>.</p></li>
+</ul>
+</section>
+<section id="why-this-matters">
+<h3>🧠 Why this matters<a class="headerlink" href="#why-this-matters" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>You’ve transformed the data appropriately (e.g., seasonal and/or first differencing).</p></li>
+<li><p>It’s now suitable for ARMA/SARIMA modeling and for reading ACF/PACF patterns.</p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h3>🔎 Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Use <strong>ACF/PACF</strong> to pick AR/MA orders (seasonal lags at 4, 8, … for quarterly).</p></li>
+<li><p>Check residuals after fitting (look for white-noise behavior).</p></li>
+<li><p>Optionally confirm with <strong>KPSS</strong> (should typically <em>not</em> reject stationarity now).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fuller</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ADF Statistic: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p-value: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Critical Values:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s1">: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADF Statistic: -7.215759
+p-value: 0.000000
+Critical Values:
+	1%: -3.585
+	5%: -2.928
+	10%: -2.602
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h2>🔎 Next steps<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Use <strong>ACF/PACF</strong> to pick AR/MA orders (seasonal lags at 4, 8, … for quarterly).</p></li>
+<li><p>Check residuals after fitting (look for white-noise behavior).</p></li>
+<li><p>Optionally confirm with <strong>KPSS</strong> (should typically <em>not</em> reject stationarity now).</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="acf-autocorrelation-function">
+<h1>📈 ACF — Autocorrelation Function<a class="headerlink" href="#acf-autocorrelation-function" title="Link to this heading">#</a></h1>
+<section id="what-is-acf">
+<h2>🤔 What is ACF?<a class="headerlink" href="#what-is-acf" title="Link to this heading">#</a></h2>
+<p>The <strong>Autocorrelation Function (ACF)</strong> tells you how strongly a time series is related to <strong>its own past values</strong>.
+For each <strong>lag k</strong>, ACF measures the correlation between (y_t) and (y_{t-k}).</p>
+<p>Think: <em>“How similar is the series to itself if I shift it by k steps?”</em></p>
+</section>
+<hr class="docutils" />
+<section id="why-do-we-use-it">
+<h2>🧠 Why do we use it?<a class="headerlink" href="#why-do-we-use-it" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Detect persistence:</strong> do values depend on recent past?</p></li>
+<li><p><strong>Spot seasonality:</strong> big spikes at seasonal lags (e.g., 4 for quarterly, 12 for monthly).</p></li>
+<li><p><strong>Model selection (ARMA/SARIMA):</strong> read ACF (with PACF) to guess AR and MA orders.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="how-to-read-the-acf-plot">
+<h2>🔍 How to read the ACF plot<a class="headerlink" href="#how-to-read-the-acf-plot" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Significant spike at lag 1, then tailing off:</strong> short-memory dependence; often suggests <strong>MA(1)</strong>-like behavior (but confirm with PACF).</p></li>
+<li><p><strong>Seasonal spikes</strong> at (m, 2m, 3m,\dots): seasonality of period (m).</p></li>
+<li><p><strong>Slow decay</strong> (very gradual fall) in the raw series: signals <strong>non-stationarity</strong> → consider differencing.</p></li>
+</ul>
+<p>The vertical bars show correlation values; the shaded bands are <strong>confidence intervals</strong>. Bars <strong>outside</strong> the band ⇒ significant autocorrelation.</p>
+</section>
+<hr class="docutils" />
+<section id="stationarity-tip-before-acf">
+<h2>🧪 Stationarity tip before ACF<a class="headerlink" href="#stationarity-tip-before-acf" title="Link to this heading">#</a></h2>
+<p>ACF is <strong>most useful on a stationary series</strong>. If the raw data has trend/seasonality:</p>
+<ol class="arabic simple">
+<li><p><strong>Seasonal difference</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">diff(4)</span></code> for quarterly).</p></li>
+<li><p><strong>First difference</strong> if trend remains.</p></li>
+<li><p>Then plot ACF on the <strong>differenced</strong> series.</p></li>
+</ol>
+</section>
+<section id="interpreting-common-patterns">
+<h2>🧭 Interpreting common patterns<a class="headerlink" href="#interpreting-common-patterns" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Strong lag-1 spike; quick drop:</strong> short memory; try small <strong>MA(q)</strong>.</p></li>
+<li><p><strong>Spikes at lags 4, 8, 12…:</strong> quarterly seasonality; include <strong>seasonal MA</strong> at period (m=4).</p></li>
+<li><p><strong>Many lags significant:</strong> under-differenced or structural patterns still present → revisit transformations.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="pitfalls-tips">
+<h2>⚠️ Pitfalls &amp; tips<a class="headerlink" href="#pitfalls-tips" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Over-differencing</strong> can create artificial negative lag-1 autocorrelation.</p></li>
+<li><p><strong>Outliers</strong> can distort correlations — consider robust checks or winsorizing for diagnostics.</p></li>
+<li><p><strong>Short samples</strong> make CIs wide; be cautious with small datasets.</p></li>
+</ul>
+</section>
+<section id="acf-on-raw-data">
+<h2>🧩 ACF on raw data<a class="headerlink" href="#acf-on-raw-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/05ffb6040bef6010f1961b58707abd2bb211bf910125c73ed2e2f29d30ea6743.png" src="_images/05ffb6040bef6010f1961b58707abd2bb211bf910125c73ed2e2f29d30ea6743.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Autocorrelation&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fbdd5e6288724a068a8b0aad1a558ac5de94deed21f706693d8b4a09431909ba.png" src="_images/fbdd5e6288724a068a8b0aad1a558ac5de94deed21f706693d8b4a09431909ba.png" />
+</div>
+</div>
+<p>Here’s what that ACF says at a glance:</p>
+<ul class="simple">
+<li><p><strong>Strong persistence:</strong> Lag-1 is ≈1, and the bars <strong>decay slowly</strong> over many lags.</p></li>
+<li><p><strong>Many positive lags are significant:</strong> i.e., they stick above the confidence band early on.</p></li>
+<li><p><strong>No clear seasonal pattern:</strong> you don’t see distinct extra-tall spikes at fixed intervals (e.g., 4, 8, 12 for quarterly). It’s mostly a <strong>monotone decay</strong>.</p></li>
+</ul>
+<section id="id4">
+<h3>Interpretation<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>This is the classic look of a <strong>non-stationary (trending) series</strong>—a near-unit-root behavior.</p></li>
+<li><p>The slow tail suggests the level is drifting; the main issue is <strong>trend</strong>, not obvious seasonality (from this plot alone).</p></li>
+</ul>
+</section>
+</section>
+<section id="acf-on-diff-data">
+<h2>🧩 ACF on diff data<a class="headerlink" href="#acf-on-diff-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c629417898d9a2550d37bc6fb5fa633ed712678fd69e1362fedff9ca68f728a9.png" src="_images/c629417898d9a2550d37bc6fb5fa633ed712678fd69e1362fedff9ca68f728a9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Autocorrelation&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/17923e70b6b5d579a8926620d6fbf240162ab7d9bd1984822ac8b049e8535510.png" src="_images/17923e70b6b5d579a8926620d6fbf240162ab7d9bd1984822ac8b049e8535510.png" />
+</div>
+</div>
+<p>Here’s how I’d read that ACF:</p>
+<ul class="simple">
+<li><p><strong>Stationary now:</strong> aside from the spike at lag 0 (=1), the rest hover near zero with <strong>no slow tail</strong> → differencing did its job.</p></li>
+<li><p><strong>Seasonal fingerprints:</strong> clear <strong>positive spikes near lags 8, 12, 16</strong> (multiples of 4) ⇒ <strong>quarterly seasonality</strong> remains in the autocorrelation structure.</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pacf-partial-autocorrelation-function">
+<h1>📐 PACF — Partial Autocorrelation Function<a class="headerlink" href="#pacf-partial-autocorrelation-function" title="Link to this heading">#</a></h1>
+<section id="what-is-pacf">
+<h2>🤔 What is PACF?<a class="headerlink" href="#what-is-pacf" title="Link to this heading">#</a></h2>
+<p>The <strong>Partial Autocorrelation Function (PACF)</strong> measures the link between the series <strong>now</strong> and <strong>k steps back</strong>, <strong>after removing</strong> the effects of all the <strong>intermediate lags</strong> (1…k−1).
+Think: <em>“What is the extra information from lag k once the nearer lags are already explained?”</em></p>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>🧠 Why do we use it?<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Choose AR order (p):</strong> PACF is the go-to plot for spotting how many <strong>autoregressive</strong> lags you need.</p></li>
+<li><p><strong>See seasonal AR:</strong> big spikes at seasonal lags (e.g., 4, 8, 12 for quarterly/monthly) hint at <strong>seasonal AR</strong> terms.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="how-to-read-the-pacf-plot">
+<h2>🔍 How to read the PACF plot<a class="headerlink" href="#how-to-read-the-pacf-plot" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Cut-off pattern:</strong> a few <strong>early lags</strong> are significant, then everything is inside the band → suggests <strong>AR(p)</strong> with p = number of significant early lags.</p></li>
+<li><p><strong>Single spike at lag 1</strong> → <strong>AR(1)</strong>-like behavior.</p></li>
+<li><p><strong>Spikes at 4, 8, …</strong> (for quarterly) → consider <strong>seasonal AR(1)</strong> with period 4.</p></li>
+<li><p>If you see a <strong>slow tail</strong> of many significant lags → likely <strong>non-stationary</strong>; difference first.</p></li>
+</ul>
+<blockquote>
+<div><p>The shaded band is the confidence interval. Bars <strong>outside</strong> it are “significant.”</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="before-you-plot-pacf">
+<h2>🧪 Before you plot PACF<a class="headerlink" href="#before-you-plot-pacf" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Make the series <strong>stationary</strong> (difference, seasonal-difference, maybe log).</p></li>
+<li><p>PACF on non-stationary data can be misleading.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="pacf-vs-acf-cheat-sheet">
+<h2>🧩 PACF vs ACF (cheat sheet)<a class="headerlink" href="#pacf-vs-acf-cheat-sheet" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>PACF</strong> helps pick <strong>AR(p)</strong> (partial correlations “cut off” after p).</p></li>
+<li><p><strong>ACF</strong> helps pick <strong>MA(q)</strong> (autocorrelations “cut off” after q).
+Use <strong>both</strong> to propose (p, q), then confirm with AIC/BIC and residual checks.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>🧭 Interpreting common patterns<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>PACF: big spike at lag 1 only</strong> → try <strong>AR(1)</strong>.</p></li>
+<li><p><strong>PACF: spikes at 1 &amp; 2</strong> → try <strong>AR(2)</strong>.</p></li>
+<li><p><strong>PACF: spike at 4</strong> (quarterly) → <strong>seasonal AR(1)</strong> with m=4.</p></li>
+<li><p><strong>Many significant lags</strong> → recheck <strong>stationarity</strong> or consider more complex structure.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="acf-vs-pacf-quick-cheat-sheet">
+<h2>🧩 ACF vs PACF (quick cheat sheet)<a class="headerlink" href="#acf-vs-pacf-quick-cheat-sheet" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>ACF</strong> highlights <strong>MA</strong> structure (cut-off at q) and <strong>seasonal MA</strong> (spikes at seasonal lags).</p></li>
+<li><p><strong>PACF</strong> highlights <strong>AR</strong> structure (cut-off at p) and <strong>seasonal AR</strong>.</p></li>
+</ul>
+<p><em>Rule of thumb (not strict):</em></p>
+<ul class="simple">
+<li><p>ACF cuts off at lag <strong>q</strong> (after difference) ⇒ consider <strong>MA(q)</strong>.</p></li>
+<li><p>PACF cuts off at lag <strong>p</strong> ⇒ consider <strong>AR(p)</strong>.</p></li>
+</ul>
+</section>
+<section id="takeaway">
+<h2>🎯 Takeaway<a class="headerlink" href="#takeaway" title="Link to this heading">#</a></h2>
+<p>Use <strong>ACF</strong> (with <strong>PACF</strong>) on a <strong>stationary</strong> version of your series to:</p>
+<ol class="arabic simple">
+<li><p>confirm seasonality and persistence, and</p></li>
+<li><p>pick reasonable <strong>AR/MA</strong> orders for (S)ARIMA before fine-tuning with information criteria and residual checks.</p></li>
+</ol>
+</section>
+<section id="pacf-on-raw-data">
+<h2>🧩 PACF on raw data<a class="headerlink" href="#pacf-on-raw-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/89a5fd50264acbf0ecaefa181988dbd5d3679193e7f159df6b8638d54f467d1b.png" src="_images/89a5fd50264acbf0ecaefa181988dbd5d3679193e7f159df6b8638d54f467d1b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Partial autocorrelation&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ac187c3ce01d5ae949a769a963c6bfd0f19a7b361596ba2ecd742d96df876e09.png" src="_images/ac187c3ce01d5ae949a769a963c6bfd0f19a7b361596ba2ecd742d96df876e09.png" />
+</div>
+</div>
+<p>Here’s how I’d read that PACF:</p>
+<ul class="simple">
+<li><p><strong>Big spikes at lags 1 and 2</strong> ➜ strong <strong>AR(1–2)</strong> behavior in the non-seasonal part (the “partial” correlations die off after lag 2).</p></li>
+<li><p><strong>Clear spike at lag 4</strong> ➜ <strong>seasonal AR(1)</strong> at the quarterly period (m=4).</p></li>
+<li><p><strong>Other lags sit inside the band</strong> ➜ no strong higher-order AR terms; the series looks <strong>stationary</strong> (you likely already differenced appropriately).</p></li>
+</ul>
+</section>
+<section id="pacf-on-diff-data">
+<h2>🧩 PACF on diff data<a class="headerlink" href="#pacf-on-diff-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5241a1c010de8d988947fb4bdec3ecb7d84b59ab9da18dd481b4e22a6cb6ad3a.png" src="_images/5241a1c010de8d988947fb4bdec3ecb7d84b59ab9da18dd481b4e22a6cb6ad3a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Partial autocorrelation&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ca321f6605752fd0094ef3fab16de21d5f7502311403f2773ad8e262281671a4.png" src="_images/ca321f6605752fd0094ef3fab16de21d5f7502311403f2773ad8e262281671a4.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>No clear cut-off after a few small lags.</strong> Most bars (lags 1–18) sit <strong>inside the confidence band</strong>.</p></li>
+<li><p>There’s a <strong>modest negative dip around lag 2</strong> and a few tiny bumps later, but nothing strongly significant.</p></li>
+<li><p><strong>No distinct seasonal AR spike</strong> at a fixed seasonal lag (e.g., 4, 8, 12, 16 for quarterly).</p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ar-arima-intuition-quick-practice">
+<h1>📈 AR / ARIMA — intuition + quick practice<a class="headerlink" href="#ar-arima-intuition-quick-practice" title="Link to this heading">#</a></h1>
+<section id="big-picture">
+<h2>🤔 Big picture<a class="headerlink" href="#big-picture" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>AR(p)</strong> — <em>AutoRegressive</em>: today depends on <strong>p</strong> past values
+( y_t = \phi_1 y_{t-1} + \dots + \phi_p y_{t-p} + \varepsilon_t )</p></li>
+<li><p><strong>I(d)</strong> — <em>Integrated</em>: <strong>d</strong> differences to remove trend/drift
+( \nabla^d y_t ) is the stationary series you actually model</p></li>
+<li><p><strong>MA(q)</strong> — <em>Moving Average</em>: today depends on <strong>q</strong> past <strong>errors</strong>
+( y_t = \varepsilon_t + \theta_1 \varepsilon_{t-1} + \dots + \theta_q \varepsilon_{t-q} )</p></li>
+</ul>
+<blockquote>
+<div><p>Intuition:</p>
+<ul class="simple">
+<li><p>AR = “momentum/memory in levels”</p></li>
+<li><p>I = “stabilize first, then model”</p></li>
+<li><p>MA = “soak up shock patterns in errors”</p></li>
+</ul>
+</div></blockquote>
+<p><a class="reference external" href="https://www.alldatascience.com/time-series/forecasting-time-series-with-arima/">https://www.alldatascience.com/time-series/forecasting-time-series-with-arima/</a></p>
+<p><a class="reference external" href="https://analyticsindiamag.com/topics/sarimax-in-python-for-time-series-modeling/">https://analyticsindiamag.com/topics/sarimax-in-python-for-time-series-modeling/</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/29879cab858aa7146bde6155702297ae771853449cb246b17f285564fdedb5f6.png" src="_images/29879cab858aa7146bde6155702297ae771853449cb246b17f285564fdedb5f6.png" />
+</div>
+</div>
+</section>
+<section id="id7">
+<h2>🧪 Stationarity check (ADF)<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fuller</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ADF Statistic: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p-value: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Critical Values:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s1">: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADF Statistic: 2.233387
+p-value: 0.998909
+Critical Values:
+	1%: -3.578
+	5%: -2.925
+	10%: -2.601
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="decomposition-model">
+<h2>🧩 Decomposition + model<a class="headerlink" href="#decomposition-model" title="Link to this heading">#</a></h2>
+<section id="why-decompose-first">
+<h3>Why decompose first?<a class="headerlink" href="#why-decompose-first" title="Link to this heading">#</a></h3>
+<p>Decomposition shows <strong>what the model must explain</strong>:</p>
+<ul class="simple">
+<li><p><strong>Trend</strong> ➜ use <strong>differencing</strong> (I(d)=1 if trend exists).</p></li>
+<li><p><strong>Seasonality (period = 4)</strong> ➜ add <strong>seasonal terms</strong> (SARIMA with <code class="docutils literal notranslate"><span class="pre">m=4</span></code>).</p></li>
+<li><p><strong>Remainder</strong> ➜ should look like <strong>noise</strong> after modeling.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">decompose</span><span class="o">.</span><span class="n">resid</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0e61ae2b08866333607e6832a3dd0a53d6c1ebf222b5c73965b520621079b010.png" src="_images/0e61ae2b08866333607e6832a3dd0a53d6c1ebf222b5c73965b520621079b010.png" />
+</div>
+</div>
+</section>
+<section id="id8">
+<h3>Stationarity check (ADF) 🧪<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fuller</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">decompose</span><span class="o">.</span><span class="n">resid</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ADF Statistic: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p-value: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Critical Values:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s1">: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADF Statistic: -11.701448
+p-value: 0.000000
+Critical Values:
+	1%: -3.585
+	5%: -2.928
+	10%: -2.602
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">decompose</span><span class="o">.</span><span class="n">resid</span><span class="o">.</span><span class="n">dropna</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pmdarima</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="n">auto_arima</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">auto_arima</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;resid&#39;</span><span class="p">],</span> <span class="n">stepwise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">auto_arima</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: black;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-1 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-1 pre {
+  padding: 0;
+}
+
+#sk-container-id-1 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-1 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-1 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-1 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-1 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-1 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-1 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-1 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-1 label.sk-toggleable__label {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-1 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label label.sk-toggleable__label,
+#sk-container-id-1 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-1 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-1 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-1 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-1 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 1ex;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-1 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-1 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre> ARIMA(5,0,0)(0,0,0)[0]          </pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;ARIMA<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre> ARIMA(5,0,0)(0,0,0)[0]          </pre></div> </div></div></div></div></div></div>
+</div>
+</section>
+<section id="arima-fit">
+<h3>🧮 ARIMA fit<a class="headerlink" href="#arima-fit" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;resid&#39;</span><span class="p">],</span><span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">res</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res</span><span class="p">[[</span><span class="s1">&#39;resid&#39;</span><span class="p">,</span><span class="s1">&#39;model&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/33fd8eec44295f79c463603ba5c2740cbc7a89843ad28d2db23312c39a28dc27.png" src="_images/33fd8eec44295f79c463603ba5c2740cbc7a89843ad28d2db23312c39a28dc27.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:                  resid   No. Observations:                   48
+Model:                 ARIMA(5, 0, 0)   Log Likelihood                -272.051
+Date:                Mon, 27 Oct 2025   AIC                            558.101
+Time:                        13:56:46   BIC                            571.200
+Sample:                    09-01-1956   HQIC                           563.051
+                         - 06-01-1968                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         -2.4039      2.441     -0.985      0.325      -7.188       2.380
+ar.L1         -0.6018      0.154     -3.920      0.000      -0.903      -0.301
+ar.L2         -1.1337      0.188     -6.038      0.000      -1.502      -0.766
+ar.L3         -0.9362      0.249     -3.762      0.000      -1.424      -0.448
+ar.L4         -0.1636      0.192     -0.854      0.393      -0.539       0.212
+ar.L5         -0.3173      0.184     -1.726      0.084      -0.678       0.043
+sigma2      4196.9549   1125.022      3.731      0.000    1991.952    6401.958
+===================================================================================
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):                 0.96
+Prob(Q):                              0.98   Prob(JB):                         0.62
+Heteroskedasticity (H):               2.82   Skew:                             0.33
+Prob(H) (two-sided):                  0.05   Kurtosis:                         2.78
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;original&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">decompose</span><span class="o">.</span><span class="n">trend</span> <span class="o">+</span> <span class="n">decompose</span><span class="o">.</span><span class="n">seasonal</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;restored&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;[GWh]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6d9f41a7630c3a6322890e0e3b970ecd8f462915f7aa3abc200c36a5c2bdd663.png" src="_images/6d9f41a7630c3a6322890e0e3b970ecd8f462915f7aa3abc200c36a5c2bdd663.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="transformation-model">
+<h2>🧩 Transformation + model<a class="headerlink" href="#transformation-model" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Production [GWh]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c629417898d9a2550d37bc6fb5fa633ed712678fd69e1362fedff9ca68f728a9.png" src="_images/c629417898d9a2550d37bc6fb5fa633ed712678fd69e1362fedff9ca68f728a9.png" />
+</div>
+</div>
+<section id="id9">
+<h3>🧪Stationarity check (ADF)<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fuller</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ADF Statistic: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p-value: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Critical Values:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">fuller</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s1">: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADF Statistic: -7.215759
+p-value: 0.000000
+Critical Values:
+	1%: -3.585
+	5%: -2.928
+	10%: -2.602
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="acf">
+<h3>🔍 ACF<a class="headerlink" href="#acf" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acf_plot</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="n">acf_plot</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># MA =2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9b9518cac8adc6ff148581369ad92026a2e1899dae0dfddcd32da392111f6b8f.png" src="_images/9b9518cac8adc6ff148581369ad92026a2e1899dae0dfddcd32da392111f6b8f.png" />
+</div>
+</div>
+</section>
+<section id="pacf">
+<h3>🔍 PACF<a class="headerlink" href="#pacf" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pacf_plot</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">])</span>
+<span class="n">pacf_plot</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># AR = 2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fe7843c51b57be19741347e94ded86fba7efb9da17be894213f180268c7aa331.png" src="_images/fe7843c51b57be19741347e94ded86fba7efb9da17be894213f180268c7aa331.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1968</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">test_start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1968</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1968</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">au_elec_series_short_diff</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">au_elec_series_short_diff</span><span class="p">[</span><span class="n">test_start</span><span class="p">:</span><span class="n">test_end</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pmdarima</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="n">auto_arima</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">auto_arima</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">stepwise</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">auto_arima</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-2 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: black;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-2 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-2 pre {
+  padding: 0;
+}
+
+#sk-container-id-2 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-2 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-2 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-2 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-2 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-2 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-2 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-2 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-2 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-2 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-2 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-2 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-2 label.sk-toggleable__label {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#sk-container-id-2 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-2 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-2 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-2 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-2 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-2 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-2 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-2 div.sk-label label.sk-toggleable__label,
+#sk-container-id-2 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-2 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-2 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-2 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-2 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-2 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-2 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-2 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 1ex;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-2 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-2 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-2 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-2 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre> ARIMA(2,0,2)(0,0,0)[0]          </pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;ARIMA<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre> ARIMA(2,0,2)(0,0,0)[0]          </pre></div> </div></div></div></div></div></div>
+</div>
+</section>
+<section id="id10">
+<h3>🧮 ARIMA fit<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+
+<span class="c1"># define the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># fit the model</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1"># summary of the model</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                               SARIMAX Results                                
+==============================================================================
+Dep. Variable:            electricity   No. Observations:                   44
+Model:                 ARIMA(2, 0, 2)   Log Likelihood                -277.270
+Date:                Mon, 27 Oct 2025   AIC                            566.539
+Time:                        13:59:39   BIC                            577.244
+Sample:                    06-01-1957   HQIC                           570.509
+                         - 03-01-1968                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          4.6923     18.744      0.250      0.802     -32.044      41.429
+ar.L1          0.0975      0.217      0.449      0.653      -0.328       0.523
+ar.L2         -0.9488      0.144     -6.567      0.000      -1.232      -0.666
+ma.L1         -0.2016      0.333     -0.606      0.544      -0.853       0.450
+ma.L2          0.8692      0.273      3.189      0.001       0.335       1.404
+sigma2      1.791e+04   6557.285      2.732      0.006    5060.488    3.08e+04
+===================================================================================
+Ljung-Box (L1) (Q):                   0.23   Jarque-Bera (JB):                 1.23
+Prob(Q):                              0.63   Prob(JB):                         0.54
+Heteroskedasticity (H):               1.39   Skew:                            -0.04
+Prob(H) (two-sided):                  0.53   Kurtosis:                         2.18
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get prediction start and end dates: training data</span>
+<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validations</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">pred_end_date</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;train data&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">validations</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;model output&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;[GWh]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3123a1f584f58e806f4fd6d15e0e43504e10d2473212161dea63df5af9986889.png" src="_images/3123a1f584f58e806f4fd6d15e0e43504e10d2473212161dea63df5af9986889.png" />
+</div>
+</div>
+</section>
+<section id="residuals">
+<h3>Residuals<a class="headerlink" href="#residuals" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig_res</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">resid</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/207237c95df4efb7a461c89f96e3c9e60d9ed74fba5416550a66d38ab732b06d.png" src="_images/207237c95df4efb7a461c89f96e3c9e60d9ed74fba5416550a66d38ab732b06d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig_dens_res</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">residuals</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5e0aacb85412ccc2aaea634d42ab5c2d99e8c9949d0f7cc2f148849bd8748850.png" src="_images/5e0aacb85412ccc2aaea634d42ab5c2d99e8c9949d0f7cc2f148849bd8748850.png" />
+</div>
+</div>
+<section id="acf-residuals">
+<h4>ACF (residuals)<a class="headerlink" href="#acf-residuals" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig_acf_resid</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">fig_acf_resid</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e444ea079dea1d741c98dd925ab4254b6750f503efc21f916ea539be4f3960e7.png" src="_images/e444ea079dea1d741c98dd925ab4254b6750f503efc21f916ea539be4f3960e7.png" />
+</div>
+</div>
+</section>
+<section id="pacf-residuals">
+<h4>PACF (residuals)<a class="headerlink" href="#pacf-residuals" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig_pacf_resid</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">fig_pacf_resid</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d3355a41c5e69bf1d61837a5f81ef8966220ad49d4a265afad8b1ed272afca21.png" src="_images/d3355a41c5e69bf1d61837a5f81ef8966220ad49d4a265afad8b1ed272afca21.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="restore">
+<h3>🔢  Restore<a class="headerlink" href="#restore" title="Link to this heading">#</a></h3>
+<section id="cumsum-cumulative-sum-tutorial-style">
+<h4>CUMSUM — cumulative sum (tutorial style)<a class="headerlink" href="#cumsum-cumulative-sum-tutorial-style" title="Link to this heading">#</a></h4>
+<p><strong>What it is:</strong>
+<strong>CUMSUM</strong> (a.k.a. <code class="docutils literal notranslate"><span class="pre">cumsum</span></code>) is the running total of a series.
+For values <span class="math notranslate nohighlight">\((x_1, x_2, \dots, x_t)\)</span>, the cumulative sum is</p>
+<p><span class="math notranslate nohighlight">\(\text{cumsum}_t=\sum_{i=1}^{t} x_i\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([10, 21, 33, 46, 60, 75])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">differentiate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>  
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">-</span><span class="n">values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dd</span> <span class="o">=</span> <span class="n">differentiate</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">dd</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([10,  1,  1,  1,  1,  1])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">integrate</span><span class="p">(</span><span class="n">dd</span><span class="p">)</span>
+<span class="n">i</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([10, 11, 12, 13, 14, 15])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="restore-data">
+<h4>Restore data<a class="headerlink" href="#restore-data" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validations_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">validations</span><span class="p">)</span>
+<span class="n">validations_df_rnm</span> <span class="o">=</span> <span class="n">validations_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;predicted_mean&quot;</span><span class="p">:</span> <span class="s2">&quot;electricity&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">valid_mrg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">au_elec_series_short_seas</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">]],</span> 
+                       <span class="n">validations_df_rnm</span><span class="p">],</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">valid_mrg_cums</span> <span class="o">=</span> <span class="n">valid_mrg</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">valid_mrg_cums_mrg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dfs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> 
+                                <span class="n">valid_mrg_cums</span><span class="p">],</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfQ1sl</span> <span class="o">=</span> <span class="n">valid_mrg_cums_mrg</span><span class="p">[::</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">dfQ2sl</span> <span class="o">=</span> <span class="n">valid_mrg_cums_mrg</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">dfQ3sl</span> <span class="o">=</span> <span class="n">valid_mrg_cums_mrg</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">dfQ4sl</span> <span class="o">=</span> <span class="n">valid_mrg_cums_mrg</span><span class="p">[</span><span class="mi">3</span><span class="p">::</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="n">dfQ1slCUM</span> <span class="o">=</span> <span class="n">dfQ1sl</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">dfQ2slCUM</span> <span class="o">=</span> <span class="n">dfQ2sl</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">dfQ3slCUM</span> <span class="o">=</span> <span class="n">dfQ3sl</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">dfQ4slCUM</span> <span class="o">=</span> <span class="n">dfQ4sl</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfCUMf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dfQ1slCUM</span><span class="p">,</span> <span class="n">dfQ2slCUM</span><span class="p">,</span> <span class="n">dfQ3slCUM</span><span class="p">,</span> <span class="n">dfQ4slCUM</span><span class="p">],</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">dfCUMfsorted</span> <span class="o">=</span> <span class="n">dfCUMf</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">audropped</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;1968-06-01&#39;</span><span class="p">,</span><span class="s1">&#39;1968-09-01&#39;</span><span class="p">,</span><span class="s1">&#39;1968-12-01&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">audropped</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;original&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dfCUMfsorted</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;restored&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;[GWh]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fc120ce3c7c9c996ed469ec129c1745be8d2a645ff106a92bc985b8c28bbd7a1.png" src="_images/fc120ce3c7c9c996ed469ec129c1745be8d2a645ff106a92bc985b8c28bbd7a1.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="seasonal-arima-sarima">
+<h1>📅 Seasonal ARIMA (SARIMA)<a class="headerlink" href="#seasonal-arima-sarima" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>Goal:</strong> model time series with <strong>trend + seasonality</strong> using SARIMA.
+<strong>When to use:</strong> quarterly, monthly, weekly data with repeating patterns (e.g., electricity demand, sales).</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="what-is-sarima">
+<h2>🧩 What is SARIMA?<a class="headerlink" href="#what-is-sarima" title="Link to this heading">#</a></h2>
+<p>SARIMA adds <strong>seasonal AR/MA and seasonal differencing</strong> to ARIMA.</p>
+<p><strong>Notation:</strong>
+<span class="math notranslate nohighlight">\(\text{SARIMA}(p,d,q),(P,D,Q)_m\)</span></p>
+<ul class="simple">
+<li><p><strong>Non-seasonal:</strong> (p)=AR lags, (d)=differences, (q)=MA lags</p></li>
+<li><p><strong>Seasonal:</strong> (P)=seasonal AR lags, (D)=seasonal differences, (Q)=seasonal MA lags</p></li>
+<li><p><strong>m</strong> = seasonal period (e.g., <strong>4</strong> = quarters, <strong>12</strong> = months)</p></li>
+</ul>
+<p><strong>Intuition:</strong></p>
+<ul class="simple">
+<li><p><strong>I(d)</strong> removes <strong>trend</strong></p></li>
+<li><p><strong>I_m(D)</strong> removes <strong>seasonal mean shifts</strong></p></li>
+<li><p><strong>AR / MA</strong> terms capture <strong>short-memory</strong> patterns in the differenced data</p></li>
+<li><p><strong>Seasonal AR / MA</strong> terms capture <strong>lag-m</strong> relationships (same season last cycle)</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">statespace</span><span class="o">.</span><span class="n">SARIMAX</span><span class="p">(</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;electricity&#39;</span><span class="p">],</span><span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span><span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =            7     M =           10
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f=  6.18954D+00    |proj g|=  9.46568D-01
+
+At iterate    5    f=  5.73021D+00    |proj g|=  2.59464D-02
+
+At iterate   10    f=  5.72525D+00    |proj g|=  5.39365D-02
+
+At iterate   15    f=  5.71142D+00    |proj g|=  2.25968D-02
+
+At iterate   20    f=  5.69735D+00    |proj g|=  2.05842D-02
+
+At iterate   25    f=  5.68512D+00    |proj g|=  1.91411D-03
+
+At iterate   30    f=  5.67350D+00    |proj g|=  1.52528D-02
+
+At iterate   35    f=  5.66956D+00    |proj g|=  2.65689D-03
+
+At iterate   40    f=  5.66938D+00    |proj g|=  4.39695D-04
+
+At iterate   45    f=  5.66403D+00    |proj g|=  2.51109D-02
+
+At iterate   50    f=  5.65896D+00    |proj g|=  1.87874D-03
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+    7     50     66      1     0     0   1.879D-03   5.659D+00
+  F =   5.6589568265349417     
+
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT                 
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> This problem is unconstrained.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span><span class="n">dynamic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dfs</span><span class="p">[[</span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span><span class="s1">&#39;model&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/80fa18ca3707b41cf8768c0e4c25a36e560932c745ba07b2bcf8c19b2929f21e.png" src="_images/80fa18ca3707b41cf8768c0e4c25a36e560932c745ba07b2bcf8c19b2929f21e.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="14_timeseries_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">⏱️ Time series: trend, seasonality, decomposition.</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#get-data">📦 Get data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#stationarity-check-adf">🧪 Stationarity check (ADF)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-stationary">🤔 What is “stationary”?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-adf-test-do">🧠 What does ADF test do?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-care">🔍 Why do we care?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-steps-youll-follow">👣 Quick steps you’ll follow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-the-result">📖 How to read the result</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typical-outcomes">✅ Typical outcomes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">🤔 Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition">🧩 Decomposition</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decompose-resid-plot-what-youre-looking-at">🧩 <code class="docutils literal notranslate"><span class="pre">decompose.resid.plot()</span></code> — what you’re looking at</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-residuals-here">🧠 What are “residuals” here?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-should-the-plot-look-like">👀 What should the plot look like?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#good-signs">✅ Good signs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#red-flags">⚠️ Red flags</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">🧪 Stationarity check (ADF)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adf-results-interpretation">🧪 ADF results — interpretation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-means-plain-simple">✅ What this means (plain &amp; simple)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-transformation-make-it-stationary-diffs-logs-seasonality">⚙️ Data transformation.  Make It Stationary (Diffs, Logs, Seasonality)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quarterly-seasonality">🗓️ Quarterly seasonality</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonal-differencing-lag-4">🔧 Seasonal differencing (lag = 4)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dropna-cleanup">🧹 <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-it">📌 When to use it</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">🧪 Stationarity check (ADF)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plain-takeaway">✅ Plain takeaway</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-this-matters">🧠 Why this matters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">🔎 Next steps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">🔎 Next steps</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-autocorrelation-function">📈 ACF — Autocorrelation Function</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-acf">🤔 What is ACF?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-use-it">🧠 Why do we use it?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-the-acf-plot">🔍 How to read the ACF plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stationarity-tip-before-acf">🧪 Stationarity tip before ACF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpreting-common-patterns">🧭 Interpreting common patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pitfalls-tips">⚠️ Pitfalls &amp; tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-on-raw-data">🧩 ACF on raw data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-on-diff-data">🧩 ACF on diff data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-partial-autocorrelation-function">📐 PACF — Partial Autocorrelation Function</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pacf">🤔 What is PACF?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">🧠 Why do we use it?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-read-the-pacf-plot">🔍 How to read the PACF plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-you-plot-pacf">🧪 Before you plot PACF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-vs-acf-cheat-sheet">🧩 PACF vs ACF (cheat sheet)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">🧭 Interpreting common patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-vs-pacf-quick-cheat-sheet">🧩 ACF vs PACF (quick cheat sheet)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaway">🎯 Takeaway</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-on-raw-data">🧩 PACF on raw data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-on-diff-data">🧩 PACF on diff data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ar-arima-intuition-quick-practice">📈 AR / ARIMA — intuition + quick practice</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#big-picture">🤔 Big picture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">🧪 Stationarity check (ADF)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-model">🧩 Decomposition + model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-decompose-first">Why decompose first?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Stationarity check (ADF) 🧪</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arima-fit">🧮 ARIMA fit</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation-model">🧩 Transformation + model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">🧪Stationarity check (ADF)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acf">🔍 ACF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf">🔍 PACF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">🧮 ARIMA fit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#residuals">Residuals</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acf-residuals">ACF (residuals)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pacf-residuals">PACF (residuals)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restore">🔢  Restore</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cumsum-cumulative-sum-tutorial-style">CUMSUM — cumulative sum (tutorial style)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#restore-data">Restore data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#seasonal-arima-sarima">📅 Seasonal ARIMA (SARIMA)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-sarima">🧩 What is SARIMA?</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
