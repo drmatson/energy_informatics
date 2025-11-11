@@ -1,0 +1,1360 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🧭 Support Vector Machines (SVM/SVR) &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '19_ml_SVM';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🔮 Time-Series Forecasting with Prophet" href="20_ml_prophet.html" />
+    <link rel="prev" title="🌲 Random Forest" href="18_ml_RF.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_ml_baseline_lag7d.html">⚡️ Baseline Forecast: Lag‑7 Day</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="17_ml_baseline_LR.html">⚡️ Baseline Forecast: Linear Regression</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="18_ml_RF.html">🌲 Random Forest</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🧭 Support Vector Machines (SVM/SVR)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="20_ml_prophet.html">🔮 Time-Series Forecasting with Prophet</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="21_ml_chronos_tourch.html">🤖⏱️ Chronos Time‑Series Forecasting</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="22_ml_timesfm.html">🕰️🤖 TimesFM — Foundation Model for Time‑Series Forecasting</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/19_ml_SVM.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🧭 Support Vector Machines (SVM/SVR)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🧭 Support Vector Machines (SVM/SVR)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">🛠️ Setup &amp; Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svm-svr-in-simple-words">🧠 SVM/SVR in Simple Words</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernels-how-we-measure-similarity">Kernels (how we measure similarity)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-hyperparameters">Key Hyperparameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics">📏 Evaluation Metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics">📊 Diagnostics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-datasets">Read datasets</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">📥 Load the Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-index-frequency">🕒 Time Index &amp; Frequency</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-leakagesafe">🧰 Feature Engineering (leakage‑safe)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast">Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-on-validation-test">🔮 Predict on Validation/Test</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="support-vector-machines-svm-svr">
+<h1>🧭 Support Vector Machines (SVM/SVR)<a class="headerlink" href="#support-vector-machines-svm-svr" title="Link to this heading">#</a></h1>
+<p>Support Vector Regression (SVR) is a kernel-based method that fits a function to your data while keeping it as <strong>flat/smooth</strong> as possible, only paying attention to points that fall <strong>outside</strong> an ε-wide “no-penalty” tube around the prediction. Those influential points are the <strong>support vectors</strong>. With kernels (e.g., RBF), SVR can model <strong>non-linear</strong> relationships; the key knobs are <strong>C</strong> (how hard to fit outliers), <strong>ε</strong> (tube width), and <strong>γ</strong> (how wiggly the function is for RBF).</p>
+<p>This guided tutorial turns <strong>SVM/SVR</strong> into a clean, explainable baseline for energy forecasting.</p>
+<p><strong>What you’ll learn</strong></p>
+<ul class="simple">
+<li><p>📥 Data loading &amp; time indexing</p></li>
+<li><p>🧹 Missing-value policy</p></li>
+<li><p>🧰 Leakage‑safe features (lags/rolling/calendar/weather)</p></li>
+<li><p>✂️ Time‑aware splits</p></li>
+<li><p>🧠 SVM/SVR in <strong>simple words</strong> + key hyperparameters</p></li>
+<li><p>📏 Metrics &amp; diagnostics</p></li>
+<li><p>🎛️ Quick tuning with <code class="docutils literal notranslate"><span class="pre">TimeSeriesSplit</span></code></p></li>
+</ul>
+<blockquote>
+<div><p>SVM tries to find a <strong>boundary with maximum margin</strong>.<br />
+For regression (<strong>SVR</strong>), it fits a <strong>tube</strong> of width <strong>ε</strong> around the data and balances flatness vs violations.</p>
+</div></blockquote>
+<section id="setup-imports">
+<h2>🛠️ Setup &amp; Imports<a class="headerlink" href="#setup-imports" title="Link to this heading">#</a></h2>
+<p>Core stack: <strong>pandas/numpy</strong> for data; <strong>matplotlib/seaborn</strong> for plots;<br />
+<strong>scikit‑learn</strong> for <code class="docutils literal notranslate"><span class="pre">SVR/SVC</span></code>, <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>, <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code>, and metrics.</p>
+</section>
+<section id="svm-svr-in-simple-words">
+<h2>🧠 SVM/SVR in Simple Words<a class="headerlink" href="#svm-svr-in-simple-words" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>SVM (classification)</strong>: find a separating line/plane with the <strong>largest margin</strong> between classes.</p></li>
+<li><p><strong>SVR (regression)</strong>: fit a <strong>flat function</strong> with an <strong>ε‑wide tube</strong>; errors inside the tube are ignored; outside are penalized.</p></li>
+</ul>
+<section id="kernels-how-we-measure-similarity">
+<h3>Kernels (how we measure similarity)<a class="headerlink" href="#kernels-how-we-measure-similarity" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>linear</strong>: straight‑line relationships</p></li>
+<li><p><strong>rbf</strong> (Gaussian): flexible, handles non‑linear patterns</p></li>
+<li><p><strong>poly</strong>: polynomial relationships (can overfit)</p></li>
+<li><p><strong>sigmoid</strong>: neural‑like, rarely best in practice</p></li>
+</ul>
+</section>
+<section id="key-hyperparameters">
+<h3>Key Hyperparameters<a class="headerlink" href="#key-hyperparameters" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">C</span></code> (penalty): larger → fit training data harder (risk overfit); smaller → smoother, wider margin</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">epsilon</span></code> (SVR only): tube width; larger → ignore small errors → smoother fit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gamma</span></code> (rbf/poly): how <strong>local</strong> the influence is; larger → more wiggly</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kernel</span></code>: <code class="docutils literal notranslate"><span class="pre">&quot;rbf&quot;</span></code> is a strong default for non‑linear problems</p></li>
+</ul>
+</section>
+</section>
+<section id="evaluation-metrics">
+<h2>📏 Evaluation Metrics<a class="headerlink" href="#evaluation-metrics" title="Link to this heading">#</a></h2>
+<p>Report <strong>MAE</strong>, <strong>RMSE</strong>, <strong>MAPE</strong>, and optionally <strong>R²</strong>.<br />
+Compare against <strong>Lag‑7</strong> and <strong>Linear Regression</strong> to justify complexity.</p>
+</section>
+<section id="diagnostics">
+<h2>📊 Diagnostics<a class="headerlink" href="#diagnostics" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Actual vs Predicted</p></li>
+<li><p>Residuals over time (look for drift)</p></li>
+<li><p>Error by <strong>hour/DoW/temp bins</strong> (systematic structure?)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span><span class="p">,</span><span class="n">LinearSVR</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="read-datasets">
+<h1>Read datasets<a class="headerlink" href="#read-datasets" title="Link to this heading">#</a></h1>
+<section id="load-the-data">
+<h2>📥 Load the Data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h2>
+<p>Read your time series, parse <strong>datetime</strong>, and check units (e.g., <strong>kWh</strong>).<br />
+Record the time window (start/end) for reproducibility.</p>
+</section>
+<section id="time-index-frequency">
+<h2>🕒 Time Index &amp; Frequency<a class="headerlink" href="#time-index-frequency" title="Link to this heading">#</a></h2>
+<p>Create a clean <strong>DatetimeIndex</strong> (right frequency, timezone, handle DST).<br />
+Consistent indexing avoids subtle alignment bugs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/kaggle_competition_dataset.csv&#39;</span><span class="p">,</span>
+            <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 8592 entries, 2021-09-01 00:00:00 to 2022-08-24 23:00:00
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   temp         8592 non-null   float64
+ 1   dwpt         8592 non-null   float64
+ 2   rhum         8592 non-null   float64
+ 3   prcp         2159 non-null   float64
+ 4   snow         119 non-null    float64
+ 5   wdir         8592 non-null   float64
+ 6   wspd         8592 non-null   float64
+ 7   wpgt         8592 non-null   float64
+ 8   pres         8592 non-null   float64
+ 9   coco         8396 non-null   float64
+ 10  el_price     8592 non-null   float64
+ 11  consumption  8592 non-null   float64
+dtypes: float64(12)
+memory usage: 872.6 KB
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demand</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[[</span><span class="s1">&#39;consumption&#39;</span><span class="p">]]</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;consumption&#39;</span><span class="p">:</span><span class="s1">&#39;demand&#39;</span><span class="p">})</span>
+<span class="n">demand</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-09-01 00:00:00</th>
+      <td>0.577</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 01:00:00</th>
+      <td>0.594</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 02:00:00</th>
+      <td>0.685</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 03:00:00</th>
+      <td>1.016</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 04:00:00</th>
+      <td>0.677</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="feature-engineering-leakagesafe">
+<h2>🧰 Feature Engineering (leakage‑safe)<a class="headerlink" href="#feature-engineering-leakagesafe" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>🔁 <strong>Lags</strong> (1, 24, 24×7)</p></li>
+<li><p>📈 <strong>Rolling stats</strong> (past‑window mean/min/max/std)</p></li>
+<li><p>📆 <strong>Calendar</strong> (hour, DoW, month, holidays)</p></li>
+<li><p>🌡️ <strong>Weather</strong> (temperature, feels‑like)</p></li>
+</ul>
+<blockquote>
+<div><p>Use only <strong>past</strong> information for each timestamp to avoid leakage.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_data</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">time_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">time_data</span> <span class="o">=</span> <span class="n">time_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">])</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;wd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;h&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+
+<span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;h_sin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;h_cos&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+
+<span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;dow_sin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;wd&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;dow_cos&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;wd&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
+
+
+<span class="n">time_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ts</th>
+      <th>wd</th>
+      <th>h</th>
+      <th>h_sin</th>
+      <th>h_cos</th>
+      <th>dow_sin</th>
+      <th>dow_cos</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-09-01 00:00:00</th>
+      <td>2021-09-01 00:00:00</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 01:00:00</th>
+      <td>2021-09-01 01:00:00</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0.258819</td>
+      <td>0.965926</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 02:00:00</th>
+      <td>2021-09-01 02:00:00</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.500000</td>
+      <td>0.866025</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 03:00:00</th>
+      <td>2021-09-01 03:00:00</td>
+      <td>2</td>
+      <td>3</td>
+      <td>0.707107</td>
+      <td>0.707107</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 04:00:00</th>
+      <td>2021-09-01 04:00:00</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.866025</td>
+      <td>0.500000</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 19:00:00</th>
+      <td>2022-08-24 19:00:00</td>
+      <td>2</td>
+      <td>19</td>
+      <td>-0.965926</td>
+      <td>0.258819</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 20:00:00</th>
+      <td>2022-08-24 20:00:00</td>
+      <td>2</td>
+      <td>20</td>
+      <td>-0.866025</td>
+      <td>0.500000</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 21:00:00</th>
+      <td>2022-08-24 21:00:00</td>
+      <td>2</td>
+      <td>21</td>
+      <td>-0.707107</td>
+      <td>0.707107</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 22:00:00</th>
+      <td>2022-08-24 22:00:00</td>
+      <td>2</td>
+      <td>22</td>
+      <td>-0.500000</td>
+      <td>0.866025</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 23:00:00</th>
+      <td>2022-08-24 23:00:00</td>
+      <td>2</td>
+      <td>23</td>
+      <td>-0.258819</td>
+      <td>0.965926</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+  </tbody>
+</table>
+<p>8592 rows × 7 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lag7d</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">24</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">lag7d</span> <span class="o">=</span> <span class="n">lag7d</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span><span class="s1">&#39;lag7&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lag1d</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">lag1d</span> <span class="o">=</span> <span class="n">lag1d</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span><span class="s1">&#39;lag1&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temperature</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[[</span><span class="s1">&#39;temp&#39;</span><span class="p">]]</span>
+<span class="n">price</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[[</span><span class="s1">&#39;el_price&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">lag7d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lag1d</span><span class="p">)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">time_data</span><span class="p">)</span>
+<span class="c1">#features.tail()</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>lag7</th>
+      <th>lag1</th>
+      <th>temp</th>
+      <th>el_price</th>
+      <th>ts</th>
+      <th>wd</th>
+      <th>h</th>
+      <th>h_sin</th>
+      <th>h_cos</th>
+      <th>dow_sin</th>
+      <th>dow_cos</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-08-24 19:00:00</th>
+      <td>0.678</td>
+      <td>0.897</td>
+      <td>0.379</td>
+      <td>27.1</td>
+      <td>0.53494</td>
+      <td>2022-08-24 19:00:00</td>
+      <td>2</td>
+      <td>19</td>
+      <td>-0.965926</td>
+      <td>0.258819</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 20:00:00</th>
+      <td>0.457</td>
+      <td>2.796</td>
+      <td>0.609</td>
+      <td>25.1</td>
+      <td>0.49990</td>
+      <td>2022-08-24 20:00:00</td>
+      <td>2</td>
+      <td>20</td>
+      <td>-0.866025</td>
+      <td>0.500000</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 21:00:00</th>
+      <td>0.500</td>
+      <td>0.733</td>
+      <td>1.572</td>
+      <td>24.9</td>
+      <td>0.43149</td>
+      <td>2022-08-24 21:00:00</td>
+      <td>2</td>
+      <td>21</td>
+      <td>-0.707107</td>
+      <td>0.707107</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 22:00:00</th>
+      <td>2.321</td>
+      <td>1.490</td>
+      <td>1.016</td>
+      <td>22.1</td>
+      <td>0.55203</td>
+      <td>2022-08-24 22:00:00</td>
+      <td>2</td>
+      <td>22</td>
+      <td>-0.500000</td>
+      <td>0.866025</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 23:00:00</th>
+      <td>0.678</td>
+      <td>0.222</td>
+      <td>0.243</td>
+      <td>22.1</td>
+      <td>0.43108</td>
+      <td>2022-08-24 23:00:00</td>
+      <td>2</td>
+      <td>23</td>
+      <td>-0.258819</td>
+      <td>0.965926</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">]</span>
+<span class="n">fs2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag1&#39;</span><span class="p">]</span>
+<span class="n">fs3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag1&#39;</span><span class="p">,</span><span class="s1">&#39;temp&#39;</span><span class="p">]</span>
+<span class="n">fs4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag1&#39;</span><span class="p">,</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs5</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span> <span class="s1">&#39;lag1&#39;</span><span class="p">,</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs6</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span><span class="s1">&#39;lag1&#39;</span><span class="p">,</span> <span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs7</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs8</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;el_price&#39;</span><span class="p">,</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs9</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;el_price&#39;</span><span class="p">,</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span><span class="s1">&#39;lag1&#39;</span><span class="p">,</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+
+<span class="n">fs</span> <span class="o">=</span> <span class="p">[</span><span class="n">fs1</span><span class="p">,</span> <span class="n">fs2</span><span class="p">,</span> <span class="n">fs3</span><span class="p">,</span> <span class="n">fs4</span><span class="p">,</span> <span class="n">fs5</span><span class="p">,</span> <span class="n">fs6</span><span class="p">,</span> <span class="n">fs7</span><span class="p">,</span> <span class="n">fs8</span><span class="p">,</span> <span class="n">fs9</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="forecast">
+<h1>Forecast<a class="headerlink" href="#forecast" title="Link to this heading">#</a></h1>
+<section id="predict-on-validation-test">
+<h2>🔮 Predict on Validation/Test<a class="headerlink" href="#predict-on-validation-test" title="Link to this heading">#</a></h2>
+<p>Generate predictions aligned to timestamps and store them for plotting and metrics.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict_days</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">training_data_length</span> <span class="o">=</span><span class="mi">14</span>
+<span class="n">last_dataset_day</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+<span class="n">prediction_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">last_dataset_day</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="n">predict_days</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">#print(prediction_start)</span>
+<span class="c1">#print(last_dataset_day)</span>
+
+<span class="k">def</span> <span class="nf">rolling_svr_forecast</span><span class="p">(</span><span class="n">ad_fs</span><span class="p">):</span>
+  <span class="n">actual_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+  <span class="n">forecast_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+  <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">predict_days</span><span class="p">):</span>
+
+    <span class="n">predict_for_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">prediction_start</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="n">d</span><span class="p">))</span>
+    <span class="n">predict_for_end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">predict_for_start</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">training_end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">predict_for_start</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">training_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">training_end</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="n">training_data_length</span><span class="p">))</span>
+
+    <span class="n">test_set</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">predict_for_start</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">predict_for_end</span><span class="p">)]</span>
+    <span class="n">train_set</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">training_start</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">training_end</span><span class="p">)]</span>
+
+    <span class="n">X_test</span> <span class="o">=</span> <span class="n">test_set</span><span class="p">[</span><span class="n">ad_fs</span><span class="p">]</span>
+    <span class="n">y_test</span> <span class="o">=</span> <span class="n">test_set</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+    <span class="n">X_train</span> <span class="o">=</span> <span class="n">train_set</span><span class="p">[</span><span class="n">ad_fs</span><span class="p">]</span>
+    <span class="n">y_train</span> <span class="o">=</span> <span class="n">train_set</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">LinearSVR</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+
+    <span class="n">predictions_vector</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+    <span class="n">predictions_vector</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">predictions_vector</span> <span class="o">=</span> <span class="n">predictions_vector</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;prediction&#39;</span><span class="p">})</span>
+
+    <span class="n">actual_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">actual_full</span><span class="p">,</span> <span class="n">y_test</span><span class="p">])</span><span class="c1">#, ignore_index=True)</span>
+    <span class="n">forecast_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">forecast_full</span><span class="p">,</span> <span class="n">predictions_vector</span><span class="p">])</span><span class="c1">#, ignore_index=True)</span>
+
+<span class="c1">##############################</span>
+  <span class="n">mapestring</span><span class="o">=</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">actual_full</span><span class="p">,</span> <span class="n">forecast_full</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+  <span class="n">maestring</span><span class="o">=</span><span class="s2">&quot;MAE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">actual_full</span><span class="p">,</span> <span class="n">forecast_full</span><span class="p">))</span>
+  <span class="n">rmsestring</span> <span class="o">=</span> <span class="s2">&quot;RMSE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">actual_full</span><span class="p">,</span> <span class="n">forecast_full</span><span class="p">)))</span>
+
+
+  <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">actual_full</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">forecast_full</span><span class="p">));</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;SVR &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ad_fs</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">rmsestring</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">maestring</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+  <span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+  <span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Consumption [kWh]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+  <span class="c1">#plt.show()</span>
+
+  <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ad_fs</span><span class="p">))</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">mapestring</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">maestring</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">rmsestring</span><span class="p">)</span>
+
+  <span class="c1">#print(str(predict_for_start)+&quot; &quot;+ str(training_start)+&quot; &quot;+str(training_end))</span>
+
+<span class="k">for</span> <span class="n">ad_fs</span> <span class="ow">in</span> <span class="n">fs</span><span class="p">:</span>
+  <span class="n">rolling_svr_forecast</span><span class="p">(</span><span class="n">ad_fs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>lag7
+MAPE: 45.550 MAE: 0.342 RMSE: 0.538
+lag7 lag1
+MAPE: 47.471 MAE: 0.329 RMSE: 0.507
+lag7 lag1 temp
+MAPE: 66.044 MAE: 0.386 RMSE: 0.557
+lag7 lag1 temp h_sin h_cos dow_sin dow_cos
+MAPE: 60.526 MAE: 0.375 RMSE: 0.550
+temp lag1 h_sin h_cos dow_sin dow_cos
+MAPE: 80.878 MAE: 0.408 RMSE: 0.526
+lag7 lag1 h_sin h_cos dow_sin dow_cos
+MAPE: 44.699 MAE: 0.322 RMSE: 0.492
+h_sin h_cos dow_sin dow_cos
+MAPE: 40.674 MAE: 0.331 RMSE: 0.528
+el_price h_sin h_cos dow_sin dow_cos
+MAPE: 41.887 MAE: 0.330 RMSE: 0.523
+el_price lag7 lag1 h_sin h_cos dow_sin dow_cos
+MAPE: 45.556 MAE: 0.323 RMSE: 0.494
+</pre></div>
+</div>
+<img alt="_images/ebd7c1c36d128df166c45875a43824dd8d32a8f94f4f2eeda146a58b54c49309.png" src="_images/ebd7c1c36d128df166c45875a43824dd8d32a8f94f4f2eeda146a58b54c49309.png" />
+<img alt="_images/c1cb60d46d7febedc521a3845a7362b0da43d066622f735639e9f4a7f8f35e63.png" src="_images/c1cb60d46d7febedc521a3845a7362b0da43d066622f735639e9f4a7f8f35e63.png" />
+<img alt="_images/a0cf6bd1ff5660f6f946ba1391ab4c56b12577154b561dd1123c935acdc59085.png" src="_images/a0cf6bd1ff5660f6f946ba1391ab4c56b12577154b561dd1123c935acdc59085.png" />
+<img alt="_images/76f8e9802e00ae79a9cce8f148e89c8441181662c1b10ad0d50969395dd9181a.png" src="_images/76f8e9802e00ae79a9cce8f148e89c8441181662c1b10ad0d50969395dd9181a.png" />
+<img alt="_images/4b2d7e8d4bce1e067b3602e01ad5660707a5288cc473082fb898dcd764da7542.png" src="_images/4b2d7e8d4bce1e067b3602e01ad5660707a5288cc473082fb898dcd764da7542.png" />
+<img alt="_images/c040ed84f753e3b037ecbf89931085e5834e72fabc570cbaf3ad0b1f0ae1f5fe.png" src="_images/c040ed84f753e3b037ecbf89931085e5834e72fabc570cbaf3ad0b1f0ae1f5fe.png" />
+<img alt="_images/6a3c26b268a4c0153fc971332168748cdea1e48637338475a2157aeb87cd8eb6.png" src="_images/6a3c26b268a4c0153fc971332168748cdea1e48637338475a2157aeb87cd8eb6.png" />
+<img alt="_images/eae8adbcf9a5bd3bf73ceb8b93ed0801ff0a28e6dda537acfaacd4c7d12bdd48.png" src="_images/eae8adbcf9a5bd3bf73ceb8b93ed0801ff0a28e6dda537acfaacd4c7d12bdd48.png" />
+<img alt="_images/79cfc3b0b206e8da12563864571d14c656aaf5599d3b070165290773f0a9793d.png" src="_images/79cfc3b0b206e8da12563864571d14c656aaf5599d3b070165290773f0a9793d.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="18_ml_RF.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🌲 Random Forest</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="20_ml_prophet.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🔮 Time-Series Forecasting with Prophet</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🧭 Support Vector Machines (SVM/SVR)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">🛠️ Setup &amp; Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svm-svr-in-simple-words">🧠 SVM/SVR in Simple Words</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernels-how-we-measure-similarity">Kernels (how we measure similarity)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-hyperparameters">Key Hyperparameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics">📏 Evaluation Metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics">📊 Diagnostics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-datasets">Read datasets</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">📥 Load the Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-index-frequency">🕒 Time Index &amp; Frequency</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-leakagesafe">🧰 Feature Engineering (leakage‑safe)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast">Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-on-validation-test">🔮 Predict on Validation/Test</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

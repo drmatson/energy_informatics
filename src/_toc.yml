@@ -24,7 +24,17 @@ parts:
       - file: 11_outliers
       - file: 12_feature_engineering
       - file: 13_pca
-  - caption: Modelling time series
+  - caption: Statistical Modelling for TS
     chapters:
       - file: ts
       - file: 14_timeseries_intro
+      - file: 15_statistical_models_ts
+  - caption: Machine learning for TS
+    chapters:
+      - file: 16_ml_baseline_lag7d
+      - file: 17_ml_baseline_LR
+      - file: 18_ml_RF
+      - file: 19_ml_SVM
+      - file: 20_ml_prophet
+      - file: 21_ml_chronos_tourch
+      - file: 22_ml_timesfm

@@ -1,0 +1,1182 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>⚡️ Baseline Forecast: Lag‑7 Day &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '16_ml_baseline_lag7d';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="⚡️ Baseline Forecast: Linear Regression" href="17_ml_baseline_LR.html" />
+    <link rel="prev" title="⏱️ Statistical models: ACF/PACF, SARIMA" href="15_statistical_models_ts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">⚡️ Baseline Forecast: Lag‑7 Day</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="17_ml_baseline_LR.html">⚡️ Baseline Forecast: Linear Regression</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="18_ml_RF.html">🌲 Random Forest</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="19_ml_SVM.html">🧭 Support Vector Machines (SVM/SVR)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="20_ml_prophet.html">🔮 Time-Series Forecasting with Prophet</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="21_ml_chronos_tourch.html">🤖⏱️ Chronos Time‑Series Forecasting</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="22_ml_timesfm.html">🕰️🤖 TimesFM — Foundation Model for Time‑Series Forecasting</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/16_ml_baseline_lag7d.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>⚡️ Baseline Forecast: Lag‑7 Day</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">⚡️ Baseline Forecast: Lag‑7 Day</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">🛠️ Setup &amp; Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-diagnostics">📊 Visualization &amp; Diagnostics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-datasets">Read datasets</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">📥 Load the Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-index-frequency">🕒 Time Index &amp; Frequency</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-light">🧰 Feature Engineering (Light)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-model-lag7">🔮 Baseline Model: Lag‑7</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast">Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics">📏 Evaluation Metrics</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="baseline-forecast-lag7-day">
+<h1>⚡️ Baseline Forecast: Lag‑7 Day<a class="headerlink" href="#baseline-forecast-lag7-day" title="Link to this heading">#</a></h1>
+<p>Welcome! In this guided tutorial, we’ll build a <strong>simple but strong baseline</strong> for energy demand forecasting:<br />
+<strong>Lag‑7</strong> (yesterday’s value from <strong>one week ago</strong>) ➜ a solid benchmark for daily/weekly seasonal loads.</p>
+<p><strong>What you’ll learn:</strong></p>
+<ul class="simple">
+<li><p>📥 Data loading &amp; time indexing</p></li>
+<li><p>🧹 Cleaning missing data</p></li>
+<li><p>🧪 Train/validation/test splits</p></li>
+<li><p>🧰 Feature engineering (lags/rolling)</p></li>
+<li><p>🔮 Baseline: <strong>Lag‑7</strong> prediction</p></li>
+<li><p>📏 Metrics (MAE, RMSE, MAPE) and plots</p></li>
+<li><p>✅ How to use this as a yardstick for fancier models later</p></li>
+</ul>
+<blockquote>
+<div><p>Tip: Keep this baseline around! If a fancy model can’t beat Lag‑7, it’s probably <strong>overkill</strong> or mis‑specified.</p>
+</div></blockquote>
+<section id="setup-imports">
+<h2>🛠️ Setup &amp; Imports<a class="headerlink" href="#setup-imports" title="Link to this heading">#</a></h2>
+<p>We import core libraries for data handling (<strong>pandas</strong>, <strong>numpy</strong>), visualization (<strong>matplotlib/seaborn</strong>),<br />
+and metrics (<strong>sklearn.metrics</strong>). Keep it minimal and reproducible.</p>
+</section>
+<section id="visualization-diagnostics">
+<h2>📊 Visualization &amp; Diagnostics<a class="headerlink" href="#visualization-diagnostics" title="Link to this heading">#</a></h2>
+<p>Plot <strong>actual vs predicted</strong>, <strong>residuals</strong>, and <strong>error distributions</strong>.<br />
+Look for <strong>bias</strong> (systematic under/over‑prediction) and <strong>seasonal drift</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_percentage_error</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="read-datasets">
+<h1>Read datasets<a class="headerlink" href="#read-datasets" title="Link to this heading">#</a></h1>
+<section id="load-the-data">
+<h2>📥 Load the Data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h2>
+<p>Read raw time‑series, parse <strong>datetime</strong>, and set a meaningful <strong>index</strong>.<br />
+Ensure the frequency is clear (hourly/daily) and units are documented (e.g., <strong>kWh</strong>, <strong>kW</strong>).</p>
+</section>
+<section id="time-index-frequency">
+<h2>🕒 Time Index &amp; Frequency<a class="headerlink" href="#time-index-frequency" title="Link to this heading">#</a></h2>
+<p>Make the <strong>DatetimeIndex</strong> consistent, set frequency, handle timezones, and align to the desired granularity.<br />
+This prevents subtle off‑by‑one errors later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/kaggle_competition_dataset.csv&#39;</span><span class="p">,</span>
+            <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 8592 entries, 2021-09-01 00:00:00 to 2022-08-24 23:00:00
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   temp         8592 non-null   float64
+ 1   dwpt         8592 non-null   float64
+ 2   rhum         8592 non-null   float64
+ 3   prcp         2159 non-null   float64
+ 4   snow         119 non-null    float64
+ 5   wdir         8592 non-null   float64
+ 6   wspd         8592 non-null   float64
+ 7   wpgt         8592 non-null   float64
+ 8   pres         8592 non-null   float64
+ 9   coco         8396 non-null   float64
+ 10  el_price     8592 non-null   float64
+ 11  consumption  8592 non-null   float64
+dtypes: float64(12)
+memory usage: 872.6 KB
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demand</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[[</span><span class="s1">&#39;consumption&#39;</span><span class="p">]]</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;consumption&#39;</span><span class="p">:</span><span class="s1">&#39;demand&#39;</span><span class="p">})</span>
+<span class="n">demand</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-09-01 00:00:00</th>
+      <td>0.577</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 01:00:00</th>
+      <td>0.594</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 02:00:00</th>
+      <td>0.685</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 03:00:00</th>
+      <td>1.016</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 04:00:00</th>
+      <td>0.677</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="feature-engineering-light">
+<h2>🧰 Feature Engineering (Light)<a class="headerlink" href="#feature-engineering-light" title="Link to this heading">#</a></h2>
+<p>Create interpretable signals:</p>
+<ul class="simple">
+<li><p>🔁 <strong>Lags</strong> (e.g., 1, 24, <strong>7×period</strong> for weekly seasonality)</p></li>
+<li><p>📈 <strong>Rolling stats</strong> (mean/std/min/max)</p></li>
+<li><p>📆 <strong>Calendar</strong> features (DoW, hour, holidays)</p></li>
+</ul>
+</section>
+<section id="baseline-model-lag7">
+<h2>🔮 Baseline Model: Lag‑7<a class="headerlink" href="#baseline-model-lag7" title="Link to this heading">#</a></h2>
+<p>Predict <strong>today</strong> using the value from <strong>7 periods ago</strong> (e.g., 7 days for daily; 24×7 for hourly).<br />
+This leverages <strong>weekly seasonality</strong>, often surprisingly strong in buildings &amp; homes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lag7d</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">24</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">lag7d</span> <span class="o">=</span> <span class="n">lag7d</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span><span class="s1">&#39;lag7&#39;</span><span class="p">})</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">lag7d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">features</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>lag7</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-09-01 00:00:00</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 01:00:00</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 02:00:00</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 03:00:00</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 04:00:00</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 19:00:00</th>
+      <td>0.897</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 20:00:00</th>
+      <td>2.796</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 21:00:00</th>
+      <td>0.733</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 22:00:00</th>
+      <td>1.490</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 23:00:00</th>
+      <td>0.222</td>
+    </tr>
+  </tbody>
+</table>
+<p>8592 rows × 1 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="forecast">
+<h1>Forecast<a class="headerlink" href="#forecast" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>lag7</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-08-24 19:00:00</th>
+      <td>0.678</td>
+      <td>0.897</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 20:00:00</th>
+      <td>0.457</td>
+      <td>2.796</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 21:00:00</th>
+      <td>0.500</td>
+      <td>0.733</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 22:00:00</th>
+      <td>2.321</td>
+      <td>1.490</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 23:00:00</th>
+      <td>0.678</td>
+      <td>0.222</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_set</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">))]</span>
+<span class="n">test_set</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>lag7</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-08-01 00:00:00</th>
+      <td>0.200</td>
+      <td>0.225</td>
+    </tr>
+    <tr>
+      <th>2022-08-01 01:00:00</th>
+      <td>0.253</td>
+      <td>0.201</td>
+    </tr>
+    <tr>
+      <th>2022-08-01 02:00:00</th>
+      <td>0.200</td>
+      <td>0.200</td>
+    </tr>
+    <tr>
+      <th>2022-08-01 03:00:00</th>
+      <td>0.183</td>
+      <td>0.225</td>
+    </tr>
+    <tr>
+      <th>2022-08-01 04:00:00</th>
+      <td>1.230</td>
+      <td>1.118</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 19:00:00</th>
+      <td>0.678</td>
+      <td>0.897</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 20:00:00</th>
+      <td>0.457</td>
+      <td>2.796</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 21:00:00</th>
+      <td>0.500</td>
+      <td>0.733</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 22:00:00</th>
+      <td>2.321</td>
+      <td>1.490</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 23:00:00</th>
+      <td>0.678</td>
+      <td>0.222</td>
+    </tr>
+  </tbody>
+</table>
+<p>576 rows × 2 columns</p>
+</div></div></div>
+</div>
+<section id="evaluation-metrics">
+<h2>📏 Evaluation Metrics<a class="headerlink" href="#evaluation-metrics" title="Link to this heading">#</a></h2>
+<p>Report multiple metrics:</p>
+<ul class="simple">
+<li><p><strong>MAE</strong>: average absolute error (units of target)</p></li>
+<li><p><strong>RMSE</strong>: penalizes large errors</p></li>
+<li><p><strong>MAPE</strong>: % error (watch out for near‑zero issues)</p></li>
+</ul>
+<p>Add <strong>baseline vs model</strong> tables and quick plots for a fair comparison.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Naive predictor&quot;</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">test_set</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span><span class="s1">&#39;lag7&#39;</span><span class="p">]]);</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Consumption [kWh]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">test_set</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">test_set</span><span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 69.962
+</pre></div>
+</div>
+<img alt="_images/4015a9e732eea87870da3aa6c941ffa4a30a55082bd9f13d06b663a49f6f5205.png" src="_images/4015a9e732eea87870da3aa6c941ffa4a30a55082bd9f13d06b663a49f6f5205.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict_for_start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">predict_for_end</span> <span class="o">=</span> <span class="n">predict_for_start</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">test_day</span> <span class="o">=</span> <span class="n">test_set</span><span class="p">[(</span><span class="n">test_set</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">predict_for_start</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="p">(</span><span class="n">test_set</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">predict_for_end</span><span class="p">)]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">test_day</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span><span class="s1">&#39;lag7&#39;</span><span class="p">]]);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Consumption [kWh]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">test_day</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">test_day</span><span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 86.357
+</pre></div>
+</div>
+<img alt="_images/0a606b0e2d518438793b382f2639c425a14f99b164650855ccb140a760cf1a89.png" src="_images/0a606b0e2d518438793b382f2639c425a14f99b164650855ccb140a760cf1a89.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># holiday</span>
+<span class="n">predict_for_start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">predict_for_end</span> <span class="o">=</span> <span class="n">predict_for_start</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">test_day</span> <span class="o">=</span> <span class="n">test_set</span><span class="p">[(</span><span class="n">test_set</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">predict_for_start</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="p">(</span><span class="n">test_set</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">predict_for_end</span><span class="p">)]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">predict_for_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">test_day</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span><span class="s1">&#39;lag7&#39;</span><span class="p">]]);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+<span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Consumption [MW]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">test_day</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">test_day</span><span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAPE: 63.332
+</pre></div>
+</div>
+<img alt="_images/f3a2c3dd7d45484bb323b7e3387742a705840807474ad4c97abe998624838427.png" src="_images/f3a2c3dd7d45484bb323b7e3387742a705840807474ad4c97abe998624838427.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="15_statistical_models_ts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">⏱️ Statistical models: ACF/PACF, SARIMA</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="17_ml_baseline_LR.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">⚡️ Baseline Forecast: Linear Regression</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">⚡️ Baseline Forecast: Lag‑7 Day</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">🛠️ Setup &amp; Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-diagnostics">📊 Visualization &amp; Diagnostics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-datasets">Read datasets</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">📥 Load the Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-index-frequency">🕒 Time Index &amp; Frequency</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-light">🧰 Feature Engineering (Light)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-model-lag7">🔮 Baseline Model: Lag‑7</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast">Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics">📏 Evaluation Metrics</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

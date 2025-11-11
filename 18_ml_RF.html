@@ -1,0 +1,1347 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🌲 Random Forest &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '18_ml_RF';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🧭 Support Vector Machines (SVM/SVR)" href="19_ml_SVM.html" />
+    <link rel="prev" title="⚡️ Baseline Forecast: Linear Regression" href="17_ml_baseline_LR.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_ml_baseline_lag7d.html">⚡️ Baseline Forecast: Lag‑7 Day</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="17_ml_baseline_LR.html">⚡️ Baseline Forecast: Linear Regression</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🌲 Random Forest</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="19_ml_SVM.html">🧭 Support Vector Machines (SVM/SVR)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="20_ml_prophet.html">🔮 Time-Series Forecasting with Prophet</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="21_ml_chronos_tourch.html">🤖⏱️ Chronos Time‑Series Forecasting</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="22_ml_timesfm.html">🕰️🤖 TimesFM — Foundation Model for Time‑Series Forecasting</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/18_ml_RF.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🌲 Random Forest</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🌲 Random Forest</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">🛠️ Setup &amp; Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest-in-simple-words">🌲 Random Forest in Simple Words</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-hyperparameters">Key Hyperparameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics">📏 Metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics">📊 Diagnostics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-datasets">Read datasets</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">📥 Load the Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-index-frequency">🕒 Time Index &amp; Frequency</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-leakagesafe">🧰 Feature Engineering (leakage‑safe)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast">Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-on-validation-test">🔮 Predict on Validation/Test</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="random-forest">
+<h1>🌲 Random Forest<a class="headerlink" href="#random-forest" title="Link to this heading">#</a></h1>
+<p><strong>Random Forest Regression</strong> builds an ensemble of many decision trees, each trained on a random subset of rows and features, then <strong>averages</strong> their predictions. This makes it good at capturing <strong>non-linearities</strong> and <strong>feature interactions</strong> with little preprocessing (no scaling needed) and solid robustness to noise/outliers. Key knobs: <strong><code class="docutils literal notranslate"><span class="pre">n_estimators</span></code></strong> (trees), <strong><code class="docutils literal notranslate"><span class="pre">max_depth</span></code></strong> (tree depth), <strong><code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code></strong> (smoothness), <strong><code class="docutils literal notranslate"><span class="pre">max_features</span></code></strong> (feature randomness). Strengths: strong baseline, handles mixed features, offers (permutation) <strong>feature importance</strong>. Watch-outs: weak at <strong>extrapolation</strong>, large models can be slow, and interpretability is lower than linear models; for time series, use <strong>chronological splits</strong> to avoid leakage. 🌲📈</p>
+<p>In this tutorial we turn <strong>Random Forest</strong> into a pragmatic baseline for energy demand.<br />
+It’s great when relationships are <strong>non‑linear</strong> and features interact (e.g., temperature × hour).</p>
+<p><strong>What you’ll learn</strong></p>
+<ul class="simple">
+<li><p>📥 Data loading &amp; time indexing</p></li>
+<li><p>🧹 Missing‑data policy</p></li>
+<li><p>🧰 Leakage‑safe features (lags/rolling/calendar/weather)</p></li>
+<li><p>🧪 Time‑aware splits (no shuffling!)</p></li>
+<li><p>🌲 <strong>Random Forest</strong> fit &amp; key hyperparameters</p></li>
+<li><p>📏 Metrics + residual diagnostics</p></li>
+<li><p>🧠 Feature importance (permutation‑based)</p></li>
+</ul>
+<blockquote>
+<div><p>Mental model: a Random Forest is <strong>many decision trees</strong> trained on different random subsets of rows &amp; features, then <strong>averaged</strong> to reduce overfitting and variance.</p>
+</div></blockquote>
+<section id="setup-imports">
+<h2>🛠️ Setup &amp; Imports<a class="headerlink" href="#setup-imports" title="Link to this heading">#</a></h2>
+<p>We rely on <strong>pandas/numpy</strong> for data, <strong>matplotlib/seaborn</strong> for plots, and <strong>scikit‑learn</strong> for models/metrics.<br />
+Pin versions for reproducibility in research.</p>
+</section>
+<section id="random-forest-in-simple-words">
+<h2>🌲 Random Forest in Simple Words<a class="headerlink" href="#random-forest-in-simple-words" title="Link to this heading">#</a></h2>
+<p>A <strong>forest</strong> = many <strong>decision trees</strong>.<br />
+Each tree sees a <strong>random subset</strong> of samples and features, learns simple <strong>if/else</strong> rules, and we <strong>average</strong> predictions.<br />
+This makes it <strong>robust</strong> and handles <strong>non‑linearities</strong> without feature scaling.</p>
+<section id="key-hyperparameters">
+<h3>Key Hyperparameters<a class="headerlink" href="#key-hyperparameters" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n_estimators</span></code> 🌳: number of trees — more trees → stabler, slower (start 200–500)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_depth</span></code> 🪚: how deep a tree can grow — limit to prevent overfit (e.g., 12–24)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_features</span></code> 🔀: features considered at each split (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;sqrt&quot;</span></code> or 0.5)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min_samples_leaf</span></code> 🍃: minimum samples per leaf (e.g., 10–50 for smoother fits)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">random_state</span></code> 🎲: set for reproducibility</p></li>
+</ul>
+</section>
+</section>
+<section id="metrics">
+<h2>📏 Metrics<a class="headerlink" href="#metrics" title="Link to this heading">#</a></h2>
+<p>Report <strong>MAE</strong>, <strong>RMSE</strong>, <strong>MAPE</strong>, and optionally <strong>R²</strong> (interpret carefully with time series).<br />
+Compare to a <strong>Lag‑7</strong> or <strong>LR</strong> baseline to justify added complexity.</p>
+</section>
+<section id="diagnostics">
+<h2>📊 Diagnostics<a class="headerlink" href="#diagnostics" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Actual vs Predicted</p></li>
+<li><p>Residuals over time (drift?)</p></li>
+<li><p>Error by <strong>hour/DoW/temp bins</strong> (structure?)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="read-datasets">
+<h1>Read datasets<a class="headerlink" href="#read-datasets" title="Link to this heading">#</a></h1>
+<section id="load-the-data">
+<h2>📥 Load the Data<a class="headerlink" href="#load-the-data" title="Link to this heading">#</a></h2>
+<p>Load time‑series, parse <strong>datetime</strong>, set units (e.g., <strong>kWh</strong>).<br />
+Document the time window so experiments are comparable.</p>
+</section>
+<section id="time-index-frequency">
+<h2>🕒 Time Index &amp; Frequency<a class="headerlink" href="#time-index-frequency" title="Link to this heading">#</a></h2>
+<p>Ensure a clean <strong>DatetimeIndex</strong> with a consistent frequency (hourly/daily) and sane timezone handling (DST aware).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/kaggle_competition_dataset.csv&#39;</span><span class="p">,</span>
+            <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 8592 entries, 2021-09-01 00:00:00 to 2022-08-24 23:00:00
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   temp         8592 non-null   float64
+ 1   dwpt         8592 non-null   float64
+ 2   rhum         8592 non-null   float64
+ 3   prcp         2159 non-null   float64
+ 4   snow         119 non-null    float64
+ 5   wdir         8592 non-null   float64
+ 6   wspd         8592 non-null   float64
+ 7   wpgt         8592 non-null   float64
+ 8   pres         8592 non-null   float64
+ 9   coco         8396 non-null   float64
+ 10  el_price     8592 non-null   float64
+ 11  consumption  8592 non-null   float64
+dtypes: float64(12)
+memory usage: 872.6 KB
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demand</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[[</span><span class="s1">&#39;consumption&#39;</span><span class="p">]]</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;consumption&#39;</span><span class="p">:</span><span class="s1">&#39;demand&#39;</span><span class="p">})</span>
+<span class="n">demand</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-09-01 00:00:00</th>
+      <td>0.577</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 01:00:00</th>
+      <td>0.594</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 02:00:00</th>
+      <td>0.685</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 03:00:00</th>
+      <td>1.016</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 04:00:00</th>
+      <td>0.677</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="feature-engineering-leakagesafe">
+<h2>🧰 Feature Engineering (leakage‑safe)<a class="headerlink" href="#feature-engineering-leakagesafe" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>🔁 <strong>Lags</strong> (1, 24, 24×7)</p></li>
+<li><p>📈 <strong>Rolling stats</strong> (past‑window mean/min/max/std)</p></li>
+<li><p>📆 <strong>Calendar</strong> (hour, DoW, month, holidays)</p></li>
+<li><p>🌡️ <strong>Weather</strong> (temperature/feels‑like), external context</p></li>
+</ul>
+<blockquote>
+<div><p>Use only <strong>past</strong> info for a timestamp; avoid leakage from future rows.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_data</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">time_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">time_data</span> <span class="o">=</span> <span class="n">time_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">])</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;wd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;h&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_data</span><span class="p">[</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+
+<span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;h_sin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;h_cos&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+
+<span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;dow_sin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;wd&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;dow_cos&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">time_data</span><span class="p">[</span><span class="s2">&quot;wd&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
+
+
+<span class="n">time_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ts</th>
+      <th>wd</th>
+      <th>h</th>
+      <th>h_sin</th>
+      <th>h_cos</th>
+      <th>dow_sin</th>
+      <th>dow_cos</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-09-01 00:00:00</th>
+      <td>2021-09-01 00:00:00</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 01:00:00</th>
+      <td>2021-09-01 01:00:00</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0.258819</td>
+      <td>0.965926</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 02:00:00</th>
+      <td>2021-09-01 02:00:00</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.500000</td>
+      <td>0.866025</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 03:00:00</th>
+      <td>2021-09-01 03:00:00</td>
+      <td>2</td>
+      <td>3</td>
+      <td>0.707107</td>
+      <td>0.707107</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2021-09-01 04:00:00</th>
+      <td>2021-09-01 04:00:00</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0.866025</td>
+      <td>0.500000</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 19:00:00</th>
+      <td>2022-08-24 19:00:00</td>
+      <td>2</td>
+      <td>19</td>
+      <td>-0.965926</td>
+      <td>0.258819</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 20:00:00</th>
+      <td>2022-08-24 20:00:00</td>
+      <td>2</td>
+      <td>20</td>
+      <td>-0.866025</td>
+      <td>0.500000</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 21:00:00</th>
+      <td>2022-08-24 21:00:00</td>
+      <td>2</td>
+      <td>21</td>
+      <td>-0.707107</td>
+      <td>0.707107</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 22:00:00</th>
+      <td>2022-08-24 22:00:00</td>
+      <td>2</td>
+      <td>22</td>
+      <td>-0.500000</td>
+      <td>0.866025</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 23:00:00</th>
+      <td>2022-08-24 23:00:00</td>
+      <td>2</td>
+      <td>23</td>
+      <td>-0.258819</td>
+      <td>0.965926</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+  </tbody>
+</table>
+<p>8592 rows × 7 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lag7d</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">24</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">lag7d</span> <span class="o">=</span> <span class="n">lag7d</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span><span class="s1">&#39;lag7&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lag1d</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">lag1d</span> <span class="o">=</span> <span class="n">lag1d</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;demand&#39;</span><span class="p">:</span><span class="s1">&#39;lag1&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temperature</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[[</span><span class="s1">&#39;temp&#39;</span><span class="p">]]</span>
+<span class="n">price</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[[</span><span class="s1">&#39;el_price&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">lag7d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lag1d</span><span class="p">)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">time_data</span><span class="p">)</span>
+<span class="c1">#features.tail()</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>lag7</th>
+      <th>lag1</th>
+      <th>temp</th>
+      <th>el_price</th>
+      <th>ts</th>
+      <th>wd</th>
+      <th>h</th>
+      <th>h_sin</th>
+      <th>h_cos</th>
+      <th>dow_sin</th>
+      <th>dow_cos</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-08-24 19:00:00</th>
+      <td>0.678</td>
+      <td>0.897</td>
+      <td>0.379</td>
+      <td>27.1</td>
+      <td>0.53494</td>
+      <td>2022-08-24 19:00:00</td>
+      <td>2</td>
+      <td>19</td>
+      <td>-0.965926</td>
+      <td>0.258819</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 20:00:00</th>
+      <td>0.457</td>
+      <td>2.796</td>
+      <td>0.609</td>
+      <td>25.1</td>
+      <td>0.49990</td>
+      <td>2022-08-24 20:00:00</td>
+      <td>2</td>
+      <td>20</td>
+      <td>-0.866025</td>
+      <td>0.500000</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 21:00:00</th>
+      <td>0.500</td>
+      <td>0.733</td>
+      <td>1.572</td>
+      <td>24.9</td>
+      <td>0.43149</td>
+      <td>2022-08-24 21:00:00</td>
+      <td>2</td>
+      <td>21</td>
+      <td>-0.707107</td>
+      <td>0.707107</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 22:00:00</th>
+      <td>2.321</td>
+      <td>1.490</td>
+      <td>1.016</td>
+      <td>22.1</td>
+      <td>0.55203</td>
+      <td>2022-08-24 22:00:00</td>
+      <td>2</td>
+      <td>22</td>
+      <td>-0.500000</td>
+      <td>0.866025</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-08-24 23:00:00</th>
+      <td>0.678</td>
+      <td>0.222</td>
+      <td>0.243</td>
+      <td>22.1</td>
+      <td>0.43108</td>
+      <td>2022-08-24 23:00:00</td>
+      <td>2</td>
+      <td>23</td>
+      <td>-0.258819</td>
+      <td>0.965926</td>
+      <td>0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">]</span>
+<span class="n">fs2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag1&#39;</span><span class="p">]</span>
+<span class="n">fs3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag1&#39;</span><span class="p">,</span><span class="s1">&#39;temp&#39;</span><span class="p">]</span>
+<span class="n">fs4</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span> <span class="s1">&#39;lag1&#39;</span><span class="p">,</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs5</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span> <span class="s1">&#39;lag1&#39;</span><span class="p">,</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs6</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span><span class="s1">&#39;lag1&#39;</span><span class="p">,</span> <span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs7</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs8</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;el_price&#39;</span><span class="p">,</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">fs9</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;el_price&#39;</span><span class="p">,</span><span class="s1">&#39;lag7&#39;</span><span class="p">,</span><span class="s1">&#39;lag1&#39;</span><span class="p">,</span><span class="s1">&#39;h_sin&#39;</span><span class="p">,</span><span class="s1">&#39;h_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+
+<span class="n">fs</span> <span class="o">=</span> <span class="p">[</span><span class="n">fs1</span><span class="p">,</span> <span class="n">fs2</span><span class="p">,</span> <span class="n">fs3</span><span class="p">,</span> <span class="n">fs4</span><span class="p">,</span> <span class="n">fs5</span><span class="p">,</span> <span class="n">fs6</span><span class="p">,</span> <span class="n">fs7</span><span class="p">,</span> <span class="n">fs8</span><span class="p">,</span> <span class="n">fs9</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="forecast">
+<h1>Forecast<a class="headerlink" href="#forecast" title="Link to this heading">#</a></h1>
+<section id="predict-on-validation-test">
+<h2>🔮 Predict on Validation/Test<a class="headerlink" href="#predict-on-validation-test" title="Link to this heading">#</a></h2>
+<p>Generate predictions aligned to timestamps for fair evaluation and plotting. Save to a DataFrame for easy joins.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predict_days</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">training_data_length</span> <span class="o">=</span><span class="mi">14</span>
+<span class="n">last_dataset_day</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+<span class="n">prediction_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">last_dataset_day</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="n">predict_days</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">#print(prediction_start)</span>
+<span class="c1">#print(last_dataset_day)</span>
+
+<span class="k">def</span> <span class="nf">rolling_rf_forecast</span><span class="p">(</span><span class="n">ad_fs</span><span class="p">):</span>
+  <span class="n">actual_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+  <span class="n">forecast_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+  <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">predict_days</span><span class="p">):</span>
+
+    <span class="n">predict_for_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">prediction_start</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="n">d</span><span class="p">))</span>
+    <span class="n">predict_for_end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">predict_for_start</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">training_end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">predict_for_start</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">training_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">training_end</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="n">training_data_length</span><span class="p">))</span>
+
+    <span class="n">test_set</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">predict_for_start</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">predict_for_end</span><span class="p">)]</span>
+    <span class="n">train_set</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">training_start</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">training_end</span><span class="p">)]</span>
+
+    <span class="n">X_test</span> <span class="o">=</span> <span class="n">test_set</span><span class="p">[</span><span class="n">ad_fs</span><span class="p">]</span>
+    <span class="n">y_test</span> <span class="o">=</span> <span class="n">test_set</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+    <span class="n">X_train</span> <span class="o">=</span> <span class="n">train_set</span><span class="p">[</span><span class="n">ad_fs</span><span class="p">]</span>
+    <span class="n">y_train</span> <span class="o">=</span> <span class="n">train_set</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="n">predictions_vector</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+    <span class="n">predictions_vector</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">predictions_vector</span> <span class="o">=</span> <span class="n">predictions_vector</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;prediction&#39;</span><span class="p">})</span>
+
+    <span class="n">actual_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">actual_full</span><span class="p">,</span> <span class="n">y_test</span><span class="p">])</span><span class="c1">#, ignore_index=True)</span>
+    <span class="n">forecast_full</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">forecast_full</span><span class="p">,</span> <span class="n">predictions_vector</span><span class="p">])</span><span class="c1">#, ignore_index=True)</span>
+
+<span class="c1">##############################</span>
+  <span class="n">mapestring</span><span class="o">=</span><span class="s2">&quot;MAPE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">actual_full</span><span class="p">,</span> <span class="n">forecast_full</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+  <span class="n">maestring</span><span class="o">=</span><span class="s2">&quot;MAE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">actual_full</span><span class="p">,</span> <span class="n">forecast_full</span><span class="p">))</span>
+  <span class="n">rmsestring</span> <span class="o">=</span> <span class="s2">&quot;RMSE: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">actual_full</span><span class="p">,</span> <span class="n">forecast_full</span><span class="p">)))</span>
+
+
+  <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">actual_full</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">forecast_full</span><span class="p">));</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;RF &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ad_fs</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">rmsestring</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">maestring</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+  <span class="n">p</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [hours]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+  <span class="n">p</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Consumption [kWh]&quot;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">);</span>
+  <span class="c1">#plt.show()</span>
+
+  <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ad_fs</span><span class="p">))</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">mapestring</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">maestring</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">rmsestring</span><span class="p">)</span>
+
+  <span class="c1">#print(str(predict_for_start)+&quot; &quot;+ str(training_start)+&quot; &quot;+str(training_end))</span>
+
+<span class="k">for</span> <span class="n">ad_fs</span> <span class="ow">in</span> <span class="n">fs</span><span class="p">:</span>
+  <span class="n">rolling_rf_forecast</span><span class="p">(</span><span class="n">ad_fs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>lag7
+MAPE: 70.329 MAE: 0.394 RMSE: 0.570
+lag7 lag1
+MAPE: 66.684 MAE: 0.366 RMSE: 0.511
+lag7 lag1 temp
+MAPE: 67.334 MAE: 0.373 RMSE: 0.518
+lag7 lag1 temp h_sin h_cos dow_sin dow_cos
+MAPE: 63.950 MAE: 0.347 RMSE: 0.478
+temp lag1 h_sin h_cos dow_sin dow_cos
+MAPE: 64.107 MAE: 0.334 RMSE: 0.463
+lag7 lag1 h_sin h_cos dow_sin dow_cos
+MAPE: 62.852 MAE: 0.344 RMSE: 0.477
+h_sin h_cos dow_sin dow_cos
+MAPE: 55.526 MAE: 0.329 RMSE: 0.485
+el_price h_sin h_cos dow_sin dow_cos
+MAPE: 61.704 MAE: 0.338 RMSE: 0.472
+el_price lag7 lag1 h_sin h_cos dow_sin dow_cos
+MAPE: 71.008 MAE: 0.363 RMSE: 0.488
+</pre></div>
+</div>
+<img alt="_images/63dd78394c8fae010a28c7fff840aea2ae85e7146a22f29b12856aac467db171.png" src="_images/63dd78394c8fae010a28c7fff840aea2ae85e7146a22f29b12856aac467db171.png" />
+<img alt="_images/a30fc845c1ba9ada15e52794bd8223e99232c69f24e570e4b7ae3a525b4e7af2.png" src="_images/a30fc845c1ba9ada15e52794bd8223e99232c69f24e570e4b7ae3a525b4e7af2.png" />
+<img alt="_images/fe6046fda0f6636b8d56bb0930de842e06121f5d6ed8901fc109b58d4dcfb518.png" src="_images/fe6046fda0f6636b8d56bb0930de842e06121f5d6ed8901fc109b58d4dcfb518.png" />
+<img alt="_images/2ef76f0c86157f81d487035b2c35bb019ffe12759dbd6a56b026e0f322b73005.png" src="_images/2ef76f0c86157f81d487035b2c35bb019ffe12759dbd6a56b026e0f322b73005.png" />
+<img alt="_images/6945c973f28fada08720e2909845cf7c9b45520df9beaa2a51f4e42f3f71aed3.png" src="_images/6945c973f28fada08720e2909845cf7c9b45520df9beaa2a51f4e42f3f71aed3.png" />
+<img alt="_images/f85b9ef954e8b1e1b7782d27fd5ca16856ddb856a6a77d56888c9b57017b2bfa.png" src="_images/f85b9ef954e8b1e1b7782d27fd5ca16856ddb856a6a77d56888c9b57017b2bfa.png" />
+<img alt="_images/dff5a3dfa37575a9c5139e5b359f0a49bf31552b3031c10e0636d5b3cf80fc6e.png" src="_images/dff5a3dfa37575a9c5139e5b359f0a49bf31552b3031c10e0636d5b3cf80fc6e.png" />
+<img alt="_images/76182db96d88ccf81e1d930a2db7f8d644d946bad25a506f303d0425251e8b3c.png" src="_images/76182db96d88ccf81e1d930a2db7f8d644d946bad25a506f303d0425251e8b3c.png" />
+<img alt="_images/831da5f6f48e36e0413f12eaeb23e002501e7031e5569907a05d4213faa6ca6b.png" src="_images/831da5f6f48e36e0413f12eaeb23e002501e7031e5569907a05d4213faa6ca6b.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="17_ml_baseline_LR.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">⚡️ Baseline Forecast: Linear Regression</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="19_ml_SVM.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🧭 Support Vector Machines (SVM/SVR)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">🌲 Random Forest</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-imports">🛠️ Setup &amp; Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest-in-simple-words">🌲 Random Forest in Simple Words</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-hyperparameters">Key Hyperparameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics">📏 Metrics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostics">📊 Diagnostics</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#read-datasets">Read datasets</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">📥 Load the Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-index-frequency">🕒 Time Index &amp; Frequency</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering-leakagesafe">🧰 Feature Engineering (leakage‑safe)</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#forecast">Forecast</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-on-validation-test">🔮 Predict on Validation/Test</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
