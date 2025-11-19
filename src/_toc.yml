@@ -38,3 +38,6 @@ parts:
       - file: 20_ml_prophet
       - file: 21_ml_chronos_tourch
       - file: 22_ml_timesfm
+  - caption: Forecasting
+    chapters:
+      - file: 23_forecasting_strategies.ipynb
