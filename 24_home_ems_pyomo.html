@@ -1,0 +1,1626 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>🏠⚡ Home Energy Management Systems (Home EMS) &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '24_home_ems_pyomo';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="🔮 Forecasting Strategies" href="23_forecasting_strategies.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_ml_baseline_lag7d.html">⚡️ Baseline Forecast: Lag‑7 Day</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="17_ml_baseline_LR.html">⚡️ Baseline Forecast: Linear Regression</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="18_ml_RF.html">🌲 Random Forest</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="19_ml_SVM.html">🧭 Support Vector Machines (SVM/SVR)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="20_ml_prophet.html">🔮 Time-Series Forecasting with Prophet</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="21_ml_chronos_tourch.html">🤖⏱️ Chronos Time‑Series Forecasting</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="22_ml_timesfm.html">🕰️🤖 TimesFM — Foundation Model for Time‑Series Forecasting</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Forecasting</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="23_forecasting_strategies.html">🔮 Forecasting Strategies</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">HEMS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">🏠⚡ Home Energy Management Systems (Home EMS)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/24_home_ems_pyomo.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>🏠⚡ Home Energy Management Systems (Home EMS)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-home-energy-management-system">1. What is a Home Energy Management System? 🤖</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-a-home-ems">2. Why Do We Need a Home EMS? ❓</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-components-of-a-home-ems">3. Main Components of a Home EMS 🧩</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading-helper">Data loading helper</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-problem-minimizing-electricity-cost">4. Optimization Problem: Minimizing Electricity Cost 📉</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-function">4.1 Objective Function 🎯</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-variables">4.2 Decision Variables 🔢</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-of-buying-and-selling-energy">4.3 Cost of Buying and Selling Energy 💶</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-power-to-energy">4.4 From Power to Energy ⏱️</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-constraints">5. System Constraints 🧱</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-household-configuration">5.1 Example Household Configuration 🏡</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-intro-to-pyomo">🧮 Quick intro to Pyomo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-can-do-with-pyomo">⭐ What you can do with Pyomo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-building-blocks">🧩 Core building blocks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-ems-uses-optimization-in-practice">6. How the EMS Uses Optimization in Practice 🔁</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">7. Summary 📝</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="home-energy-management-systems-home-ems">
+<h1>🏠⚡ Home Energy Management Systems (Home EMS)<a class="headerlink" href="#home-energy-management-systems-home-ems" title="Link to this heading">#</a></h1>
+<section id="what-is-a-home-energy-management-system">
+<h2>1. What is a Home Energy Management System? 🤖<a class="headerlink" href="#what-is-a-home-energy-management-system" title="Link to this heading">#</a></h2>
+<p>A <strong>Home Energy Management System (EMS)</strong> is a smart controller that supervises and optimizes how energy is:</p>
+<ul class="simple">
+<li><p><strong>Produced</strong> (e.g., rooftop PV ☀️),</p></li>
+<li><p><strong>Stored</strong> (e.g., home battery 🔋),</p></li>
+<li><p><strong>Consumed</strong> (household appliances, heating, EV charging 🧺🚗),</p></li>
+<li><p><strong>Exchanged with the grid</strong> (buying and selling electricity 🔄).</p></li>
+</ul>
+<p>You can think of it as a <strong>“traffic controller” for electricity</strong> in the home: it constantly monitors the system and decides where energy should flow.</p>
+<p>Typical commercial EMS solutions include systems from <strong>ENPHASE</strong> and <strong>LG Electronics</strong>, among others.</p>
+</section>
+<hr class="docutils" />
+<section id="why-do-we-need-a-home-ems">
+<h2>2. Why Do We Need a Home EMS? ❓<a class="headerlink" href="#why-do-we-need-a-home-ems" title="Link to this heading">#</a></h2>
+<p>Modern households often have:</p>
+<ul class="simple">
+<li><p>Rooftop <strong>solar PV</strong> ☀️</p></li>
+<li><p><strong>Electric vehicles (EVs)</strong> 🚗🔌</p></li>
+<li><p><strong>Batteries</strong> 🔋</p></li>
+<li><p><strong>Time-varying electricity tariffs</strong> (time-of-use pricing) ⏰💶</p></li>
+</ul>
+<p>Without a smart EMS:</p>
+<ul class="simple">
+<li><p>Solar energy might be <strong>wasted</strong> (if not used or stored when generated),</p></li>
+<li><p>Electricity <strong>bills may stay high</strong>,</p></li>
+<li><p>The <strong>battery and EV</strong> may be used in a suboptimal way.</p></li>
+</ul>
+<p>A Home EMS helps to:</p>
+<ul class="simple">
+<li><p>💰 <strong>Reduce annual electricity bills</strong></p></li>
+<li><p>☀️ <strong>Maximize self-consumption of PV</strong> (use your own solar instead of buying from the grid)</p></li>
+<li><p>🌍 Optionally <strong>reduce carbon footprint</strong> or <strong>support backup power</strong> during outages.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="main-components-of-a-home-ems">
+<h2>3. Main Components of a Home EMS 🧩<a class="headerlink" href="#main-components-of-a-home-ems" title="Link to this heading">#</a></h2>
+<p>Conceptual components (see Fig. 2 in the description):</p>
+<ol class="arabic simple">
+<li><p><strong>Solar PV Panels (PV)</strong> ☀️</p>
+<ul class="simple">
+<li><p>Generate renewable energy.</p></li>
+</ul>
+</li>
+<li><p><strong>Battery Energy Storage System (BESS)</strong> 🔋</p>
+<ul class="simple">
+<li><p>Stores surplus energy and supplies energy when needed.</p></li>
+</ul>
+</li>
+<li><p><strong>Power Electronics</strong> 🔌</p>
+<ul class="simple">
+<li><p>Inverters, converters, and controllers that manage AC/DC conversions and safe power flows.</p></li>
+</ul>
+</li>
+<li><p><strong>Intelligent Supervisory System (Optimization Algorithm)</strong> 🧠</p>
+<ul class="simple">
+<li><p>Software that decides <strong>how much power</strong> to:</p>
+<ul>
+<li><p>Take from the grid,</p></li>
+<li><p>Store in / draw from the battery,</p></li>
+<li><p>Use directly from PV,</p></li>
+<li><p>Export back to the grid.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>These decisions are computed based on <strong>optimization goals</strong>, <strong>constraints</strong>, and <strong>forecasts</strong> (load, PV, prices, etc.).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">pyomo.environ</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">Reals</span><span class="p">,</span>
+    <span class="n">Objective</span><span class="p">,</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">ConstraintList</span><span class="p">,</span> <span class="n">RangeSet</span><span class="p">,</span>
+    <span class="n">minimize</span><span class="p">,</span> <span class="n">SolverFactory</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">inequality</span>
+<span class="p">)</span>
+
+<span class="c1"># Make plots a bit nicer</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-loading-helper">
+<h2>Data loading helper<a class="headerlink" href="#data-loading-helper" title="Link to this heading">#</a></h2>
+<p>The CSV is expected to have the following relevant columns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code> – timestamp (hourly)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">el_price</span></code> – electricity price (€/kWh)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">consumption</span></code> – household consumption (kW)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pv_production</span></code> – PV production (kW or normalized units)</p></li>
+</ul>
+<p>We <strong>rename</strong> these to the same names used by the EMS model:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Price</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Demand</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PV</span> <span class="pre">Generation</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_kaggle_ems_data</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;kaggle_competition_dataset_with_pv.csv&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load Kaggle-style EMS dataset and standardize column names.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to `kaggle_competition_dataset_with_pv.csv`.</span>
+<span class="sd">    rescale_pv_to_kw : bool</span>
+<span class="sd">        If True, rescale `pv_production` so that its maximum equals `pv_max_kw`.</span>
+<span class="sd">    pv_max_kw : float</span>
+<span class="sd">        Target maximum PV output after rescaling (kW).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+    <span class="c1"># Rename to match EMS model expectations</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;el_price&quot;</span><span class="p">:</span> <span class="s2">&quot;Price&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;consumption&quot;</span><span class="p">:</span> <span class="s2">&quot;Demand&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pv_production&quot;</span><span class="p">:</span> <span class="s2">&quot;PV Generation&quot;</span><span class="p">,</span>
+    <span class="p">})</span>
+
+
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="optimization-problem-minimizing-electricity-cost">
+<h2>4. Optimization Problem: Minimizing Electricity Cost 📉<a class="headerlink" href="#optimization-problem-minimizing-electricity-cost" title="Link to this heading">#</a></h2>
+<p>We consider a simple but realistic goal:</p>
+<blockquote>
+<div><p><strong>Minimize the  electricity bill</strong> using optimal control of grid, PV, and battery.</p>
+</div></blockquote>
+<p>The optimization is typically run for a <strong>prediction horizon</strong> (e.g. next 24 hours with hourly or 15-min resolution) and repeated continuously (e.g. rolling horizon).</p>
+<section id="objective-function">
+<h3>4.1 Objective Function 🎯<a class="headerlink" href="#objective-function" title="Link to this heading">#</a></h3>
+<p>Let:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( n \)</span> – number of time steps in the optimization window (e.g. <span class="math notranslate nohighlight">\( n=24 \)</span> for 24 hours),</p></li>
+<li><p><span class="math notranslate nohighlight">\( t = 1, \dots, n \)</span> – time step index.</p></li>
+</ul>
+<p>We define the <strong>total electricity cost</strong> over the horizon:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\mathcal{F}} \sum_{t=1}^{n} \big( Grc_t - GrP_t \big)
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( Grc_t \)</span> – cost of <strong>buying</strong> electricity from the grid at time <span class="math notranslate nohighlight">\( t \)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\( GrP_t \)</span> – <strong>profit</strong> from <strong>selling</strong> (exporting) electricity to the grid at time <span class="math notranslate nohighlight">\( t \)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mathcal{F} \)</span> – vector of decision variables (e.g. grid power, battery power).</p></li>
+</ul>
+<p>So the EMS tries to <strong>minimize net payment to the grid</strong>, taking into account both purchases and sales.</p>
+</section>
+<hr class="docutils" />
+<section id="decision-variables">
+<h3>4.2 Decision Variables 🔢<a class="headerlink" href="#decision-variables" title="Link to this heading">#</a></h3>
+<p>Typical decision variables at each time step <span class="math notranslate nohighlight">\( t \)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( P_{Gr}[t] \)</span> – grid power flow (positive = import, negative = export),</p></li>
+<li><p><span class="math notranslate nohighlight">\( P_{BESS}[t] \)</span> – battery power (positive = discharge to house, negative = charging),</p></li>
+<li><p>(Optionally) split of <strong>PV generation</strong> into:</p>
+<ul>
+<li><p>Direct consumption,</p></li>
+<li><p>Battery charging,</p></li>
+<li><p>Export to grid.</p></li>
+</ul>
+</li>
+</ul>
+<p>All these form the optimization vector <span class="math notranslate nohighlight">\( \mathcal{F} \)</span>.</p>
+</section>
+<hr class="docutils" />
+<section id="cost-of-buying-and-selling-energy">
+<h3>4.3 Cost of Buying and Selling Energy 💶<a class="headerlink" href="#cost-of-buying-and-selling-energy" title="Link to this heading">#</a></h3>
+<p>Let:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( E_{Gr,t} \)</span> – net <strong>energy</strong> taken from the grid during time step <span class="math notranslate nohighlight">\( t \)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\( UToU_t \)</span> – <strong>time-of-use tariff</strong> (€/kWh) at time <span class="math notranslate nohighlight">\( t \)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\( \gamma \in [0,1] \)</span> – <strong>Feed-in Tariff (FiT) coefficient</strong>, representing the fraction of the purchase price you receive when exporting to the grid (e.g. 0.8 = 20% below the purchase price).</p></li>
+</ul>
+<p><strong>Buying from the grid</strong> (import, <span class="math notranslate nohighlight">\( P_{Gr}[t] &gt; 0 \)</span>):</p>
+<div class="math notranslate nohighlight">
+\[
+Grc_t = E_{Gr,t} \cdot UToU_t, \quad \text{if } P_{Gr}[t] &gt; 0
+\]</div>
+<p><strong>Selling to the grid</strong> (export, <span class="math notranslate nohighlight">\( P_{Gr}[t] &lt; 0 \)</span>):</p>
+<div class="math notranslate nohighlight">
+\[
+GrP_t = \big( E_{Gr,t} \cdot UToU_t \big) \cdot \gamma, \quad \text{if } P_{Gr}[t] &lt; 0
+\]</div>
+<p>So the EMS earns money when exporting, but usually at a <strong>lower rate</strong> than the purchase price (FiT &lt; 1).</p>
+</section>
+<hr class="docutils" />
+<section id="from-power-to-energy">
+<h3>4.4 From Power to Energy ⏱️<a class="headerlink" href="#from-power-to-energy" title="Link to this heading">#</a></h3>
+<p>Energy is power integrated over time:</p>
+<div class="math notranslate nohighlight">
+\[
+E = P \cdot \Delta t
+\]</div>
+<p>With constant time step and system conditions, we can compute:</p>
+<div class="math notranslate nohighlight">
+\[
+E_{Gr,t} = P_{Gr}[t] \cdot S
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( S \)</span> – duration of each step in seconds:</p>
+<ul>
+<li><p>Hourly: <span class="math notranslate nohighlight">\( S = 60 \times 60 \)</span>,</p></li>
+<li><p>15-min: <span class="math notranslate nohighlight">\( S = 15 \times 60 \)</span>.</p></li>
+</ul>
+</li>
+</ul>
+<p>This lets us formulate the optimization in terms of <strong>power variables</strong> with a fixed time step.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="system-constraints">
+<h2>5. System Constraints 🧱<a class="headerlink" href="#system-constraints" title="Link to this heading">#</a></h2>
+<p>To ensure <strong>physical feasibility</strong> and safe operation, we impose constraints based on:</p>
+<ul class="simple">
+<li><p>PV system capacity,</p></li>
+<li><p>Battery capacity and charge/discharge limits,</p></li>
+<li><p>Grid connection limits,</p></li>
+<li><p>Battery SoC bounds,</p></li>
+<li><p>Power balance.</p></li>
+</ul>
+<section id="example-household-configuration">
+<h3>5.1 Example Household Configuration 🏡<a class="headerlink" href="#example-household-configuration" title="Link to this heading">#</a></h3>
+<p>Assume:</p>
+<ul class="simple">
+<li><p>PV: max <strong>5 kW</strong>,</p></li>
+<li><p>Battery: <strong>10 kWh</strong> capacity, <strong>±5 kW</strong> charge/discharge,</p></li>
+<li><p>Grid: max <strong>±5 kW</strong>.</p></li>
+</ul>
+<p>Then we must enforce:</p>
+<ol class="arabic simple">
+<li><p><strong>Grid power limits</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\forall t,\quad -5 ,\text{kW} \le P_{Gr}[t] \le 5 ,\text{kW}
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Battery power limits</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\forall t,\quad -5 ,\text{kW} \le P_{BESS}[t] \le 5 ,\text{kW}
+\]</div>
+<p>(Here sign convention can be chosen; the key is to limit magnitude.)</p>
+<ol class="arabic simple" start="3">
+<li><p><strong>Power balance</strong> (supply = demand):</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\forall t,\quad P_{Gr}[t] + P_{BESS}[t] + P_{PV}[t] = P_{L}[t]
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( P_{PV}[t] \)</span> – PV generation at time <span class="math notranslate nohighlight">\( t \)</span> (from forecast or measured profile),</p></li>
+<li><p><span class="math notranslate nohighlight">\( P_{L}[t] \)</span> – household load at time <span class="math notranslate nohighlight">\( t \)</span>.</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p><strong>Battery energy (SoC) bounds</strong>:</p></li>
+</ol>
+<p>Let <span class="math notranslate nohighlight">\( E_{BESS}[t] \)</span> be stored energy in the battery:</p>
+<div class="math notranslate nohighlight">
+\[
+\forall t,\quad E_{BESS}^{\min} \le E_{BESS}[t] \le E_{BESS}^{\max}
+\]</div>
+<p>Alternatively, define <strong>State of Charge (SoC)</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\forall t,\quad SoC_{\min} \le SoC_{BESS}[t] \le SoC_{\max}
+\]</div>
+<p>Typical practical values:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( SoC_{\min} \approx 15% \)</span> (avoid deep discharge),</p></li>
+<li><p><span class="math notranslate nohighlight">\( SoC_{\max} \approx 90% \)</span> (avoid overcharge).</p></li>
+</ul>
+<p>These protect the battery and extend its lifetime.</p>
+</section>
+</section>
+<section id="quick-intro-to-pyomo">
+<h2>🧮 Quick intro to Pyomo<a class="headerlink" href="#quick-intro-to-pyomo" title="Link to this heading">#</a></h2>
+<p><strong>Pyomo</strong> is a Python-based, open-source library for building and solving <strong>optimization models</strong>.
+You use it to describe your problem in math-like form (variables, constraints, objective), and then connect it to a solver (e.g. CBC, GLPK, IPOPT, Gurobi, CPLEX).</p>
+<hr class="docutils" />
+<section id="what-you-can-do-with-pyomo">
+<h3>⭐ What you can do with Pyomo<a class="headerlink" href="#what-you-can-do-with-pyomo" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>🔢 <strong>Linear / Mixed-Integer</strong> optimization (LP, MILP)</p></li>
+<li><p>🔄 <strong>Nonlinear</strong> optimization (NLP, MINLP)</p></li>
+<li><p>🧱 Build models in a <strong>modular, readable</strong> way inside normal Python code</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="core-building-blocks">
+<h3>🧩 Core building blocks<a class="headerlink" href="#core-building-blocks" title="Link to this heading">#</a></h3>
+<p>In a typical Pyomo script you define:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ConcreteModel()</span></code> – the model container 📦</p></li>
+<li><p><strong>Sets</strong> – indices for time, devices, etc.</p></li>
+<li><p><strong>Parameters</strong> – data (prices, loads, PV, capacities)</p></li>
+<li><p><strong>Variables</strong> – decision variables (grid power, battery power, SoC, …)</p></li>
+<li><p><strong>Constraints</strong> – equations/inequalities (power balance, limits, SoC bounds)</p></li>
+<li><p><strong>Objective</strong> – what to minimize or maximize (e.g. total cost 💶)</p></li>
+</ul>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">optimize_ems_pyomo</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">bess_capacity_kwh</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">batt_p_ch_max_kw</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">batt_p_dis_max_kw</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">grid_p_max_kw</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">bess_init_kwh</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">bess_min_kwh</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">bess_max_kwh</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">solver_name</span><span class="o">=</span><span class="s2">&quot;highs&quot;</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Single-shot EMS optimization using Pyomo.</span>
+
+<span class="sd">    Expects df to contain columns:</span>
+<span class="sd">    - &#39;Price&#39;</span>
+<span class="sd">    - &#39;Demand&#39;</span>
+<span class="sd">    - &#39;PV Generation&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># hours per timestep (hourly data)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="n">price</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">demand</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">pv</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;PV Generation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Pyomo model</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+
+    <span class="c1"># Time indices: 0 .. T-1</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Battery energy indices: 0 .. T  (T+1 states)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">Tsoc</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+
+    <span class="c1"># Decision variables</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">P_grid_pos</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>   <span class="c1"># grid import (kW)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">P_grid_neg</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>   <span class="c1"># grid export (kW)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">P_charge</span>   <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>   <span class="c1"># battery charging power (kW)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">P_discharge</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>  <span class="c1"># battery discharging power (kW)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">bess_energy</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">Tsoc</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">Reals</span><span class="p">)</span>          <span class="c1"># state of charge (kWh-like units)</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Objective: minimize cost of energy = import*price - gamma*export*price</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="k">def</span> <span class="nf">obj_rule</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">P_grid_pos</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">price</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span>
+             <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">P_grid_neg</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">price</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span>
+        <span class="p">)</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">obj_rule</span><span class="p">,</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Constraints</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">constraints</span> <span class="o">=</span> <span class="n">ConstraintList</span><span class="p">()</span>
+
+    <span class="c1"># Initial SOC</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">bess_energy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">bess_init_kwh</span><span class="p">)</span>
+
+    <span class="c1"># SOC dynamics (kept identical to original CVXPY version):</span>
+    <span class="c1"># E[t+1] = E[t] + (P_charge[t] - P_discharge[t]) * dt / bess_capacity_kwh</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">bess_energy</span><span class="p">[</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">bess_energy</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+            <span class="o">+</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">P_charge</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">P_discharge</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">bess_capacity_kwh</span>
+        <span class="p">)</span>
+
+    <span class="c1"># SOC bounds</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">Tsoc</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">inequality</span><span class="p">(</span><span class="n">bess_min_kwh</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">bess_energy</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">bess_max_kwh</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Power bounds</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">P_charge</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">batt_p_ch_max_kw</span><span class="p">)</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">P_discharge</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">batt_p_dis_max_kw</span><span class="p">)</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">P_grid_pos</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">grid_p_max_kw</span><span class="p">)</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">P_grid_neg</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">grid_p_max_kw</span><span class="p">)</span>
+
+    <span class="c1"># Power balance: grid + battery + PV must cover demand</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">P_grid_pos</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">P_grid_neg</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">P_discharge</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">P_charge</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">pv</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">demand</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Solve</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="n">solver</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="n">solver_name</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Collect results into a DataFrame</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_grid_import_kW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">P_grid_pos</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_grid_export_kW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">P_grid_neg</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_grid_net_kW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_grid_import_kW&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_grid_export_kW&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_charge_kW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">P_charge</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_discharge_kW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">P_discharge</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_bess_net_kW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_discharge_kW&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_charge_kW&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Drop the last SOC element to align with time steps</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;bess_kWh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">bess_energy</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)]</span>
+
+    <span class="c1"># Copy original series for convenience</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;PV_kW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;PV Generation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;Demand_kW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Demand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Compute total cost (same formula as in original script)</span>
+    <span class="n">total_cost</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_grid_import_kW&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span>
+            <span class="o">-</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;P_grid_export_kW&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">res</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="n">total_cost</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="how-the-ems-uses-optimization-in-practice">
+<h2>6. How the EMS Uses Optimization in Practice 🔁<a class="headerlink" href="#how-the-ems-uses-optimization-in-practice" title="Link to this heading">#</a></h2>
+<p>In a real deployment, the EMS typically:</p>
+<ol class="arabic simple">
+<li><p><strong>Collects data</strong> 📡</p>
+<ul class="simple">
+<li><p>Load forecast, PV forecast, price forecast, current SoC.</p></li>
+</ul>
+</li>
+<li><p><strong>Sets up the optimization problem</strong> 🧮</p>
+<ul class="simple">
+<li><p>Objective: minimize net cost.</p></li>
+<li><p>Decision variables: grid power, battery power, etc.</p></li>
+<li><p>Constraints: power limits, SoC bounds, power balance.</p></li>
+</ul>
+</li>
+<li><p><strong>Solves the optimization</strong> for a horizon (e.g. next 24 hours).</p></li>
+<li><p><strong>Applies only the first control action</strong> (e.g. set power setpoints for the next time step).</p></li>
+<li><p><strong>Repeats the process</strong> at the next time step (receding/rolling horizon).</p></li>
+</ol>
+<p>This is very similar to <strong>Model Predictive Control (MPC)</strong>, but with a strong emphasis on <strong>economic optimization</strong> (electricity cost).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load Kaggle dataset</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_kaggle_ems_data</span><span class="p">(</span><span class="s1">&#39;/data/kaggle_competition_dataset_with_pv.csv&#39;</span><span class="p">)</span>
+<span class="n">df_day</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2022-08-22&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_day</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">PV Generation max (kW):&quot;</span><span class="p">,</span> <span class="n">df_day</span><span class="p">[</span><span class="s2">&quot;PV Generation&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                     temp  dwpt  rhum  prcp  snow   wdir  wspd  wpgt    pres  \
+time                                                                           
+2022-08-22 00:00:00  19.1  15.2  78.0   0.0   NaN  150.0  11.0  16.7  1014.0   
+2022-08-22 01:00:00  19.1  14.2  73.0   0.0   NaN  140.0   9.0  16.7  1014.0   
+2022-08-22 02:00:00  18.1  14.2  78.0   0.0   NaN  140.0   7.0  16.7  1014.0   
+2022-08-22 03:00:00  19.2  15.7  80.0   0.0   NaN  160.0   7.0  16.7  1014.1   
+2022-08-22 04:00:00  16.1  13.0  82.0   0.0   NaN  150.0   6.0  14.8  1014.0   
+
+                     coco    Price  Demand  PV Generation  
+time                                                       
+2022-08-22 00:00:00   2.0  0.13995   0.263            0.0  
+2022-08-22 01:00:00   4.0  0.00455   0.152            0.0  
+2022-08-22 02:00:00   3.0  0.00304   0.200            0.0  
+2022-08-22 03:00:00   4.0  0.00238   0.229            0.0  
+2022-08-22 04:00:00   3.0  0.00238   1.052            0.0  
+
+PV Generation max (kW): 2.3366666666666664
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the Pyomo-based optimization</span>
+<span class="n">results_pyomo</span><span class="p">,</span> <span class="n">cost_pyomo</span> <span class="o">=</span> <span class="n">optimize_ems_pyomo</span><span class="p">(</span>
+    <span class="n">df_day</span><span class="p">,</span>
+    <span class="n">bess_capacity_kwh</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">batt_p_ch_max_kw</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">batt_p_dis_max_kw</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">grid_p_max_kw</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">bess_init_kwh</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">bess_min_kwh</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">bess_max_kwh</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">solver_name</span><span class="o">=</span><span class="s2">&quot;highs&quot;</span><span class="p">,</span>  <span class="c1"># change if you use another solver</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total cost over horizon (Pyomo): </span><span class="si">{</span><span class="n">cost_pyomo</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> €&quot;</span><span class="p">)</span>
+<span class="n">results_pyomo</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total cost over horizon (Pyomo): -32.07 €
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-156015e7-8047-44c4-bc0d-cde595893509" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>P_grid_import_kW</th>
+      <th>P_grid_export_kW</th>
+      <th>P_grid_net_kW</th>
+      <th>P_charge_kW</th>
+      <th>P_discharge_kW</th>
+      <th>P_bess_net_kW</th>
+      <th>bess_kWh</th>
+      <th>PV_kW</th>
+      <th>Demand_kW</th>
+      <th>Price</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-08-22 00:00:00</th>
+      <td>4.784667</td>
+      <td>0.0</td>
+      <td>4.784667</td>
+      <td>4.521667</td>
+      <td>0.0</td>
+      <td>-4.521667</td>
+      <td>5.000000</td>
+      <td>0.0</td>
+      <td>0.263</td>
+      <td>0.13995</td>
+    </tr>
+    <tr>
+      <th>2022-08-22 01:00:00</th>
+      <td>5.000000</td>
+      <td>0.0</td>
+      <td>5.000000</td>
+      <td>4.848000</td>
+      <td>0.0</td>
+      <td>-4.848000</td>
+      <td>5.452167</td>
+      <td>0.0</td>
+      <td>0.152</td>
+      <td>0.00455</td>
+    </tr>
+    <tr>
+      <th>2022-08-22 02:00:00</th>
+      <td>5.000000</td>
+      <td>0.0</td>
+      <td>5.000000</td>
+      <td>4.800000</td>
+      <td>0.0</td>
+      <td>-4.800000</td>
+      <td>5.936967</td>
+      <td>0.0</td>
+      <td>0.200</td>
+      <td>0.00304</td>
+    </tr>
+    <tr>
+      <th>2022-08-22 03:00:00</th>
+      <td>5.000000</td>
+      <td>0.0</td>
+      <td>5.000000</td>
+      <td>4.771000</td>
+      <td>0.0</td>
+      <td>-4.771000</td>
+      <td>6.416967</td>
+      <td>0.0</td>
+      <td>0.229</td>
+      <td>0.00238</td>
+    </tr>
+    <tr>
+      <th>2022-08-22 04:00:00</th>
+      <td>5.000000</td>
+      <td>0.0</td>
+      <td>5.000000</td>
+      <td>3.948000</td>
+      <td>0.0</td>
+      <td>-3.948000</td>
+      <td>6.894067</td>
+      <td>0.0</td>
+      <td>1.052</td>
+      <td>0.00238</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-156015e7-8047-44c4-bc0d-cde595893509')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-156015e7-8047-44c4-bc0d-cde595893509 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-156015e7-8047-44c4-bc0d-cde595893509');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    <div id="df-41cbbd98-30d3-4482-8b08-4630a97c2b2e">
+      <button class="colab-df-quickchart" onclick="quickchart('df-41cbbd98-30d3-4482-8b08-4630a97c2b2e')"
+                title="Suggest charts"
+                style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+      </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+      <script>
+        async function quickchart(key) {
+          const quickchartButtonEl =
+            document.querySelector('#' + key + ' button');
+          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+          quickchartButtonEl.classList.add('colab-df-spinner');
+          try {
+            const charts = await google.colab.kernel.invokeFunction(
+                'suggestCharts', [key], {});
+          } catch (error) {
+            console.error('Error during call to suggestCharts:', error);
+          }
+          quickchartButtonEl.classList.remove('colab-df-spinner');
+          quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+        }
+        (() => {
+          let quickchartButtonEl =
+            document.querySelector('#df-41cbbd98-30d3-4482-8b08-4630a97c2b2e button');
+          quickchartButtonEl.style.display =
+            google.colab.kernel.accessAllowed ? 'block' : 'none';
+        })();
+      </script>
+    </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="summary">
+<h2>7. Summary 📝<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A <strong>Home EMS</strong> coordinates PV, battery, load, and grid interaction to <strong>reduce costs</strong> and <strong>increase self-consumption</strong>.</p></li>
+<li><p>The <strong>core of the tutorial</strong> is an optimization problem:</p>
+<ul>
+<li><p><strong>Objective:</strong> minimize total net grid cost.</p></li>
+<li><p><strong>Variables:</strong> grid import/export, battery charge/discharge, PV allocation.</p></li>
+<li><p><strong>Constraints:</strong> device limits, power balance, battery SoC bounds.</p></li>
+</ul>
+</li>
+<li><p>Using such an optimization-based EMS, households can:</p>
+<ul>
+<li><p>Use <strong>more of their own solar</strong>,</p></li>
+<li><p><strong>Shift consumption</strong> to cheaper periods,</p></li>
+<li><p><strong>Limit exports</strong> when FiT is low,</p></li>
+<li><p>And generally operate the home as a <strong>small smart energy system</strong>. 🌍⚡</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 1) Demand, PV, and net grid power</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results_pyomo</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">results_pyomo</span><span class="p">[</span><span class="s2">&quot;Demand_kW&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Demand (kW)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results_pyomo</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">results_pyomo</span><span class="p">[</span><span class="s2">&quot;PV_kW&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;PV (kW)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results_pyomo</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">results_pyomo</span><span class="p">[</span><span class="s2">&quot;P_grid_net_kW&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Grid net (kW)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Power (kW)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># 2) Battery charge/discharge</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results_pyomo</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">results_pyomo</span><span class="p">[</span><span class="s2">&quot;P_charge_kW&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Charge (kW)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results_pyomo</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">results_pyomo</span><span class="p">[</span><span class="s2">&quot;P_discharge_kW&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Discharge (kW)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Power (kW)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># 3) Battery energy (kWh)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results_pyomo</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">results_pyomo</span><span class="p">[</span><span class="s2">&quot;bess_kWh&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Battery energy (&quot;kWh&quot;)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (kWh)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2c66c3e66a59e6e14466b3f63cd792ac87f49db6572e7e57b437a07b13cfe571.png" src="_images/2c66c3e66a59e6e14466b3f63cd792ac87f49db6572e7e57b437a07b13cfe571.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="23_forecasting_strategies.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🔮 Forecasting Strategies</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-home-energy-management-system">1. What is a Home Energy Management System? 🤖</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-a-home-ems">2. Why Do We Need a Home EMS? ❓</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-components-of-a-home-ems">3. Main Components of a Home EMS 🧩</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading-helper">Data loading helper</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-problem-minimizing-electricity-cost">4. Optimization Problem: Minimizing Electricity Cost 📉</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-function">4.1 Objective Function 🎯</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-variables">4.2 Decision Variables 🔢</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-of-buying-and-selling-energy">4.3 Cost of Buying and Selling Energy 💶</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-power-to-energy">4.4 From Power to Energy ⏱️</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-constraints">5. System Constraints 🧱</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-household-configuration">5.1 Example Household Configuration 🏡</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-intro-to-pyomo">🧮 Quick intro to Pyomo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-can-do-with-pyomo">⭐ What you can do with Pyomo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#core-building-blocks">🧩 Core building blocks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-ems-uses-optimization-in-practice">6. How the EMS Uses Optimization in Practice 🔁</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">7. Summary 📝</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

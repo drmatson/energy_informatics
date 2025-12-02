@@ -41,3 +41,6 @@ parts:
   - caption: Forecasting
     chapters:
       - file: 23_forecasting_strategies.ipynb
+  - caption: HEMS
+    chapters:
+      - file: 24_home_ems_pyomo.ipynb
