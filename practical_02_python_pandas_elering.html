@@ -1,0 +1,2967 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>⚡ Practical 2 — From Measurements to Decisions &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practical_02_python_pandas_elering';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🔄 Data Science Lifecycle" href="04_data_science_cycle.html" />
+    <link rel="prev" title="🐼 Pandas" href="03_pandas_tutorial.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practical_01_energy_data_challenge.html">⚡ Practical 1 — Your First Energy Data Challenge</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">⚡ Practical 2 — From Measurements to Decisions</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_ml_baseline_lag7d.html">⚡️ Baseline Forecast: Lag‑7 Day</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="17_ml_baseline_LR.html">⚡️ Baseline Forecast: Linear Regression</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="18_ml_RF.html">🌲 Random Forest</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="19_ml_SVM.html">🧭 Support Vector Machines (SVM/SVR)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="20_ml_prophet.html">🔮 Time-Series Forecasting with Prophet</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="21_ml_chronos_tourch.html">🤖⏱️ Chronos Time‑Series Forecasting</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="22_ml_timesfm.html">🕰️🤖 TimesFM — Foundation Model for Time‑Series Forecasting</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Forecasting</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="23_forecasting_strategies.html">🔮 Forecasting Strategies</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">HEMS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="24_home_ems_pyomo.html">🏠⚡ Home Energy Management Systems (Home EMS)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practical_02_python_pandas_elering.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>⚡ Practical 2 — From Measurements to Decisions</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">⚡ Practical 2 — From Measurements to Decisions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-python-pandas-and-elering-live">Introduction to Python, Pandas and Elering LIVE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning outcomes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-rule">Working rule</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#elering-live-energy-data-in-the-real-world">0. Elering LIVE: energy data in the real world</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pair-discussion-5-minutes">Pair discussion — 5 minutes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#python-in-10-minutes">1. Python in 10 minutes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">🐼 Your turn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#meet-the-dataframe">2. Meet the DataFrame</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#our-smart-grid-dataset">3. Our Smart Grid dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#first-inspection">4. First inspection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">🐼 Your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics">5. Descriptive statistics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">🐼 Your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data">6. Selecting data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">🐼 Your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-find-important-moments">7. Filtering: find important moments</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-alert-your-turn">🚨 Grid Alert — your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#from-measurements-to-information">8. From measurements to information</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">🐼 Your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-data-has-time">9. Energy data has time</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-discover-a-daily-pattern">10. GroupBy: discover a daily pattern</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-test">🤔 THINK → 🐼 TEST</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data">11. Missing data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-checkpoint-interpretation-is-not-evidence">12. LLM checkpoint — interpretation is not evidence</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#judge">🧠 JUDGE</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data-elering-public-api">13. Real data: Elering public API</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-real-dataframe">Inspect the real DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-not-assume-the-sampling-interval">Do not assume the sampling interval</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn-real-elering-data">🐼 Your turn — real Elering data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-tiny-demand-response-question">14. A tiny Demand Response question</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-challenge-sense-decide-act">15. Final challenge — SENSE → DECIDE → ACT</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sense">SENSE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decide">DECIDE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ask">ASK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">JUDGE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#act">ACT</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">16. Reflection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-pandas">Python &amp; Pandas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-informatics">Energy Informatics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elering">Elering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">LLM</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="practical-2-from-measurements-to-decisions">
+<h1>⚡ Practical 2 — From Measurements to Decisions<a class="headerlink" href="#practical-2-from-measurements-to-decisions" title="Link to this heading">#</a></h1>
+<section id="introduction-to-python-pandas-and-elering-live">
+<h2>Introduction to Python, Pandas and Elering LIVE<a class="headerlink" href="#introduction-to-python-pandas-and-elering-live" title="Link to this heading">#</a></h2>
+<p>Modern power systems are also <strong>data systems</strong>. In this practical we follow one simple chain:</p>
+<blockquote>
+<div><p><strong>measurement → Python → DataFrame → information → decision</strong></p>
+</div></blockquote>
+<p>We first use a small Smart Grid dataset, then connect the same ideas to <strong>real Estonian energy data from Elering LIVE</strong>.</p>
+<section id="learning-outcomes">
+<h3>Learning outcomes<a class="headerlink" href="#learning-outcomes" title="Link to this heading">#</a></h3>
+<p>By the end you should be able to:</p>
+<ul class="simple">
+<li><p>use simple Python variables, lists and calculations;</p></li>
+<li><p>explain <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and <code class="docutils literal notranslate"><span class="pre">Series</span></code>;</p></li>
+<li><p>inspect rows, columns and data types;</p></li>
+<li><p>select columns and filter rows;</p></li>
+<li><p>calculate new variables;</p></li>
+<li><p>work with timestamps and <code class="docutils literal notranslate"><span class="pre">groupby()</span></code>;</p></li>
+<li><p>identify missing data;</p></li>
+<li><p>retrieve public price data from Elering;</p></li>
+<li><p>use an LLM as an analytical assistant without treating its answer as evidence.</p></li>
+</ul>
+</section>
+<section id="working-rule">
+<h3>Working rule<a class="headerlink" href="#working-rule" title="Link to this heading">#</a></h3>
+<p><strong>🤔 THINK → 🐼 TEST → 🤖 ASK → 🧠 JUDGE</strong></p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="elering-live-energy-data-in-the-real-world">
+<h1>0. Elering LIVE: energy data in the real world<a class="headerlink" href="#elering-live-energy-data-in-the-real-world" title="Link to this heading">#</a></h1>
+<p>Open <strong><a class="reference external" href="https://dashboard.elering.ee/">https://dashboard.elering.ee/</a></strong></p>
+<p>Elering is the Estonian transmission system operator. Its public dashboard is a useful example of the Smart Grid logic from Lecture 2:</p>
+<blockquote>
+<div><p><strong>SENSE → COMMUNICATE → DECIDE → ACT</strong></p>
+</div></blockquote>
+<section id="pair-discussion-5-minutes">
+<h2>Pair discussion — 5 minutes<a class="headerlink" href="#pair-discussion-5-minutes" title="Link to this heading">#</a></h2>
+<p>Explore the dashboard and discuss:</p>
+<ol class="arabic simple">
+<li><p>What kinds of energy-system variables can you find?</p></li>
+<li><p>Which look like <strong>measurements</strong> and which like <strong>market information</strong>?</p></li>
+<li><p>What units are used?</p></li>
+<li><p>Is everything shown at the same time resolution?</p></li>
+<li><p>Which variables would help answer: Is demand high? Is electricity expensive? Is the system operating normally?</p></li>
+</ol>
+<p>Do not worry if you do not understand every variable yet. Focus on the question: <strong>what can data tell us about an energy system?</strong></p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="python-in-10-minutes">
+<h1>1. Python in 10 minutes<a class="headerlink" href="#python-in-10-minutes" title="Link to this heading">#</a></h1>
+<p>A Python <strong>variable</strong> stores a value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">load_MW</span> <span class="o">=</span> <span class="mf">62.4</span>
+<span class="n">solar_MW</span> <span class="o">=</span> <span class="mf">14.2</span>
+<span class="n">wind_MW</span> <span class="o">=</span> <span class="mf">11.7</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">load_MW</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>62.4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">renewable_MW</span> <span class="o">=</span> <span class="n">solar_MW</span> <span class="o">+</span> <span class="n">wind_MW</span>
+<span class="n">net_load_MW</span> <span class="o">=</span> <span class="n">load_MW</span> <span class="o">-</span> <span class="n">renewable_MW</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Renewable generation:&quot;</span><span class="p">,</span> <span class="n">renewable_MW</span><span class="p">,</span> <span class="s2">&quot;MW&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Net load:&quot;</span><span class="p">,</span> <span class="n">net_load_MW</span><span class="p">,</span> <span class="s2">&quot;MW&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Renewable generation: 25.9 MW
+Net load: 36.5 MW
+</pre></div>
+</div>
+</div>
+</div>
+<section id="your-turn">
+<h2>🐼 Your turn<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
+<p>Create <code class="docutils literal notranslate"><span class="pre">renewable_share</span> <span class="pre">=</span> <span class="pre">renewable_MW</span> <span class="pre">/</span> <span class="pre">load_MW</span></code> and print it as a percentage.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lists">
+<h2>Lists<a class="headerlink" href="#lists" title="Link to this heading">#</a></h2>
+<p>A single value is useful, but energy systems produce many measurements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loads</span> <span class="o">=</span> <span class="p">[</span><span class="mf">42.1</span><span class="p">,</span> <span class="mf">45.3</span><span class="p">,</span> <span class="mf">51.8</span><span class="p">,</span> <span class="mf">63.2</span><span class="p">,</span> <span class="mf">58.7</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loads</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of measurements:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">loads</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximum:&quot;</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">loads</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum:&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">loads</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[42.1, 45.3, 51.8, 63.2, 58.7]
+Number of measurements: 5
+Maximum: 63.2
+Minimum: 42.1
+</pre></div>
+</div>
+</div>
+</div>
+<p>A list works for five values. What if we have thousands of meters, prices, weather and sensor data every 15 minutes? This is where tabular data structures become useful.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="meet-the-dataframe">
+<h1>2. Meet the DataFrame<a class="headerlink" href="#meet-the-dataframe" title="Link to this heading">#</a></h1>
+<p>A <strong>Pandas DataFrame</strong> is a two-dimensional table:</p>
+<ul class="simple">
+<li><p><strong>row</strong> = one observation;</p></li>
+<li><p><strong>column</strong> = one variable;</p></li>
+<li><p><strong>DataFrame</strong> = many observations and variables together.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;hour&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span>
+    <span class="s2">&quot;load_MW&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">55.2</span><span class="p">,</span> <span class="mf">58.1</span><span class="p">,</span> <span class="mf">52.6</span><span class="p">,</span> <span class="mf">49.8</span><span class="p">],</span>
+    <span class="s2">&quot;solar_MW&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">5.3</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">example</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>hour</th>
+      <th>load_MW</th>
+      <th>solar_MW</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>8</td>
+      <td>55.2</td>
+      <td>2.1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>9</td>
+      <td>58.1</td>
+      <td>5.3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>52.6</td>
+      <td>9.8</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11</td>
+      <td>49.8</td>
+      <td>14.5</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    55.2
+1    58.1
+2    52.6
+3    49.8
+Name: load_MW, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example</span><span class="p">[[</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="s2">&quot;load_MW&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>hour</th>
+      <th>load_MW</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>8</td>
+      <td>55.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>9</td>
+      <td>58.1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>10</td>
+      <td>52.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11</td>
+      <td>49.8</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">example</span><span class="p">[[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.series.Series&#39;&gt;
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>A single selected column is usually a Pandas <strong>Series</strong>. A table containing one or more columns is a <strong>DataFrame</strong>.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="our-smart-grid-dataset">
+<h1>3. Our Smart Grid dataset<a class="headerlink" href="#our-smart-grid-dataset" title="Link to this heading">#</a></h1>
+<p>We create two days of <strong>15-minute synthetic measurements</strong>. The variables are <code class="docutils literal notranslate"><span class="pre">timestamp</span></code>, <code class="docutils literal notranslate"><span class="pre">load_MW</span></code>, <code class="docutils literal notranslate"><span class="pre">solar_MW</span></code>, <code class="docutils literal notranslate"><span class="pre">wind_MW</span></code>, <code class="docutils literal notranslate"><span class="pre">price_EUR_MWh</span></code>, <code class="docutils literal notranslate"><span class="pre">frequency_Hz</span></code>, and <code class="docutils literal notranslate"><span class="pre">temperature_C</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2026-02-09 00:00&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;15min&quot;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span>
+<span class="n">hour</span> <span class="o">=</span> <span class="n">timestamps</span><span class="o">.</span><span class="n">hour</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">+</span> <span class="n">timestamps</span><span class="o">.</span><span class="n">minute</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">/</span><span class="mi">60</span>
+
+<span class="n">temperature</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">hour</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">morning_peak</span> <span class="o">=</span> <span class="mi">180</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">hour</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span><span class="o">/</span><span class="mf">1.8</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">evening_peak</span> <span class="o">=</span> <span class="mi">260</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">hour</span><span class="o">-</span><span class="mi">18</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">load</span> <span class="o">=</span> <span class="mi">720</span> <span class="o">+</span> <span class="n">morning_peak</span> <span class="o">+</span> <span class="n">evening_peak</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="o">-</span><span class="n">temperature</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span><span class="o">*</span><span class="mi">12</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">solar_shape</span> <span class="o">=</span> <span class="mi">330</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">hour</span><span class="o">-</span><span class="mf">12.5</span><span class="p">)</span><span class="o">/</span><span class="mf">2.6</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">daylight</span> <span class="o">=</span> <span class="p">((</span><span class="n">hour</span><span class="o">&gt;=</span><span class="mf">7.5</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">hour</span><span class="o">&lt;=</span><span class="mf">17.0</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">solar</span> <span class="o">=</span> <span class="n">solar_shape</span><span class="o">*</span><span class="n">daylight</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.78</span><span class="p">,</span><span class="mf">0.10</span><span class="p">,</span><span class="n">n</span><span class="p">),</span><span class="mf">0.35</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">wind</span> <span class="o">=</span> <span class="mi">190</span> <span class="o">+</span> <span class="mi">75</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">n</span><span class="p">))</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">wind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">wind</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">wind_drop</span> <span class="o">=</span> <span class="p">(</span><span class="n">timestamps</span> <span class="o">&gt;=</span> <span class="s2">&quot;2026-02-10 16:30&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">timestamps</span> <span class="o">&lt;=</span> <span class="s2">&quot;2026-02-10 19:00&quot;</span><span class="p">)</span>
+<span class="n">wind</span><span class="p">[</span><span class="n">wind_drop</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">0.30</span>
+
+<span class="n">net_for_price</span> <span class="o">=</span> <span class="n">load</span> <span class="o">-</span> <span class="n">solar</span> <span class="o">-</span> <span class="n">wind</span>
+<span class="n">price</span> <span class="o">=</span> <span class="mi">35</span> <span class="o">+</span> <span class="mf">0.10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">net_for_price</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">price</span><span class="p">[</span><span class="n">timestamps</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;2026-02-10 18:00&quot;</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">110</span>
+
+<span class="n">frequency</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.018</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">freq_event</span> <span class="o">=</span> <span class="p">(</span><span class="n">timestamps</span> <span class="o">&gt;=</span> <span class="s2">&quot;2026-02-10 18:00&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">timestamps</span> <span class="o">&lt;=</span> <span class="s2">&quot;2026-02-10 18:30&quot;</span><span class="p">)</span>
+<span class="n">frequency</span><span class="p">[</span><span class="n">freq_event</span><span class="p">]</span> <span class="o">-=</span> <span class="mf">0.10</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">timestamps</span><span class="p">,</span>
+    <span class="s2">&quot;load_MW&quot;</span><span class="p">:</span> <span class="n">load</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s2">&quot;solar_MW&quot;</span><span class="p">:</span> <span class="n">solar</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s2">&quot;wind_MW&quot;</span><span class="p">:</span> <span class="n">wind</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">:</span> <span class="n">price</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s2">&quot;frequency_Hz&quot;</span><span class="p">:</span> <span class="n">frequency</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="s2">&quot;temperature_C&quot;</span><span class="p">:</span> <span class="n">temperature</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+<span class="p">})</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">],</span> <span class="s2">&quot;wind_MW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">103</span><span class="p">],</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>load_MW</th>
+      <th>solar_MW</th>
+      <th>wind_MW</th>
+      <th>price_EUR_MWh</th>
+      <th>frequency_Hz</th>
+      <th>temperature_C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2026-02-09 00:00:00</td>
+      <td>815.0</td>
+      <td>0.0</td>
+      <td>153.7</td>
+      <td>108.90</td>
+      <td>50.033</td>
+      <td>-6.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2026-02-09 00:15:00</td>
+      <td>794.4</td>
+      <td>0.0</td>
+      <td>177.2</td>
+      <td>93.33</td>
+      <td>50.031</td>
+      <td>-6.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2026-02-09 00:30:00</td>
+      <td>812.1</td>
+      <td>0.0</td>
+      <td>235.5</td>
+      <td>93.08</td>
+      <td>49.965</td>
+      <td>-6.9</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2026-02-09 00:45:00</td>
+      <td>822.0</td>
+      <td>0.0</td>
+      <td>194.3</td>
+      <td>95.17</td>
+      <td>49.983</td>
+      <td>-7.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2026-02-09 01:00:00</td>
+      <td>820.7</td>
+      <td>0.0</td>
+      <td>217.1</td>
+      <td>102.81</td>
+      <td>50.012</td>
+      <td>-7.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="first-inspection">
+<h1>4. First inspection<a class="headerlink" href="#first-inspection" title="Link to this heading">#</a></h1>
+<p>Before analysing data, ask: <strong>what exactly do I have?</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>load_MW</th>
+      <th>solar_MW</th>
+      <th>wind_MW</th>
+      <th>price_EUR_MWh</th>
+      <th>frequency_Hz</th>
+      <th>temperature_C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2026-02-09 00:00:00</td>
+      <td>815.0</td>
+      <td>0.0</td>
+      <td>153.7</td>
+      <td>108.90</td>
+      <td>50.033</td>
+      <td>-6.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2026-02-09 00:15:00</td>
+      <td>794.4</td>
+      <td>0.0</td>
+      <td>177.2</td>
+      <td>93.33</td>
+      <td>50.031</td>
+      <td>-6.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2026-02-09 00:30:00</td>
+      <td>812.1</td>
+      <td>0.0</td>
+      <td>235.5</td>
+      <td>93.08</td>
+      <td>49.965</td>
+      <td>-6.9</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2026-02-09 00:45:00</td>
+      <td>822.0</td>
+      <td>0.0</td>
+      <td>194.3</td>
+      <td>95.17</td>
+      <td>49.983</td>
+      <td>-7.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2026-02-09 01:00:00</td>
+      <td>820.7</td>
+      <td>0.0</td>
+      <td>217.1</td>
+      <td>102.81</td>
+      <td>50.012</td>
+      <td>-7.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(192, 7)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;timestamp&#39;, &#39;load_MW&#39;, &#39;solar_MW&#39;, &#39;wind_MW&#39;, &#39;price_EUR_MWh&#39;,
+       &#39;frequency_Hz&#39;, &#39;temperature_C&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>timestamp        datetime64[ns]
+load_MW                 float64
+solar_MW                float64
+wind_MW                 float64
+price_EUR_MWh           float64
+frequency_Hz            float64
+temperature_C           float64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 192 entries, 0 to 191
+Data columns (total 7 columns):
+ #   Column         Non-Null Count  Dtype         
+---  ------         --------------  -----         
+ 0   timestamp      192 non-null    datetime64[ns]
+ 1   load_MW        192 non-null    float64       
+ 2   solar_MW       192 non-null    float64       
+ 3   wind_MW        190 non-null    float64       
+ 4   price_EUR_MWh  192 non-null    float64       
+ 5   frequency_Hz   192 non-null    float64       
+ 6   temperature_C  191 non-null    float64       
+dtypes: datetime64[ns](1), float64(6)
+memory usage: 10.6 KB
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id1">
+<h2>🐼 Your turn<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Answer: How many rows and columns? Which column contains time? Which are numerical? Does every column have the same number of non-missing values?</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="descriptive-statistics">
+<h1>5. Descriptive statistics<a class="headerlink" href="#descriptive-statistics" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+      <th>std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>timestamp</th>
+      <td>192</td>
+      <td>2026-02-09 23:52:30</td>
+      <td>2026-02-09 00:00:00</td>
+      <td>2026-02-09 11:56:15</td>
+      <td>2026-02-09 23:52:30</td>
+      <td>2026-02-10 11:48:45</td>
+      <td>2026-02-10 23:45:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>load_MW</th>
+      <td>192.0</td>
+      <td>846.267188</td>
+      <td>708.7</td>
+      <td>795.625</td>
+      <td>831.2</td>
+      <td>900.175</td>
+      <td>1025.9</td>
+      <td>74.132742</td>
+    </tr>
+    <tr>
+      <th>solar_MW</th>
+      <td>192.0</td>
+      <td>63.023438</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>129.075</td>
+      <td>274.9</td>
+      <td>87.518253</td>
+    </tr>
+    <tr>
+      <th>wind_MW</th>
+      <td>190.0</td>
+      <td>185.410526</td>
+      <td>20.4</td>
+      <td>133.9</td>
+      <td>192.9</td>
+      <td>236.8</td>
+      <td>335.9</td>
+      <td>67.50366</td>
+    </tr>
+    <tr>
+      <th>price_EUR_MWh</th>
+      <td>192.0</td>
+      <td>95.288958</td>
+      <td>56.91</td>
+      <td>85.995</td>
+      <td>94.99</td>
+      <td>104.15</td>
+      <td>238.33</td>
+      <td>19.462509</td>
+    </tr>
+    <tr>
+      <th>frequency_Hz</th>
+      <td>192.0</td>
+      <td>49.997615</td>
+      <td>49.887</td>
+      <td>49.986</td>
+      <td>49.999</td>
+      <td>50.012</td>
+      <td>50.045</td>
+      <td>0.022681</td>
+    </tr>
+    <tr>
+      <th>temperature_C</th>
+      <td>191.0</td>
+      <td>-3.084817</td>
+      <td>-8.0</td>
+      <td>-5.9</td>
+      <td>-3.3</td>
+      <td>-0.3</td>
+      <td>1.8</td>
+      <td>2.917701</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean load:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">&quot;MW&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximum load:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s2">&quot;MW&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum frequency:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;frequency_Hz&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s2">&quot;Hz&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximum price:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s2">&quot;EUR/MWh&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean load: 846.2671875000001 MW
+Maximum load: 1025.9 MW
+Minimum frequency: 49.887 Hz
+Maximum price: 238.33 EUR/MWh
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h2>🐼 Your turn<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Find mean solar generation, maximum wind generation, and minimum electricity price using <code class="docutils literal notranslate"><span class="pre">.mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">.max()</span></code>, <code class="docutils literal notranslate"><span class="pre">.min()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="selecting-data">
+<h1>6. Selecting data<a class="headerlink" href="#selecting-data" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    815.0
+1    794.4
+2    812.1
+3    822.0
+4    820.7
+Name: load_MW, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;load_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>load_MW</th>
+      <th>price_EUR_MWh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2026-02-09 00:00:00</td>
+      <td>815.0</td>
+      <td>108.90</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2026-02-09 00:15:00</td>
+      <td>794.4</td>
+      <td>93.33</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2026-02-09 00:30:00</td>
+      <td>812.1</td>
+      <td>93.08</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2026-02-09 00:45:00</td>
+      <td>822.0</td>
+      <td>95.17</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2026-02-09 01:00:00</td>
+      <td>820.7</td>
+      <td>102.81</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="id3">
+<h2>🐼 Your turn<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Create <code class="docutils literal notranslate"><span class="pre">renewable_view</span></code> with only <code class="docutils literal notranslate"><span class="pre">timestamp</span></code>, <code class="docutils literal notranslate"><span class="pre">solar_MW</span></code>, <code class="docutils literal notranslate"><span class="pre">wind_MW</span></code>, then show the first 10 rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="filtering-find-important-moments">
+<h1>7. Filtering: find important moments<a class="headerlink" href="#filtering-find-important-moments" title="Link to this heading">#</a></h1>
+<p>Filtering asks: <strong>which rows satisfy a condition?</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">high_load</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">]</span>
+<span class="n">high_load</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>load_MW</th>
+      <th>solar_MW</th>
+      <th>wind_MW</th>
+      <th>price_EUR_MWh</th>
+      <th>frequency_Hz</th>
+      <th>temperature_C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>71</th>
+      <td>2026-02-09 17:45:00</td>
+      <td>1005.5</td>
+      <td>0.0</td>
+      <td>101.8</td>
+      <td>114.88</td>
+      <td>49.994</td>
+      <td>-2.0</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>2026-02-09 18:15:00</td>
+      <td>1002.6</td>
+      <td>0.0</td>
+      <td>108.6</td>
+      <td>122.34</td>
+      <td>50.010</td>
+      <td>-1.3</td>
+    </tr>
+    <tr>
+      <th>168</th>
+      <td>2026-02-10 18:00:00</td>
+      <td>1001.2</td>
+      <td>0.0</td>
+      <td>50.0</td>
+      <td>238.33</td>
+      <td>49.888</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>169</th>
+      <td>2026-02-10 18:15:00</td>
+      <td>1025.9</td>
+      <td>0.0</td>
+      <td>51.3</td>
+      <td>137.12</td>
+      <td>49.903</td>
+      <td>-1.2</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>2026-02-10 18:30:00</td>
+      <td>1005.7</td>
+      <td>0.0</td>
+      <td>46.0</td>
+      <td>136.93</td>
+      <td>49.887</td>
+      <td>-1.9</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">low_frequency</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;frequency_Hz&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">49.95</span><span class="p">]</span>
+<span class="n">low_frequency</span><span class="p">[[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;frequency_Hz&quot;</span><span class="p">,</span> <span class="s2">&quot;load_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>frequency_Hz</th>
+      <th>load_MW</th>
+      <th>price_EUR_MWh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>168</th>
+      <td>2026-02-10 18:00:00</td>
+      <td>49.888</td>
+      <td>1001.2</td>
+      <td>238.33</td>
+    </tr>
+    <tr>
+      <th>169</th>
+      <td>2026-02-10 18:15:00</td>
+      <td>49.903</td>
+      <td>1025.9</td>
+      <td>137.12</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>2026-02-10 18:30:00</td>
+      <td>49.887</td>
+      <td>1005.7</td>
+      <td>136.93</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stress</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">950</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;wind_MW&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">120</span><span class="p">)]</span>
+<span class="n">stress</span><span class="p">[[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;load_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;wind_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>load_MW</th>
+      <th>wind_MW</th>
+      <th>price_EUR_MWh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>71</th>
+      <td>2026-02-09 17:45:00</td>
+      <td>1005.5</td>
+      <td>101.8</td>
+      <td>114.88</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>2026-02-09 18:15:00</td>
+      <td>1002.6</td>
+      <td>108.6</td>
+      <td>122.34</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>2026-02-09 18:45:00</td>
+      <td>997.6</td>
+      <td>91.3</td>
+      <td>124.70</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>2026-02-09 19:00:00</td>
+      <td>952.5</td>
+      <td>94.2</td>
+      <td>111.96</td>
+    </tr>
+    <tr>
+      <th>165</th>
+      <td>2026-02-10 17:15:00</td>
+      <td>970.5</td>
+      <td>29.6</td>
+      <td>135.40</td>
+    </tr>
+    <tr>
+      <th>166</th>
+      <td>2026-02-10 17:30:00</td>
+      <td>995.2</td>
+      <td>20.4</td>
+      <td>131.99</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>2026-02-10 17:45:00</td>
+      <td>980.5</td>
+      <td>34.3</td>
+      <td>123.12</td>
+    </tr>
+    <tr>
+      <th>168</th>
+      <td>2026-02-10 18:00:00</td>
+      <td>1001.2</td>
+      <td>50.0</td>
+      <td>238.33</td>
+    </tr>
+    <tr>
+      <th>169</th>
+      <td>2026-02-10 18:15:00</td>
+      <td>1025.9</td>
+      <td>51.3</td>
+      <td>137.12</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>2026-02-10 18:30:00</td>
+      <td>1005.7</td>
+      <td>46.0</td>
+      <td>136.93</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>2026-02-10 18:45:00</td>
+      <td>980.6</td>
+      <td>41.2</td>
+      <td>126.81</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="grid-alert-your-turn">
+<h2>🚨 Grid Alert — your turn<a class="headerlink" href="#grid-alert-your-turn" title="Link to this heading">#</a></h2>
+<p>Find rows with <code class="docutils literal notranslate"><span class="pre">price_EUR_MWh</span> <span class="pre">&gt;</span> <span class="pre">120</span></code>. Then find rows with <code class="docutils literal notranslate"><span class="pre">load_MW</span> <span class="pre">&gt;</span> <span class="pre">950</span></code> <strong>and</strong> <code class="docutils literal notranslate"><span class="pre">solar_MW</span> <span class="pre">&lt;</span> <span class="pre">30</span></code>. Which condition produces more observations?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="from-measurements-to-information">
+<h1>8. From measurements to information<a class="headerlink" href="#from-measurements-to-information" title="Link to this heading">#</a></h1>
+<p>The operator may care about quantities that are not directly measured.</p>
+<p><code class="docutils literal notranslate"><span class="pre">renewable</span> <span class="pre">=</span> <span class="pre">solar</span> <span class="pre">+</span> <span class="pre">wind</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">net_load</span> <span class="pre">=</span> <span class="pre">load</span> <span class="pre">-</span> <span class="pre">renewable</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;renewable_MW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;solar_MW&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;wind_MW&quot;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;net_load_MW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;renewable_MW&quot;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;renewable_share_pct&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;renewable_MW&quot;</span><span class="p">]</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span><span class="s2">&quot;load_MW&quot;</span><span class="p">,</span><span class="s2">&quot;renewable_MW&quot;</span><span class="p">,</span><span class="s2">&quot;net_load_MW&quot;</span><span class="p">,</span><span class="s2">&quot;renewable_share_pct&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>load_MW</th>
+      <th>renewable_MW</th>
+      <th>net_load_MW</th>
+      <th>renewable_share_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2026-02-09 00:00:00</td>
+      <td>815.0</td>
+      <td>153.7</td>
+      <td>661.3</td>
+      <td>18.858896</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2026-02-09 00:15:00</td>
+      <td>794.4</td>
+      <td>177.2</td>
+      <td>617.2</td>
+      <td>22.306143</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2026-02-09 00:30:00</td>
+      <td>812.1</td>
+      <td>235.5</td>
+      <td>576.6</td>
+      <td>28.998892</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2026-02-09 00:45:00</td>
+      <td>822.0</td>
+      <td>194.3</td>
+      <td>627.7</td>
+      <td>23.637470</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2026-02-09 01:00:00</td>
+      <td>820.7</td>
+      <td>217.1</td>
+      <td>603.6</td>
+      <td>26.453028</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p>Which variables are <strong>raw measurements</strong> and which are <strong>derived information</strong>? This is a small example of turning measurements into information.</p>
+</section>
+<section id="id4">
+<h2>🐼 Your turn<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">df.nlargest(5,</span> <span class="pre">&quot;net_load_MW&quot;)</span></code> to find the five most demanding periods for non-renewable supply.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="energy-data-has-time">
+<h1>9. Energy data has time<a class="headerlink" href="#energy-data-has-time" title="Link to this heading">#</a></h1>
+<p>The lecture ends with an important idea: <strong>energy data is mostly time series</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;&lt;M8[ns]&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;hour&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;day_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day_name</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span><span class="s2">&quot;date&quot;</span><span class="p">,</span><span class="s2">&quot;day_name&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>hour</th>
+      <th>date</th>
+      <th>day_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2026-02-09 00:00:00</td>
+      <td>0</td>
+      <td>2026-02-09</td>
+      <td>Monday</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2026-02-09 00:15:00</td>
+      <td>0</td>
+      <td>2026-02-09</td>
+      <td>Monday</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2026-02-09 00:30:00</td>
+      <td>0</td>
+      <td>2026-02-09</td>
+      <td>Monday</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2026-02-09 00:45:00</td>
+      <td>0</td>
+      <td>2026-02-09</td>
+      <td>Monday</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2026-02-09 01:00:00</td>
+      <td>1</td>
+      <td>2026-02-09</td>
+      <td>Monday</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="groupby-discover-a-daily-pattern">
+<h1>10. GroupBy: discover a daily pattern<a class="headerlink" href="#groupby-discover-a-daily-pattern" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">groupby()</span></code> means: split observations into groups → calculate something for each group.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hourly_load</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">hourly_load</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>hour</th>
+      <th>load_MW</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>806.7750</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>814.7500</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>807.8625</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>811.6750</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>830.7750</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>842.3750</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>892.9125</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>925.9125</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>927.1250</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>862.9125</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>10</td>
+      <td>814.0750</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>11</td>
+      <td>746.8125</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>12</td>
+      <td>742.8750</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>13</td>
+      <td>743.7000</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>14</td>
+      <td>756.3500</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>15</td>
+      <td>826.2125</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>16</td>
+      <td>912.0625</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>17</td>
+      <td>979.0000</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>18</td>
+      <td>994.8125</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>19</td>
+      <td>937.9875</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>20</td>
+      <td>896.3125</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>21</td>
+      <td>838.2750</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>22</td>
+      <td>797.4875</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>23</td>
+      <td>801.3750</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hourly_load</span><span class="p">[</span><span class="s2">&quot;hour&quot;</span><span class="p">],</span> <span class="n">hourly_load</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Hour of day&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Mean load [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Average daily load profile&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4be11f501ea758eb4f95bd7f6d8390c7e2704c14aabcafa148197b4a59a0b446.png" src="_images/4be11f501ea758eb4f95bd7f6d8390c7e2704c14aabcafa148197b4a59a0b446.png" />
+</div>
+</div>
+<section id="think-test">
+<h2>🤔 THINK → 🐼 TEST<a class="headerlink" href="#think-test" title="Link to this heading">#</a></h2>
+<p>Do you expect one daily peak or two? At what hours? Then use the DataFrame to identify the hour with the highest mean load.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hourly_energy</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">,</span><span class="s2">&quot;solar_MW&quot;</span><span class="p">,</span><span class="s2">&quot;wind_MW&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hourly_energy</span><span class="p">[</span><span class="s2">&quot;hour&quot;</span><span class="p">],</span> <span class="n">hourly_energy</span><span class="p">[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Load&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hourly_energy</span><span class="p">[</span><span class="s2">&quot;hour&quot;</span><span class="p">],</span> <span class="n">hourly_energy</span><span class="p">[</span><span class="s2">&quot;solar_MW&quot;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Solar&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hourly_energy</span><span class="p">[</span><span class="s2">&quot;hour&quot;</span><span class="p">],</span> <span class="n">hourly_energy</span><span class="p">[</span><span class="s2">&quot;wind_MW&quot;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Wind&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Hour of day&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Power [MW]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Load and renewable generation&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a8096521a332d7fa30f45ea1ee9e2cf8172ce67421118eda8f386a67b2cadd1a.png" src="_images/a8096521a332d7fa30f45ea1ee9e2cf8172ce67421118eda8f386a67b2cadd1a.png" />
+</div>
+</div>
+</section>
+<section id="id5">
+<h2>Discussion<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>Does renewable generation peak at the same time as demand? How does this connect to <strong>peak demand</strong> and <strong>renewable volatility</strong> from the lecture?</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="missing-data">
+<h1>11. Missing data<a class="headerlink" href="#missing-data" title="Link to this heading">#</a></h1>
+<p>Real sensors and communication systems do not always produce perfect datasets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>timestamp              0
+load_MW                0
+solar_MW               0
+wind_MW                2
+price_EUR_MWh          0
+frequency_Hz           0
+temperature_C          1
+renewable_MW           2
+net_load_MW            2
+renewable_share_pct    2
+hour                   0
+date                   0
+day_name               0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;wind_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>load_MW</th>
+      <th>solar_MW</th>
+      <th>wind_MW</th>
+      <th>price_EUR_MWh</th>
+      <th>frequency_Hz</th>
+      <th>temperature_C</th>
+      <th>renewable_MW</th>
+      <th>net_load_MW</th>
+      <th>renewable_share_pct</th>
+      <th>hour</th>
+      <th>date</th>
+      <th>day_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>17</th>
+      <td>2026-02-09 04:15:00</td>
+      <td>801.5</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>76.97</td>
+      <td>49.984</td>
+      <td>-6.6</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4</td>
+      <td>2026-02-09</td>
+      <td>Monday</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>2026-02-09 04:30:00</td>
+      <td>834.7</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>89.04</td>
+      <td>50.007</td>
+      <td>-7.3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4</td>
+      <td>2026-02-09</td>
+      <td>Monday</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="id6">
+<h2>Discussion<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>Why could a measurement be missing? Think about sensor problems, communication failures, maintenance, database issues and processing errors. Today we only <strong>detect</strong> missing data; later we will learn how to handle it.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="llm-checkpoint-interpretation-is-not-evidence">
+<h1>12. LLM checkpoint — interpretation is not evidence<a class="headerlink" href="#llm-checkpoint-interpretation-is-not-evidence" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary_for_llm</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;load_MW&quot;</span><span class="p">,</span><span class="s2">&quot;solar_MW&quot;</span><span class="p">,</span><span class="s2">&quot;wind_MW&quot;</span><span class="p">,</span><span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">,</span><span class="s2">&quot;frequency_Hz&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">summary_for_llm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>load_MW</th>
+      <th>solar_MW</th>
+      <th>wind_MW</th>
+      <th>price_EUR_MWh</th>
+      <th>frequency_Hz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>192.00</td>
+      <td>192.00</td>
+      <td>190.00</td>
+      <td>192.00</td>
+      <td>192.00</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>846.27</td>
+      <td>63.02</td>
+      <td>185.41</td>
+      <td>95.29</td>
+      <td>50.00</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>74.13</td>
+      <td>87.52</td>
+      <td>67.50</td>
+      <td>19.46</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>708.70</td>
+      <td>0.00</td>
+      <td>20.40</td>
+      <td>56.91</td>
+      <td>49.89</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>795.62</td>
+      <td>0.00</td>
+      <td>133.90</td>
+      <td>86.00</td>
+      <td>49.99</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>831.20</td>
+      <td>0.00</td>
+      <td>192.90</td>
+      <td>94.99</td>
+      <td>50.00</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>900.18</td>
+      <td>129.07</td>
+      <td>236.80</td>
+      <td>104.15</td>
+      <td>50.01</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1025.90</td>
+      <td>274.90</td>
+      <td>335.90</td>
+      <td>238.33</td>
+      <td>50.04</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Copy the table into an LLM and ask:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>You are assisting a junior energy analyst.
+I will provide summary statistics from a power-system dataset.
+1. Give three observations directly supported by the table.
+2. Give three hypotheses that require further testing.
+3. Do not invent events or causal explanations.
+4. Clearly label OBSERVATION and HYPOTHESIS.
+</pre></div>
+</div>
+<section id="judge">
+<h2>🧠 JUDGE<a class="headerlink" href="#judge" title="Link to this heading">#</a></h2>
+<p>Did the LLM infer temporal patterns from statistics that contain no time information? Did it confuse coincidence with cause? <strong>LLM output is a hypothesis until checked against data.</strong></p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="real-data-elering-public-api">
+<h1>13. Real data: Elering public API<a class="headerlink" href="#real-data-elering-public-api" title="Link to this heading">#</a></h1>
+<p>Now we move from synthetic data to a real public source. Elering Dashboard provides a public Nord Pool price endpoint for the Estonian price area.</p>
+<p>The code below requests the <strong>last complete local day in Estonia</strong>, converts JSON into a DataFrame, and analyses it. No API key is required for this price endpoint.</p>
+<blockquote>
+<div><p>Internet access is required. If the request fails, the notebook creates fallback data so the Pandas exercise still works.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">local_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="s2">&quot;Europe/Tallinn&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">local_end</span> <span class="o">=</span> <span class="n">local_start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">start_utc</span> <span class="o">=</span> <span class="n">local_start</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">&quot;UTC&quot;</span><span class="p">)</span>
+<span class="n">end_utc</span> <span class="o">=</span> <span class="n">local_end</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">&quot;UTC&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">milliseconds</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">iso_z</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ts</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.000Z&quot;</span><span class="p">)</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://dashboard.elering.ee/api/nps/price&quot;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">iso_z</span><span class="p">(</span><span class="n">start_utc</span><span class="p">),</span> <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">iso_z</span><span class="p">(</span><span class="n">end_utc</span><span class="p">)}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Local date:&quot;</span><span class="p">,</span> <span class="n">local_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;UTC window:&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">],</span> <span class="s2">&quot;→&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Local date: 2026-09-03
+UTC window: 2026-09-02T21:00:00.000Z → 2026-09-03T20:59:59.000Z
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">records</span> <span class="o">=</span> <span class="n">payload</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;ee&quot;</span><span class="p">]</span>
+    <span class="n">elering</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+    <span class="n">elering</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">elering</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s2">&quot;Europe/Tallinn&quot;</span><span class="p">)</span>
+    <span class="n">elering</span> <span class="o">=</span> <span class="n">elering</span><span class="p">[[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span><span class="s2">&quot;price&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">})</span>
+    <span class="n">DATA_SOURCE</span> <span class="o">=</span> <span class="s2">&quot;LIVE ELERING API&quot;</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Live API request failed:&quot;</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using fallback data.&quot;</span><span class="p">)</span>
+    <span class="n">fallback_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;2026-08-19 00:00&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">24</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;15min&quot;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;Europe/Tallinn&quot;</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">fallback_time</span><span class="o">.</span><span class="n">hour</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">+</span> <span class="n">fallback_time</span><span class="o">.</span><span class="n">minute</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">/</span><span class="mi">60</span>
+    <span class="n">fallback_price</span> <span class="o">=</span> <span class="mi">55</span> <span class="o">+</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">h</span><span class="o">-</span><span class="mi">7</span><span class="p">)</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="mi">45</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">h</span><span class="o">-</span><span class="mi">20</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">elering</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;timestamp&quot;</span><span class="p">:</span><span class="n">fallback_time</span><span class="p">,</span> <span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">:</span><span class="n">fallback_price</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)})</span>
+    <span class="n">DATA_SOURCE</span> <span class="o">=</span> <span class="s2">&quot;FALLBACK DATA&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data source:&quot;</span><span class="p">,</span> <span class="n">DATA_SOURCE</span><span class="p">)</span>
+<span class="n">elering</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data source: LIVE ELERING API
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>price_EUR_MWh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2026-09-03 00:00:00+03:00</td>
+      <td>38.26</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2026-09-03 00:15:00+03:00</td>
+      <td>34.36</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2026-09-03 00:30:00+03:00</td>
+      <td>29.63</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2026-09-03 00:45:00+03:00</td>
+      <td>26.08</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2026-09-03 01:00:00+03:00</td>
+      <td>26.15</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="inspect-the-real-dataframe">
+<h2>Inspect the real DataFrame<a class="headerlink" href="#inspect-the-real-dataframe" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape:&quot;</span><span class="p">,</span> <span class="n">elering</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">elering</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">elering</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape: (96, 2)
+timestamp        datetime64[ns, Europe/Tallinn]
+price_EUR_MWh                           float64
+dtype: object
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>price_EUR_MWh</th>
+      <td>96.0</td>
+      <td>51.33</td>
+      <td>37.05</td>
+      <td>16.0</td>
+      <td>26.13</td>
+      <td>38.66</td>
+      <td>51.97</td>
+      <td>158.19</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="do-not-assume-the-sampling-interval">
+<h2>Do not assume the sampling interval<a class="headerlink" href="#do-not-assume-the-sampling-interval" title="Link to this heading">#</a></h2>
+<p>Different energy datasets have different sampling rates. Let the data tell us the interval.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_differences</span> <span class="o">=</span> <span class="n">elering</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">time_differences</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>timestamp
+0 days 00:15:00    95
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<section id="your-turn-real-elering-data">
+<h3>🐼 Your turn — real Elering data<a class="headerlink" href="#your-turn-real-elering-data" title="Link to this heading">#</a></h3>
+<p>Use Pandas to find: minimum price, maximum price, mean price, timestamp of the maximum, and number of observations above <code class="docutils literal notranslate"><span class="pre">100</span> <span class="pre">EUR/MWh</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR CODE HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">elering</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">],</span> <span class="n">elering</span><span class="p">[</span><span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Price [EUR/MWh]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elering electricity price data — </span><span class="si">{</span><span class="n">DATA_SOURCE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ab1b738cad7da45828c7438d3ebc80a43a08ab08f404c5697559951af714e128.png" src="_images/ab1b738cad7da45828c7438d3ebc80a43a08ab08f404c5697559951af714e128.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="a-tiny-demand-response-question">
+<h1>14. A tiny Demand Response question<a class="headerlink" href="#a-tiny-demand-response-question" title="Link to this heading">#</a></h1>
+<p>Imagine an EV needs <strong>1 hour of charging</strong>. If the price data use 15-minute intervals, one hour corresponds to four observations. Find the four cheapest observations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cheapest</span> <span class="o">=</span> <span class="n">elering</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;price_EUR_MWh&quot;</span><span class="p">)</span>
+<span class="n">cheapest</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>price_EUR_MWh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>24</th>
+      <td>2026-09-03 06:00:00+03:00</td>
+      <td>16.00</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2026-09-03 01:45:00+03:00</td>
+      <td>20.56</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>2026-09-03 05:00:00+03:00</td>
+      <td>20.81</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>2026-09-03 23:45:00+03:00</td>
+      <td>21.12</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="id7">
+<h2>Discussion<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>Is selecting the four individually cheapest intervals necessarily a good charging schedule? What else do we need to know: consecutive intervals, EV connection time, charging power, departure time, user preference? This is the difference between <strong>finding information</strong> and <strong>making an operational decision</strong>.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="final-challenge-sense-decide-act">
+<h1>15. Final challenge — SENSE → DECIDE → ACT<a class="headerlink" href="#final-challenge-sense-decide-act" title="Link to this heading">#</a></h1>
+<p>Work in pairs. Identify one period in the synthetic dataset that deserves attention.</p>
+<section id="sense">
+<h2>SENSE<a class="headerlink" href="#sense" title="Link to this heading">#</a></h2>
+<p>Find a period with high demand, low renewable generation, high price, or unusual frequency.</p>
+</section>
+<section id="decide">
+<h2>DECIDE<a class="headerlink" href="#decide" title="Link to this heading">#</a></h2>
+<p>Calculate at least <strong>two numerical indicators</strong> and create one useful plot or filtered table.</p>
+</section>
+<section id="ask">
+<h2>ASK<a class="headerlink" href="#ask" title="Link to this heading">#</a></h2>
+<p>Ask an LLM:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>You are assisting a power-system operator.
+Here are the measurements and indicators I selected:
+[paste evidence]
+Suggest two possible actions. For each action explain why it may help, list assumptions, and state what additional data are needed. Do not claim that an action is optimal or safe without further validation.
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h2>JUDGE<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>Which recommendation is actually supported by your data?</p>
+</section>
+<section id="act">
+<h2>ACT<a class="headerlink" href="#act" title="Link to this heading">#</a></h2>
+<p>Prepare a 60-second briefing:
+<strong>We observed … The evidence is … We recommend investigating/considering … Before acting, we still need …</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># YOUR ANALYSIS HERE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="reflection">
+<h1>16. Reflection<a class="headerlink" href="#reflection" title="Link to this heading">#</a></h1>
+<section id="python-pandas">
+<h2>Python &amp; Pandas<a class="headerlink" href="#python-pandas" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>What is a variable?</p></li>
+<li><p>What is a list?</p></li>
+<li><p>What is a DataFrame?</p></li>
+<li><p>What is the difference between a row and a column?</p></li>
+<li><p>What does filtering do?</p></li>
+<li><p>What does <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> do?</p></li>
+</ol>
+</section>
+<section id="energy-informatics">
+<h2>Energy Informatics<a class="headerlink" href="#energy-informatics" title="Link to this heading">#</a></h2>
+<ol class="arabic simple" start="7">
+<li><p>Give one example of a measurement and one example of derived information.</p></li>
+<li><p>Why can renewable variability make operation harder?</p></li>
+<li><p>Why do missing measurements matter?</p></li>
+</ol>
+</section>
+<section id="elering">
+<h2>Elering<a class="headerlink" href="#elering" title="Link to this heading">#</a></h2>
+<ol class="arabic simple" start="10">
+<li><p>What did the Elering dashboard show that connects to Lecture 2?</p></li>
+<li><p>What was the time resolution of the price data you retrieved?</p></li>
+<li><p>Why should you check time resolution instead of assuming it?</p></li>
+</ol>
+</section>
+<section id="llm">
+<h2>LLM<a class="headerlink" href="#llm" title="Link to this heading">#</a></h2>
+<ol class="arabic simple" start="13">
+<li><p>What was the LLM useful for?</p></li>
+<li><p>What still had to be verified with data?</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03_pandas_tutorial.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🐼 Pandas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04_data_science_cycle.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🔄 Data Science Lifecycle</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">⚡ Practical 2 — From Measurements to Decisions</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-python-pandas-and-elering-live">Introduction to Python, Pandas and Elering LIVE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning outcomes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-rule">Working rule</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#elering-live-energy-data-in-the-real-world">0. Elering LIVE: energy data in the real world</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pair-discussion-5-minutes">Pair discussion — 5 minutes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#python-in-10-minutes">1. Python in 10 minutes</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">🐼 Your turn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lists">Lists</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#meet-the-dataframe">2. Meet the DataFrame</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#our-smart-grid-dataset">3. Our Smart Grid dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#first-inspection">4. First inspection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">🐼 Your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptive-statistics">5. Descriptive statistics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">🐼 Your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-data">6. Selecting data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">🐼 Your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-find-important-moments">7. Filtering: find important moments</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grid-alert-your-turn">🚨 Grid Alert — your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#from-measurements-to-information">8. From measurements to information</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">🐼 Your turn</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-data-has-time">9. Energy data has time</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-discover-a-daily-pattern">10. GroupBy: discover a daily pattern</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#think-test">🤔 THINK → 🐼 TEST</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data">11. Missing data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-checkpoint-interpretation-is-not-evidence">12. LLM checkpoint — interpretation is not evidence</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#judge">🧠 JUDGE</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#real-data-elering-public-api">13. Real data: Elering public API</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-the-real-dataframe">Inspect the real DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-not-assume-the-sampling-interval">Do not assume the sampling interval</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn-real-elering-data">🐼 Your turn — real Elering data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#a-tiny-demand-response-question">14. A tiny Demand Response question</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-challenge-sense-decide-act">15. Final challenge — SENSE → DECIDE → ACT</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sense">SENSE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decide">DECIDE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ask">ASK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">JUDGE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#act">ACT</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">16. Reflection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-pandas">Python &amp; Pandas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-informatics">Energy Informatics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elering">Elering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm">LLM</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
