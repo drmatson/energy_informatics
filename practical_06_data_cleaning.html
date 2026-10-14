@@ -1,0 +1,2709 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LAB: ⚡ Data Cleaning &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practical_06_data_cleaning';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🔧 Feature Engineering Tutorial" href="12_feature_engineering.html" />
+    <link rel="prev" title="📊 Outliers in Data" href="11_outliers.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practical_01_energy_data_challenge.html">⚡ LAB: Your First Energy Data Challenge</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="practical_02_python_pandas_elering.html">⚡ LAB: Intro to Python, Pandas and Elering LIVE</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_04_life_cycle.html">⚡ LAB:  Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="practical_05_visualisation.html">📊 LAB: Data Visualisation Lab</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">LAB: ⚡ Data Cleaning</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_07_feature_engineering.html">LAB: Feature Engineering 🔧⚡</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_03_time_series.html">⏱️ LAB: Time Series Detective</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_ml_baseline_lag7d.html">⚡️ Baseline Forecast: Lag‑7 Day</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="17_ml_baseline_LR.html">⚡️ Baseline Forecast: Linear Regression</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="18_ml_RF.html">🌲 Random Forest</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="19_ml_SVM.html">🧭 Support Vector Machines (SVM/SVR)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="20_ml_prophet.html">🔮 Time-Series Forecasting with Prophet</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="21_ml_chronos_tourch.html">🤖⏱️ Chronos Time‑Series Forecasting</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="22_ml_timesfm.html">🕰️🤖 TimesFM — Foundation Model for Time‑Series Forecasting</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Forecasting</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="23_forecasting_strategies.html">🔮 Forecasting Strategies</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">HEMS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="24_home_ems_pyomo.html">🏠⚡ Home Energy Management Systems (Home EMS)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practical_06_data_cleaning.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LAB: ⚡ Data Cleaning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">LAB: ⚡ Data Cleaning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datetime-missing-data-outliers">Datetime · Missing Data · Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">🎯 Learning outcomes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">0️⃣ Setup</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#datetime-detective">1️⃣ Datetime Detective 🕒</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-1-parse-and-index-the-timestamps">Task 1.1 — Parse and index the timestamps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-2-sort-before-time-series-analysis">Task 1.2 — Sort before time-series analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-3-explore-daily-observation-counts">Task 1.3 — Explore daily observation counts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-1">✍️ Checkpoint 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-checkpoint-1">🧑‍🏫 Notes — Checkpoint 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-4-preserve-the-dst-hour-correctly">Task 1.4 — Preserve the DST hour correctly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-5-find-missing-timestamps">Task 1.5 — Find missing timestamps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-6-make-the-timeline-complete">Task 1.6 — Make the timeline complete</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data-detective">2️⃣ Missing Data Detective 🕳️</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-1-visualize-missingness">Task 2.1 — Visualize missingness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-2-find-consecutive-gaps">Task 2.2 — Find consecutive gaps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-2">✍️ Checkpoint 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-checkpoint-2">🧑‍🏫 Notes — Checkpoint 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputation-playground">🧪 Imputation Playground</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-3-compare-all-methods-numerically">Task 2.3 — Compare all methods numerically</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-imputation-benchmark">🧑‍🏫 Notes — Imputation benchmark</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-checkpoint-imputation">🤖 LLM checkpoint — imputation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-4-create-an-imputed-working-copy">Task 2.4 — Create an imputed working copy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-detective">3️⃣ Outlier Detective 🚨</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-1-iqr-detector">Task 3.1 — IQR detector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-2-z-score-detector">Task 3.2 — Z-score detector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-threshold-playground">🎚️ Outlier Threshold Playground</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-3-inspect-suspicious-points-in-context">Task 3.3 — Inspect suspicious points in context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-3-error-or-real-event">✍️ Checkpoint 3 — Error or real event?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-suspicious-points">🧑‍🏫 Notes — suspicious points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-checkpoint-preprocessing-audit">🤖 LLM checkpoint — preprocessing audit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-llm-audit">🧑‍🏫 Notes — LLM audit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-final-cleaning-pipeline">4️⃣ Build the Final Cleaning Pipeline ✅</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-task">Final task</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-mini-challenge">🏁 Final mini-challenge</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-final-mini-challenge">🧑‍🏫 Notes — Final mini-challenge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ground-truth">🧑‍🏫 Ground truth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">✅ Takeaways</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-data-cleaning">
+<h1>LAB: ⚡ Data Cleaning<a class="headerlink" href="#lab-data-cleaning" title="Link to this heading">#</a></h1>
+<section id="datetime-missing-data-outliers">
+<h2>Datetime · Missing Data · Outliers<a class="headerlink" href="#datetime-missing-data-outliers" title="Link to this heading">#</a></h2>
+<p>In this practical, you receive a <strong>dirty hourly energy dataset</strong> and prepare it for forecasting.</p>
+<p>The dataset contains realistic data-quality problems:</p>
+<ul class="simple">
+<li><p>🕒 datetime parsing and ordering issues,</p></li>
+<li><p>🌗 a DST transition,</p></li>
+<li><p>🕳️ missing timestamps and missing values,</p></li>
+<li><p>🚨 suspicious extreme values,</p></li>
+<li><p>✅ one unusual but <strong>valid</strong> demand event.</p></li>
+</ul>
+<p><strong>Goal:</strong> finish with a defensible <code class="docutils literal notranslate"><span class="pre">clean_df</span></code> — not simply a dataset where every suspicious point has been deleted.</p>
+<blockquote>
+<div><p>Most code is already provided. Your job is to <strong>inspect, change small parameters, compare methods, and justify decisions</strong>.</p>
+</div></blockquote>
+</section>
+<section id="learning-outcomes">
+<h2>🎯 Learning outcomes<a class="headerlink" href="#learning-outcomes" title="Link to this heading">#</a></h2>
+<p>By the end of the lab you should be able to:</p>
+<ol class="arabic simple">
+<li><p>distinguish <strong>missing timestamps</strong> from <strong>NaN values</strong>;</p></li>
+<li><p>handle a DST transition without blindly deleting a repeated local hour;</p></li>
+<li><p>compare several imputation strategies experimentally;</p></li>
+<li><p>detect outliers with IQR and Z-score rules;</p></li>
+<li><p>distinguish <strong>statistical outliers</strong> from likely measurement errors;</p></li>
+<li><p>critically assess an LLM-generated preprocessing recommendation.</p></li>
+</ol>
+</section>
+<section id="setup">
+<h2>0️⃣ Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>Run this cell once. Do not edit it.</p>
+<div class="cell tag_setup tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">io</span><span class="o">,</span> <span class="nn">zlib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+    <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+    <span class="n">WIDGETS_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">WIDGETS_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ipywidgets is not installed. Interactive cells will show a fallback message.&quot;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">missingno</span> <span class="k">as</span> <span class="nn">msno</span>
+    <span class="n">MISSINGNO_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">MISSINGNO_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;missingno is not installed. The notebook will use a Matplotlib fallback.&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.width&quot;</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_decode_frame</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">zlib</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+    <span class="n">out</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="c1"># Embedded lab data. Keeping generation details out of the student workflow</span>
+<span class="c1"># makes the data-quality investigation a genuine diagnostic exercise.</span>
+<span class="n">_RAW_DATA</span> <span class="o">=</span> <span class="s2">&quot;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&quot;</span>
+<span class="n">_TRUTH_DATA</span> <span class="o">=</span> <span class="s2">&quot;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&quot;</span>
+
+<span class="n">raw_df</span> <span class="o">=</span> <span class="n">_decode_frame</span><span class="p">(</span><span class="n">_RAW_DATA</span><span class="p">)</span>
+<span class="n">_truth</span> <span class="o">=</span> <span class="n">_decode_frame</span><span class="p">(</span><span class="n">_TRUTH_DATA</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">raw_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> rows and </span><span class="si">{</span><span class="n">raw_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columns.&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">raw_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Teacher-only ground truth metadata, used only in the debrief cell.</span>
+<span class="n">_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;injected_errors&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;2024-10-22 04:00:00&#39;</span><span class="p">:</span> <span class="s1">&#39;positive spike&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-10-29 13:00:00&#39;</span><span class="p">:</span> <span class="s1">&#39;dropout-like low value&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-10-31 03:00:00&#39;</span><span class="p">:</span> <span class="s1">&#39;positive spike&#39;</span><span class="p">},</span> <span class="s1">&#39;real_event&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2024-10-25 17:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-10-25 19:00:00&#39;</span><span class="p">],</span> <span class="s1">&#39;missing_timestamps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2024-10-23 14:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-10-30 09:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-10-30 10:00:00&#39;</span><span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded 334 rows and 3 columns.
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>demand_MW</th>
+      <th>temperature_C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2024-10-20 10:00:00</td>
+      <td>881.444915</td>
+      <td>6.452522</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2024-10-20 11:00:00</td>
+      <td>828.518386</td>
+      <td>6.701154</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2024-10-20 12:00:00</td>
+      <td>861.291569</td>
+      <td>6.731365</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2024-10-20 13:00:00</td>
+      <td>837.611457</td>
+      <td>7.598482</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2024-10-20 14:00:00</td>
+      <td>859.629250</td>
+      <td>7.710379</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="datetime-detective">
+<h1>1️⃣ Datetime Detective 🕒<a class="headerlink" href="#datetime-detective" title="Link to this heading">#</a></h1>
+<p>Start with the raw dataset. <strong>Do not clean anything yet.</strong> First inspect what you actually have.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">raw_df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">raw_df</span><span class="p">[[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>timestamp        datetime64[ns]
+demand_MW               float64
+temperature_C           float64
+dtype: object
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>demand_MW</th>
+      <th>temperature_C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2024-10-20 10:00:00</td>
+      <td>881.444915</td>
+      <td>6.452522</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2024-10-20 11:00:00</td>
+      <td>828.518386</td>
+      <td>6.701154</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2024-10-20 12:00:00</td>
+      <td>861.291569</td>
+      <td>6.731365</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2024-10-20 13:00:00</td>
+      <td>837.611457</td>
+      <td>7.598482</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2024-10-20 14:00:00</td>
+      <td>859.629250</td>
+      <td>7.710379</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2024-10-20 15:00:00</td>
+      <td>868.307840</td>
+      <td>7.519997</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2024-10-20 16:00:00</td>
+      <td>902.727473</td>
+      <td>8.455898</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2024-10-20 17:00:00</td>
+      <td>931.858566</td>
+      <td>8.198492</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="task-1-1-parse-and-index-the-timestamps">
+<h2>Task 1.1 — Parse and index the timestamps<a class="headerlink" href="#task-1-1-parse-and-index-the-timestamps" title="Link to this heading">#</a></h2>
+<p>The line is already written for you. Change <code class="docutils literal notranslate"><span class="pre">dayfirst=True</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code> temporarily and see what happens, then restore the correct setting.</p>
+<p><strong>Question:</strong> Why is an explicit datetime convention safer than relying on automatic parsing?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">raw_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Monotonic before sorting:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">is_monotonic_increasing</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>datetime64[ns]
+Monotonic before sorting: False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-1-2-sort-before-time-series-analysis">
+<h2>Task 1.2 — Sort before time-series analysis<a class="headerlink" href="#task-1-2-sort-before-time-series-analysis" title="Link to this heading">#</a></h2>
+<p>Change only the marked line if needed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># MODIFY / verify this line</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Monotonic after sorting:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">is_monotonic_increasing</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Repeated local timestamps:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Monotonic after sorting: True
+Repeated local timestamps: 1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-1-3-explore-daily-observation-counts">
+<h2>Task 1.3 — Explore daily observation counts<a class="headerlink" href="#task-1-3-explore-daily-observation-counts" title="Link to this heading">#</a></h2>
+<p>A normal hourly day usually contains 24 observations. Use the dropdown around the DST transition.</p>
+<p><strong>Do not assume that 25 observations means bad data.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_day_count</span><span class="p">(</span><span class="n">day</span><span class="o">=</span><span class="s2">&quot;2024-10-27&quot;</span><span class="p">):</span>
+    <span class="n">day</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">day</span><span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span> <span class="o">==</span> <span class="n">day</span>
+    <span class="n">day_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">day</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">day_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> observations&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">day_df</span><span class="p">):</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">day_df</span><span class="p">[[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>
+
+<span class="n">_days</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;2024-10-26&quot;</span><span class="p">,</span> <span class="s2">&quot;2024-10-27&quot;</span><span class="p">,</span> <span class="s2">&quot;2024-10-28&quot;</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">WIDGETS_AVAILABLE</span><span class="p">:</span>
+    <span class="n">interact</span><span class="p">(</span><span class="n">show_day_count</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">_days</span><span class="p">);</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">_d</span> <span class="ow">in</span> <span class="n">_days</span><span class="p">:</span>
+        <span class="n">show_day_count</span><span class="p">(</span><span class="n">_d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "71f06c85ccca43d2a460ce71e8d1a35a", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="checkpoint-1">
+<h2>✍️ Checkpoint 1<a class="headerlink" href="#checkpoint-1" title="Link to this heading">#</a></h2>
+<p>Answer in 1–3 sentences each.</p>
+<ol class="arabic simple">
+<li><p>Why does 27 October contain 25 hourly observations?</p></li>
+<li><p>Would <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">df[~df.index.duplicated()]</span></code> be a safe fix here?</p></li>
+<li><p>What information is missing from a naive local timestamp?</p></li>
+</ol>
+<div class="cell tag_student-answer docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">checkpoint_1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Q1&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Q2&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Q3&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">checkpoint_1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Q1&#39;: &#39;&#39;, &#39;Q2&#39;: &#39;&#39;, &#39;Q3&#39;: &#39;&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="notes-checkpoint-1">
+<h2>🧑‍🏫 Notes — Checkpoint 1<a class="headerlink" href="#notes-checkpoint-1" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>25 observations are expected</strong> on the autumn DST transition because one local clock hour occurs twice with different UTC offsets.</p></li>
+<li><p>Blindly dropping duplicated naive timestamps would destroy a valid observation. The better fix is to retain both records and attach <code class="docutils literal notranslate"><span class="pre">Europe/Tallinn</span></code>, disambiguating the repeated hour.</p></li>
+<li><p>A naive timestamp does not contain the UTC offset / timezone, so two physically different instants may share the same local clock label.</p></li>
+</ol>
+</section>
+<section id="task-1-4-preserve-the-dst-hour-correctly">
+<h2>Task 1.4 — Preserve the DST hour correctly<a class="headerlink" href="#task-1-4-preserve-the-dst-hour-correctly" title="Link to this heading">#</a></h2>
+<p>Instead of deleting a repeated local hour, attach the correct timezone.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ambiguous=&quot;infer&quot;</span></code> uses the chronological order of the repeated observations to infer the two different UTC offsets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s2">&quot;Europe/Tallinn&quot;</span><span class="p">,</span> <span class="n">ambiguous</span><span class="o">=</span><span class="s2">&quot;infer&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Timezone:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Duplicated absolute timestamps:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2024-10-27 02:00&quot;</span><span class="p">:</span><span class="s2">&quot;2024-10-27 04:00&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Timezone: Europe/Tallinn
+Duplicated absolute timestamps: 0
+DatetimeIndex([&#39;2024-10-27 02:00:00+03:00&#39;, &#39;2024-10-27 03:00:00+03:00&#39;, &#39;2024-10-27 03:00:00+02:00&#39;,
+               &#39;2024-10-27 04:00:00+02:00&#39;],
+              dtype=&#39;datetime64[ns, Europe/Tallinn]&#39;, name=&#39;timestamp&#39;, freq=None)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-1-5-find-missing-timestamps">
+<h2>Task 1.5 — Find missing timestamps<a class="headerlink" href="#task-1-5-find-missing-timestamps" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">.isna()</span></code> cannot detect a row that does not exist. Compare both checks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NaN values currently visible:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">&quot;NaN count&quot;</span><span class="p">))</span>
+
+<span class="n">expected_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+    <span class="n">start</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+    <span class="n">end</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+    <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span>
+    <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;Europe/Tallinn&quot;</span>
+<span class="p">)</span>
+<span class="n">missing_timestamps</span> <span class="o">=</span> <span class="n">expected_index</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing timestamps:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_timestamps</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_timestamps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NaN values currently visible:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NaN count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>demand_MW</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>temperature_C</th>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Missing timestamps: 3
+DatetimeIndex([&#39;2024-10-23 14:00:00+03:00&#39;, &#39;2024-10-30 09:00:00+02:00&#39;, &#39;2024-10-30 10:00:00+02:00&#39;], dtype=&#39;datetime64[ns, Europe/Tallinn]&#39;, freq=None)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-1-6-make-the-timeline-complete">
+<h2>Task 1.6 — Make the timeline complete<a class="headerlink" href="#task-1-6-make-the-timeline-complete" title="Link to this heading">#</a></h2>
+<p>Reindexing inserts missing rows. After this step, <strong>missing timestamps become visible as NaN values</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">expected_index</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;timestamp&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rows after reindexing:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining missing timestamps:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">expected_index</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">&quot;NaN count&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rows after reindexing: 337
+Remaining missing timestamps: 0
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NaN count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>demand_MW</th>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>temperature_C</th>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="missing-data-detective">
+<h1>2️⃣ Missing Data Detective 🕳️<a class="headerlink" href="#missing-data-detective" title="Link to this heading">#</a></h1>
+<p>Now the time axis is structurally complete. Next, investigate <strong>where and how values are missing</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;missing_count&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+    <span class="s2">&quot;missing_percent&quot;</span><span class="p">:</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+<span class="p">})</span>
+<span class="n">missing_summary</span><span class="p">[</span><span class="s2">&quot;missing_percent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">missing_summary</span><span class="p">[</span><span class="s2">&quot;missing_percent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">missing_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>missing_count</th>
+      <th>missing_percent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>demand_MW</th>
+      <td>11</td>
+      <td>3.26</td>
+    </tr>
+    <tr>
+      <th>temperature_C</th>
+      <td>6</td>
+      <td>1.78</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="task-2-1-visualize-missingness">
+<h2>Task 2.1 — Visualize missingness<a class="headerlink" href="#task-2-1-visualize-missingness" title="Link to this heading">#</a></h2>
+<p>If <code class="docutils literal notranslate"><span class="pre">missingno</span></code> is installed, use its matrix. Otherwise the fallback plot shows the same idea.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="n">MISSINGNO_AVAILABLE</span><span class="p">:</span>
+    <span class="n">msno</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)),</span> <span class="n">cols</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time index&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Missing values (bright = missing)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/45aa2d14f25a653890a5840e1b89c3c1f09c1b4048710c11754a0ef27efc46d1.png" src="_images/45aa2d14f25a653890a5840e1b89c3c1f09c1b4048710c11754a0ef27efc46d1.png" />
+</div>
+</div>
+</section>
+<section id="task-2-2-find-consecutive-gaps">
+<h2>Task 2.2 — Find consecutive gaps<a class="headerlink" href="#task-2-2-find-consecutive-gaps" title="Link to this heading">#</a></h2>
+<p>The helper below reports lengths of missing blocks. Change <code class="docutils literal notranslate"><span class="pre">column</span></code> in the widget/dropdown.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">missing_blocks</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">!=</span> <span class="n">m</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+    <span class="n">blocks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">series</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">blocks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">part</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                <span class="s2">&quot;hours&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">),</span>
+            <span class="p">})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">blocks</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">show_missing_blocks</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">missing_blocks</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing blocks in </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">out</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;No missing blocks&quot;</span><span class="p">]}))</span>
+
+<span class="k">if</span> <span class="n">WIDGETS_AVAILABLE</span><span class="p">:</span>
+    <span class="n">interact</span><span class="p">(</span><span class="n">show_missing_blocks</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]);</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">show_missing_blocks</span><span class="p">(</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">)</span>
+    <span class="n">show_missing_blocks</span><span class="p">(</span><span class="s2">&quot;temperature_C&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "737be29a63fd457f895fa09e20f3d95f", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="checkpoint-2">
+<h2>✍️ Checkpoint 2<a class="headerlink" href="#checkpoint-2" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Is a one-hour gap equivalent to a six-hour gap for imputation?</p></li>
+<li><p>Which is more dangerous for a forecasting dataset: a missing value you can see, or a missing timestamp you fail to detect?</p></li>
+<li><p>Would you use the same imputation rule for demand and temperature? Why/why not?</p></li>
+</ol>
+<div class="cell tag_student-answer docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">checkpoint_2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Q1&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Q2&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Q3&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">checkpoint_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Q1&#39;: &#39;&#39;, &#39;Q2&#39;: &#39;&#39;, &#39;Q3&#39;: &#39;&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="notes-checkpoint-2">
+<h2>🧑‍🏫 Notes — Checkpoint 2<a class="headerlink" href="#notes-checkpoint-2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A 1-hour gap is usually much safer for local interpolation than a 6-hour or 8-hour block.</p></li>
+<li><p>A missing timestamp is especially dangerous because ordinary <code class="docutils literal notranslate"><span class="pre">isna()</span></code> checks cannot see a row that is absent.</p></li>
+<li><p>Variables have different dynamics: temperature is comparatively smooth, while demand has sharper behavioural peaks. A method should match the variable and gap length.</p></li>
+</ul>
+</section>
+<section id="imputation-playground">
+<h2>🧪 Imputation Playground<a class="headerlink" href="#imputation-playground" title="Link to this heading">#</a></h2>
+<p>Instead of guessing, we can <strong>hide known values deliberately</strong> and see how well each method reconstructs them.</p>
+<p>The benchmark hides six consecutive demand observations whose true values are known internally.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">impute_series</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Forward fill&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Backward fill&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">bfill</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Mean&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Median&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Linear interpolation&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Time interpolation&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Hourly median&quot;</span><span class="p">:</span>
+        <span class="n">hourly</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+        <span class="n">fill</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">out</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">hourly</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+
+<span class="c1"># A clean two-day window, away from DST and injected sensor errors.</span>
+<span class="n">_benchmark</span> <span class="o">=</span> <span class="n">_truth</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;2024-10-25&quot;</span><span class="p">:</span><span class="s2">&quot;2024-10-26&quot;</span><span class="p">,</span> <span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">_gap_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;2024-10-26 03:00&quot;</span><span class="p">)</span>
+<span class="n">_gap_end</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s2">&quot;2024-10-26 08:00&quot;</span><span class="p">)</span>
+<span class="n">_gap_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">_benchmark</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">_gap_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">_benchmark</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;=</span> <span class="n">_gap_end</span><span class="p">)</span>
+
+<span class="c1"># Wider reference used by the hourly-median method.</span>
+<span class="n">_reference</span> <span class="o">=</span> <span class="n">_truth</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">)[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">_reference</span> <span class="o">=</span> <span class="n">_reference</span><span class="p">[</span><span class="o">~</span><span class="n">_reference</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">evaluate_imputation</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;Time interpolation&quot;</span><span class="p">):</span>
+    <span class="n">observed</span> <span class="o">=</span> <span class="n">_benchmark</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">truth_gap</span> <span class="o">=</span> <span class="n">observed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">_gap_mask</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">observed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">_gap_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Hourly median&quot;</span><span class="p">:</span>
+        <span class="n">hourly</span> <span class="o">=</span> <span class="n">_reference</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">_reference</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+        <span class="n">imputed</span> <span class="o">=</span> <span class="n">observed</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">fill</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">imputed</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">imputed</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">hourly</span><span class="p">)</span>
+        <span class="n">imputed</span> <span class="o">=</span> <span class="n">imputed</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">imputed</span> <span class="o">=</span> <span class="n">impute_series</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">imputed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">_gap_mask</span><span class="p">]</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">pred</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">-</span> <span class="n">truth_gap</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">_benchmark</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">_benchmark</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;true series&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">observed</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">observed</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;observed&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pred</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pred</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;imputed: </span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">_gap_start</span><span class="p">,</span> <span class="n">_gap_end</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Demand (MW)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2"> — hidden-gap RMSE = </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">rmse</span>
+
+<span class="n">_methods</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Forward fill&quot;</span><span class="p">,</span> <span class="s2">&quot;Backward fill&quot;</span><span class="p">,</span> <span class="s2">&quot;Mean&quot;</span><span class="p">,</span> <span class="s2">&quot;Median&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Linear interpolation&quot;</span><span class="p">,</span> <span class="s2">&quot;Time interpolation&quot;</span><span class="p">,</span> <span class="s2">&quot;Hourly median&quot;</span>
+<span class="p">]</span>
+
+<span class="k">if</span> <span class="n">WIDGETS_AVAILABLE</span><span class="p">:</span>
+    <span class="n">interact</span><span class="p">(</span><span class="n">evaluate_imputation</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">_methods</span><span class="p">);</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">evaluate_imputation</span><span class="p">(</span><span class="s2">&quot;Time interpolation&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "dc6c05ccccd646d4ba3c50d5e62334d2", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="task-2-3-compare-all-methods-numerically">
+<h3>Task 2.3 — Compare all methods numerically<a class="headerlink" href="#task-2-3-compare-all-methods-numerically" title="Link to this heading">#</a></h3>
+<p>Run the cell. Then change <code class="docutils literal notranslate"><span class="pre">BEST_METHOD_GUESS</span></code> to your preferred method <strong>before</strong> looking at the sorted table.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BEST_METHOD_GUESS</span> <span class="o">=</span> <span class="s2">&quot;Time interpolation&quot;</span>  <span class="c1"># change if you want</span>
+
+<span class="n">_scores</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">_methods</span><span class="p">:</span>
+    <span class="n">observed</span> <span class="o">=</span> <span class="n">_benchmark</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">truth_gap</span> <span class="o">=</span> <span class="n">observed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">_gap_mask</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">observed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">_gap_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Hourly median&quot;</span><span class="p">:</span>
+        <span class="n">hourly</span> <span class="o">=</span> <span class="n">_reference</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">_reference</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+        <span class="n">fill</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">observed</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">observed</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">hourly</span><span class="p">)</span>
+        <span class="n">pred_series</span> <span class="o">=</span> <span class="n">observed</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pred_series</span> <span class="o">=</span> <span class="n">impute_series</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">pred_series</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">_gap_mask</span><span class="p">]</span>
+    <span class="n">_scores</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">pred</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">-</span> <span class="n">truth_gap</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="n">score_table</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">_scores</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;RMSE_MW&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">score_table</span><span class="p">[</span><span class="s2">&quot;your_guess&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">score_table</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">BEST_METHOD_GUESS</span>
+<span class="n">display</span><span class="p">(</span><span class="n">score_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RMSE_MW</th>
+      <th>your_guess</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Hourly median</th>
+      <td>10.52</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Linear interpolation</th>
+      <td>18.85</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Time interpolation</th>
+      <td>18.85</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>Median</th>
+      <td>45.21</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Forward fill</th>
+      <td>55.53</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Mean</th>
+      <td>59.95</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Backward fill</th>
+      <td>62.98</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="notes-imputation-benchmark">
+<h3>🧑‍🏫 Notes — Imputation benchmark<a class="headerlink" href="#notes-imputation-benchmark" title="Link to this heading">#</a></h3>
+<p>There is <strong>no universal winner</strong>. In this deterministic dataset, local interpolation methods usually perform well because the hidden six-hour region sits on a smooth part of the daily demand curve. The important learning objective is that students <strong>measure reconstruction error instead of defending a method only by intuition</strong>.</p>
+<p>Useful discussion point: a method that wins on this synthetic gap may not win on a holiday, outage, morning ramp, or multi-day gap.</p>
+</section>
+<section id="llm-checkpoint-imputation">
+<h3>🤖 LLM checkpoint — imputation<a class="headerlink" href="#llm-checkpoint-imputation" title="Link to this heading">#</a></h3>
+<p>Ask an LLM something like:</p>
+<blockquote>
+<div><p><em>I have hourly electricity demand data with a six-hour missing block from 03:00–08:00. Which imputation method should I use: forward fill, interpolation, global mean/median, or hour-of-day median? Explain the assumptions behind your choice.</em></p>
+</div></blockquote>
+<p>Then compare the recommendation with your empirical benchmark.</p>
+<p><strong>Important:</strong> the LLM does not know the hidden ground truth. Your experiment does.</p>
+<div class="cell tag_student-answer docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">llm_imputation_review</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;LLM_recommendation&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;best_empirical_method&quot;</span><span class="p">:</span> <span class="n">score_table</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s2">&quot;agree_or_disagree&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">llm_imputation_review</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;LLM_recommendation&#39;: &#39;&#39;,
+ &#39;best_empirical_method&#39;: &#39;Hourly median&#39;,
+ &#39;agree_or_disagree&#39;: &#39;&#39;,
+ &#39;reason&#39;: &#39;&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-2-4-create-an-imputed-working-copy">
+<h3>Task 2.4 — Create an imputed working copy<a class="headerlink" href="#task-2-4-create-an-imputed-working-copy" title="Link to this heading">#</a></h3>
+<p>For this lab we use a <strong>hybrid rule</strong>:</p>
+<ul class="simple">
+<li><p>temperature → time interpolation;</p></li>
+<li><p>demand → time interpolation for short gaps, then hour-of-day median for anything still missing.</p></li>
+</ul>
+<p>You may later argue for a different policy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">work</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Temperature is usually smooth enough for local interpolation over short gaps.</span>
+<span class="n">work</span><span class="p">[</span><span class="s2">&quot;temperature_C&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">work</span><span class="p">[</span><span class="s2">&quot;temperature_C&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">limit_direction</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
+<span class="c1"># Demand: interpolate only short gaps first.</span>
+<span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">limit_direction</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
+<span class="c1"># Fill any remaining demand gaps with a robust hour-of-day profile.</span>
+<span class="n">hourly_median</span> <span class="o">=</span> <span class="n">work</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span><span class="p">)[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">hourly_fill</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">work</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">hourly_median</span><span class="p">)</span>
+<span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">hourly_fill</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">work</span><span class="p">[[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>demand_MW        0
+temperature_C    0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="outlier-detective">
+<h1>3️⃣ Outlier Detective 🚨<a class="headerlink" href="#outlier-detective" title="Link to this heading">#</a></h1>
+<p>Now all required values exist, but some measurements are suspicious.</p>
+<p>Remember:</p>
+<blockquote>
+<div><p><strong>statistical outlier ≠ measurement error</strong></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">work</span><span class="p">[[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Demand after missing-data treatment&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;MW&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>demand_MW</th>
+      <td>337.0</td>
+      <td>922.512817</td>
+      <td>105.226249</td>
+      <td>70.677764</td>
+      <td>878.863428</td>
+      <td>916.991486</td>
+      <td>958.433369</td>
+      <td>1867.672425</td>
+    </tr>
+    <tr>
+      <th>temperature_C</th>
+      <td>337.0</td>
+      <td>5.991432</td>
+      <td>2.323087</td>
+      <td>1.083872</td>
+      <td>3.928571</td>
+      <td>5.980312</td>
+      <td>7.997687</td>
+      <td>10.438171</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/c9c379727b03f63fa93456e34823ecb115f9bf4e467b7b549e2c6467899490c2.png" src="_images/c9c379727b03f63fa93456e34823ecb115f9bf4e467b7b549e2c6467899490c2.png" />
+</div>
+</div>
+<section id="task-3-1-iqr-detector">
+<h2>Task 3.1 — IQR detector<a class="headerlink" href="#task-3-1-iqr-detector" title="Link to this heading">#</a></h2>
+<p>The standard rule uses <code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">1.5</span></code>. Change it to 1.0, 2.0 and 3.0 and observe how the number of flagged points changes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">iqr_mask</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">1.5</span><span class="p">):</span>
+    <span class="n">q1</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">q3</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+    <span class="n">iqr</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">-</span> <span class="n">k</span> <span class="o">*</span> <span class="n">iqr</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="n">iqr</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">series</span> <span class="o">&lt;</span> <span class="n">lower</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">series</span> <span class="o">&gt;</span> <span class="n">upper</span><span class="p">),</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span>
+
+<span class="n">mask_iqr</span><span class="p">,</span> <span class="n">lower_iqr</span><span class="p">,</span> <span class="n">upper_iqr</span> <span class="o">=</span> <span class="n">iqr_mask</span><span class="p">(</span><span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;IQR flags:&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">mask_iqr</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bounds: </span><span class="si">{</span><span class="n">lower_iqr</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> .. </span><span class="si">{</span><span class="n">upper_iqr</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>IQR flags: 6
+Bounds: 759.5 .. 1077.8 MW
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-3-2-z-score-detector">
+<h2>Task 3.2 — Z-score detector<a class="headerlink" href="#task-3-2-z-score-detector" title="Link to this heading">#</a></h2>
+<p>Change the threshold from <code class="docutils literal notranslate"><span class="pre">3.0</span></code> to <code class="docutils literal notranslate"><span class="pre">2.0</span></code> and <code class="docutils literal notranslate"><span class="pre">4.0</span></code>. Why do the results differ from IQR?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">zscore_mask</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">series</span> <span class="o">-</span> <span class="n">series</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">series</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">z</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">threshold</span>
+
+<span class="n">mask_z</span> <span class="o">=</span> <span class="n">zscore_mask</span><span class="p">(</span><span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">],</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Z-score flags:&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">mask_z</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Flagged by both:&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">((</span><span class="n">mask_iqr</span> <span class="o">&amp;</span> <span class="n">mask_z</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Z-score flags: 4
+Flagged by both: 4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="outlier-threshold-playground">
+<h2>🎚️ Outlier Threshold Playground<a class="headerlink" href="#outlier-threshold-playground" title="Link to this heading">#</a></h2>
+<p>Move the threshold and compare IQR with Z-score visually.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">outlier_playground</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;IQR&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1.5</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;IQR&quot;</span><span class="p">:</span>
+        <span class="n">mask</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">iqr_mask</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">threshold</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">zscore_mask</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">threshold</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;demand&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;flagged&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;MW&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">, threshold=</span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2"> flagged points&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">WIDGETS_AVAILABLE</span><span class="p">:</span>
+    <span class="n">method_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;IQR&quot;</span><span class="p">,</span> <span class="s2">&quot;Z-score&quot;</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;IQR&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Method:&quot;</span><span class="p">)</span>
+    <span class="n">threshold_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Threshold:&quot;</span><span class="p">,</span> <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">interact</span><span class="p">(</span><span class="n">outlier_playground</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method_widget</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold_widget</span><span class="p">);</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">outlier_playground</span><span class="p">(</span><span class="s2">&quot;IQR&quot;</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2f90bd91fd1f4681b39923f3dac1ddbb", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="task-3-3-inspect-suspicious-points-in-context">
+<h3>Task 3.3 — Inspect suspicious points in context<a class="headerlink" href="#task-3-3-inspect-suspicious-points-in-context" title="Link to this heading">#</a></h3>
+<p>A detector should <strong>generate candidates</strong>, not make the final decision automatically.</p>
+<p>Use the table and local windows below. Pay attention to whether an extreme point is isolated or supported by neighbouring values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_mask</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">iqr_mask</span><span class="p">(</span><span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">candidates</span> <span class="o">=</span> <span class="n">work</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">candidate_mask</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">candidates</span><span class="p">[</span><span class="s2">&quot;z_score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">work</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">candidate_mask</span><span class="p">,</span> <span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">candidates</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">candidates</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand_MW</th>
+      <th>temperature_C</th>
+      <th>z_score</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2024-10-29 13:00:00+02:00</th>
+      <td>70.677764</td>
+      <td>7.230024</td>
+      <td>-8.11</td>
+    </tr>
+    <tr>
+      <th>2024-10-25 19:00:00+03:00</th>
+      <td>1185.101303</td>
+      <td>5.818003</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <th>2024-10-25 17:00:00+03:00</th>
+      <td>1202.683264</td>
+      <td>4.475998</td>
+      <td>2.67</td>
+    </tr>
+    <tr>
+      <th>2024-10-25 18:00:00+03:00</th>
+      <td>1246.965215</td>
+      <td>5.234853</td>
+      <td>3.09</td>
+    </tr>
+    <tr>
+      <th>2024-10-22 04:00:00+03:00</th>
+      <td>1800.982257</td>
+      <td>7.536901</td>
+      <td>8.36</td>
+    </tr>
+    <tr>
+      <th>2024-10-31 03:00:00+02:00</th>
+      <td>1867.672425</td>
+      <td>4.023377</td>
+      <td>9.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand_MW</th>
+      <th>temperature_C</th>
+      <th>z_score</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2024-10-31 03:00:00+02:00</th>
+      <td>1867.672425</td>
+      <td>4.023377</td>
+      <td>9.00</td>
+    </tr>
+    <tr>
+      <th>2024-10-22 04:00:00+03:00</th>
+      <td>1800.982257</td>
+      <td>7.536901</td>
+      <td>8.36</td>
+    </tr>
+    <tr>
+      <th>2024-10-25 18:00:00+03:00</th>
+      <td>1246.965215</td>
+      <td>5.234853</td>
+      <td>3.09</td>
+    </tr>
+    <tr>
+      <th>2024-10-25 17:00:00+03:00</th>
+      <td>1202.683264</td>
+      <td>4.475998</td>
+      <td>2.67</td>
+    </tr>
+    <tr>
+      <th>2024-10-25 19:00:00+03:00</th>
+      <td>1185.101303</td>
+      <td>5.818003</td>
+      <td>2.50</td>
+    </tr>
+    <tr>
+      <th>2024-10-29 13:00:00+02:00</th>
+      <td>70.677764</td>
+      <td>7.230024</td>
+      <td>-8.11</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">inspect_window</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;Europe/Tallinn&quot;</span><span class="p">)</span>
+    <span class="n">window</span> <span class="o">=</span> <span class="n">work</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ts</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="n">hours</span><span class="p">):</span> <span class="n">ts</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="n">hours</span><span class="p">),</span> <span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">window</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Context around </span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;MW&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Try changing the timestamp to other suspicious candidates.</span>
+<span class="n">inspect_window</span><span class="p">(</span><span class="s2">&quot;2024-10-22 04:00&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand_MW</th>
+      <th>temperature_C</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2024-10-22 01:00:00+03:00</th>
+      <td>837.350425</td>
+      <td>9.238771</td>
+    </tr>
+    <tr>
+      <th>2024-10-22 02:00:00+03:00</th>
+      <td>843.445062</td>
+      <td>8.996822</td>
+    </tr>
+    <tr>
+      <th>2024-10-22 03:00:00+03:00</th>
+      <td>847.019641</td>
+      <td>8.805147</td>
+    </tr>
+    <tr>
+      <th>2024-10-22 04:00:00+03:00</th>
+      <td>1800.982257</td>
+      <td>7.536901</td>
+    </tr>
+    <tr>
+      <th>2024-10-22 05:00:00+03:00</th>
+      <td>852.604456</td>
+      <td>7.757307</td>
+    </tr>
+    <tr>
+      <th>2024-10-22 06:00:00+03:00</th>
+      <td>912.675443</td>
+      <td>7.452008</td>
+    </tr>
+    <tr>
+      <th>2024-10-22 07:00:00+03:00</th>
+      <td>929.232233</td>
+      <td>7.205740</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/c75bc104c03e166a580e6917c1b783ab963d59433f435d3c068bac366a80f730.png" src="_images/c75bc104c03e166a580e6917c1b783ab963d59433f435d3c068bac366a80f730.png" />
+</div>
+</div>
+</section>
+<section id="checkpoint-3-error-or-real-event">
+<h3>✍️ Checkpoint 3 — Error or real event?<a class="headerlink" href="#checkpoint-3-error-or-real-event" title="Link to this heading">#</a></h3>
+<p>Classify at least three suspicious points as:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">likely</span> <span class="pre">measurement</span> <span class="pre">error</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">possibly</span> <span class="pre">real</span> <span class="pre">event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">enough</span> <span class="pre">information</span></code></p></li>
+</ul>
+<p>Do <strong>not</strong> justify a decision only with “the value is outside the IQR”.</p>
+<div class="cell tag_student-answer docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outlier_review</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;2024-10-22 04:00&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;2024-10-25 18:00&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;2024-10-29 13:00&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;2024-10-31 03:00&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;decision&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;reason&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">outlier_review</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>timestamp</th>
+      <th>decision</th>
+      <th>reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2024-10-22 04:00</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2024-10-25 18:00</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2024-10-29 13:00</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2024-10-31 03:00</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="notes-suspicious-points">
+<h3>🧑‍🏫 Notes — suspicious points<a class="headerlink" href="#notes-suspicious-points" title="Link to this heading">#</a></h3>
+<p>Expected classification:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">2024-10-22</span> <span class="pre">04:00</span></code> → likely measurement error (isolated positive spike)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2024-10-25</span> <span class="pre">18:00</span></code> → <strong>real event / keep</strong> (multi-hour elevated demand, locally consistent)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2024-10-29</span> <span class="pre">13:00</span></code> → likely measurement error (isolated implausibly low dropout-like value)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2024-10-31</span> <span class="pre">03:00</span></code> → likely measurement error (isolated positive spike)</p></li>
+</ul>
+<p>The important point is that the <strong>real event can still be flagged statistically</strong>. Context, persistence, domain information, and neighbouring measurements matter.</p>
+</section>
+<section id="llm-checkpoint-preprocessing-audit">
+<h3>🤖 LLM checkpoint — preprocessing audit<a class="headerlink" href="#llm-checkpoint-preprocessing-audit" title="Link to this heading">#</a></h3>
+<p>Give an LLM this compact report and ask it to propose a cleaning pipeline. Then <strong>audit the answer</strong> rather than accepting it automatically.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">report_for_llm</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;sampling&quot;</span><span class="p">:</span> <span class="s2">&quot;hourly electricity demand + temperature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;timezone&quot;</span><span class="p">:</span> <span class="s2">&quot;Europe/Tallinn&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DST_day_observations&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="s2">&quot;missing_timestamps_found&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_timestamps</span><span class="p">),</span>
+    <span class="s2">&quot;longest_demand_gap_hours&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">missing_blocks</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">])[</span><span class="s2">&quot;hours&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+    <span class="s2">&quot;IQR_flags_k_1_5&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">mask_iqr</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+    <span class="s2">&quot;Zscore_flags_3_sigma&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">mask_z</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+<span class="p">}</span>
+<span class="n">report_for_llm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;sampling&#39;: &#39;hourly electricity demand + temperature&#39;,
+ &#39;timezone&#39;: &#39;Europe/Tallinn&#39;,
+ &#39;DST_day_observations&#39;: 25,
+ &#39;missing_timestamps_found&#39;: 3,
+ &#39;longest_demand_gap_hours&#39;: 6,
+ &#39;IQR_flags_k_1_5&#39;: 6,
+ &#39;Zscore_flags_3_sigma&#39;: 4}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Suggested prompt:</p>
+<blockquote>
+<div><p><em>You are reviewing hourly energy data before demand forecasting. The data has a timezone-aware DST transition, several missing timestamps, a six-hour missing-value block, and extreme values flagged by IQR/Z-score. Propose a preprocessing pipeline. For every destructive action (dropping rows, deleting outliers), state the evidence required before doing it.</em></p>
+</div></blockquote>
+<p>Now evaluate the answer.</p>
+<div class="cell tag_student-answer docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">llm_pipeline_audit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;LLM suggestion&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;Delete the repeated DST hour&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Interpolate every missing block&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Delete every IQR outlier&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Sort and validate the time index&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;Accept?&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Why?&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">llm_pipeline_audit</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>LLM suggestion</th>
+      <th>Accept?</th>
+      <th>Why?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Delete the repeated DST hour</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Interpolate every missing block</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Delete every IQR outlier</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Sort and validate the time index</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="notes-llm-audit">
+<h3>🧑‍🏫 Notes — LLM audit<a class="headerlink" href="#notes-llm-audit" title="Link to this heading">#</a></h3>
+<p>A reasonable evaluation is:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Suggestion</p></th>
+<th class="head"><p>Decision</p></th>
+<th class="head"><p>Why</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Delete repeated DST hour</p></td>
+<td><p>❌ reject</p></td>
+<td><p>it represents two different absolute instants</p></td>
+</tr>
+<tr class="row-odd"><td><p>Interpolate every missing block</p></td>
+<td><p>⚠️ conditional</p></td>
+<td><p>acceptable only when gap length and signal dynamics support it</p></td>
+</tr>
+<tr class="row-even"><td><p>Delete every IQR outlier</p></td>
+<td><p>❌ reject</p></td>
+<td><p>statistical extremeness is not evidence of measurement error</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sort and validate time index</p></td>
+<td><p>✅ accept</p></td>
+<td><p>structural prerequisite for time-series operations</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Encourage students to challenge any LLM response that performs <strong>irreversible cleaning without an evidence criterion</strong>.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="build-the-final-cleaning-pipeline">
+<h1>4️⃣ Build the Final Cleaning Pipeline ✅<a class="headerlink" href="#build-the-final-cleaning-pipeline" title="Link to this heading">#</a></h1>
+<p>At this point you should have enough evidence to build a defensible pipeline.</p>
+<p>The key idea is:</p>
+<ol class="arabic simple">
+<li><p><strong>fix structure first</strong> (time axis),</p></li>
+<li><p><strong>handle missingness second</strong>,</p></li>
+<li><p><strong>treat outliers last and conservatively</strong>.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">data_quality_report</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
+    <span class="n">numeric</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">,</span> <span class="s2">&quot;temperature_C&quot;</span><span class="p">]]</span>
+    <span class="n">iqr_flags</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">iqr_mask</span><span class="p">(</span><span class="n">numeric</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">k</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+        <span class="s2">&quot;rows&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame</span><span class="p">),</span>
+        <span class="s2">&quot;missing_values&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">numeric</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">&quot;duplicate_timestamps&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s2">&quot;IQR_flags_demand&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">iqr_flags</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+    <span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Current working dataset:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">data_quality_report</span><span class="p">(</span><span class="n">work</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Current working dataset:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rows</th>
+      <td>337</td>
+    </tr>
+    <tr>
+      <th>missing_values</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>duplicate_timestamps</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>IQR_flags_demand</th>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="final-task">
+<h2>Final task<a class="headerlink" href="#final-task" title="Link to this heading">#</a></h2>
+<p>Create <code class="docutils literal notranslate"><span class="pre">clean_df</span></code> from <code class="docutils literal notranslate"><span class="pre">work</span></code>.</p>
+<p>For the practical, use the three timestamps you classified as likely sensor errors. Replace <strong>only those values</strong> with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, then reconstruct them locally.</p>
+<p>This is intentionally different from deleting every statistical outlier.</p>
+<div class="cell tag_teacher-solution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clean_df</span> <span class="o">=</span> <span class="n">work</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># EDIT THIS LIST if your evidence led you to a different conclusion.</span>
+<span class="n">likely_sensor_errors</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;2024-10-22 04:00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;2024-10-29 13:00&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;2024-10-31 03:00&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">error_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">likely_sensor_errors</span><span class="p">)</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s2">&quot;Europe/Tallinn&quot;</span><span class="p">)</span>
+<span class="n">clean_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">error_index</span><span class="p">,</span> <span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">clean_df</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean_df</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">limit_direction</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final quality report:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">data_quality_report</span><span class="p">(</span><span class="n">clean_df</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final quality report:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>rows</th>
+      <td>337</td>
+    </tr>
+    <tr>
+      <th>missing_values</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>duplicate_timestamps</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>IQR_flags_demand</th>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">work</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">work</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;before outlier treatment&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">clean_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">clean_df</span><span class="p">[</span><span class="s2">&quot;demand_MW&quot;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;cleaned&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Demand (MW)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Before vs after conservative outlier treatment&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d93eee6672e4e26bf415a659c7e95f2b7531b030eb3f7e8ee38e9f08949196b7.png" src="_images/d93eee6672e4e26bf415a659c7e95f2b7531b030eb3f7e8ee38e9f08949196b7.png" />
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="final-mini-challenge">
+<h1>🏁 Final mini-challenge<a class="headerlink" href="#final-mini-challenge" title="Link to this heading">#</a></h1>
+<p>For each case, choose an action and justify it in one sentence.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Case</p></th>
+<th class="head"><p>Situation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>one missing demand hour</p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>eight consecutive missing demand hours</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>an extreme evening peak supported by neighbouring hours</p></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p>one value ≈10× inconsistent with neighbouring hours</p></td>
+</tr>
+<tr class="row-even"><td><p>E</p></td>
+<td><p>two local records at the repeated DST hour</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Possible actions include: interpolate, use a profile-based estimate, keep, investigate external context, replace as sensor error, localize timezone, or leave unresolved.</p>
+<div class="cell tag_student-answer docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">final_challenge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;case&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot;ABCDE&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;justification&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">final_challenge</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>case</th>
+      <th>action</th>
+      <th>justification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>D</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>E</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="notes-final-mini-challenge">
+<h2>🧑‍🏫 Notes — Final mini-challenge<a class="headerlink" href="#notes-final-mini-challenge" title="Link to this heading">#</a></h2>
+<p>Suggested answers:</p>
+<ul class="simple">
+<li><p><strong>A:</strong> local/time interpolation is usually reasonable for one missing hour if neighbouring observations are valid.</p></li>
+<li><p><strong>B:</strong> avoid blind interpolation; use a profile/model/external source and mark uncertainty, especially if the gap crosses a ramp or event.</p></li>
+<li><p><strong>C:</strong> keep it unless external evidence indicates corruption; neighbouring support suggests a real event.</p></li>
+<li><p><strong>D:</strong> investigate as likely sensor error; if confirmed, replace/mark missing and reconstruct rather than letting it distort downstream models.</p></li>
+<li><p><strong>E:</strong> preserve both observations and disambiguate using timezone/UTC offset; do not deduplicate merely by local clock label.</p></li>
+</ul>
+</section>
+<section id="ground-truth">
+<h2>🧑‍🏫 Ground truth<a class="headerlink" href="#ground-truth" title="Link to this heading">#</a></h2>
+<p>Use this only for discussion/debrief. Students should not need it to complete the exercise.</p>
+<div class="cell tag_teacher-solution docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Injected sensor errors:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ts</span><span class="p">,</span> <span class="n">kind</span> <span class="ow">in</span> <span class="n">_meta</span><span class="p">[</span><span class="s2">&quot;injected_errors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">ts</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Intentionally missing timestamps:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">_meta</span><span class="p">[</span><span class="s2">&quot;missing_timestamps&quot;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Valid unusual event:&quot;</span><span class="p">,</span> <span class="n">_meta</span><span class="p">[</span><span class="s2">&quot;real_event&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="n">_meta</span><span class="p">[</span><span class="s2">&quot;real_event&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Injected sensor errors:
+  2024-10-22 04:00:00: positive spike
+  2024-10-29 13:00:00: dropout-like low value
+  2024-10-31 03:00:00: positive spike
+
+Intentionally missing timestamps:
+  2024-10-23 14:00:00
+  2024-10-30 09:00:00
+  2024-10-30 10:00:00
+
+Valid unusual event: 2024-10-25 17:00:00 to 2024-10-25 19:00:00
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="takeaways">
+<h2>✅ Takeaways<a class="headerlink" href="#takeaways" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A time series can have <strong>missing timestamps even when <code class="docutils literal notranslate"><span class="pre">.isna()</span></code> looks fine</strong>.</p></li>
+<li><p>DST can create 23/25-hour local days; repeated local clock labels are not automatically duplicates in absolute time.</p></li>
+<li><p>Imputation methods should be compared against the <strong>structure of the signal</strong> and, where possible, empirical masking experiments.</p></li>
+<li><p>IQR and Z-score are <strong>candidate detectors</strong>, not truth machines.</p></li>
+<li><p>In energy data, an extreme value may be operationally meaningful.</p></li>
+<li><p>An LLM can propose hypotheses and code, but the analyst must validate assumptions against data and domain context.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="11_outliers.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">📊 Outliers in Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="12_feature_engineering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🔧 Feature Engineering Tutorial</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">LAB: ⚡ Data Cleaning</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datetime-missing-data-outliers">Datetime · Missing Data · Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">🎯 Learning outcomes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">0️⃣ Setup</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#datetime-detective">1️⃣ Datetime Detective 🕒</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-1-parse-and-index-the-timestamps">Task 1.1 — Parse and index the timestamps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-2-sort-before-time-series-analysis">Task 1.2 — Sort before time-series analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-3-explore-daily-observation-counts">Task 1.3 — Explore daily observation counts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-1">✍️ Checkpoint 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-checkpoint-1">🧑‍🏫 Notes — Checkpoint 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-4-preserve-the-dst-hour-correctly">Task 1.4 — Preserve the DST hour correctly</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-5-find-missing-timestamps">Task 1.5 — Find missing timestamps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-6-make-the-timeline-complete">Task 1.6 — Make the timeline complete</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data-detective">2️⃣ Missing Data Detective 🕳️</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-1-visualize-missingness">Task 2.1 — Visualize missingness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-2-find-consecutive-gaps">Task 2.2 — Find consecutive gaps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-2">✍️ Checkpoint 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-checkpoint-2">🧑‍🏫 Notes — Checkpoint 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imputation-playground">🧪 Imputation Playground</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-3-compare-all-methods-numerically">Task 2.3 — Compare all methods numerically</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-imputation-benchmark">🧑‍🏫 Notes — Imputation benchmark</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-checkpoint-imputation">🤖 LLM checkpoint — imputation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-4-create-an-imputed-working-copy">Task 2.4 — Create an imputed working copy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-detective">3️⃣ Outlier Detective 🚨</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-1-iqr-detector">Task 3.1 — IQR detector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-2-z-score-detector">Task 3.2 — Z-score detector</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-threshold-playground">🎚️ Outlier Threshold Playground</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-3-inspect-suspicious-points-in-context">Task 3.3 — Inspect suspicious points in context</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-3-error-or-real-event">✍️ Checkpoint 3 — Error or real event?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-suspicious-points">🧑‍🏫 Notes — suspicious points</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-checkpoint-preprocessing-audit">🤖 LLM checkpoint — preprocessing audit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-llm-audit">🧑‍🏫 Notes — LLM audit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-final-cleaning-pipeline">4️⃣ Build the Final Cleaning Pipeline ✅</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-task">Final task</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-mini-challenge">🏁 Final mini-challenge</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-final-mini-challenge">🧑‍🏫 Notes — Final mini-challenge</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ground-truth">🧑‍🏫 Ground truth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#takeaways">✅ Takeaways</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

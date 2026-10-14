@@ -1,0 +1,2517 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>LAB: Feature Engineering 🔧⚡ &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practical_07_feature_engineering';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Principal Component Analysis (PCA)" href="13_pca.html" />
+    <link rel="prev" title="🔧 Feature Engineering Tutorial" href="12_feature_engineering.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practical_01_energy_data_challenge.html">⚡ LAB: Your First Energy Data Challenge</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="practical_02_python_pandas_elering.html">⚡ LAB: Intro to Python, Pandas and Elering LIVE</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_04_life_cycle.html">⚡ LAB:  Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="practical_05_visualisation.html">📊 LAB: Data Visualisation Lab</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_06_data_cleaning.html">LAB: ⚡ Data Cleaning</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">LAB: Feature Engineering 🔧⚡</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_03_time_series.html">⏱️ LAB: Time Series Detective</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_ml_baseline_lag7d.html">⚡️ Baseline Forecast: Lag‑7 Day</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="17_ml_baseline_LR.html">⚡️ Baseline Forecast: Linear Regression</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="18_ml_RF.html">🌲 Random Forest</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="19_ml_SVM.html">🧭 Support Vector Machines (SVM/SVR)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="20_ml_prophet.html">🔮 Time-Series Forecasting with Prophet</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="21_ml_chronos_tourch.html">🤖⏱️ Chronos Time‑Series Forecasting</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="22_ml_timesfm.html">🕰️🤖 TimesFM — Foundation Model for Time‑Series Forecasting</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Forecasting</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="23_forecasting_strategies.html">🔮 Forecasting Strategies</a></li>
+
+
+
+
+
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">HEMS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="24_home_ems_pyomo.html">🏠⚡ Home Energy Management Systems (Home EMS)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practical_07_feature_engineering.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LAB: Feature Engineering 🔧⚡</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">LAB: Feature Engineering 🔧⚡</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning outcomes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-energy-data">1. Load the energy data ⚡</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observe-suggested-answer">💬 Observe — suggested answer</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-creation-calendar-features">2. Feature creation — calendar features 📅</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question-suggested-answer">💬 Question — suggested answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cyclical-encoding">2.1 Cyclical encoding ⏰</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-raw-distance-vs-cyclical-distance">🎛️ Interactive: raw distance vs cyclical distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpret-suggested-answer">💬 Interpret — suggested answer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#leakage-detective">3. Leakage detective 🕵️‍♀️</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-safe-lag-and-rolling-features">3.1 Create safe lag and rolling features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#leakage-check-suggested-answer">💬 Leakage check — suggested answer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#external-domain-specific-features">4. External + domain-specific features 🌦️🔥</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heating-degree-feature">4.1 Heating degree feature</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#think-like-a-modeller-suggested-answer">💬 Think like a modeller — suggested answer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation-vs-scaling">5. Transformation vs scaling 🔄⚖️</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions-suggested-answer">💬 Questions — suggested answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-a-knn-when-scaling-makes-a-big-difference">5.1 Experiment A — KNN: when scaling makes a big difference 🧪</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-suggested-answers">💬 KNN — suggested answers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-b-random-forest-on-real-electricity-demand">5.2 Experiment B — Random Forest on real electricity demand 🌲⚡</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-the-two-experiments-suggested-answers">💬 Compare the two experiments — suggested answers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-selection-useful-redundant-or-noisy">6. Feature selection — useful, redundant, or noisy? 🎯</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions-instructor-notes">💬 Questions — instructor notes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-feature-lab-do-engineered-features-improve-random-forest">7. Interactive feature lab — do engineered features improve Random Forest? 🧪</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-experiment">🧪 Required experiment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">💬 Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-feature-idea-challenge">8. LLM feature-idea challenge 🤖</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-one-llm-suggestion">✏️ Implement ONE LLM suggestion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defend-your-feature-example-answer">💬 Defend your feature — example answer</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-checkpoint-suggested-answers">9. Final checkpoint ✅ — suggested answers</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-sentence-takeaway">One-sentence takeaway</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-feature-engineering">
+<h1>LAB: Feature Engineering 🔧⚡<a class="headerlink" href="#lab-feature-engineering" title="Link to this heading">#</a></h1>
+<p><strong>Goal:</strong> turn raw energy time series into useful, defensible features — and explain <em>why</em> each feature exists.</p>
+<p>This practical is intentionally different from a step-by-step tutorial. You will:</p>
+<ul class="simple">
+<li><p>✏️ <strong>complete small pieces of code</strong> rather than write everything from scratch,</p></li>
+<li><p>💬 <strong>answer short interpretation questions</strong>,</p></li>
+<li><p>🧪 <strong>change parameters and observe what happens</strong>,</p></li>
+<li><p>🎛️ use a few <strong>interactive widgets</strong>,</p></li>
+<li><p>🤖 use an <strong>LLM as a feature-idea generator</strong>, then verify its suggestions yourself.</p></li>
+</ul>
+<section id="learning-outcomes">
+<h2>Learning outcomes<a class="headerlink" href="#learning-outcomes" title="Link to this heading">#</a></h2>
+<p>By the end, you should be able to distinguish and apply:</p>
+<ol class="arabic simple">
+<li><p><strong>feature creation</strong>,</p></li>
+<li><p><strong>scaling</strong>,</p></li>
+<li><p><strong>transformation</strong>,</p></li>
+<li><p><strong>feature extraction</strong> (conceptually),</p></li>
+<li><p><strong>feature selection</strong>,</p></li>
+</ol>
+<p>and detect a particularly dangerous energy-forecasting problem: <strong>data leakage</strong>.</p>
+<blockquote>
+<div><p><strong>Working rule:</strong> a feature is useful only if it is meaningful <strong>and available at prediction time</strong>.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Core imports</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">mutual_info_regression</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Markdown</span>
+
+<span class="c1"># Interactive widgets</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+    <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+    <span class="n">WIDGETS_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">WIDGETS_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ipywidgets is not installed. The core exercises still work, but interactive cells will be skipped.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">TODO</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Complete this line&quot;</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;TODO: &quot;</span> <span class="o">+</span> <span class="n">message</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">nrmse</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;NRMSE (%) = RMSE / (max(y_true) - min(y_true)) * 100.</span>
+
+<span class="sd">    Normalisation uses the observed target range in the evaluation set.</span>
+<span class="sd">    Lower values indicate better predictions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">target_range</span> <span class="o">=</span> <span class="n">y_true</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">y_true</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">target_range</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;NRMSE is undefined when the evaluation target has zero range.&quot;</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+    <span class="k">return</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">rmse</span> <span class="o">/</span> <span class="n">target_range</span>
+
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="load-the-energy-data">
+<h1>1. Load the energy data ⚡<a class="headerlink" href="#load-the-energy-data" title="Link to this heading">#</a></h1>
+<p>Both CSV files are read <strong>directly from GitHub</strong> at runtime; nothing is saved locally. An internet connection is required.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read directly from GitHub (no local files or downloads)</span>
+<span class="n">ENERGY_URL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;https://raw.githubusercontent.com/drmatson/energy_informatics/main/data/&#39;</span>
+    <span class="s1">&#39;electricity-production</span><span class="si">%20a</span><span class="s1">nd</span><span class="si">%20c</span><span class="s1">onsumption_2022.csv&#39;</span>
+<span class="p">)</span>
+<span class="n">elering</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ENERGY_URL</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="c1"># The source uses day.month.year hour:minute in Estonian local time.</span>
+<span class="n">elering</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+    <span class="n">elering</span><span class="p">[</span><span class="s1">&#39;Kuupaev (Eesti aeg)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y %H:%M&#39;</span><span class="p">,</span>
+    <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;raise&#39;</span>
+<span class="p">)</span>
+<span class="n">elering</span> <span class="o">=</span> <span class="n">elering</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">elering</span><span class="p">[[</span><span class="s1">&#39;Tarbimine&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Tarbimine&#39;</span><span class="p">:</span> <span class="s1">&#39;demand&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Demand:&#39;</span><span class="p">,</span> <span class="n">demand</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;| first:&#39;</span><span class="p">,</span> <span class="n">demand</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;| last:&#39;</span><span class="p">,</span> <span class="n">demand</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">demand</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Demand: (8760, 1) | first: 2022-01-01 00:00:00 | last: 2022-12-31 23:00:00
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>899.4</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>892.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>874.3</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>860.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>842.7</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quick visual check</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Estonia electricity demand — 2022&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7d45139d0bc05972d41479b15bbf97a3098ffb02b8a702fa6bdec9d496e03c49.png" src="_images/7d45139d0bc05972d41479b15bbf97a3098ffb02b8a702fa6bdec9d496e03c49.png" />
+</div>
+</div>
+<section id="observe-suggested-answer">
+<h2>💬 Observe — suggested answer<a class="headerlink" href="#observe-suggested-answer" title="Link to this heading">#</a></h2>
+<p>Likely patterns include:</p>
+<ol class="arabic simple">
+<li><p><strong>daily/diurnal cycle</strong> (night vs morning/evening activity),</p></li>
+<li><p><strong>weekly cycle</strong> (working days vs weekends).</p></li>
+</ol>
+<p>Seasonal effects may also appear across the year.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="feature-creation-calendar-features">
+<h1>2. Feature creation — calendar features 📅<a class="headerlink" href="#feature-creation-calendar-features" title="Link to this heading">#</a></h1>
+<p>Complete only the missing pieces. Do not rewrite the whole cell.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Solution — calendar features</span>
+
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">hour</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dayofweek</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;is_weekend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday&#39;</span><span class="p">,</span> <span class="s1">&#39;is_weekend&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>hour</th>
+      <th>weekday</th>
+      <th>is_weekend</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>899.4</td>
+      <td>0</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>892.1</td>
+      <td>1</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>874.3</td>
+      <td>2</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>860.1</td>
+      <td>3</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>842.7</td>
+      <td>4</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 05:00:00</th>
+      <td>844.7</td>
+      <td>5</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 06:00:00</th>
+      <td>852.2</td>
+      <td>6</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 07:00:00</th>
+      <td>868.4</td>
+      <td>7</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 08:00:00</th>
+      <td>874.8</td>
+      <td>8</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 09:00:00</th>
+      <td>882.0</td>
+      <td>9</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 10:00:00</th>
+      <td>925.4</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 11:00:00</th>
+      <td>978.1</td>
+      <td>11</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 12:00:00</th>
+      <td>987.8</td>
+      <td>12</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 13:00:00</th>
+      <td>991.6</td>
+      <td>13</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 14:00:00</th>
+      <td>980.2</td>
+      <td>14</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 15:00:00</th>
+      <td>983.8</td>
+      <td>15</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 16:00:00</th>
+      <td>1052.0</td>
+      <td>16</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 17:00:00</th>
+      <td>1069.1</td>
+      <td>17</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 18:00:00</th>
+      <td>1076.5</td>
+      <td>18</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 19:00:00</th>
+      <td>1064.3</td>
+      <td>19</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 20:00:00</th>
+      <td>1052.8</td>
+      <td>20</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 21:00:00</th>
+      <td>1030.9</td>
+      <td>21</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 22:00:00</th>
+      <td>997.3</td>
+      <td>22</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 23:00:00</th>
+      <td>967.6</td>
+      <td>23</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-02 00:00:00</th>
+      <td>936.6</td>
+      <td>0</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-02 01:00:00</th>
+      <td>917.2</td>
+      <td>1</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-02 02:00:00</th>
+      <td>899.7</td>
+      <td>2</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-02 03:00:00</th>
+      <td>891.8</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-02 04:00:00</th>
+      <td>883.9</td>
+      <td>4</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-02 05:00:00</th>
+      <td>878.2</td>
+      <td>5</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="question-suggested-answer">
+<h2>💬 Question — suggested answer<a class="headerlink" href="#question-suggested-answer" title="Link to this heading">#</a></h2>
+<p>The numeric representation makes 23 and 0 look far apart although they are adjacent in time. Sine/cosine encoding places hours on a circle, preserving periodic proximity.</p>
+</section>
+<section id="cyclical-encoding">
+<h2>2.1 Cyclical encoding ⏰<a class="headerlink" href="#cyclical-encoding" title="Link to this heading">#</a></h2>
+<p>Complete the periods in the sine/cosine formulas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Solution — cyclical features</span>
+<span class="n">HOURS_IN_CYCLE</span> <span class="o">=</span> <span class="mi">24</span>
+<span class="n">DAYS_IN_WEEK</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;hour_sin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">HOURS_IN_CYCLE</span><span class="p">)</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;hour_cos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">HOURS_IN_CYCLE</span><span class="p">)</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;weekday_sin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">DAYS_IN_WEEK</span><span class="p">)</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;weekday_cos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">DAYS_IN_WEEK</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;hour_sin&#39;</span><span class="p">,</span> <span class="s1">&#39;hour_cos&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday_sin&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday_cos&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>hour</th>
+      <th>hour_sin</th>
+      <th>hour_cos</th>
+      <th>weekday</th>
+      <th>weekday_sin</th>
+      <th>weekday_cos</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>5</td>
+      <td>-0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>1</td>
+      <td>0.258819</td>
+      <td>0.965926</td>
+      <td>5</td>
+      <td>-0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>2</td>
+      <td>0.500000</td>
+      <td>0.866025</td>
+      <td>5</td>
+      <td>-0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>3</td>
+      <td>0.707107</td>
+      <td>0.707107</td>
+      <td>5</td>
+      <td>-0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>4</td>
+      <td>0.866025</td>
+      <td>0.500000</td>
+      <td>5</td>
+      <td>-0.974928</td>
+      <td>-0.222521</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="interactive-raw-distance-vs-cyclical-distance">
+<h3>🎛️ Interactive: raw distance vs cyclical distance<a class="headerlink" href="#interactive-raw-distance-vs-cyclical-distance" title="Link to this heading">#</a></h3>
+<p>Move the two sliders. Try <strong>23 and 0</strong>, then <strong>12 and 0</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compare_hour_distance</span><span class="p">(</span><span class="n">h1</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">h2</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">raw_distance</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">h1</span> <span class="o">-</span> <span class="n">h2</span><span class="p">)</span>
+
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">h1</span><span class="o">/</span><span class="mi">24</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">h1</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span>
+    <span class="p">])</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">h2</span><span class="o">/</span><span class="mi">24</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">h2</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span>
+    <span class="p">])</span>
+    <span class="n">cyclical_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw hour distance:      </span><span class="si">{</span><span class="n">raw_distance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cyclical 2D distance:   </span><span class="si">{</span><span class="n">cyclical_distance</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">WIDGETS_AVAILABLE</span><span class="p">:</span>
+    <span class="n">interact</span><span class="p">(</span>
+        <span class="n">compare_hour_distance</span><span class="p">,</span>
+        <span class="n">h1</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;hour A&#39;</span><span class="p">),</span>
+        <span class="n">h2</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;hour B&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">compare_hour_distance</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e7d324ae4b3e48c997a2051c9d5fbf4e", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="interpret-suggested-answer">
+<h3>💬 Interpret — suggested answer<a class="headerlink" href="#interpret-suggested-answer" title="Link to this heading">#</a></h3>
+<p>It makes the representation periodic: 23:00 and 00:00 become close in feature space, while opposite times of day remain far apart.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="leakage-detective">
+<h1>3. Leakage detective 🕵️‍♀️<a class="headerlink" href="#leakage-detective" title="Link to this heading">#</a></h1>
+<p>Feature engineering is not just about inventing columns. A feature can look highly predictive because it accidentally contains the answer.</p>
+<p>Assume the target is demand at time <strong>t</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mcq</span><span class="p">(</span>
+    <span class="s2">&quot;Which rolling feature is SAFE for predicting demand at time t?&quot;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s2">&quot;demand.rolling(24).mean()&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;demand.shift(1).rolling(24).mean()&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;demand.shift(-1).rolling(24).mean()&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;demand.shift(1).rolling(24).mean()&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The window must end at t-1, not include the target at t or any future value.&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<p><strong>Which rolling feature is SAFE for predicting demand at time t?</strong></p>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "643a0bcfd02040448e2ee7460a10eae5", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "825b6b98f417414faf07eb23e66222f2", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "02bf6804c46e4e59a579f296d37d3bb3", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="create-safe-lag-and-rolling-features">
+<h2>3.1 Create safe lag and rolling features<a class="headerlink" href="#create-safe-lag-and-rolling-features" title="Link to this heading">#</a></h2>
+<p>The previous tutorial created lags and rolling statistics. Here, make the rolling feature explicitly <strong>leakage-safe</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Solution — safe lags and rolling features</span>
+
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;lag1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;lag24&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;lag168&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">168</span><span class="p">)</span>
+
+<span class="n">past_demand</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;roll_mean_24h_safe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">past_demand</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;roll_std_24h_safe&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">past_demand</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span> <span class="s1">&#39;lag1&#39;</span><span class="p">,</span> <span class="s1">&#39;lag24&#39;</span><span class="p">,</span> <span class="s1">&#39;lag168&#39;</span><span class="p">,</span> <span class="s1">&#39;roll_mean_24h_safe&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">175</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>lag1</th>
+      <th>lag24</th>
+      <th>lag168</th>
+      <th>roll_mean_24h_safe</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-07 21:00:00</th>
+      <td>1163.3</td>
+      <td>1223.3</td>
+      <td>1164.6</td>
+      <td>NaN</td>
+      <td>1171.879167</td>
+    </tr>
+    <tr>
+      <th>2022-01-07 22:00:00</th>
+      <td>1104.9</td>
+      <td>1163.3</td>
+      <td>1090.6</td>
+      <td>NaN</td>
+      <td>1171.825000</td>
+    </tr>
+    <tr>
+      <th>2022-01-07 23:00:00</th>
+      <td>1039.8</td>
+      <td>1104.9</td>
+      <td>1018.1</td>
+      <td>NaN</td>
+      <td>1172.420833</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 00:00:00</th>
+      <td>1004.3</td>
+      <td>1039.8</td>
+      <td>955.7</td>
+      <td>899.4</td>
+      <td>1173.325000</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 01:00:00</th>
+      <td>982.6</td>
+      <td>1004.3</td>
+      <td>929.1</td>
+      <td>892.1</td>
+      <td>1175.350000</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 02:00:00</th>
+      <td>962.7</td>
+      <td>982.6</td>
+      <td>918.8</td>
+      <td>874.3</td>
+      <td>1177.579167</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 03:00:00</th>
+      <td>960.8</td>
+      <td>962.7</td>
+      <td>906.4</td>
+      <td>860.1</td>
+      <td>1179.408333</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 04:00:00</th>
+      <td>955.1</td>
+      <td>960.8</td>
+      <td>908.0</td>
+      <td>842.7</td>
+      <td>1181.675000</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 05:00:00</th>
+      <td>963.3</td>
+      <td>955.1</td>
+      <td>940.1</td>
+      <td>844.7</td>
+      <td>1183.637500</td>
+    </tr>
+    <tr>
+      <th>2022-01-08 06:00:00</th>
+      <td>992.6</td>
+      <td>963.3</td>
+      <td>1048.9</td>
+      <td>852.2</td>
+      <td>1184.604167</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="leakage-check-suggested-answer">
+<h3>💬 Leakage check — suggested answer<a class="headerlink" href="#leakage-check-suggested-answer" title="Link to this heading">#</a></h3>
+<p>Because the rolling window includes the current value <code class="docutils literal notranslate"><span class="pre">demand[t]</span></code>, which is also the target being predicted. The model therefore receives part of the answer. Shifting by one step before rolling makes the window end at <code class="docutils literal notranslate"><span class="pre">t-1</span></code>.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="external-domain-specific-features">
+<h1>4. External + domain-specific features 🌦️🔥<a class="headerlink" href="#external-domain-specific-features" title="Link to this heading">#</a></h1>
+<p>Weather data also comes directly from GitHub. Dates are parsed explicitly as <code class="docutils literal notranslate"><span class="pre">DD.MM.YYYY</span> <span class="pre">HH:MM</span></code>; duplicate local timestamps at the autumn DST transition are averaged for the weather join.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read weather directly from GitHub — do not save a local copy.</span>
+<span class="n">WEATHER_URL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;https://raw.githubusercontent.com/drmatson/energy_informatics/main/data/&#39;</span>
+    <span class="s1">&#39;weather_2022.csv&#39;</span>
+<span class="p">)</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">WEATHER_URL</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Explicitly parse DD.MM.YYYY HH:MM; source rows are newest-first.</span>
+<span class="n">weather</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Local time in Tallinn (airport)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+    <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y %H:%M&#39;</span><span class="p">,</span>
+    <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;raise&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Some columns mix measurements and text: coerce only the fields we need.</span>
+<span class="n">weather_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">([</span><span class="s1">&#39;ff3&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;ff3&#39;</span> <span class="ow">in</span> <span class="n">weather</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="p">[])</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">weather_cols</span><span class="p">:</span>
+    <span class="n">weather</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">weather</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="n">weather_small</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">)[</span><span class="n">weather_cols</span><span class="p">]</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="c1"># DST (autumn): local timestamps may repeat. Combine duplicate weather</span>
+<span class="c1"># measurements so a join never multiplies the number of demand rows.</span>
+<span class="k">if</span> <span class="n">weather_small</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">has_duplicates</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Repeated local weather timestamps:&#39;</span><span class="p">,</span> <span class="n">weather_small</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">weather_small</span> <span class="o">=</span> <span class="n">weather_small</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">weather_small</span> <span class="o">=</span> <span class="n">weather_small</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;ff3&#39;</span><span class="p">:</span> <span class="s1">&#39;wind_speed&#39;</span>
+<span class="p">})</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">weather_small</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="s1">&#39;many_to_one&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Weather dates:&#39;</span><span class="p">,</span> <span class="n">weather_small</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="n">weather_small</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Demand rows after join:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">demand</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Missing temperature:&#39;</span><span class="p">,</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Repeated local weather timestamps: 1
+Weather dates: 2022-01-01 00:00:00 to 2022-12-31 23:00:00
+Demand rows after join: 8760
+Missing temperature: 29
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>temperature</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>899.4</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>892.1</td>
+      <td>-0.6</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>874.3</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>860.1</td>
+      <td>-0.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>842.7</td>
+      <td>-0.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="heating-degree-feature">
+<h2>4.1 Heating degree feature<a class="headerlink" href="#heating-degree-feature" title="Link to this heading">#</a></h2>
+<p>A simple domain feature is <strong>heating degree</strong> relative to a base temperature:</p>
+<div class="math notranslate nohighlight">
+\[
+HDD_t = \max(0, T_{base} - T_t)
+\]</div>
+<p>For this exercise, use <strong>18°C</strong> as the base.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Solution — heating degree</span>
+<span class="n">BASE_TEMPERATURE</span> <span class="o">=</span> <span class="mi">18</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;heating_degree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">BASE_TEMPERATURE</span> <span class="o">-</span> <span class="n">demand</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;heating_degree&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>temperature</th>
+      <th>heating_degree</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>-1.0</td>
+      <td>19.0</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>-0.6</td>
+      <td>18.6</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>0.0</td>
+      <td>18.0</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>-0.1</td>
+      <td>18.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>-0.1</td>
+      <td>18.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 05:00:00</th>
+      <td>-0.3</td>
+      <td>18.3</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 06:00:00</th>
+      <td>-0.4</td>
+      <td>18.4</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 07:00:00</th>
+      <td>-0.4</td>
+      <td>18.4</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 08:00:00</th>
+      <td>-1.3</td>
+      <td>19.3</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 09:00:00</th>
+      <td>-2.8</td>
+      <td>20.8</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 10:00:00</th>
+      <td>-2.9</td>
+      <td>20.9</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 11:00:00</th>
+      <td>-2.8</td>
+      <td>20.8</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 12:00:00</th>
+      <td>-2.9</td>
+      <td>20.9</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 13:00:00</th>
+      <td>-2.9</td>
+      <td>20.9</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 14:00:00</th>
+      <td>-3.1</td>
+      <td>21.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 15:00:00</th>
+      <td>-3.7</td>
+      <td>21.7</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 16:00:00</th>
+      <td>-4.0</td>
+      <td>22.0</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 17:00:00</th>
+      <td>-3.7</td>
+      <td>21.7</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 18:00:00</th>
+      <td>-3.7</td>
+      <td>21.7</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 19:00:00</th>
+      <td>-3.8</td>
+      <td>21.8</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Explore the relationship</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;heating_degree&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+    <span class="nb">min</span><span class="p">(</span><span class="mi">2500</span><span class="p">,</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;heating_degree&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temperature [°C]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Raw temperature&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">&#39;heating_degree&#39;</span><span class="p">],</span> <span class="n">sample</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Heating degree&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Demand&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Domain feature&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/40bc48eb648f30e24356475abcc60a09e26403d0609f0235a527230aca2ac3bf.png" src="_images/40bc48eb648f30e24356475abcc60a09e26403d0609f0235a527230aca2ac3bf.png" />
+</div>
+</div>
+<section id="think-like-a-modeller-suggested-answer">
+<h3>💬 Think like a modeller — suggested answer<a class="headerlink" href="#think-like-a-modeller-suggested-answer" title="Link to this heading">#</a></h3>
+<p>✅ <strong>NO.</strong> Historical measured temperature is fine for retrospective analysis, but an operational forecast for a future timestamp must use weather information that would have been available at the forecast origin, typically a weather forecast.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="transformation-vs-scaling">
+<h1>5. Transformation vs scaling 🔄⚖️<a class="headerlink" href="#transformation-vs-scaling" title="Link to this heading">#</a></h1>
+<p>These are different operations:</p>
+<ul class="simple">
+<li><p><strong>Transformation</strong> can change the <em>shape</em> of a distribution.</p></li>
+<li><p><strong>Scaling</strong> changes the <em>scale/units</em> but usually preserves its shape.</p></li>
+</ul>
+<p>Use the interactive control below to inspect a deliberately right-skewed energy-price-like variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Single-image interactive widget: update PNG bytes, never append plot outputs.</span>
+<span class="c1"># This avoids repeated Matplotlib plots in VS Code/Jupyter.</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">price_demo</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">show_transform</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;raw&#39;</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">price_demo</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;log1p&#39;</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;standardized&#39;</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+    <span class="n">skewness</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s1"> | skewness = </span><span class="si">{</span><span class="n">skewness</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Convert plot to PNG in memory. Close BEFORE displaying anything.</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    <span class="n">png_data</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+    <span class="n">buffer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">png_data</span>
+
+<span class="k">if</span> <span class="n">WIDGETS_AVAILABLE</span><span class="p">:</span>
+    <span class="n">transform_selector</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;raw&#39;</span><span class="p">,</span> <span class="s1">&#39;log1p&#39;</span><span class="p">,</span> <span class="s1">&#39;sqrt&#39;</span><span class="p">,</span> <span class="s1">&#39;standardized&#39;</span><span class="p">],</span>
+        <span class="n">value</span><span class="o">=</span><span class="s1">&#39;raw&#39;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;kind&#39;</span>
+    <span class="p">)</span>
+    <span class="c1"># Exactly one image widget exists; changing selection replaces its contents.</span>
+    <span class="n">transform_image</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span>
+        <span class="n">value</span><span class="o">=</span><span class="n">show_transform</span><span class="p">(</span><span class="s1">&#39;raw&#39;</span><span class="p">),</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update_transform</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+        <span class="n">transform_image</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">show_transform</span><span class="p">(</span><span class="n">change</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">])</span>
+
+    <span class="n">transform_selector</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_transform</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">transform_selector</span><span class="p">,</span> <span class="n">transform_image</span><span class="p">]))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">show_transform</span><span class="p">(</span><span class="s1">&#39;raw&#39;</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d3050df11bd14ca7a41be5e3eb94f52b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="questions-suggested-answer">
+<h2>💬 Questions — suggested answer<a class="headerlink" href="#questions-suggested-answer" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>For this synthetic sample, <strong>log1p</strong> should reduce the right-skew most strongly (students should verify from the displayed skewness).</p></li>
+<li><p>Standardisation is a linear rescaling: it changes mean and variance, but it does not fundamentally change the distribution’s shape/skewness.</p></li>
+</ol>
+</section>
+<section id="experiment-a-knn-when-scaling-makes-a-big-difference">
+<h2>5.1 Experiment A — KNN: when scaling makes a big difference 🧪<a class="headerlink" href="#experiment-a-knn-when-scaling-makes-a-big-difference" title="Link to this heading">#</a></h2>
+<p>First, create a <strong>controlled synthetic regression problem</strong> (not a time series). The target depends on one informative feature, <code class="docutils literal notranslate"><span class="pre">useful_signal</span></code> (values between 0 and 1). A second feature, <code class="docutils literal notranslate"><span class="pre">irrelevant_noise</span></code>, is unrelated to the target.</p>
+<p>KNN uses <strong>distances</strong> between rows. If the irrelevant feature has a much larger numerical range, it can dominate those distances — even though it predicts nothing.</p>
+<p><strong>Try it yourself:</strong></p>
+<ol class="arabic simple">
+<li><p>✏️ Complete the missing preprocessing step (<code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code>) in the pipeline below.</p></li>
+<li><p>🎛️ Change <strong>Noise scale</strong> from <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">8,000</span></code> and compare NRMSE for the <strong>same KNN</strong> with and without scaling.</p></li>
+<li><p>💬 Explain why increasing the numerical magnitude of a useless column harms one version but not the other.</p></li>
+</ol>
+<p>The train/test split, random seed, number of neighbors, and target values remain the <strong>same</strong> throughout. The scaler is fitted <strong>only on training data</strong> through the pipeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># KNN scaling demo: one persistent image widget (no repeated plots).</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="c1"># Reproducible synthetic data: target depends ONLY on useful_signal</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+
+<span class="n">rng_knn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n_demo</span> <span class="o">=</span> <span class="mi">1400</span>
+<span class="n">useful_signal</span> <span class="o">=</span> <span class="n">rng_knn</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_demo</span><span class="p">)</span>
+<span class="n">irrelevant_noise</span> <span class="o">=</span> <span class="n">rng_knn</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_demo</span><span class="p">)</span>
+<span class="n">y_demo</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">useful_signal</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng_knn</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">n_demo</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">compare_knn</span><span class="p">(</span><span class="n">noise_multiplier</span><span class="o">=</span><span class="mi">8000</span><span class="p">):</span>
+    <span class="n">X_demo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;useful_signal&#39;</span><span class="p">:</span> <span class="n">useful_signal</span><span class="p">,</span>
+        <span class="s1">&#39;irrelevant_noise&#39;</span><span class="p">:</span> <span class="n">irrelevant_noise</span> <span class="o">*</span> <span class="n">noise_multiplier</span>
+    <span class="p">})</span>
+
+    <span class="c1"># IID synthetic data (not a time-series experiment): random split is appropriate here.</span>
+    <span class="n">X_train_demo</span><span class="p">,</span> <span class="n">X_test_demo</span><span class="p">,</span> <span class="n">y_train_demo</span><span class="p">,</span> <span class="n">y_test_demo</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+        <span class="n">X_demo</span><span class="p">,</span> <span class="n">y_demo</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+    <span class="p">)</span>
+
+    <span class="n">knn_raw</span> <span class="o">=</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;distance&#39;</span><span class="p">)</span>
+    <span class="n">knn_raw</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_demo</span><span class="p">,</span> <span class="n">y_train_demo</span><span class="p">)</span>
+    <span class="n">raw_score</span> <span class="o">=</span> <span class="n">nrmse</span><span class="p">(</span><span class="n">y_test_demo</span><span class="p">,</span> <span class="n">knn_raw</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_demo</span><span class="p">))</span>
+
+    <span class="c1"># ✏️ TODO 6a — supply the missing preprocessing step for KNN</span>
+    <span class="n">knn_scaled</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+        <span class="n">StandardScaler</span><span class="p">(),</span>
+        <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;distance&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">knn_scaled</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_demo</span><span class="p">,</span> <span class="n">y_train_demo</span><span class="p">)</span>
+    <span class="n">scaled_score</span> <span class="o">=</span> <span class="n">nrmse</span><span class="p">(</span><span class="n">y_test_demo</span><span class="p">,</span> <span class="n">knn_scaled</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_demo</span><span class="p">))</span>
+
+    <span class="c1"># Render a PNG in memory; never send a live Matplotlib Figure to Jupyter.</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="s1">&#39;No scaling&#39;</span><span class="p">,</span> <span class="s1">&#39;StandardScaler&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">raw_score</span><span class="p">,</span> <span class="n">scaled_score</span><span class="p">],</span>
+           <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="s1">&#39;tab:blue&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;NRMSE (%) — lower is better&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;KNN: scaling irrelevant_noise by </span><span class="si">{</span><span class="n">noise_multiplier</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">BytesIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">buffer</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+        <span class="n">image_bytes</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>  <span class="c1"># prevent automatic display by the inline Matplotlib backend</span>
+    <span class="k">return</span> <span class="n">raw_score</span><span class="p">,</span> <span class="n">scaled_score</span><span class="p">,</span> <span class="n">image_bytes</span>
+
+
+<span class="k">if</span> <span class="n">WIDGETS_AVAILABLE</span><span class="p">:</span>
+    <span class="n">noise_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">SelectionSlider</span><span class="p">(</span>
+        <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">8000</span><span class="p">],</span>
+        <span class="n">value</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Noise scale&#39;</span><span class="p">,</span>
+        <span class="n">continuous_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description_width&#39;</span><span class="p">:</span> <span class="s1">&#39;initial&#39;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">knn_image</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+    <span class="n">knn_results</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">update_knn</span><span class="p">(</span><span class="n">change</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">raw_score</span><span class="p">,</span> <span class="n">scaled_score</span><span class="p">,</span> <span class="n">png</span> <span class="o">=</span> <span class="n">compare_knn</span><span class="p">(</span><span class="n">noise_slider</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="c1"># Expected until students complete TODO 6a.</span>
+            <span class="n">knn_results</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Complete &lt;code&gt;TODO 6a&lt;/code&gt;, then rerun this cell.&#39;</span>
+            <span class="n">knn_image</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+            <span class="k">return</span>
+        <span class="n">knn_results</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Noise scale: x</span><span class="si">{</span><span class="n">noise_slider</span><span class="o">.</span><span class="n">value</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> &amp;nbsp;|&amp;nbsp; &#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;KNN without scaling: &lt;b&gt;</span><span class="si">{</span><span class="n">raw_score</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&lt;/b&gt; &amp;nbsp;|&amp;nbsp; &#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;KNN with scaling: &lt;b&gt;</span><span class="si">{</span><span class="n">scaled_score</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&lt;/b&gt;&#39;</span>
+        <span class="p">)</span>
+        <span class="n">knn_image</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">png</span>  <span class="c1"># update SAME image, not a new figure/output</span>
+
+    <span class="n">noise_slider</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_knn</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+    <span class="n">update_knn</span><span class="p">()</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">widgets</span><span class="o">.</span><span class="n">VBox</span><span class="p">([</span><span class="n">noise_slider</span><span class="p">,</span> <span class="n">knn_results</span><span class="p">,</span> <span class="n">knn_image</span><span class="p">]))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">raw_score</span><span class="p">,</span> <span class="n">scaled_score</span><span class="p">,</span> <span class="n">png</span> <span class="o">=</span> <span class="n">compare_knn</span><span class="p">(</span><span class="n">noise_multiplier</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;KNN without scaling — NRMSE: </span><span class="si">{</span><span class="n">raw_score</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;KNN with scaling    — NRMSE: </span><span class="si">{</span><span class="n">scaled_score</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">png</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "97e7ebed55414700a8fdef2781068e80", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="knn-suggested-answers">
+<h3>💬 KNN — suggested answers<a class="headerlink" href="#knn-suggested-answers" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Yes.</strong> At scale <code class="docutils literal notranslate"><span class="pre">1</span></code>, both features are already on comparable scales: NRMSE is approximately <strong>2.7%</strong> for either approach.</p></li>
+<li><p><strong>StandardScaler wins decisively.</strong> With <code class="docutils literal notranslate"><span class="pre">8,000</span></code>, unscaled KNN’s NRMSE is approximately <strong>36.9%</strong>, compared with <strong>2.7%</strong> after scaling. The irrelevant column overwhelms Euclidean distances without scaling. Exact numbers can vary slightly by package version.</p></li>
+<li><p><strong>No.</strong> This is a deliberately constructed case, not a universal law. Scaling equalizes the units of features, <strong>not their relevance</strong>. On another real dataset, it may produce a small improvement, no improvement, or worse NRMSE. Model evaluation decides.</p></li>
+</ol>
+<p><strong>Instructor prompt:</strong> Ask what would happen if we <em>removed</em> the irrelevant column entirely; scaling is not the same as feature selection.</p>
+</section>
+</section>
+<section id="experiment-b-random-forest-on-real-electricity-demand">
+<h2>5.2 Experiment B — Random Forest on real electricity demand 🌲⚡<a class="headerlink" href="#experiment-b-random-forest-on-real-electricity-demand" title="Link to this heading">#</a></h2>
+<p>Now use the <strong>real energy dataset</strong> to compare a tree-based model with and without scaling. Random Forest splits values using thresholds, so standardising numeric features usually does <strong>not</strong> change the trees’ partitions or materially improve NRMSE.</p>
+<p>✏️ Complete <strong>TODO 6b</strong>. Use an identical <strong>chronological 80/20 split</strong>, feature set, hyperparameters and evaluation set for both models. The scaler must be fitted on training data only.</p>
+<p><strong>Metric for both experiments:</strong> range-normalized root mean squared error, <strong>NRMSE (%)</strong>:</p>
+<p>[
+\mathrm{NRMSE}(%) = 100,\frac{\sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat y_i)^2}}{\max(y_{\mathrm{test}})-\min(y_{\mathrm{test}})}
+]</p>
+<p>Lower is better. Here the denominator is the <strong>observed target range in the test set</strong>. Always state the normalization convention when reporting NRMSE.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prepare a small modelling table</span>
+<span class="n">rf_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;lag24&#39;</span><span class="p">]</span>
+<span class="n">rf_df</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[</span><span class="n">rf_features</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">split</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rf_df</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">rf_df</span><span class="p">[</span><span class="n">rf_features</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">split</span><span class="p">]</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">rf_df</span><span class="p">[</span><span class="n">rf_features</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">rf_df</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">split</span><span class="p">]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">rf_df</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span>
+
+<span class="c1"># Fixed hyperparameters make the comparison reproducible.</span>
+<span class="n">RF_PARAMS</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">raw_rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="o">**</span><span class="n">RF_PARAMS</span><span class="p">)</span>
+<span class="n">raw_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">nrmse_raw</span> <span class="o">=</span> <span class="n">nrmse</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">raw_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+
+<span class="c1"># ✅ Solution — same scaler applied to Random Forest</span>
+<span class="n">scaled_rf</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">StandardScaler</span><span class="p">(),</span>
+    <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="o">**</span><span class="n">RF_PARAMS</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">scaled_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">nrmse_scaled</span> <span class="o">=</span> <span class="n">nrmse</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">scaled_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Random Forest without scaling — NRMSE: </span><span class="si">{</span><span class="n">nrmse_raw</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Random Forest with scaling    — NRMSE: </span><span class="si">{</span><span class="n">nrmse_scaled</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Forest without scaling — NRMSE: 10.16%
+Random Forest with scaling    — NRMSE: 10.14%
+</pre></div>
+</div>
+</div>
+</div>
+<section id="compare-the-two-experiments-suggested-answers">
+<h3>💬 Compare the two experiments — suggested answers<a class="headerlink" href="#compare-the-two-experiments-suggested-answers" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>On the energy data, the two Random Forest NRMSE values should be <strong>very close</strong>. Do not require exactly identical numbers: floating-point precision, repeated values and threshold ties can produce tiny differences. Report the measured values rather than promising an improvement.</p></li>
+<li><p><strong>KNN</strong> compares distances in the input space; an irrelevant feature in large units can dominate. <strong>Random Forest</strong> compares the ordering of feature values to choose thresholds; positive linear rescaling generally preserves that ordering.</p></li>
+<li><p>The defensible conclusion is: <strong>the value of scaling depends on the model and the dataset</strong>. Neither preprocessing nor adding features guarantees a lower NRMSE.</p></li>
+</ol>
+<p><strong>Teaching note:</strong> The KNN demonstration uses a random train/test split because it is synthetic IID data, while Random Forest uses a <em>chronological</em> split because the electricity records are a time series. Neither example is intended as a generalizable forecasting benchmark.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="feature-selection-useful-redundant-or-noisy">
+<h1>6. Feature selection — useful, redundant, or noisy? 🎯<a class="headerlink" href="#feature-selection-useful-redundant-or-noisy" title="Link to this heading">#</a></h1>
+<p>We now have many candidate features. A quick <strong>filter method</strong> is mutual information (MI).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_features</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday&#39;</span><span class="p">,</span> <span class="s1">&#39;is_weekend&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hour_sin&#39;</span><span class="p">,</span> <span class="s1">&#39;hour_cos&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday_sin&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday_cos&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lag1&#39;</span><span class="p">,</span> <span class="s1">&#39;lag24&#39;</span><span class="p">,</span> <span class="s1">&#39;lag168&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;roll_mean_24h_safe&#39;</span><span class="p">,</span> <span class="s1">&#39;roll_std_24h_safe&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;heating_degree&#39;</span>
+<span class="p">]</span>
+
+<span class="n">fs_df</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[</span><span class="n">candidate_features</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X_fs</span> <span class="o">=</span> <span class="n">fs_df</span><span class="p">[</span><span class="n">candidate_features</span><span class="p">]</span>
+<span class="n">y_fs</span> <span class="o">=</span> <span class="n">fs_df</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span>
+
+<span class="n">mi</span> <span class="o">=</span> <span class="n">mutual_info_regression</span><span class="p">(</span><span class="n">X_fs</span><span class="p">,</span> <span class="n">y_fs</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">mi_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">mi</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">candidate_features</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># ✏️ TODO 7 — choose how many top features to display</span>
+<span class="n">TOP_K</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">mi_scores</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">TOP_K</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">&#39;MI score&#39;</span><span class="p">))</span>
+<span class="n">mi_scores</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">TOP_K</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Top MI features&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MI score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>lag1</th>
+      <td>1.491083</td>
+    </tr>
+    <tr>
+      <th>lag168</th>
+      <td>0.942088</td>
+    </tr>
+    <tr>
+      <th>lag24</th>
+      <td>0.922271</td>
+    </tr>
+    <tr>
+      <th>roll_mean_24h_safe</th>
+      <td>0.470274</td>
+    </tr>
+    <tr>
+      <th>temperature</th>
+      <td>0.306488</td>
+    </tr>
+    <tr>
+      <th>hour</th>
+      <td>0.296944</td>
+    </tr>
+    <tr>
+      <th>heating_degree</th>
+      <td>0.288741</td>
+    </tr>
+    <tr>
+      <th>hour_cos</th>
+      <td>0.162521</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/e269fb649a42c45cd98e0bc86269ee22bf55b273ce379301d8c402a4f6f192ea.png" src="_images/e269fb649a42c45cd98e0bc86269ee22bf55b273ce379301d8c402a4f6f192ea.png" />
+</div>
+</div>
+<section id="questions-instructor-notes">
+<h2>💬 Questions — instructor notes<a class="headerlink" href="#questions-instructor-notes" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>The exact top feature should be read from the result; lag features are expected to rank strongly.</p></li>
+<li><p><strong>No.</strong> Two features can be redundant with each other; univariate MI does not account for all interactions/redundancy.</p></li>
+<li><p>MI ranking is a <strong>filter</strong> method.</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="interactive-feature-lab-do-engineered-features-improve-random-forest">
+<h1>7. Interactive feature lab — do engineered features improve Random Forest? 🧪<a class="headerlink" href="#interactive-feature-lab-do-engineered-features-improve-random-forest" title="Link to this heading">#</a></h1>
+<p>This is not a full forecasting benchmark; it is a <strong>controlled feature-engineering experiment</strong>.</p>
+<p>We use a <strong>chronological 80/20 split</strong>, the <strong>same Random Forest hyperparameters</strong> for each selection, and <strong>NRMSE (%)</strong> to compare feature groups. All experiments use the same complete-case rows, so the comparison is fair.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature_groups</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Calendar&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;hour_sin&#39;</span><span class="p">,</span> <span class="s1">&#39;hour_cos&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday_sin&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday_cos&#39;</span><span class="p">,</span> <span class="s1">&#39;is_weekend&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Lags&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;lag1&#39;</span><span class="p">,</span> <span class="s1">&#39;lag24&#39;</span><span class="p">,</span> <span class="s1">&#39;lag168&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Rolling&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;roll_mean_24h_safe&#39;</span><span class="p">,</span> <span class="s1">&#39;roll_std_24h_safe&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Weather/domain&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">lab_df</span> <span class="o">=</span> <span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">feature_groups</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="p">[])))]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">evaluate_groups</span><span class="p">(</span><span class="n">selected_groups</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">selected_groups</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">selected_groups</span> <span class="o">=</span> <span class="p">[</span><span class="n">selected_groups</span><span class="p">]</span>
+    <span class="n">selected_groups</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">selected_groups</span><span class="p">)</span>
+
+    <span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">selected_groups</span><span class="p">:</span>
+        <span class="n">features</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">feature_groups</span><span class="p">[</span><span class="n">group</span><span class="p">])</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">features</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">features</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Select at least one feature group.&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">split</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lab_df</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">X_train</span> <span class="o">=</span> <span class="n">lab_df</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">split</span><span class="p">]</span>
+    <span class="n">X_test</span> <span class="o">=</span> <span class="n">lab_df</span><span class="p">[</span><span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span>
+    <span class="n">y_train</span> <span class="o">=</span> <span class="n">lab_df</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">split</span><span class="p">]</span>
+    <span class="n">y_test</span> <span class="o">=</span> <span class="n">lab_df</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="o">**</span><span class="n">RF_PARAMS</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">nrmse</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Features:&#39;</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Random Forest NRMSE: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">score</span>
+
+<span class="k">if</span> <span class="n">WIDGETS_AVAILABLE</span><span class="p">:</span>
+    <span class="n">group_selector</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">SelectMultiple</span><span class="p">(</span>
+        <span class="n">options</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">feature_groups</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+        <span class="n">value</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Calendar&#39;</span><span class="p">,),</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Groups&#39;</span><span class="p">,</span>
+        <span class="n">rows</span><span class="o">=</span><span class="mi">4</span>
+    <span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">interactive_output</span><span class="p">(</span><span class="n">evaluate_groups</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;selected_groups&#39;</span><span class="p">:</span> <span class="n">group_selector</span><span class="p">})</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">group_selector</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">evaluate_groups</span><span class="p">([</span><span class="s1">&#39;Calendar&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4e9f109bc8384c8e890d37cd98f952d3", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "28332cd997d04028a9391866af8eb6b6", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="required-experiment">
+<h2>🧪 Required experiment<a class="headerlink" href="#required-experiment" title="Link to this heading">#</a></h2>
+<p>Try at least these combinations and record <strong>NRMSE (%)</strong>. Smaller values indicate better predictions.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature groups</p></th>
+<th class="head text-right"><p>NRMSE (%)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Calendar</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Lags</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Calendar + Lags</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Calendar + Lags + Rolling</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>All groups</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="interpretation">
+<h2>💬 Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h2>
+<p>Which group gave the biggest improvement in NRMSE? Did adding <strong>all</strong> features always help? Why might that happen with Random Forest?</p>
+<p><strong>Your answer:</strong><br />
+<code class="docutils literal notranslate"><span class="pre">...</span></code></p>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="llm-feature-idea-challenge">
+<h1>8. LLM feature-idea challenge 🤖<a class="headerlink" href="#llm-feature-idea-challenge" title="Link to this heading">#</a></h1>
+<p>An LLM can propose ideas quickly, but <strong>you</strong> must decide whether the feature is meaningful and available at prediction time.</p>
+<p>Use this prompt with any LLM:</p>
+<blockquote>
+<div><p>We have hourly Estonian electricity demand and historical weather data. Suggest three additional features for a demand prediction model. For each feature, explain (1) why it may help, (2) what raw data it needs, and (3) whether it is known at prediction time. Do not propose any feature that directly uses future demand.</p>
+</div></blockquote>
+<p>Paste three suggestions below and audit them.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Proposed feature</p></th>
+<th class="head"><p>Why useful?</p></th>
+<th class="head"><p>Available at prediction time?</p></th>
+<th class="head"><p>SAFE / RISKY</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">...</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="implement-one-llm-suggestion">
+<h2>✏️ Implement ONE LLM suggestion<a class="headerlink" href="#implement-one-llm-suggestion" title="Link to this heading">#</a></h2>
+<p>Choose one suggestion that can be built from the data already available in this practical. Add it as a new column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Example solution — one additional safe feature</span>
+<span class="c1"># Calendar month is known in advance and can capture broad seasonal structure.</span>
+<span class="n">demand</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">demand</span><span class="p">[[</span><span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="defend-your-feature-example-answer">
+<h2>💬 Defend your feature — example answer<a class="headerlink" href="#defend-your-feature-example-answer" title="Link to this heading">#</a></h2>
+<p>Example: <strong>month</strong> captures slow seasonal variation not fully represented by weekday/hour. Calendar month is known for every future timestamp, so there is no availability problem. I would add it to the same chronological evaluation and compare NRMSE (%) against an otherwise identical feature set.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="final-checkpoint-suggested-answers">
+<h1>9. Final checkpoint ✅ — suggested answers<a class="headerlink" href="#final-checkpoint-suggested-answers" title="Link to this heading">#</a></h1>
+<ol class="arabic simple">
+<li><p>A strong answer might keep <strong>lag24 / lag168</strong> because demand has strong temporal autocorrelation and repeating daily/weekly patterns.</p></li>
+<li><p>A feature leaks information when it uses the target itself, future values, or any data that would not have been available at the forecast origin.</p></li>
+<li><p>Scaling is typically <strong>not necessary for Random Forest</strong> because threshold-based tree splits depend on feature ordering rather than distances. Scaling can matter for <strong>KNN and other distance-based models</strong>.</p></li>
+<li><p>Transformation can change distribution shape or relationship structure, while scaling mostly changes numeric range/units.</p></li>
+<li><p>Extraction creates a new lower-dimensional representation (e.g. PCs); selection keeps a subset of original features.</p></li>
+</ol>
+<section id="one-sentence-takeaway">
+<h2>One-sentence takeaway<a class="headerlink" href="#one-sentence-takeaway" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Features do not become useful because they are clever; they become useful when they encode a real pattern, are available at prediction time, and improve out-of-sample performance.</strong></p>
+</div></blockquote>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="12_feature_engineering.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🔧 Feature Engineering Tutorial</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="13_pca.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Principal Component Analysis (PCA)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">LAB: Feature Engineering 🔧⚡</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning outcomes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-energy-data">1. Load the energy data ⚡</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observe-suggested-answer">💬 Observe — suggested answer</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-creation-calendar-features">2. Feature creation — calendar features 📅</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#question-suggested-answer">💬 Question — suggested answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cyclical-encoding">2.1 Cyclical encoding ⏰</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-raw-distance-vs-cyclical-distance">🎛️ Interactive: raw distance vs cyclical distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpret-suggested-answer">💬 Interpret — suggested answer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#leakage-detective">3. Leakage detective 🕵️‍♀️</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-safe-lag-and-rolling-features">3.1 Create safe lag and rolling features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#leakage-check-suggested-answer">💬 Leakage check — suggested answer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#external-domain-specific-features">4. External + domain-specific features 🌦️🔥</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heating-degree-feature">4.1 Heating degree feature</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#think-like-a-modeller-suggested-answer">💬 Think like a modeller — suggested answer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation-vs-scaling">5. Transformation vs scaling 🔄⚖️</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions-suggested-answer">💬 Questions — suggested answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-a-knn-when-scaling-makes-a-big-difference">5.1 Experiment A — KNN: when scaling makes a big difference 🧪</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-suggested-answers">💬 KNN — suggested answers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experiment-b-random-forest-on-real-electricity-demand">5.2 Experiment B — Random Forest on real electricity demand 🌲⚡</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compare-the-two-experiments-suggested-answers">💬 Compare the two experiments — suggested answers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-selection-useful-redundant-or-noisy">6. Feature selection — useful, redundant, or noisy? 🎯</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions-instructor-notes">💬 Questions — instructor notes</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-feature-lab-do-engineered-features-improve-random-forest">7. Interactive feature lab — do engineered features improve Random Forest? 🧪</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-experiment">🧪 Required experiment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">💬 Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-feature-idea-challenge">8. LLM feature-idea challenge 🤖</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-one-llm-suggestion">✏️ Implement ONE LLM suggestion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defend-your-feature-example-answer">💬 Defend your feature — example answer</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#final-checkpoint-suggested-answers">9. Final checkpoint ✅ — suggested answers</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-sentence-takeaway">One-sentence takeaway</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
