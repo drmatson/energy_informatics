@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '15_statistical_models_ts';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="⚡️ Baseline Forecast: Lag‑7 Day" href="16_ml_baseline_lag7d.html" />
+    <link rel="next" title="⚡ LAB: Statistical Models for Time Series" href="practical_11_statistical_models.html" />
     <link rel="prev" title="⏱️ LAB: Time Series Detective" href="practical_03_time_series.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -440,6 +440,7 @@
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="practical_11_statistical_models.html">⚡ LAB: Statistical Models for Time Series</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
 <ul class="nav bd-sidenav">
@@ -483,6 +484,7 @@
 
 
 
+<li class="toctree-l1"><a class="reference internal" href="practical_10_baselines_evaluation.html">⚡ LAB: Baselines &amp; Evaluation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">HEMS</span></p>
 <ul class="nav bd-sidenav">
@@ -1051,9 +1053,9 @@ Critical Values:
 <section id="seasonal-differencing-lag-4">
 <h3>🔧 Seasonal differencing (lag = 4)<a class="headerlink" href="#seasonal-differencing-lag-4" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">diff(4)</span></code> computes:
-[
+<span class="math notranslate nohighlight">\(
 y_t - y_{t-4}
-]
+\)</span>
 This <strong>removes the recurring seasonal level</strong> (the “same quarter last year” effect). After this step:</p>
 <ul class="simple">
 <li><p>Seasonal pattern is largely <strong>canceled out</strong> ✅</p></li>
@@ -1063,7 +1065,7 @@ This <strong>removes the recurring seasonal level</strong> (the “same quarter 
 </section>
 <section id="dropna-cleanup">
 <h3>🧹 <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> cleanup<a class="headerlink" href="#dropna-cleanup" title="Link to this heading">#</a></h3>
-<p>The first 4 values can’t compute <code class="docutils literal notranslate"><span class="pre">y_t</span> <span class="pre">-</span> <span class="pre">y_{t-4}</span></code>, so they become <strong>NaN</strong>.
+<p>The first 4 values can’t compute <span class="math notranslate nohighlight">\(y_t - y_{t-4}\)</span>, so they become <strong>NaN</strong>.
 <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> simply <strong>removes</strong> those initial missing rows.</p>
 </section>
 <section id="when-to-use-it">
@@ -1174,7 +1176,7 @@ Critical Values:
 <section id="what-is-acf">
 <h2>🤔 What is ACF?<a class="headerlink" href="#what-is-acf" title="Link to this heading">#</a></h2>
 <p>The <strong>Autocorrelation Function (ACF)</strong> tells you how strongly a time series is related to <strong>its own past values</strong>.
-For each <strong>lag k</strong>, ACF measures the correlation between (y_t) and (y_{t-k}).</p>
+For each <strong>lag k</strong>, ACF measures the correlation between <span class="math notranslate nohighlight">\((y_t)\)</span> and <span class="math notranslate nohighlight">\((y_{t-k})\)</span>.</p>
 <p>Think: <em>“How similar is the series to itself if I shift it by k steps?”</em></p>
 </section>
 <hr class="docutils" />
@@ -1191,7 +1193,7 @@ For each <strong>lag k</strong>, ACF measures the correlation between (y_t) and 
 <h2>🔍 How to read the ACF plot<a class="headerlink" href="#how-to-read-the-acf-plot" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Significant spike at lag 1, then tailing off:</strong> short-memory dependence; often suggests <strong>MA(1)</strong>-like behavior (but confirm with PACF).</p></li>
-<li><p><strong>Seasonal spikes</strong> at (m, 2m, 3m,\dots): seasonality of period (m).</p></li>
+<li><p><strong>Seasonal spikes</strong> at <span class="math notranslate nohighlight">\((m, 2m, 3m,\dots)\)</span>: seasonality of period <span class="math notranslate nohighlight">\((m)\)</span>.</p></li>
 <li><p><strong>Slow decay</strong> (very gradual fall) in the raw series: signals <strong>non-stationarity</strong> → consider differencing.</p></li>
 </ul>
 <p>The vertical bars show correlation values; the shaded bands are <strong>confidence intervals</strong>. Bars <strong>outside</strong> the band ⇒ significant autocorrelation.</p>
@@ -1462,11 +1464,11 @@ Use <strong>both</strong> to propose (p, q), then confirm with AIC/BIC and resid
 <h2>🤔 Big picture<a class="headerlink" href="#big-picture" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>AR(p)</strong> — <em>AutoRegressive</em>: today depends on <strong>p</strong> past values
-( y_t = \phi_1 y_{t-1} + \dots + \phi_p y_{t-p} + \varepsilon_t )</p></li>
+<span class="math notranslate nohighlight">\(( y_t = \phi_1 y_{t-1} + \dots + \phi_p y_{t-p} + \varepsilon_t )\)</span></p></li>
 <li><p><strong>I(d)</strong> — <em>Integrated</em>: <strong>d</strong> differences to remove trend/drift
-( \nabla^d y_t ) is the stationary series you actually model</p></li>
+<span class="math notranslate nohighlight">\(( \nabla^d y_t )\)</span> is the stationary series you actually model</p></li>
 <li><p><strong>MA(q)</strong> — <em>Moving Average</em>: today depends on <strong>q</strong> past <strong>errors</strong>
-( y_t = \varepsilon_t + \theta_1 \varepsilon_{t-1} + \dots + \theta_q \varepsilon_{t-q} )</p></li>
+<span class="math notranslate nohighlight">\(( y_t = \varepsilon_t + \theta_1 \varepsilon_{t-1} + \dots + \theta_q \varepsilon_{t-q} )\)</span></p></li>
 </ul>
 <blockquote>
 <div><p>Intuition:</p>
@@ -2878,7 +2880,7 @@ For values <span class="math notranslate nohighlight">\((x_1, x_2, \dots, x_t)\)
 <p><strong>Intuition:</strong></p>
 <ul class="simple">
 <li><p><strong>I(d)</strong> removes <strong>trend</strong></p></li>
-<li><p><strong>I_m(D)</strong> removes <strong>seasonal mean shifts</strong></p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(I_m(D)\)</span></strong> removes <strong>seasonal mean shifts</strong></p></li>
 <li><p><strong>AR / MA</strong> terms capture <strong>short-memory</strong> patterns in the differenced data</p></li>
 <li><p><strong>Seasonal AR / MA</strong> terms capture <strong>lag-m</strong> relationships (same season last cycle)</p></li>
 </ul>
@@ -3000,11 +3002,11 @@ STOP: TOTAL NO. of ITERATIONS REACHED LIMIT
       </div>
     </a>
     <a class="right-next"
-       href="16_ml_baseline_lag7d.html"
+       href="practical_11_statistical_models.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">⚡️ Baseline Forecast: Lag‑7 Day</p>
+        <p class="prev-next-title">⚡ LAB: Statistical Models for Time Series</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

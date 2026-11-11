@@ -1,0 +1,2460 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>⚡ LAB: Baselines &amp; Evaluation &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"0999a85eaba6496691b3d588d933433c": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_35a46f3bf91443259957237b6afee9fd", "msg_id": "", "outputs": [{"data": {"text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>Weighted MAE [MW]</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>lag_1h</th>\n      <td>39.58</td>\n    </tr>\n    <tr>\n      <th>lag_168h</th>\n      <td>51.91</td>\n    </tr>\n    <tr>\n      <th>lag_24h</th>\n      <td>55.46</td>\n    </tr>\n  </tbody>\n</table>\n</div><br><label><b>dtype:</b> float64</label>", "text/plain": "lag_1h      39.58\nlag_168h    51.91\nlag_24h     55.46\nName: Weighted MAE [MW], dtype: float64"}, "metadata": {}, "output_type": "display_data"}]}}, "21a8bf078f5e4151baef4f9d7ba1d8a5": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "IntSliderModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "IntSliderModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "IntSliderView", "continuous_update": true, "description": "Peak weight", "description_tooltip": null, "disabled": false, "layout": "IPY_MODEL_d55b123275fb425ebfe7a43b59543ff6", "max": 10, "min": 1, "orientation": "horizontal", "readout": true, "readout_format": "d", "step": 1, "style": "IPY_MODEL_c7a58caedc2c40ec88c01788fb4d4b97", "value": 3}}, "35a46f3bf91443259957237b6afee9fd": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "611a09dace614a7ebc77ff174074ef17": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"_dom_classes": ["widget-interact"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "VBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "VBoxView", "box_style": "", "children": ["IPY_MODEL_21a8bf078f5e4151baef4f9d7ba1d8a5", "IPY_MODEL_0999a85eaba6496691b3d588d933433c"], "layout": "IPY_MODEL_8fbd70f2249e4c4bb7d5123c80bc5f37"}}, "8fbd70f2249e4c4bb7d5123c80bc5f37": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c7a58caedc2c40ec88c01788fb4d4b97": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "SliderStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "SliderStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": "", "handle_color": null}}, "d55b123275fb425ebfe7a43b59543ff6": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practical_10_baselines_evaluation';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🏠⚡ Home Energy Management Systems (Home EMS)" href="24_home_ems_pyomo.html" />
+    <link rel="prev" title="🔮 Forecasting Strategies" href="23_forecasting_strategies.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practical_01_energy_data_challenge.html">⚡ LAB: Your First Energy Data Challenge</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="practical_02_python_pandas_elering.html">⚡ LAB: Intro to Python, Pandas and Elering LIVE</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_04_life_cycle.html">⚡ LAB:  Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="practical_05_visualisation.html">📊 LAB: Data Visualisation Lab</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_06_data_cleaning.html">LAB: ⚡ Data Cleaning</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_07_feature_engineering.html">LAB: Feature Engineering 🔧⚡</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_03_time_series.html">⏱️ LAB: Time Series Detective</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_11_statistical_models.html">⚡ LAB: Statistical Models for Time Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_ml_baseline_lag7d.html">⚡️ Baseline Forecast: Lag‑7 Day</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="17_ml_baseline_LR.html">⚡️ Baseline Forecast: Linear Regression</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="18_ml_RF.html">🌲 Random Forest</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="19_ml_SVM.html">🧭 Support Vector Machines (SVM/SVR)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="20_ml_prophet.html">🔮 Time-Series Forecasting with Prophet</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="21_ml_chronos_tourch.html">🤖⏱️ Chronos Time‑Series Forecasting</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="22_ml_timesfm.html">🕰️🤖 TimesFM — Foundation Model for Time‑Series Forecasting</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Forecasting</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="23_forecasting_strategies.html">🔮 Forecasting Strategies</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">⚡ LAB: Baselines &amp; Evaluation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">HEMS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="24_home_ems_pyomo.html">🏠⚡ Home Energy Management Systems (Home EMS)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practical_10_baselines_evaluation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>⚡ LAB: Baselines & Evaluation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-hourly-estonian-demand">1. Load hourly Estonian demand</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-check-the-data">✏️ Task 1 — Check the data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-reference-forecasts">2. Three reference forecasts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-evaluate-baselines">✏️ Task 2 — Evaluate baselines</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-forecast-several-metrics">3. One forecast, several metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-are-metric-choices-neutral">✏️ Task 3 — Are metric choices neutral?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-the-metric-care-about-the-morning-peak">4. Make the metric care about the morning peak</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-design-your-operational-metric">✏️ Task 4 — Design your operational metric</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respect-time-random-vs-chronological-split">5. Respect time: random vs chronological split</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-5-catch-a-misleading-evaluation">✏️ Task 5 — Catch a misleading evaluation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#walk-forward-evaluation-expanding-training-windows">6. Walk-forward evaluation: expanding training windows</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-6-evaluate-across-seasons">✏️ Task 6 — Evaluate across seasons</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-peer-review-verify-a-confident-claim-10-min">7. LLM peer review: verify a confident claim (10 min)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-recommendation-5-min">8. Final recommendation (5 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check">Self-check</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-baselines-evaluation">
+<h1>⚡ LAB: Baselines &amp; Evaluation<a class="headerlink" href="#lab-baselines-evaluation" title="Link to this heading">#</a></h1>
+<p><strong>Topic:</strong> What makes one electricity-demand forecast better than another?</p>
+<p><strong>How to work:</strong> Run cells from top to bottom. Most code is already written: change only values marked <strong>✏️ CHANGE</strong>, inspect the graphs, and type short answers in the text boxes below each task. An LLM may help you explain your results, but verify its claims with calculations.</p>
+<p><strong>Learning outcomes:</strong> (1) define a forecast horizon; (2) compare lag-1h / lag-24h / lag-168h baselines; (3) interpret MAE, RMSE, MAPE and nRMSE; (4) evaluate operationally important hours; (5) avoid time-series leakage; (6) assess a Random Forest with walk-forward validation.</p>
+<blockquote>
+<div><p><strong>Important comparison rule:</strong> Here the actual prediction task is <strong>one hour ahead</strong>: predict consumption at hour <em>t</em> using information available before <em>t</em>. The Elering “planned consumption” column is useful for descriptive comparison, but its publication/issue time is not provided in this dataset; therefore we <strong>do not claim</strong> it was available with the same one-hour lead time as our baselines and ML model.</p>
+</div></blockquote>
+<section id="load-hourly-estonian-demand">
+<h2>1. Load hourly Estonian demand<a class="headerlink" href="#load-hourly-estonian-demand" title="Link to this heading">#</a></h2>
+<p>We load the Elering 2022 CSV <strong>directly from the course GitHub repository</strong>, without saving a local copy. The file uses a semicolon separator and a comma as decimal symbol.</p>
+<p>We index observations by <strong>UTC timestamps</strong>. This preserves a regular 1-hour sequence across daylight-saving time changes. For plotting or grouping by local hour, we explicitly convert the timestamps to <code class="docutils literal notranslate"><span class="pre">Europe/Tallinn</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="n">DATA_URL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;https://raw.githubusercontent.com/drmatson/energy_informatics/main/data/&#39;</span>
+    <span class="s1">&#39;electricity-production</span><span class="si">%20a</span><span class="s1">nd</span><span class="si">%20c</span><span class="s1">onsumption_2022.csv&#39;</span>
+<span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DATA_URL</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">raw</span><span class="p">[</span><span class="s1">&#39;timestamp_utc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Ajatempel (UTC)&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;timestamp_utc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;timestamp_utc&#39;</span><span class="p">)</span>
+
+<span class="n">energy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">raw</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">energy</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Tarbimine&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">energy</span><span class="p">[</span><span class="s1">&#39;planned&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Planeeritud tarbimine&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">energy</span><span class="p">[</span><span class="s1">&#39;local_hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s1">&#39;Europe/Tallinn&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">hour</span>
+<span class="n">energy</span><span class="p">[</span><span class="s1">&#39;day_of_week&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s1">&#39;Europe/Tallinn&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dayofweek</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Rows:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">energy</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Date range (UTC):&#39;</span><span class="p">,</span> <span class="n">energy</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="n">energy</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Missing values:&#39;</span><span class="p">,</span> <span class="n">energy</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span><span class="s1">&#39;planned&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time-step distribution:&#39;</span><span class="p">,</span> <span class="n">energy</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">energy</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rows: 8760
+Date range (UTC): 2021-12-31 22:00:00+00:00 to 2022-12-31 21:00:00+00:00
+Missing values: {&#39;demand&#39;: 0, &#39;planned&#39;: 0}
+Time-step distribution: {Timedelta(&#39;0 days 01:00:00&#39;): 8757, Timedelta(&#39;0 days 00:00:00&#39;): 1, Timedelta(&#39;0 days 02:00:00&#39;): 1}
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-7a1d2f73-d3b8-4281-a8b9-fc4c3bbc25a0" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>demand</th>
+      <th>planned</th>
+      <th>local_hour</th>
+      <th>day_of_week</th>
+    </tr>
+    <tr>
+      <th>timestamp_utc</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2021-12-31 22:00:00+00:00</th>
+      <td>899.4</td>
+      <td>903.1</td>
+      <td>0</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2021-12-31 23:00:00+00:00</th>
+      <td>892.1</td>
+      <td>935.8</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 00:00:00+00:00</th>
+      <td>874.3</td>
+      <td>897.6</td>
+      <td>2</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00+00:00</th>
+      <td>860.1</td>
+      <td>878.5</td>
+      <td>3</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00+00:00</th>
+      <td>842.7</td>
+      <td>891.1</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-7a1d2f73-d3b8-4281-a8b9-fc4c3bbc25a0')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-7a1d2f73-d3b8-4281-a8b9-fc4c3bbc25a0 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-7a1d2f73-d3b8-4281-a8b9-fc4c3bbc25a0');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div></div>
+</div>
+<section id="task-1-check-the-data">
+<h3>✏️ Task 1 — Check the data<a class="headerlink" href="#task-1-check-the-data" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>How many hourly observations are there? How many missing demand values?</p></li>
+<li><p>Why is it safer to use the UTC timestamp for <code class="docutils literal notranslate"><span class="pre">shift(24)</span></code> than local timestamps around DST transitions?</p></li>
+<li><p>Does <code class="docutils literal notranslate"><span class="pre">shift(24)</span></code> always mean “same wall-clock hour yesterday” in Tallinn?</p></li>
+</ol>
+<p><strong>Your answer:</strong></p>
+<ul class="simple">
+<li><p><strong>1:</strong> …</p></li>
+<li><p><strong>2:</strong> …</p></li>
+<li><p><strong>3:</strong> …</p></li>
+</ul>
+<blockquote>
+<div><p>🧑‍🏫 <strong>Reference answers</strong></p>
+</div></blockquote>
+<p><strong>Instructor reference answer (Task 1)</strong></p>
+<ul class="simple">
+<li><p>For the original course file: 8760 hourly records for 2022 (365 × 24); verify missingness from <code class="docutils literal notranslate"><span class="pre">energy.isna().sum()</span></code>.</p></li>
+<li><p>A UTC-based index maintains a regular elapsed-hour sequence even during the daylight-saving switch.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shift(24)</span></code> means 24 elapsed hours, <strong>not necessarily the same local clock hour</strong> on DST-change days. Do not silently claim exact same-time-yesterday equivalence.</p></li>
+</ul>
+</section>
+</section>
+<section id="three-reference-forecasts">
+<h2>2. Three reference forecasts<a class="headerlink" href="#three-reference-forecasts" title="Link to this heading">#</a></h2>
+<p>For each target hour <em>t</em>, a lag baseline predicts using a previously observed value. These are valid for our <strong>one-hour-ahead</strong> setup because all three lagged values are in the past.</p>
+<ul class="simple">
+<li><p><strong>Lag-1h:</strong> previous hour’s demand</p></li>
+<li><p><strong>Lag-24h:</strong> demand 24 elapsed hours earlier</p></li>
+<li><p><strong>Lag-168h:</strong> demand 168 elapsed hours earlier (one elapsed week)</p></li>
+</ul>
+<p>Change the plotted week to a different week in 2022, rerun, and compare the shapes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✏️ CHANGE: try other 2022 weeks, e.g. &#39;2022-02-07&#39; or &#39;2022-10-24&#39;</span>
+<span class="n">START_WEEK</span> <span class="o">=</span> <span class="s1">&#39;2022-09-05&#39;</span>
+
+<span class="k">for</span> <span class="n">hours</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">168</span><span class="p">]:</span>
+    <span class="n">energy</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;lag_</span><span class="si">{</span><span class="n">hours</span><span class="si">}</span><span class="s1">h&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span>
+
+<span class="c1"># One shared test set for every baseline; train/test separation is chronological.</span>
+<span class="n">split_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2022-09-01&#39;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
+<span class="n">valid</span> <span class="o">=</span> <span class="n">energy</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span> <span class="s1">&#39;lag_1h&#39;</span><span class="p">,</span> <span class="s1">&#39;lag_24h&#39;</span><span class="p">,</span> <span class="s1">&#39;lag_168h&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">valid</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">valid</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">split_time</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">week_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">START_WEEK</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
+<span class="n">week_end</span> <span class="o">=</span> <span class="n">week_start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">week</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">test</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">week_start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">week_end</span><span class="p">)]</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">week</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Select a test week on or after 2022-09-01 (UTC).&#39;</span>
+<span class="n">week</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span><span class="s1">&#39;lag_1h&#39;</span><span class="p">,</span><span class="s1">&#39;lag_24h&#39;</span><span class="p">,</span><span class="s1">&#39;lag_168h&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Observed vs naïve forecasts | week starting </span><span class="si">{</span><span class="n">START_WEEK</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Electricity demand (MW)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.85</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ebe561e192896f692120ec144b5660e6e6f6b320039e0ad68c0dac51d7337eca.png" src="_images/ebe561e192896f692120ec144b5660e6e6f6b320039e0ad68c0dac51d7337eca.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">score_forecast</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;MAE [MW], RMSE [MW], MAPE [%], and mean-normalized RMSE [%].&quot;&quot;&quot;</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">yt</span><span class="p">,</span> <span class="n">yp</span> <span class="o">=</span> <span class="n">y_true</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">yt</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No valid observations&#39;</span><span class="p">)</span>
+    <span class="n">mae</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yt</span> <span class="o">-</span> <span class="n">yp</span><span class="p">))</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">yt</span> <span class="o">-</span> <span class="n">yp</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># Percentage-based metrics are undefined for zero observed values.</span>
+    <span class="n">nonzero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yt</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-12</span>
+    <span class="n">mape</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">yt</span><span class="p">[</span><span class="n">nonzero</span><span class="p">]</span> <span class="o">-</span> <span class="n">yp</span><span class="p">[</span><span class="n">nonzero</span><span class="p">])</span> <span class="o">/</span> <span class="n">yt</span><span class="p">[</span><span class="n">nonzero</span><span class="p">]))</span> <span class="o">*</span> <span class="mi">100</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">nonzero</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yt</span><span class="p">))</span>
+    <span class="n">nrmse</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">rmse</span> <span class="o">/</span> <span class="n">scale</span><span class="p">)</span> <span class="k">if</span> <span class="n">scale</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;MAE [MW]&#39;</span><span class="p">:</span> <span class="n">mae</span><span class="p">,</span> <span class="s1">&#39;RMSE [MW]&#39;</span><span class="p">:</span> <span class="n">rmse</span><span class="p">,</span>
+            <span class="s1">&#39;MAPE [%]&#39;</span><span class="p">:</span> <span class="n">mape</span><span class="p">,</span> <span class="s1">&#39;nRMSE/mean [%]&#39;</span><span class="p">:</span> <span class="n">nrmse</span><span class="p">}</span>
+
+<span class="n">baseline_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag_1h&#39;</span><span class="p">,</span> <span class="s1">&#39;lag_24h&#39;</span><span class="p">,</span> <span class="s1">&#39;lag_168h&#39;</span><span class="p">]</span>
+<span class="n">baseline_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">score_forecast</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="n">name</span><span class="p">])</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">baseline_columns</span>
+<span class="p">})</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">baseline_scores</span><span class="p">)</span>
+
+<span class="n">baseline_scores</span><span class="p">[[</span><span class="s1">&#39;MAE [MW]&#39;</span><span class="p">,</span> <span class="s1">&#39;RMSE [MW]&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Baselines&#39;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;MW&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-eb896455-c0b6-4ecc-beb7-49c66f9036c6" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MAE [MW]</th>
+      <th>RMSE [MW]</th>
+      <th>MAPE [%]</th>
+      <th>nRMSE/mean [%]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>lag_1h</th>
+      <td>33.32</td>
+      <td>44.42</td>
+      <td>3.57</td>
+      <td>4.65</td>
+    </tr>
+    <tr>
+      <th>lag_24h</th>
+      <td>49.55</td>
+      <td>79.39</td>
+      <td>5.23</td>
+      <td>8.31</td>
+    </tr>
+    <tr>
+      <th>lag_168h</th>
+      <td>52.06</td>
+      <td>73.99</td>
+      <td>5.40</td>
+      <td>7.74</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-eb896455-c0b6-4ecc-beb7-49c66f9036c6')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-eb896455-c0b6-4ecc-beb7-49c66f9036c6 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-eb896455-c0b6-4ecc-beb7-49c66f9036c6');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_57b1c1b7-f40f-4f8f-ba35-505dc89a3254">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('baseline_scores')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_57b1c1b7-f40f-4f8f-ba35-505dc89a3254 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('baseline_scores');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div><img alt="_images/30bbcabfc44b042f09a530e53827f453a5481339fd3aee8e7845b590cc35dd8a.png" src="_images/30bbcabfc44b042f09a530e53827f453a5481339fd3aee8e7845b590cc35dd8a.png" />
+</div>
+</div>
+<section id="task-2-evaluate-baselines">
+<h3>✏️ Task 2 — Evaluate baselines<a class="headerlink" href="#task-2-evaluate-baselines" title="Link to this heading">#</a></h3>
+<p><strong>Small code edit:</strong> In <code class="docutils literal notranslate"><span class="pre">START_WEEK</span></code>, change one date and rerun the graph. Then interpret the evaluation table.</p>
+<ol class="arabic simple">
+<li><p>Which baseline has the lowest test MAE? Does the RMSE ranking agree?</p></li>
+<li><p>Why can lag-1h look excellent for one-hour-ahead forecasting but be <strong>invalid</strong> for a forecast issued 24 hours before the target?</p></li>
+<li><p>Why are the three baselines more informative than a single number like “RMSE = 50”?</p></li>
+</ol>
+<p><strong>Your answer:</strong> …</p>
+<blockquote>
+<div><p>🧑‍🏫 <strong>Reference answers</strong></p>
+</div></blockquote>
+<p><strong>Instructor reference answer (Task 2)</strong></p>
+<ul class="simple">
+<li><p>Lag-1h is available for a rolling one-hour-ahead task. For a day-ahead forecast issued before the day starts, many “previous hour” values lie <strong>after issue time</strong> and are unavailable.</p></li>
+<li><p>Baselines provide a difficulty floor, context and an honest reference; comparison also requires the same evaluation window and horizon.</p></li>
+</ul>
+</section>
+</section>
+<section id="one-forecast-several-metrics">
+<h2>3. One forecast, several metrics<a class="headerlink" href="#one-forecast-several-metrics" title="Link to this heading">#</a></h2>
+<p>The same forecasts can be ranked differently by different metrics. MAE treats errors linearly; RMSE penalizes large misses more heavily. MAPE highlights relative errors but is undefined when the actual value is zero. nRMSE only becomes meaningful when the <strong>normalization method is specified</strong>.</p>
+<p>Change <code class="docutils literal notranslate"><span class="pre">SPIKE</span></code> and <code class="docutils literal notranslate"><span class="pre">BIAS</span></code> in the toy example. Can you make the metrics prefer different forecasts?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">actual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">100.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">])</span>
+<span class="c1"># ✏️ CHANGE these two parameters (e.g., SPIKE=50 and BIAS=15)</span>
+<span class="n">SPIKE</span> <span class="o">=</span> <span class="mf">50.</span>
+<span class="n">BIAS</span> <span class="o">=</span> <span class="mf">15.</span>
+<span class="n">forecast_a</span> <span class="o">=</span> <span class="n">actual</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">SPIKE</span><span class="p">])</span>
+<span class="n">forecast_b</span> <span class="o">=</span> <span class="n">actual</span> <span class="o">+</span> <span class="n">BIAS</span>
+
+<span class="n">toy_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;A: one large miss&#39;</span><span class="p">:</span> <span class="n">score_forecast</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">forecast_a</span><span class="p">),</span>
+    <span class="s1">&#39;B: small constant bias&#39;</span><span class="p">:</span> <span class="n">score_forecast</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">forecast_b</span><span class="p">)</span>
+<span class="p">})</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">toy_scores</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">forecast_a</span><span class="p">,</span> <span class="s1">&#39;o--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;A: large miss&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">forecast_b</span><span class="p">,</span> <span class="s1">&#39;o--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;B: consistent bias&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Which forecast is better?&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Time step&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;MW&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MAE winner:&#39;</span><span class="p">,</span> <span class="n">toy_scores</span><span class="p">[</span><span class="s1">&#39;MAE [MW]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;RMSE winner:&#39;</span><span class="p">,</span> <span class="n">toy_scores</span><span class="p">[</span><span class="s1">&#39;RMSE [MW]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-18185afc-8f4b-4022-a739-e602d1b7cc78" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MAE [MW]</th>
+      <th>RMSE [MW]</th>
+      <th>MAPE [%]</th>
+      <th>nRMSE/mean [%]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>A: one large miss</th>
+      <td>10.0</td>
+      <td>22.36</td>
+      <td>10.0</td>
+      <td>22.36</td>
+    </tr>
+    <tr>
+      <th>B: small constant bias</th>
+      <td>15.0</td>
+      <td>15.00</td>
+      <td>15.0</td>
+      <td>15.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-18185afc-8f4b-4022-a739-e602d1b7cc78')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-18185afc-8f4b-4022-a739-e602d1b7cc78 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-18185afc-8f4b-4022-a739-e602d1b7cc78');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_0e3f38b9-2818-4bfa-86f0-63f2672cb63f">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('toy_scores')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_0e3f38b9-2818-4bfa-86f0-63f2672cb63f button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('toy_scores');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div><img alt="_images/e362e10685753861143a0659e126741be88e384df65f64b12d59f8d3f9061912.png" src="_images/e362e10685753861143a0659e126741be88e384df65f64b12d59f8d3f9061912.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAE winner: A: one large miss
+RMSE winner: B: small constant bias
+</pre></div>
+</div>
+</div>
+</div>
+<section id="task-3-are-metric-choices-neutral">
+<h3>✏️ Task 3 — Are metric choices neutral?<a class="headerlink" href="#task-3-are-metric-choices-neutral" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>With the starting parameters, which forecast wins MAE, and which wins RMSE? Explain mathematically.</p></li>
+<li><p>Which metric would you prioritize if one large missed peak could cause an operational problem?</p></li>
+<li><p>What happens to MAPE if a dataset contains real zeros? How should those cases be handled?</p></li>
+</ol>
+<p><strong>Your answer:</strong> …</p>
+<blockquote>
+<div><p>🧑‍🏫 <strong>Reference answers</strong></p>
+</div></blockquote>
+<p><strong>Instructor reference answer (Task 3)</strong></p>
+<ul class="simple">
+<li><p>For the initial parameters, forecast A has one error of 50 MW and four zero errors; forecast B has five errors of 15 MW. A: MAE = 10 MW, RMSE ≈ 22.36 MW. B: MAE = 15 MW, RMSE = 15 MW. Therefore <strong>MAE prefers A</strong> and <strong>RMSE prefers B</strong>.</p></li>
+<li><p>If a large peak miss is particularly harmful, RMSE may be more useful than MAE, but a domain-specific asymmetric cost can be better still.</p></li>
+<li><p>Standard MAPE is undefined at <code class="docutils literal notranslate"><span class="pre">y_true=0</span></code>. The helper above excludes zero targets <strong>and changes the scope</strong>, which must be disclosed. Other possibilities: evaluate a suitable alternative metric and report the zero-target subset separately.</p></li>
+</ul>
+</section>
+</section>
+<section id="make-the-metric-care-about-the-morning-peak">
+<h2>4. Make the metric care about the morning peak<a class="headerlink" href="#make-the-metric-care-about-the-morning-peak" title="Link to this heading">#</a></h2>
+<p>An electricity-system operator might care more about errors during <strong>07:00–09:59 Tallinn time</strong> than overnight. We can explicitly specify a domain-weighted MAE. The weight is a design decision, not a universal truth.</p>
+<p>Change <code class="docutils literal notranslate"><span class="pre">MORNING_WEIGHT</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">3</span></code>, and <code class="docutils literal notranslate"><span class="pre">8</span></code>. The code also shows a small deterministic example where the <strong>winner changes</strong> when the morning peak matters more.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">weighted_mae</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">prediction</span><span class="p">,</span> <span class="n">hours</span><span class="p">,</span> <span class="n">peak_weight</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">hours</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">h</span> <span class="o">&gt;=</span> <span class="mi">7</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">h</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">),</span> <span class="n">peak_weight</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">p</span><span class="p">),</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+
+<span class="c1"># ✏️ CHANGE to 1, 3, or 8</span>
+<span class="n">MORNING_WEIGHT</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">operational_scores</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">weighted_mae</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;local_hour&#39;</span><span class="p">],</span> <span class="n">MORNING_WEIGHT</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">baseline_columns</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Weighted MAE at morning weight </span><span class="si">{</span><span class="n">MORNING_WEIGHT</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">operational_scores</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Weighted MAE [MW]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">weights_to_test</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="n">sweep</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="n">w</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">weighted_mae</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;local_hour&#39;</span><span class="p">],</span> <span class="n">w</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">baseline_columns</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">weights_to_test</span>
+<span class="p">})</span><span class="o">.</span><span class="n">T</span>
+<span class="n">sweep</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Morning peak weight&#39;</span>
+<span class="n">sweep</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Sensitivity to operational peak weighting&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Weighted MAE (MW)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Controlled decision case: same target, two forecasts with errors in different hours.</span>
+<span class="n">decision_hours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">14</span><span class="p">])</span>
+<span class="n">decision_actual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">100.</span><span class="p">)</span>
+<span class="n">decision_a</span> <span class="o">=</span> <span class="n">decision_actual</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">25</span><span class="p">])</span>  <span class="c1"># lower peak error</span>
+<span class="n">decision_b</span> <span class="o">=</span> <span class="n">decision_actual</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>   <span class="c1"># lower night error</span>
+<span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">]:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">weighted_mae</span><span class="p">(</span><span class="n">decision_actual</span><span class="p">,</span> <span class="n">decision_a</span><span class="p">,</span> <span class="n">decision_hours</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">weighted_mae</span><span class="p">(</span><span class="n">decision_actual</span><span class="p">,</span> <span class="n">decision_b</span><span class="p">,</span> <span class="n">decision_hours</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Peak weight </span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s1">: A=</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, B=</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, winner=</span><span class="si">{</span><span class="s2">&quot;A&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;B&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;tie&quot;</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Weighted MAE at morning weight 3:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Weighted MAE [MW]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>lag_1h</th>
+      <td>39.58</td>
+    </tr>
+    <tr>
+      <th>lag_168h</th>
+      <td>51.91</td>
+    </tr>
+    <tr>
+      <th>lag_24h</th>
+      <td>55.46</td>
+    </tr>
+  </tbody>
+</table>
+</div><br><label><b>dtype:</b> float64</label></div><img alt="_images/f858973c625b0192ebf17b4938e572ef60f57041acd1d6a61b543b8af5d6c509.png" src="_images/f858973c625b0192ebf17b4938e572ef60f57041acd1d6a61b543b8af5d6c509.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Peak weight 1: A=12.50, B=7.50, winner=B
+Peak weight 3: A=6.25, B=11.25, winner=A
+Peak weight 8: A=2.78, B=13.33, winner=A
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Optional JupyterLab interaction:</strong> If <code class="docutils literal notranslate"><span class="pre">ipywidgets</span></code> is installed, use the slider below to inspect peak-weight sensitivity. If the widget does not render (e.g. some static Jupyter Book builds), use the four-weight static graph above instead.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+    <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+
+    <span class="k">def</span> <span class="nf">show_morning_weight</span><span class="p">(</span><span class="n">weight</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">weighted_mae</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="n">name</span><span class="p">],</span>
+                 <span class="n">test</span><span class="p">[</span><span class="s1">&#39;local_hour&#39;</span><span class="p">],</span> <span class="n">weight</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">baseline_columns</span><span class="p">}</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Weighted MAE [MW]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="n">display</span><span class="p">(</span><span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">show_morning_weight</span><span class="p">,</span>
+        <span class="n">weight</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                 <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Peak weight&#39;</span><span class="p">)))</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optional ipywidgets is not installed. Use the static sweep above.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "611a09dace614a7ebc77ff174074ef17", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="task-4-design-your-operational-metric">
+<h3>✏️ Task 4 — Design your operational metric<a class="headerlink" href="#task-4-design-your-operational-metric" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Did the real-data baseline ranking change when peak weight increased? (It is fine if it did not.)</p></li>
+<li><p>Why does the toy decision case change its winner?</p></li>
+<li><p>Give one reason why morning peak demand might deserve a higher penalty in a real energy-system decision, and one reason why an arbitrary weight could mislead.</p></li>
+</ol>
+<p><strong>Your answer:</strong> …</p>
+<blockquote>
+<div><p>🧑‍🏫 <strong>Reference answers</strong></p>
+</div></blockquote>
+<p><strong>Instructor reference answer (Task 4)</strong></p>
+<ul class="simple">
+<li><p>The real baseline ranking can change or stay unchanged; either outcome is valid if explained from the data.</p></li>
+<li><p>Toy case: at weight 1, A error sum is 75 and B is 45, so B wins (12.5 vs 7.5). At weight 3, A = 6.25 and B = 11.25 (A wins). At weight 8, A ≈ 2.78 and B ≈ 13.33 (A wins); note weights change the denominator too.</p></li>
+<li><p>Greater consequences of missed morning demand can justify weighting. Arbitrary weights create sensitivity and require justification, ideally grounded in real operational cost.</p></li>
+</ul>
+</section>
+</section>
+<section id="respect-time-random-vs-chronological-split">
+<h2>5. Respect time: random vs chronological split<a class="headerlink" href="#respect-time-random-vs-chronological-split" title="Link to this heading">#</a></h2>
+<p>Build a small feature table for <strong>one-hour-ahead</strong> demand prediction. Every lagged feature uses past observed demand; hour/day calendar values are known in advance. The random split is <strong>only a demonstration of a questionable evaluation protocol</strong>, not a recommended time-series workflow.</p>
+<p><strong>✏️ Small change:</strong> Switch <code class="docutils literal notranslate"><span class="pre">SPLIT_MODE</span></code> between <code class="docutils literal notranslate"><span class="pre">'random'</span></code> and <code class="docutils literal notranslate"><span class="pre">'chronological'</span></code>. Compare results, then justify which evaluation should be trusted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Allowed information at target time t: past demand, known calendar.</span>
+<span class="n">model_data</span> <span class="o">=</span> <span class="n">energy</span><span class="p">[[</span><span class="s1">&#39;demand&#39;</span><span class="p">,</span><span class="s1">&#39;lag_1h&#39;</span><span class="p">,</span><span class="s1">&#39;lag_24h&#39;</span><span class="p">,</span><span class="s1">&#39;lag_168h&#39;</span><span class="p">,</span><span class="s1">&#39;local_hour&#39;</span><span class="p">,</span><span class="s1">&#39;day_of_week&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;hour_sin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;local_hour&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+<span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;hour_cos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;local_hour&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">24</span><span class="p">)</span>
+<span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;day_of_week&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;day_of_week&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">FEATURES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lag_1h&#39;</span><span class="p">,</span><span class="s1">&#39;lag_24h&#39;</span><span class="p">,</span><span class="s1">&#39;lag_168h&#39;</span><span class="p">,</span><span class="s1">&#39;hour_sin&#39;</span><span class="p">,</span><span class="s1">&#39;hour_cos&#39;</span><span class="p">,</span><span class="s1">&#39;dow_sin&#39;</span><span class="p">,</span><span class="s1">&#39;dow_cos&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">model_data</span><span class="p">[</span><span class="n">FEATURES</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">model_data</span><span class="p">[</span><span class="s1">&#39;demand&#39;</span><span class="p">]</span>
+
+<span class="c1"># ✏️ CHANGE: &#39;random&#39; or &#39;chronological&#39;</span>
+<span class="n">SPLIT_MODE</span> <span class="o">=</span> <span class="s1">&#39;chronological&#39;</span>
+<span class="k">if</span> <span class="n">SPLIT_MODE</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+    <span class="p">)</span>
+<span class="k">elif</span> <span class="n">SPLIT_MODE</span> <span class="o">==</span> <span class="s1">&#39;chronological&#39;</span><span class="p">:</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">split_time</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;SPLIT_MODE must be &#39;random&#39; or &#39;chronological&#39;&quot;</span><span class="p">)</span>
+
+<span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                           <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_hat</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Split mode:&#39;</span><span class="p">,</span> <span class="n">SPLIT_MODE</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Training dates:&#39;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;→&#39;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test dates:&#39;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;→&#39;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">score_forecast</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Test lag-1h MAE:&#39;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">score_forecast</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;lag_1h&#39;</span><span class="p">])[</span><span class="s1">&#39;MAE [MW]&#39;</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="n">sample_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">sample_size</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+        <span class="n">y_test</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">sample_size</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+<span class="n">preds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_hat</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">sample_size</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">sample_size</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">SPLIT_MODE</span><span class="si">}</span><span class="s1"> split: first </span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s1"> test observations&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;MW&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Split mode: chronological
+Training dates: 2022-01-07 22:00:00+00:00 → 2022-08-31 23:00:00+00:00
+Test dates: 2022-09-01 00:00:00+00:00 → 2022-12-31 21:00:00+00:00
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-097f6655-9957-45d1-900d-485be756f35f" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MAE [MW]</th>
+      <th>RMSE [MW]</th>
+      <th>MAPE [%]</th>
+      <th>nRMSE/mean [%]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Random Forest</th>
+      <td>16.59</td>
+      <td>21.68</td>
+      <td>1.77</td>
+      <td>2.27</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-097f6655-9957-45d1-900d-485be756f35f')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-097f6655-9957-45d1-900d-485be756f35f button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-097f6655-9957-45d1-900d-485be756f35f');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test lag-1h MAE: 33.32
+</pre></div>
+</div>
+<img alt="_images/822f02fcfbd0a226b1d0fdeecaef1fce070b2f33ea501f51b399bafa7ac345f7.png" src="_images/822f02fcfbd0a226b1d0fdeecaef1fce070b2f33ea501f51b399bafa7ac345f7.png" />
+</div>
+</div>
+<section id="task-5-catch-a-misleading-evaluation">
+<h3>✏️ Task 5 — Catch a misleading evaluation<a class="headerlink" href="#task-5-catch-a-misleading-evaluation" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Compare the errors after executing both split modes. Is random better <strong>in your run</strong>? A lower error is not guaranteed: explain the risk regardless of the observed numbers.</p></li>
+<li><p>Why does a random split violate realistic deployment chronology?</p></li>
+<li><p>A colleague calculates <code class="docutils literal notranslate"><span class="pre">scaler.fit_transform(full_dataset)</span></code> <strong>before</strong> splitting. What is the problem, and what should they do instead?</p></li>
+</ol>
+<p><strong>Your answer:</strong> …</p>
+<blockquote>
+<div><p>🧑‍🏫 <strong>Reference answers</strong></p>
+</div></blockquote>
+<p><strong>Instructor reference answer (Task 5)</strong></p>
+<ul class="simple">
+<li><p>There is <strong>no guarantee</strong> a random split returns a lower error for every dataset/model. It is questionable because future observations can enter training and highly related adjacent hours are split across train and test, unlike production forecasting.</p></li>
+<li><p>Chronological evaluation trains strictly on past data and scores on future observations. Calendar features are known ahead; lag features are only available under the rolling one-hour-ahead protocol.</p></li>
+<li><p>A scaler fit to the full series uses future distributional information. Fit the scaler <strong>inside each training window</strong>, and apply that fitted scaler to its test window. Random Forest does not require scaling for this example.</p></li>
+</ul>
+</section>
+</section>
+<section id="walk-forward-evaluation-expanding-training-windows">
+<h2>6. Walk-forward evaluation: expanding training windows<a class="headerlink" href="#walk-forward-evaluation-expanding-training-windows" title="Link to this heading">#</a></h2>
+<p>A single historical cutoff might be lucky or unlucky. Here we simulate four evaluation rounds: train on observations <strong>strictly before</strong> the origin and evaluate the next <strong>30 days</strong>. Training expands with each round; the model is refit each time.</p>
+<p>Our model forecasts <strong>one hour ahead at each test timestamp</strong> (rolling-origin / sequential operation): <code class="docutils literal notranslate"><span class="pre">lag_1h</span></code> is assumed available immediately before predicting that hour. This is <strong>not</strong> a fixed 30-day-ahead forecast issued once at the fold boundary.</p>
+<p>Change <code class="docutils literal notranslate"><span class="pre">N_TREES</span></code> or <code class="docutils literal notranslate"><span class="pre">MAX_DEPTH</span></code>, rerun, and check whether improvement is consistent across folds.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✏️ CHANGE: N_TREES = 20 or 100; MAX_DEPTH = 6 or 14</span>
+<span class="n">N_TREES</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">MAX_DEPTH</span> <span class="o">=</span> <span class="mi">12</span>
+
+<span class="n">origins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">([</span>
+    <span class="s1">&#39;2022-05-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-07-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-09-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-11-01&#39;</span>
+<span class="p">],</span> <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fold_results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">fold_details</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">fold_no</span><span class="p">,</span> <span class="n">origin</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">origins</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">origin</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">train_mask</span> <span class="o">=</span> <span class="n">model_data</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">origin</span>
+    <span class="n">test_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">model_data</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">origin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">model_data</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)</span>
+    <span class="n">X_tr</span><span class="p">,</span> <span class="n">X_te</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_mask</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_mask</span><span class="p">]</span>
+    <span class="n">y_tr</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_mask</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_mask</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">X_tr</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">X_te</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;Train/test chronology violated&#39;</span>
+    <span class="k">assert</span> <span class="n">X_te</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">,</span> <span class="s1">&#39;Test window exceeds intended horizon&#39;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">N_TREES</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="n">MAX_DEPTH</span><span class="p">,</span>
+                                  <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_te</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">pred</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">,</span> <span class="n">predictions</span><span class="p">),</span>
+                       <span class="p">(</span><span class="s1">&#39;lag-1h&#39;</span><span class="p">,</span> <span class="n">X_te</span><span class="p">[</span><span class="s1">&#39;lag_1h&#39;</span><span class="p">]),</span>
+                       <span class="p">(</span><span class="s1">&#39;lag-24h&#39;</span><span class="p">,</span> <span class="n">X_te</span><span class="p">[</span><span class="s1">&#39;lag_24h&#39;</span><span class="p">])]:</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">score_forecast</span><span class="p">(</span><span class="n">y_te</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+        <span class="n">fold_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;Fold&#39;</span><span class="p">:</span> <span class="n">fold_no</span><span class="p">,</span> <span class="s1">&#39;Test start&#39;</span><span class="p">:</span> <span class="n">origin</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">),</span>
+                             <span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">scores</span><span class="p">})</span>
+    <span class="n">fold_details</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;fold&#39;</span><span class="p">:</span> <span class="n">fold_no</span><span class="p">,</span> <span class="s1">&#39;train_end&#39;</span><span class="p">:</span> <span class="n">X_tr</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                         <span class="s1">&#39;test_start&#39;</span><span class="p">:</span> <span class="n">X_te</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;test_end&#39;</span><span class="p">:</span> <span class="n">X_te</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()})</span>
+
+<span class="n">fold_scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fold_results</span><span class="p">)</span>
+<span class="n">mae_table</span> <span class="o">=</span> <span class="n">fold_scores</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Fold&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;MAE [MW]&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fold windows:&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fold_details</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MAE by fold (MW):&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mae_table</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean and standard deviation over folds (MAE, MW):&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">mae_table</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span><span class="s1">&#39;std&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">mae_table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Walk-forward validation: 30-day test windows&#39;</span><span class="p">,</span>
+               <span class="n">xticks</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;MAE (MW)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fold windows:
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-a71275ba-1bfb-49fa-adb7-ee77ebf18763" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fold</th>
+      <th>train_end</th>
+      <th>test_start</th>
+      <th>test_end</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2022-04-30 23:00:00+00:00</td>
+      <td>2022-05-01 00:00:00+00:00</td>
+      <td>2022-05-30 23:00:00+00:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2022-06-30 23:00:00+00:00</td>
+      <td>2022-07-01 00:00:00+00:00</td>
+      <td>2022-07-30 23:00:00+00:00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2022-08-31 23:00:00+00:00</td>
+      <td>2022-09-01 00:00:00+00:00</td>
+      <td>2022-09-30 23:00:00+00:00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>2022-10-31 23:00:00+00:00</td>
+      <td>2022-11-01 00:00:00+00:00</td>
+      <td>2022-11-30 23:00:00+00:00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-a71275ba-1bfb-49fa-adb7-ee77ebf18763')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-a71275ba-1bfb-49fa-adb7-ee77ebf18763 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-a71275ba-1bfb-49fa-adb7-ee77ebf18763');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MAE by fold (MW):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-39a4585d-5dc0-480f-9bb9-17bb4eb847da" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Random Forest</th>
+      <th>lag-1h</th>
+      <th>lag-24h</th>
+    </tr>
+    <tr>
+      <th>Fold</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>25.22</td>
+      <td>35.02</td>
+      <td>71.56</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>19.23</td>
+      <td>32.17</td>
+      <td>55.44</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>18.33</td>
+      <td>32.36</td>
+      <td>53.20</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>14.69</td>
+      <td>34.37</td>
+      <td>42.85</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-39a4585d-5dc0-480f-9bb9-17bb4eb847da')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-39a4585d-5dc0-480f-9bb9-17bb4eb847da button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-39a4585d-5dc0-480f-9bb9-17bb4eb847da');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean and standard deviation over folds (MAE, MW):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-b8fa8bd1-437c-447b-9601-64cdf3664278" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Model</th>
+      <th>Random Forest</th>
+      <th>lag-1h</th>
+      <th>lag-24h</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mean</th>
+      <td>19.37</td>
+      <td>33.48</td>
+      <td>55.76</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>4.37</td>
+      <td>1.43</td>
+      <td>11.87</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-b8fa8bd1-437c-447b-9601-64cdf3664278')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-b8fa8bd1-437c-447b-9601-64cdf3664278 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-b8fa8bd1-437c-447b-9601-64cdf3664278');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div><img alt="_images/80e75e5a36da7b18a347e2ad35349c25651f85151816339c9f556d158519e360.png" src="_images/80e75e5a36da7b18a347e2ad35349c25651f85151816339c9f556d158519e360.png" />
+</div>
+</div>
+<section id="task-6-evaluate-across-seasons">
+<h3>✏️ Task 6 — Evaluate across seasons<a class="headerlink" href="#task-6-evaluate-across-seasons" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Is Random Forest consistently better than <strong>both</strong> baselines in all four folds? Quote the actual results.</p></li>
+<li><p>Why should we report variation across folds instead of only mean MAE?</p></li>
+<li><p>Does a low one-hour-ahead error prove that the model is suitable for day-ahead trading? Explain.</p></li>
+<li><p>How would you modify the feature set to construct a legitimate day-ahead forecast issued at a fixed time? (Conceptual answer, no code required.)</p></li>
+</ol>
+<p><strong>Your answer:</strong> …</p>
+<blockquote>
+<div><p>🧑‍🏫 <strong>Reference answers</strong></p>
+</div></blockquote>
+<p><strong>Instructor reference answer (Task 6)</strong></p>
+<ul class="simple">
+<li><p>The answer should cite the <strong>fold-by-fold MAE table</strong>, not make a generic claim that RF is always superior. Changing hyperparameters may change winners.</p></li>
+<li><p>Different months reflect different regimes (seasonality, operating conditions, difficult events); mean alone conceals instability.</p></li>
+<li><p>One-hour sequential rolling forecasts may use observations accumulated during the test month. That is fine <strong>for the declared horizon</strong>, but cannot establish performance of a forecast issued 24h in advance.</p></li>
+<li><p>For day-ahead forecasts, define an issue timestamp; permit only demand observations and covariates known at issue time (e.g. lagged history ending at issue, calendar, weather forecasts issued by that time). Rebuild all features and validation around that information set.</p></li>
+</ul>
+</section>
+</section>
+<section id="llm-peer-review-verify-a-confident-claim-10-min">
+<h2>7. LLM peer review: verify a confident claim (10 min)<a class="headerlink" href="#llm-peer-review-verify-a-confident-claim-10-min" title="Link to this heading">#</a></h2>
+<p>Ask an LLM the following, then <strong>check its answer</strong> against your tables and the experimental setup. Do not copy its response without verification.</p>
+<blockquote>
+<div><p><strong>Prompt to paste:</strong> “I evaluated electricity-demand forecasts using an Elering 2022 hourly series, a one-hour rolling forecast horizon, lag-1h / lag-24h baselines, and Random Forest. Explain why a random train/test split can overstate performance, why RMSE and MAE might rank forecasts differently, and why the historical planned-demand column may not be a comparable one-hour-ahead forecast. Suggest one decision-aware evaluation metric.”</p>
+</div></blockquote>
+<p><strong>✏️ Your task:</strong> Identify at least <strong>two claims to verify</strong>. For each, say what evidence or code would confirm/refute it. If the LLM proposes comparing a day-ahead plan with a rolling one-hour model as if they had the same horizon, explain the mismatch.</p>
+<p><strong>Your answer:</strong> …</p>
+<blockquote>
+<div><p>🧑‍🏫 <strong>Reference answers</strong></p>
+</div></blockquote>
+<p><strong>Instructor reference answer (Task 7)</strong></p>
+<p>Check whether students verify the following independently: (a) future data did not enter training, (b) forecast issue times and horizons match, (c) the metric ranking is computed on the same observations, and (d) a weighted error has a decision justification. A good LLM response should <strong>not</strong> equate the Elering plan’s unknown publication time with the one-hour-ahead experiment.</p>
+</section>
+<section id="final-recommendation-5-min">
+<h2>8. Final recommendation (5 min)<a class="headerlink" href="#final-recommendation-5-min" title="Link to this heading">#</a></h2>
+<p>Write a <strong>5–7 sentence mini evaluation report</strong> for an energy-system operator. Include:</p>
+<ol class="arabic simple">
+<li><p><strong>Horizon:</strong> What is forecast and how far ahead?</p></li>
+<li><p><strong>Baseline:</strong> Which simple reference model should the proposed ML model beat?</p></li>
+<li><p><strong>Split:</strong> Why do you trust your chronological / walk-forward evaluation?</p></li>
+<li><p><strong>Metrics:</strong> At least MAE and RMSE, plus one context-sensitive indicator.</p></li>
+<li><p><strong>Decision:</strong> Would you deploy the Random Forest <strong>based on this evidence</strong>? What additional evidence is missing?</p></li>
+</ol>
+<p><strong>Mini report:</strong> …</p>
+<hr class="docutils" />
+<section id="self-check">
+<h3>Self-check<a class="headerlink" href="#self-check" title="Link to this heading">#</a></h3>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> I stated a forecast horizon before comparing models.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> My baseline uses only data available at the prediction time.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> I compared models on the <strong>same observations</strong>.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> My train dates are earlier than my test dates.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> My metric choice matches the operational question.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> I did not confuse a lower metric value with demonstrated decision value.</p></li>
+</ul>
+<blockquote>
+<div><p>🧑‍🏫 <strong>Instructor notes / reference answers</strong></p>
+</div></blockquote>
+<p><strong>Instructor grading guide (Task 8; suggested 10 points)</strong></p>
+<ul class="simple">
+<li><p>Forecast horizon and availability of inputs — <strong>2</strong></p></li>
+<li><p>Relevant and fair baselines — <strong>2</strong></p></li>
+<li><p>Chronological / walk-forward validity — <strong>2</strong></p></li>
+<li><p>MAE and RMSE with operational metric — <strong>2</strong></p></li>
+<li><p>Contextual deployment recommendation and remaining uncertainty — <strong>2</strong></p></li>
+</ul>
+<p><strong>Example conclusion structure:</strong> “For rolling one-hour-ahead demand forecasting on Elering 2022, I compared RF with lag-1h and lag-24h on future, non-overlapping windows. [State observed MAE/RMSE and fold variation.] [State whether the RF truly improves on baselines.] Since morning-peak errors may have higher operational impact, I also checked weighted MAE. I would [deploy / not deploy / run further trials] because [data-based reasons]. Before any day-ahead deployment, I would redesign the issue-time protocol and evaluate on multiple years.”</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="23_forecasting_strategies.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">🔮 Forecasting Strategies</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="24_home_ems_pyomo.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🏠⚡ Home Energy Management Systems (Home EMS)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-hourly-estonian-demand">1. Load hourly Estonian demand</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1-check-the-data">✏️ Task 1 — Check the data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-reference-forecasts">2. Three reference forecasts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2-evaluate-baselines">✏️ Task 2 — Evaluate baselines</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-forecast-several-metrics">3. One forecast, several metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3-are-metric-choices-neutral">✏️ Task 3 — Are metric choices neutral?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-the-metric-care-about-the-morning-peak">4. Make the metric care about the morning peak</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4-design-your-operational-metric">✏️ Task 4 — Design your operational metric</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#respect-time-random-vs-chronological-split">5. Respect time: random vs chronological split</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-5-catch-a-misleading-evaluation">✏️ Task 5 — Catch a misleading evaluation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#walk-forward-evaluation-expanding-training-windows">6. Walk-forward evaluation: expanding training windows</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-6-evaluate-across-seasons">✏️ Task 6 — Evaluate across seasons</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#llm-peer-review-verify-a-confident-claim-10-min">7. LLM peer review: verify a confident claim (10 min)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-recommendation-5-min">8. Final recommendation (5 min)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#self-check">Self-check</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
