@@ -485,6 +485,7 @@
 
 
 <li class="toctree-l1"><a class="reference internal" href="practical_10_baselines_evaluation.html">⚡ LAB: Baselines &amp; Evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practical_12_forecasting_strategies.html">⚡ LAB: Forecasting Strategies</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">HEMS</span></p>
 <ul class="nav bd-sidenav">
@@ -646,7 +647,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backtesting-evaluation-what-actually-matters">🧪 Backtesting &amp; evaluation (what actually matters)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-chooser-rules-of-thumb">🥊 Strategy chooser (rules of thumb)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pitfalls-fixes">⚠️ Pitfalls &amp; fixes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison">🧾  Comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison">🧾 Comparison</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
 </ul>
 </li>
@@ -688,7 +689,7 @@ document.write(`
 </section>
 <section id="recursive-iterated">
 <h2>🔁 Recursive (Iterated)<a class="headerlink" href="#recursive-iterated" title="Link to this heading">#</a></h2>
-<p><strong>Idea:</strong> Train <strong>one</strong> model for the next step (t→t+1). For t+2…H, feed each <strong>prediction</strong> back in as if it were real.</p>
+<p><strong>Idea:</strong> Train <strong>one</strong> model for the next step (<span class="math notranslate nohighlight">\(t \to t+1\)</span>). For <span class="math notranslate nohighlight">\(t + 2 \dots H\)</span>, feed each <strong>prediction</strong> back in as if it were real.</p>
 <p><strong>Why you’d pick it</strong></p>
 <ul class="simple">
 <li><p>✅ Simple and fast to maintain (one model)</p></li>
@@ -700,12 +701,12 @@ document.write(`
 <li><p>Short horizons (e.g., 1–6 steps)</p></li>
 <li><p>You retrain often and have rich lags + exogenous features</p></li>
 </ul>
-<p><strong>Learn more:</strong> Skforecast recursive forecaster → <a class="reference external" href="https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster">https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster</a></p>
+<p><strong>Learn more:</strong> Skforecast recursive forecaster → <a class="reference external" href="https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster">Skforecast User Guide</a></p>
 </section>
 <hr class="docutils" />
 <section id="direct">
 <h2>🎯 Direct<a class="headerlink" href="#direct" title="Link to this heading">#</a></h2>
-<p><strong>Idea:</strong> Train <strong>H</strong> separate models, one per horizon step (t→t+1, t→t+2, …, t→t+H). No prediction feedback.</p>
+<p><strong>Idea:</strong> Train <strong>H</strong> separate models, one per horizon step (<span class="math notranslate nohighlight">\(t \to t+1, t \to t+2, \dots, t \to t+H\)</span>). No prediction feedback.</p>
 <p><strong>Why you’d pick it</strong></p>
 <ul class="simple">
 <li><p>✅ No error propagation</p></li>
@@ -717,7 +718,7 @@ document.write(`
 <li><p>Medium/long horizons (e.g., 24–168 steps)</p></li>
 <li><p>Noisy series with heterogeneous step behavior</p></li>
 </ul>
-<p><strong>Learn more:</strong> Skforecast direct forecaster → <a class="reference external" href="https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster">https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster</a></p>
+<p><strong>Learn more:</strong> Skforecast direct forecaster → <a class="reference external" href="https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster">Skforecast User Guide</a></p>
 </section>
 <hr class="docutils" />
 <section id="dirrec-hybrid">
@@ -733,12 +734,12 @@ document.write(`
 <ul class="simple">
 <li><p>Moderate horizons with step interactions</p></li>
 </ul>
-<p><strong>Learn more:</strong> Conceptual variant discussed alongside recursive/direct in Skforecast guide → <a class="reference external" href="https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster">https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster</a></p>
+<p><strong>Learn more:</strong> Conceptual variant discussed alongside recursive/direct in Skforecast guide → <a class="reference external" href="https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster">Skforecast User Guide</a></p>
 </section>
 <hr class="docutils" />
 <section id="mimo-multiple-input-multiple-output">
 <h2>📦 MIMO (Multiple-Input Multiple-Output)<a class="headerlink" href="#mimo-multiple-input-multiple-output" title="Link to this heading">#</a></h2>
-<p><strong>Idea:</strong> Train <strong>one</strong> model to output the <strong>entire horizon vector</strong> ([y_{t+1},\dots,y_{t+H}]) in a single shot.</p>
+<p><strong>Idea:</strong> Train <strong>one</strong> model to output the <strong>entire horizon vector</strong> <span class="math notranslate nohighlight">\(([y_{t+1}, \dots, y_{t+H}])\)</span> in a single shot.</p>
 <p><strong>Why you’d pick it</strong></p>
 <ul class="simple">
 <li><p>✅ Captures cross-step dependencies (daily “shape”)</p></li>
@@ -750,18 +751,18 @@ document.write(`
 <li><p>Long horizons where shape coherence matters (e.g., 24-hour profile)</p></li>
 <li><p>You want consistent day-ahead curves</p></li>
 </ul>
-<p><strong>Learn more:</strong> Multi-output regression overview → <a class="reference external" href="https://www.geeksforgeeks.org/multioutput-regression-in-machine-learning/">https://www.geeksforgeeks.org/multioutput-regression-in-machine-learning/</a></p>
+<p><strong>Learn more:</strong> Multi-output regression overview → <a class="reference external" href="https://www.geeksforgeeks.org/multioutput-regression-in-machine-learning/">GeeksforGeeks</a></p>
 </section>
 <hr class="docutils" />
 <section id="backtesting-evaluation-what-actually-matters">
 <h2>🧪 Backtesting &amp; evaluation (what actually matters)<a class="headerlink" href="#backtesting-evaluation-what-actually-matters" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>🧱 <strong>Temporal CV</strong>: sliding or expanding windows; keep a clean <strong>hold-out</strong> block (e.g., last 2–4 weeks).</p></li>
-<li><p>🕰️ <strong>Per-horizon metrics</strong>: MAE/RMSE for each step (h=1…H) + aggregate.</p></li>
+<li><p>🕰️ <strong>Per-horizon metrics</strong>: MAE/RMSE for each step (<span class="math notranslate nohighlight">\(h = 1 \dots H\)</span>) + aggregate.</p></li>
 <li><p>🧭 <strong>Baselines first</strong>: Seasonal naïve (e.g., yesterday’s same hour) should be your floor.</p></li>
 <li><p>📈 <strong>Features</strong>: lags (1–48), seasonal lags (24, 168), hour/weekday, holidays, weather, and sin/cos seasonal cycles.</p></li>
 <li><p>🧰 For an end-to-end example with energy features &amp; honest splits:
-<a class="reference external" href="https://cienciadedatos.net/documentos/py29-forecasting-electricity-power-demand-python.html">https://cienciadedatos.net/documentos/py29-forecasting-electricity-power-demand-python.html</a></p></li>
+<a class="reference external" href="https://cienciadedatos.net/documentos/py29-forecasting-electricity-power-demand-python.html">Ciencia de Datos — Electricity Demand Forecasting</a></p></li>
 </ul>
 </section>
 <hr class="docutils" />
@@ -771,7 +772,7 @@ document.write(`
 <li><p><strong>Short horizon (≤6)</strong> → 🔁 <strong>Recursive</strong> (simple, strong with rich lags/exog).</p></li>
 <li><p><strong>Medium (6–48)</strong> → 🎯 <strong>Direct</strong> (often more stable across steps).</p></li>
 <li><p><strong>Long (≥24–168) &amp; shape matters</strong> → 📦 <strong>MIMO</strong> (or 🔁🎯 DirRec).</p></li>
-<li><p><strong>Many similar series (meters/regions)</strong> → use <em>global</em> ML with series ID (Skforecast plays nicely with this) → <a class="reference external" href="https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster">https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster</a></p></li>
+<li><p><strong>Many similar series (meters/regions)</strong> → use <em>global</em> ML with series ID (Skforecast plays nicely with this) → <a class="reference external" href="https://skforecast.org/0.13.0/user_guides/autoregresive-forecaster">Skforecast User Guide</a></p></li>
 </ul>
 </section>
 <hr class="docutils" />
@@ -786,7 +787,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="comparison">
-<h2>🧾  Comparison<a class="headerlink" href="#comparison" title="Link to this heading">#</a></h2>
+<h2>🧾 Comparison<a class="headerlink" href="#comparison" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Strategy</p></th>
@@ -864,6 +865,7 @@ document.write(`
 
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_percentage_error</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span><span class="p">,</span><span class="n">LinearSVR</span>
 
 
@@ -879,6 +881,7 @@ document.write(`
 
 
 <span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -5900,7 +5903,7 @@ if (outputEl) {{
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backtesting-evaluation-what-actually-matters">🧪 Backtesting &amp; evaluation (what actually matters)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-chooser-rules-of-thumb">🥊 Strategy chooser (rules of thumb)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pitfalls-fixes">⚠️ Pitfalls &amp; fixes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison">🧾  Comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison">🧾 Comparison</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
 </ul>
 </li>

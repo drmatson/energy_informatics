@@ -1,0 +1,1764 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>⚡ LAB: Forecasting Strategies &#8212; Energy Informatics</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practical_12_forecasting_strategies';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🏠⚡ Home Energy Management Systems (Home EMS)" href="24_home_ems_pyomo.html" />
+    <link rel="prev" title="⚡ LAB: Baselines &amp; Evaluation" href="practical_10_baselines_evaluation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Energy Informatics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    📖 Data Science for the Digital Energy Sector
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practical_01_energy_data_challenge.html">⚡ LAB: Your First Energy Data Challenge</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="python.html">🐍 Python/Numpy/Pandas</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="01_introduction_to_python.html">🐍 Introduction to Python</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="02_numpy_tutorial.html">🔢 NumPy</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="03_pandas_tutorial.html">🐼 Pandas</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="practical_02_python_pandas_elering.html">⚡ LAB: Intro to Python, Pandas and Elering LIVE</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="04_data_science_cycle.html">🔄 Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_04_life_cycle.html">⚡ LAB:  Data Science Lifecycle</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="visualization.html">👀 Visualisation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="05_visualization.html">📊 Visualization Tutorial with Matplotlib &amp; Seaborn</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="06_plotly.html">⚡ Plotly</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="07_ipywidgets.html">⚙️ Interactive Controls in Jupyter (ipywidgets)</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="08_dash.html">⚡ Dash for Energy Analytics — Mini Tutorial</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="practical_05_visualisation.html">📊 LAB: Data Visualisation Lab</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data preprocessing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="09_handling_datetime.html">🕒 Handling Datetime</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="10_handling_missing_data.html">🔧 Handling Missing Data</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="11_outliers.html">📊 Outliers in Data</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_06_data_cleaning.html">LAB: ⚡ Data Cleaning</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12_feature_engineering.html">🔧 Feature Engineering Tutorial</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_07_feature_engineering.html">LAB: Feature Engineering 🔧⚡</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="13_pca.html">Principal Component Analysis (PCA)</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistical Modelling for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ts.html">⏱️ Time Series vs. 📌 Timestamped Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_timeseries_intro.html">⏱️ Time series: trend, seasonality, decomposition.</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_03_time_series.html">⏱️ LAB: Time Series Detective</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="15_statistical_models_ts.html">⏱️ Statistical models: ACF/PACF, SARIMA</a></li>
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_11_statistical_models.html">⚡ LAB: Statistical Models for Time Series</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning for TS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="16_ml_baseline_lag7d.html">⚡️ Baseline Forecast: Lag‑7 Day</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="17_ml_baseline_LR.html">⚡️ Baseline Forecast: Linear Regression</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="18_ml_RF.html">🌲 Random Forest</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="19_ml_SVM.html">🧭 Support Vector Machines (SVM/SVR)</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="20_ml_prophet.html">🔮 Time-Series Forecasting with Prophet</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="21_ml_chronos_tourch.html">🤖⏱️ Chronos Time‑Series Forecasting</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="22_ml_timesfm.html">🕰️🤖 TimesFM — Foundation Model for Time‑Series Forecasting</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Forecasting</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="23_forecasting_strategies.html">🔮 Forecasting Strategies</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="practical_10_baselines_evaluation.html">⚡ LAB: Baselines &amp; Evaluation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">⚡ LAB: Forecasting Strategies</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">HEMS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="24_home_ems_pyomo.html">🏠⚡ Home Energy Management Systems (Home EMS)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practical_12_forecasting_strategies.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>⚡ LAB: Forecasting Strategies</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading-common-setup">Data loading — common setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forecasting-functions-provided-code">Forecasting functions — provided code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-direct-vs-recursive-does-the-horizon-matter">Exercise 1 — Direct vs. Recursive: does the horizon matter?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-tasks">Your tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instructor-notes-exercise-1">👩‍🏫 Instructor notes — Exercise 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sliding-vs-expanding-how-much-history-is-useful">Exercise 2 — Sliding vs. Expanding: how much history is useful?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Your tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instructor-notes-exercise-2">👩‍🏫 Instructor notes — Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-extension">Optional extension</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-forecasting-strategies">
+<h1>⚡ LAB: Forecasting Strategies<a class="headerlink" href="#lab-forecasting-strategies" title="Link to this heading">#</a></h1>
+<p><strong>Learning goals:</strong></p>
+<ul class="simple">
+<li><p>Compare <strong>Direct</strong> and <strong>Recursive</strong> multi-step electricity-demand forecasting.</p></li>
+<li><p>Examine the effect of forecast horizon on prediction error.</p></li>
+<li><p>Compare <strong>Sliding</strong> and <strong>Expanding</strong> training windows using time-ordered backtesting.</p></li>
+<li><p>Report <strong>NRMSE (%)</strong> and interpret results without data leakage.</p></li>
+</ul>
+<p><strong>Dataset:</strong> Elering hourly electricity demand in Estonia, 2022. The code reads the public CSV directly from the course GitHub repository. No manual download is required.</p>
+<p><strong>Instructions:</strong> Run cells in order. Look for <code class="docutils literal notranslate"><span class="pre">TODO</span></code> comments: most code is provided, and your job is to <strong>change parameters, compare plots, and explain what happened</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="s1">&#39;axes.grid&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;grid.alpha&#39;</span><span class="p">:</span> <span class="mf">0.20</span><span class="p">})</span>
+<span class="n">TZ</span> <span class="o">=</span> <span class="s1">&#39;Europe/Tallinn&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-loading-common-setup">
+<h2>Data loading — common setup<a class="headerlink" href="#data-loading-common-setup" title="Link to this heading">#</a></h2>
+<p>Use the GitHub CSV directly. We build the time index from UTC epoch seconds, then display it in Tallinn local time so daylight-saving-time duplicates are handled correctly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># GitHub-first, without requiring any local CSV files.</span>
+<span class="n">DATA_URL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;https://raw.githubusercontent.com/drmatson/energy_informatics/&#39;</span>
+    <span class="s1">&#39;main/data/electricity-production</span><span class="si">%20a</span><span class="s1">nd</span><span class="si">%20c</span><span class="s1">onsumption_2022.csv&#39;</span>
+<span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DATA_URL</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="c1"># The dataset contains an unambiguous UTC timestamp. Convert it to Tallinn time</span>
+<span class="c1"># to avoid daylight-saving-time ambiguity in the human-readable local timestamp.</span>
+<span class="n">local_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Ajatempel (UTC)&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="n">TZ</span><span class="p">)</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Tarbimine&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span>
+                   <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">local_time</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Demand&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">asfreq</span><span class="p">(</span><span class="s1">&#39;h&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
+
+
+<span class="k">assert</span> <span class="n">demand</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">is_unique</span><span class="p">,</span> <span class="s1">&#39;Hourly timestamps must be unique.&#39;</span>
+<span class="k">assert</span> <span class="ow">not</span> <span class="n">demand</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(),</span> <span class="s1">&#39;Unexpected gaps in Elering hourly data.&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">demand</span><span class="p">)</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> hourly values from </span><span class="si">{</span><span class="n">demand</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">demand</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">demand</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded 8,760 hourly values from 2022-01-01 00:00:00+02:00 to 2022-12-31 23:00:00+02:00
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-fa47e08a-062e-4cd0-b19a-dc0db0c03530" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Demand</th>
+    </tr>
+    <tr>
+      <th>Ajatempel (UTC)</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01 00:00:00+02:00</th>
+      <td>899.4</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 01:00:00+02:00</th>
+      <td>892.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 02:00:00+02:00</th>
+      <td>874.3</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 03:00:00+02:00</th>
+      <td>860.1</td>
+    </tr>
+    <tr>
+      <th>2022-01-01 04:00:00+02:00</th>
+      <td>842.7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-fa47e08a-062e-4cd0-b19a-dc0db0c03530')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-fa47e08a-062e-4cd0-b19a-dc0db0c03530 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-fa47e08a-062e-4cd0-b19a-dc0db0c03530');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="forecasting-functions-provided-code">
+<h2>Forecasting functions — provided code<a class="headerlink" href="#forecasting-functions-provided-code" title="Link to this heading">#</a></h2>
+<p>Read the comments and run this cell. You are <strong>not</strong> expected to write a forecasting library from scratch.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Core functions — ready to use; you do not need to implement the models from scratch.</span>
+<span class="n">LAGS</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">168</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">calendar_features</span><span class="p">(</span><span class="n">timestamp</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Known in advance: hour-of-day and day-of-week.&quot;&quot;&quot;</span>
+    <span class="n">hour</span> <span class="o">=</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">hour</span>
+    <span class="n">weekday</span> <span class="o">=</span> <span class="n">timestamp</span><span class="o">.</span><span class="n">dayofweek</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">hour</span> <span class="o">/</span> <span class="mi">24</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">hour</span> <span class="o">/</span> <span class="mi">24</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">weekday</span> <span class="o">/</span> <span class="mi">7</span><span class="p">),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">weekday</span> <span class="o">/</span> <span class="mi">7</span><span class="p">),</span>
+    <span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">direct_features</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">horizon_step</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Features available at forecast origin (no future observed Demand).&quot;&quot;&quot;</span>
+    <span class="n">past_values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">origin</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="n">k</span><span class="p">)])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">LAGS</span><span class="p">]</span>
+    <span class="n">forecast_timestamp</span> <span class="o">=</span> <span class="n">origin</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="n">horizon_step</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">past_values</span> <span class="o">+</span> <span class="n">calendar_features</span><span class="p">(</span><span class="n">forecast_timestamp</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">model_factory</span><span class="p">():</span>
+    <span class="c1"># Same model family for both strategies; scaling is fitted on TRAINING data only.</span>
+    <span class="k">return</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">3.0</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">forecast_direct</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">train_start</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">24</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Train one model for each step h, using only days before origin.&quot;&quot;&quot;</span>
+    <span class="n">candidate_origins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+        <span class="n">train_start</span><span class="p">,</span> <span class="n">origin</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span>
+    <span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">horizon</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">past_origin</span> <span class="ow">in</span> <span class="n">candidate_origins</span><span class="p">:</span>
+            <span class="n">target_t</span> <span class="o">=</span> <span class="n">past_origin</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="n">h</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">target_t</span> <span class="o">&gt;=</span> <span class="n">origin</span><span class="p">:</span>  <span class="c1"># never use future test targets for training</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">x_row</span> <span class="o">=</span> <span class="n">direct_features</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">past_origin</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+                <span class="n">y_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target_t</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_row</span><span class="p">)</span>
+            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Only </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s1"> examples for horizon </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s1">; extend train window.&#39;</span><span class="p">)</span>
+        <span class="n">mdl</span> <span class="o">=</span> <span class="n">model_factory</span><span class="p">()</span>
+        <span class="n">mdl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+        <span class="n">preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">mdl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">direct_features</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">h</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">forecast_recursive</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">train_start</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">24</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Train one 1-step model, roll forward by feeding predictions into lag features.&quot;&quot;&quot;</span>
+    <span class="n">train_times</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_start</span> <span class="p">:</span> <span class="n">origin</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">train_times</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lag_values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="n">k</span><span class="p">)])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">LAGS</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lag_values</span> <span class="o">+</span> <span class="n">calendar_features</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Insufficient hourly training examples.&#39;</span><span class="p">)</span>
+    <span class="n">mdl</span> <span class="o">=</span> <span class="n">model_factory</span><span class="p">()</span>
+    <span class="n">mdl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+
+    <span class="n">history</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">origin</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">horizon</span><span class="p">):</span>
+        <span class="n">forecast_t</span> <span class="o">=</span> <span class="n">origin</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">history</span><span class="p">[</span><span class="o">-</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">LAGS</span><span class="p">]</span> <span class="o">+</span> <span class="n">calendar_features</span><span class="p">(</span><span class="n">forecast_t</span><span class="p">)</span>
+        <span class="n">yhat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">mdl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yhat</span><span class="p">)</span>
+        <span class="n">history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yhat</span><span class="p">)</span>  <span class="c1"># critical recursive feedback step</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">actual_values</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">24</span><span class="p">):</span>
+    <span class="n">target_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">horizon</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">signal</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target_index</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">nrmse</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;NRMSE (%) = 100 * RMSE / mean(actual demand).&quot;&quot;&quot;</span>
+    <span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">rmse</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>  <span class="c1"># demand is positive</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1-direct-vs-recursive-does-the-horizon-matter">
+<h2>Exercise 1 — Direct vs. Recursive: does the horizon matter?<a class="headerlink" href="#exercise-1-direct-vs-recursive-does-the-horizon-matter" title="Link to this heading">#</a></h2>
+<p>Both forecasters make predictions at the <strong>same forecast origin</strong> (00:00 Tallinn time). The historical 30-day window ends <strong>before</strong> the forecast starts. Direct trains one Ridge model for each future hour; Recursive trains one next-hour Ridge model and rolls it forward.</p>
+<p><strong>Important:</strong> The figure below is an <em>illustration of possible error behaviour</em>, <strong>not actual results</strong> from the Elering data. Your graphs after running the code will show actual measured errors.</p>
+<section id="your-tasks">
+<h3>Your tasks<a class="headerlink" href="#your-tasks" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Run the baseline setup for <strong>6, 12, and 24 hours</strong>.</p></li>
+<li><p><strong>TODO 1:</strong> Change the list of horizons (for example, test <code class="docutils literal notranslate"><span class="pre">3,</span> <span class="pre">6,</span> <span class="pre">12,</span> <span class="pre">24</span></code>).</p></li>
+<li><p><strong>TODO 2:</strong> Repeat with a different training-history length (e.g. <code class="docutils literal notranslate"><span class="pre">60</span></code> days instead of <code class="docutils literal notranslate"><span class="pre">30</span></code>).</p></li>
+<li><p>Compare <strong>NRMSE (%)</strong> across strategies and horizons.</p></li>
+<li><p><strong>TODO 3:</strong> Change the forecast day from a <strong>weekday</strong> (4 November) to a <strong>weekend</strong> (5 November); interpret differences.</p></li>
+</ol>
+<p>NRMSE uses the <strong>mean of the observed Demand</strong> as its normalization denominator:</p>
+<p><span class="math notranslate nohighlight">\(
+\mathrm{NRMSE}(\%) = 100\,\frac{\sqrt{\frac{1}{n}\sum_i(y_i-\hat y_i)^2}}{\overline{y}}\)</span></p>
+<p>Unlike MAPE, NRMSE is based on squared errors and is not an average of pointwise percentage errors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO 1: change HORIZONS; TODO 2: change TRAIN_DAYS.</span>
+<span class="n">HORIZONS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">]</span>
+<span class="n">TRAIN_DAYS</span> <span class="o">=</span> <span class="mi">30</span>
+
+<span class="c1"># TODO 3: change to pd.Timestamp(&#39;2022-11-05&#39;, tz=TZ) for a weekend.</span>
+<span class="n">FORECAST_DAY</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2022-11-04&#39;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">TZ</span><span class="p">)</span>
+<span class="n">TRAIN_START</span> <span class="o">=</span> <span class="n">FORECAST_DAY</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">TRAIN_DAYS</span><span class="p">)</span>
+
+<span class="c1"># Fit once for 24 hours: the first 6/12 values are the same forecasts,</span>
+<span class="c1"># so only the EVALUATION horizon changes, not the fitted models.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">actual_values</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">FORECAST_DAY</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">pred_direct</span> <span class="o">=</span> <span class="n">forecast_direct</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">FORECAST_DAY</span><span class="p">,</span> <span class="n">TRAIN_START</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">pred_recursive</span> <span class="o">=</span> <span class="n">forecast_recursive</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">FORECAST_DAY</span><span class="p">,</span> <span class="n">TRAIN_START</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+
+<span class="n">comparison</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">H</span> <span class="ow">in</span> <span class="n">HORIZONS</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">predictions</span> <span class="ow">in</span> <span class="p">[(</span><span class="s1">&#39;Direct&#39;</span><span class="p">,</span> <span class="n">pred_direct</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Recursive&#39;</span><span class="p">,</span> <span class="n">pred_recursive</span><span class="p">)]:</span>
+        <span class="n">comparison</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;Day&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">FORECAST_DAY</span><span class="o">.</span><span class="n">date</span><span class="p">()),</span> <span class="s1">&#39;Horizon (h)&#39;</span><span class="p">:</span> <span class="n">H</span><span class="p">,</span>
+            <span class="s1">&#39;Strategy&#39;</span><span class="p">:</span> <span class="n">strategy</span><span class="p">,</span> <span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">:</span> <span class="n">nrmse</span><span class="p">(</span><span class="n">y</span><span class="p">[:</span><span class="n">H</span><span class="p">],</span> <span class="n">predictions</span><span class="p">[:</span><span class="n">H</span><span class="p">])</span>
+        <span class="p">})</span>
+<span class="n">ex1_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">comparison</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">ex1_results</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Horizon (h)&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Strategy&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-cce73d41-1fcb-488f-81e6-4e1b7509ff34" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Strategy</th>
+      <th>Direct</th>
+      <th>Recursive</th>
+    </tr>
+    <tr>
+      <th>Horizon (h)</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6</th>
+      <td>1.77</td>
+      <td>3.03</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>8.20</td>
+      <td>4.16</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>8.51</td>
+      <td>4.13</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-cce73d41-1fcb-488f-81e6-4e1b7509ff34')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-cce73d41-1fcb-488f-81e6-4e1b7509ff34 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-cce73d41-1fcb-488f-81e6-4e1b7509ff34');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Figure A: actual demand and 24-hour forecasts</span>
+<span class="n">hours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual Demand&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">pred_direct</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Direct&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">pred_recursive</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Recursive&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Forecast horizon (hours)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Demand (MW)&#39;</span><span class="p">,</span>
+       <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;24-hour demand forecast — </span><span class="si">{</span><span class="n">FORECAST_DAY</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">24</span><span class="p">]);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Figure B: per-horizon absolute errors (real output, not the illustration above)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pred_direct</span><span class="p">),</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Direct |error|&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pred_recursive</span><span class="p">),</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Recursive |error|&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Forecast horizon (hours)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Absolute error (MW)&#39;</span><span class="p">,</span>
+       <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Absolute error by horizon — </span><span class="si">{</span><span class="n">FORECAST_DAY</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">24</span><span class="p">]);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5041308fefbafe5ece39bc259b709a673eeaf5fd947be8d2c531490ecb59caa4.png" src="_images/5041308fefbafe5ece39bc259b709a673eeaf5fd947be8d2c531490ecb59caa4.png" />
+<img alt="_images/d7a96d6e28f9429589002a82993fd9c272780cc08813155cdc931a2279e7291c.png" src="_images/d7a96d6e28f9429589002a82993fd9c272780cc08813155cdc931a2279e7291c.png" />
+</div>
+</div>
+</section>
+<section id="instructor-notes-exercise-1">
+<h3>👩‍🏫 Instructor notes — Exercise 1<a class="headerlink" href="#instructor-notes-exercise-1" title="Link to this heading">#</a></h3>
+<p><strong>Reference implementation:</strong> all forecasting functions, evaluation, and charts above are complete. The primary student edits are the configuration lines <code class="docutils literal notranslate"><span class="pre">HORIZONS</span></code>, <code class="docutils literal notranslate"><span class="pre">TRAIN_DAYS</span></code>, and <code class="docutils literal notranslate"><span class="pre">FORECAST_DAY</span></code>, not the forecaster implementation.</p>
+<p><strong>Suggested demonstrations</strong> (run one at a time):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[6,</span> <span class="pre">12,</span> <span class="pre">24]</span></code> → <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">6,</span> <span class="pre">12,</span> <span class="pre">24]</span></code> to visualize how aggregation over more steps changes NRMSE.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TRAIN_DAYS</span> <span class="pre">=</span> <span class="pre">30</span></code> → <code class="docutils literal notranslate"><span class="pre">60</span></code>; compare both error curves.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FORECAST_DAY</span> <span class="pre">=</span> <span class="pre">pd.Timestamp('2022-11-05',</span> <span class="pre">tz=TZ)</span></code>; contrast Saturday with Friday.</p></li>
+</ul>
+<p><strong>Expected interpretation:</strong></p>
+<ul class="simple">
+<li><p>Recursive feeds its own predictions back as lags, allowing error propagation; Direct does not. <strong>However, Recursive need not be worse</strong> for every test day/horizon.</p></li>
+<li><p>An error line need not increase monotonically: actual demand pattern, model bias and seasonal structure all matter.</p></li>
+<li><p>NRMSE for 6, 12, 24 h here is computed on nested prefixes of the <strong>same 24-hour forecast</strong>, so it is not a comparison of separately tuned models.</p></li>
+<li><p>The entire 24-hour horizon begins at 00:00 Tallinn time; a day-ahead industry forecast would often be issued earlier, requiring a more explicit issue-time setup.</p></li>
+<li><p>There is no future measured Demand in any model input. Timestamp/calendar features are known in advance.</p></li>
+</ul>
+<p><strong>Answers to grade:</strong> reason from their numeric output; no predetermined winner is guaranteed.</p>
+</section>
+</section>
+<section id="exercise-2-sliding-vs-expanding-how-much-history-is-useful">
+<h2>Exercise 2 — Sliding vs. Expanding: how much history is useful?<a class="headerlink" href="#exercise-2-sliding-vs-expanding-how-much-history-is-useful" title="Link to this heading">#</a></h2>
+<p>Use the <strong>same Direct forecaster</strong> for all experiments. Only the range of historical training origins changes. Every strategy is evaluated on <strong>exactly the same seven future days (4–10 November 2022)</strong>.</p>
+<ul class="simple">
+<li><p><strong>Sliding 7/30/60:</strong> fit on only the most recent 7, 30, or 60 training days.</p></li>
+<li><p><strong>Expanding from 30:</strong> the first fold uses 30 days; each next fold adds one new day, retaining earlier training examples.</p></li>
+</ul>
+<p>The illustration explains how the windows move. It is a schematic, not the output of the experiment.</p>
+<p><img alt="download.png" src="data:image/png;base64,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unWX1C5wOShtv9uzZ4/++c9/6oYbblC1atXk7e2tsLAwde3aVe+8847S0tJKFY+r99nz58+Xqn3gclDafjd58uQS+8ZNN91U6rhycnL0/vvvq0OHDqpUqZJCQ0PVvXt3zZo1q9RtApeT0vS96Ohol9/71atXz614Kvo9z8vTAeDytGjRIt12223KzMyUxWJRpUqVdPToUU2fPl1ff/21Vq5cqY4dO7rVZnx8vHr06KFdu3ZJkoKCgpSYmKhVq1Zp1apVeuGFF/TKK6+Ux+kAl73Dhw+rfv36MgzDuS0kJETJycnaunWrtm7dqunTp2vp0qVq27ZtqY4REREhm81WaJm3t3ep2gSuFN7e3goPDy+0LCIiwu32DMPQmDFjNGfOHEmSj4+PbDabsz8vXrxYS5culY+PzyXFDVRENptNkZGRxdaJi4tTTk6O2rdvX6pjcM/D1erLL7/U//t//69U+06dOlV///vfZbfbZbVaFRQUpAMHDuidd97R3LlztXbtWkVFRbnd7qFDh9SjRw+dOHFCkhQcHKzz589r4cKFWrx4saZOnar777+/VDEDl4PS9Luff/5ZvXr1cv5tsVgUEhKixMREbdiwQRs2bND06dO1atUq1a5du9SxFXe/tVr5vj4qrku530mSn5+fQkJCCi0LCwsrVZuZmZkaMGCAoqOjJUn+/v7KysrSunXrtG7dOq1atUqff/65218+Ay4npel7Pj4+Jb7/O3v2rAzDKPX7P6li3vMuz6jgUcePH9fo0aOVmZmpIUOG6OTJk0pMTNSBAwfUpUsXXbhwQcOHD1d6erpb7d59993atWuXIiMjtXr1aiUnJyspKUmTJk2SJL366qtavHhxeZwScNnLycmRJA0ePFjz58/XhQsXdOHCBaWmpmru3LmqWrWqTp06pcGDB5f6G5SbN2/W6dOnC/1p06ZNWZ4OUOF07dq1yP7heHPljvfee09z5syRl5eXpkyZotTUVKWmpmrevHkKCgrSjz/+qOeee67sTwSoAGrXrl1kfzt9+rT27t0rL6+87xCOHTu2VMfgnoerlcViUa1atTR06FC9+uqreuONN1zab8uWLXrkkUdkt9t1//33Ky4uTomJidq2bZsaN26s48ePa8SIEfm+SOYKu92uESNG6MSJE2rcuLG2bdumxMRExcXF6f7775fdbtfDDz+sbdu2leZ0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1+969uxpvP7668auXbuM3NxcZ4zr1683evXq5Yzt008/vaTzBjypNP0uOjra6N+/vzF37lzjzJkzzu1JSUnGZ599ZlSuXNmQZERERDg/C73YjBkznMcozGOPPWZIMipVqmR8++23ht1uN7Kzs42PPvrI8PLyMiQZH3zwQdlfDMBEpX2t6ZCdnW1UrVrVkGS88MILLh3zSr7nkZxDoRYuXGj4+voakgyLxWKEhIQ4H8yhoaHG5s2bC+xTUnIuLi7OaNGihbOdoKAg583JnQ4JXIl+/vlnZ1/w9/c3IiMji/x59NFH8+1bXN/r2bOns10vLy8jPDzcCAgIcG6TZIwfP955AwOuJrGxsfn6gr+/v1G5cmXnh5OOZPnSpUsL7FtScs5utxujR4921vH19TX8/f2df/fp08fIzMw04SyBy9vOnTud/WLFihUl1ueeBxTvr/e2on4K+3BjypQphtVqNSQZVqvVCA4OdtavVatWofc7wyj+AxPDyPuSZ82aNZ1tBQcH5zvOtGnTyu4CAB5Qmn73+eef5/tspLj3f2+99VaBYxbX76Kiopxte3t7G5UrV3Z+viPJsNlsxquvvlqOVwQof6Xpdxe/h3P0vfDwcOc9yXG/K+wzT8MoOTmXkZGRLxkQEBCQr+/deeedhX7JBahILuW1pmEYxuLFi5119u3b59Ixr+R7npeAQgwePFibN2/Wv/71L0VHRysuLk516tTRgAED9Pzzz6tOnTputxkeHq5Nmzbprbfe0tdff63Y2FgFBwerffv2euyxx3TTTTeVw5kAFYPdbnf+np6ervT09CLrJiYmutzuc889p1atWmnjxo06ceKE4uLi5OXlpYYNG6pbt26677771K1bt0uKHaioIiMj9f7772vdunX67bffdPbsWSUmJio4OFiNGzfWjTfeqAcffFCRkZFut22xWDR79mz169dP06dP186dO5Wbm6v27dtr7Nix+vvf/y6bzVYOZwVULI4pTWrWrHnJU/xwzwMuzfjx49WqVSu99dZb2rBhg5KSktSgQQMNGTJEzz//fKmn26tfv75+++03vfbaa1q4cKGOHz+uypUrq2vXrnr66afpl7gqXfz+LyUlRSkpKUXWLa6sMG+++aZWrVqlTZs26dSpU0pISJCvr68aNmyoHj16OPs6cLVp1aqV3nzzTa1du1a7d+/WuXPnlJSU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d6Ghofkeo2PHjjVyc3NdvKJ53Hl+dIiPjzd69OjhrGO1Wo3w8PB8sf31ebhy5crOsqCgICM4ODjfcZ977rlC4yvuuf/ChQtGr1698sVxcd/y9vY2vvrqqyLP/c033zQkGUOHDnXrmgEAAODywMg5AAAA4DKVmpqqp59+WpL07LPP6ty5c0pKSlJ6errOnj2rb775RoMGDXLWf//997V582bn36dPn87389RTTxU4xiuvvCJJWrlypVJTU5WSkqJvvvnGWd65c2fNnDlTx48fV2pqqhISEpScnKxp06YpODhYc+bM0ZdffumsX7t2bZ0+fVojR46UJD311FMF4ijJqFGjJEmrVq1SXFxcoXUco0VuuukmBQUFObf/+uuvuuOOOyTljQY6deqUUlJSlJaWppUrV6pJkyZav369Hn/88RLjKKvzudiUKVMUGxurH374QampqUpOTtaMGTPk7e2tpUuX6uWXX9aTTz6pF198UfHx8UpKStLu3bvVvHlzJScn6/nnny/QZlmf819NnTpVu3fv1pw5c5SSkqKkpCRt2LBBjRs31vnz5zVy5EhlZ2e73N6YMWO0Y8cOValSRQsXLnQ+7qKjo1W3bl0dOXJEI0aMKNDmmjVrNHbsWGVmZmrQoEHavn278zEZHx+v2bNnq0OHDiUePyUlRQMHDtSyZcvUokUL/fLLL6pTp46z/P3339fevXvVsGFDrVmzRllZWYqPj1d6erp+//13vfDCC6pWrZrrF1DS+vXrJcml+O655x5dc8012rt3rxITE5WcnKy33npLFotF33//faEjtdy9pmXxuO7atatOnz6trl27Ssq7bhfvf/Fz0YEDB3THHXcoMzNT/fv318GDB5WQkKDExES98cYbslqtmjVrlt55552SL+b/cff5UcobcTtq1CitWbNGwcHBmj59ui5cuKC4uDilpaVp69atevzxx+Xv759vv/79++vrr7/W2bNnlZycrMTERMXFxenNN9+Ut7e3XnvtNa1du9bl2CXpzjvvVHR0tDp37qzVq1crLS1NSUlJzufq7Oxs3X333dq3b1+h+3fs2FHSn48tAAAAVDCezg4CAAAAl5vLZeTcr7/+akgymjZt6nLsxY3euphj5Jy3t3eRo7FKMnv2bEOS0b179wJlrpxzcbE2a9bMkGR89NFHBcpycnKMqlWrOkcZXaxr166G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" /></p>
+<p><em>Sliding and Expanding training windows: three schematic backtesting folds.</em></p>
+<section id="id1">
+<h3>Your tasks<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Run a 7-day backtest for the three <strong>Sliding</strong> windows and one <strong>Expanding</strong> window.</p></li>
+<li><p><strong>TODO 4:</strong> Try another Sliding window size (e.g. <code class="docutils literal notranslate"><span class="pre">14</span></code> days).</p></li>
+<li><p><strong>TODO 5:</strong> Change the initial Expanding window (e.g. <code class="docutils literal notranslate"><span class="pre">7</span></code> instead of <code class="docutils literal notranslate"><span class="pre">30</span></code> days), then re-run.</p></li>
+<li><p>Examine the <strong>average NRMSE</strong> and the <strong>day-to-day variation</strong>. Which strategy seems most reliable?</p></li>
+</ol>
+<p>For every test day, the model sees only historical observations that occurred <em>before that day</em>; it is refitted separately for each backtesting fold.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO 4: change the candidate sliding windows.</span>
+<span class="n">SLIDING_WINDOWS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">]</span>
+<span class="c1"># TODO 5: change the initial size of the expanding window.</span>
+<span class="n">EXPANDING_INITIAL_DAYS</span> <span class="o">=</span> <span class="mi">30</span>
+
+<span class="n">TEST_DAYS</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2022-11-04&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="n">TZ</span><span class="p">)</span>
+<span class="n">expanding_start</span> <span class="o">=</span> <span class="n">TEST_DAYS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">EXPANDING_INITIAL_DAYS</span><span class="p">)</span>
+
+<span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">forecast_day</span> <span class="ow">in</span> <span class="n">TEST_DAYS</span><span class="p">:</span>
+    <span class="n">y_day</span> <span class="o">=</span> <span class="n">actual_values</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">forecast_day</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="n">SLIDING_WINDOWS</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">forecast_day</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">window</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">forecast_direct</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">forecast_day</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+        <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;Test day&#39;</span><span class="p">:</span> <span class="n">forecast_day</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="s1">&#39;Strategy&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Sliding </span><span class="si">{</span><span class="n">window</span><span class="si">}</span><span class="s1">d&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Training days&#39;</span><span class="p">:</span> <span class="n">window</span><span class="p">,</span> <span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">:</span> <span class="n">nrmse</span><span class="p">(</span><span class="n">y_day</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="p">})</span>
+
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">forecast_direct</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">forecast_day</span><span class="p">,</span> <span class="n">expanding_start</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+    <span class="n">effective_training_days</span> <span class="o">=</span> <span class="p">(</span><span class="n">forecast_day</span><span class="o">.</span><span class="n">date</span><span class="p">()</span> <span class="o">-</span> <span class="n">expanding_start</span><span class="o">.</span><span class="n">date</span><span class="p">())</span><span class="o">.</span><span class="n">days</span>
+    <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;Test day&#39;</span><span class="p">:</span> <span class="n">forecast_day</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="s1">&#39;Strategy&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Expanding </span><span class="si">{</span><span class="n">EXPANDING_INITIAL_DAYS</span><span class="si">}</span><span class="s1">d start&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Training days&#39;</span><span class="p">:</span> <span class="n">effective_training_days</span><span class="p">,</span>
+        <span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">:</span> <span class="n">nrmse</span><span class="p">(</span><span class="n">y_day</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+    <span class="p">})</span>
+
+<span class="n">ex2_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">ex2_results</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Test day&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Strategy&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="p">(</span><span class="n">ex2_results</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Strategy&#39;</span><span class="p">)[</span><span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">]</span>
+           <span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NRMSE summary — all values in %:&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-a8916cfe-a5c5-45b5-8049-e8eb55e2083e" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Strategy</th>
+      <th>Expanding 30d start</th>
+      <th>Sliding 30d</th>
+      <th>Sliding 60d</th>
+      <th>Sliding 7d</th>
+    </tr>
+    <tr>
+      <th>Test day</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-11-04</th>
+      <td>8.51</td>
+      <td>8.51</td>
+      <td>8.84</td>
+      <td>1.97</td>
+    </tr>
+    <tr>
+      <th>2022-11-05</th>
+      <td>5.47</td>
+      <td>5.41</td>
+      <td>6.07</td>
+      <td>5.94</td>
+    </tr>
+    <tr>
+      <th>2022-11-06</th>
+      <td>4.18</td>
+      <td>4.16</td>
+      <td>3.43</td>
+      <td>6.02</td>
+    </tr>
+    <tr>
+      <th>2022-11-07</th>
+      <td>5.88</td>
+      <td>5.75</td>
+      <td>7.72</td>
+      <td>10.31</td>
+    </tr>
+    <tr>
+      <th>2022-11-08</th>
+      <td>2.46</td>
+      <td>2.21</td>
+      <td>4.26</td>
+      <td>9.08</td>
+    </tr>
+    <tr>
+      <th>2022-11-09</th>
+      <td>1.69</td>
+      <td>1.88</td>
+      <td>1.65</td>
+      <td>4.13</td>
+    </tr>
+    <tr>
+      <th>2022-11-10</th>
+      <td>2.24</td>
+      <td>2.13</td>
+      <td>2.26</td>
+      <td>3.36</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-a8916cfe-a5c5-45b5-8049-e8eb55e2083e')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-a8916cfe-a5c5-45b5-8049-e8eb55e2083e button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-a8916cfe-a5c5-45b5-8049-e8eb55e2083e');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NRMSE summary — all values in %:
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-febf849c-cafd-4fa4-920e-136f3e057ee2" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>Strategy</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Sliding 30d</th>
+      <td>4.29</td>
+      <td>2.45</td>
+      <td>1.88</td>
+      <td>8.51</td>
+    </tr>
+    <tr>
+      <th>Expanding 30d start</th>
+      <td>4.35</td>
+      <td>2.45</td>
+      <td>1.69</td>
+      <td>8.51</td>
+    </tr>
+    <tr>
+      <th>Sliding 60d</th>
+      <td>4.89</td>
+      <td>2.74</td>
+      <td>1.65</td>
+      <td>8.84</td>
+    </tr>
+    <tr>
+      <th>Sliding 7d</th>
+      <td>5.83</td>
+      <td>3.02</td>
+      <td>1.97</td>
+      <td>10.31</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-febf849c-cafd-4fa4-920e-136f3e057ee2')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-febf849c-cafd-4fa4-920e-136f3e057ee2 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-febf849c-cafd-4fa4-920e-136f3e057ee2');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Figure C: average NRMSE over the SAME test days</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">summary</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">],</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Mean NRMSE (%)&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Training strategy&#39;</span><span class="p">,</span>
+       <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Sliding vs. Expanding — mean error ± 1 SD across test days&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Figure D: variation by test day (each line is a different training strategy)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+<span class="n">ex2_results</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Test day&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Strategy&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Test day&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Daily backtesting error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8279374c44748de3ea0005f03ddf85138ab8412e0b781b0e5dba87c101540f45.png" src="_images/8279374c44748de3ea0005f03ddf85138ab8412e0b781b0e5dba87c101540f45.png" />
+<img alt="_images/c32c61c9062e8ecbfe457230bed782b9b2af15545eee7ab7823d89e9b09f4635.png" src="_images/c32c61c9062e8ecbfe457230bed782b9b2af15545eee7ab7823d89e9b09f4635.png" />
+</div>
+</div>
+</section>
+<section id="instructor-notes-exercise-2">
+<h3>👩‍🏫 Instructor notes — Exercise 2<a class="headerlink" href="#instructor-notes-exercise-2" title="Link to this heading">#</a></h3>
+<p><strong>Answer key / interpretation:</strong></p>
+<ul class="simple">
+<li><p>Sliding windows use only the last <strong>7, 30, or 60 calendar days</strong>, recalculated for each test day.</p></li>
+<li><p>Expanding starts at <strong>2022-10-05 00:00 Tallinn time</strong> for the first fold (30 days before 2022-11-04) and grows by one calendar day for each subsequent test day.</p></li>
+<li><p>For fold 1, <strong>Sliding 30d</strong> and <strong>Expanding 30d start</strong> share exactly the same training start and are expected to give identical predictions/NRMSE (up to numerical roundoff). This is a useful correctness check.</p></li>
+<li><p>All four strategies predict <strong>the same test days</strong>, 2022-11-04 through 2022-11-10. Comparing means alone may hide outliers or instability; the SD and daily line plot add context.</p></li>
+<li><p>A short window may adapt faster to changing regimes but has more estimation variance. A large window may stabilize estimates but overrepresent older patterns. <strong>More history does not guarantee lower error</strong>.</p></li>
+<li><p>Possible examples of nonstationarity: weather regimes, public holidays, demand response, energy-price shocks, or changes in the consumer mix.</p></li>
+<li><p>7 backtesting days are pedagogical, <strong>not sufficient for a strong generalization claim</strong>. For research, extend to many origins and preserve a final untouched holdout period.</p></li>
+</ul>
+<p><strong>Important methodological nuance:</strong> Data include an autumn DST transition in the historical interval. This lab constructs the hourly index from UTC epoch seconds, so repeated local clock times are represented unambiguously. On the chosen test days, each test block is exactly 24 physical hours.</p>
+<p><strong>Automatic correctness checks:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A quick diagnostic: first fold Expanding(30) should equal Sliding(30).</span>
+<span class="n">first_fold</span> <span class="o">=</span> <span class="n">ex2_results</span><span class="p">[</span><span class="n">ex2_results</span><span class="p">[</span><span class="s1">&#39;Test day&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">TEST_DAYS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">date</span><span class="p">()]</span>
+<span class="n">sliding_first</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">first_fold</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">first_fold</span><span class="p">[</span><span class="s1">&#39;Strategy&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Sliding 30d&#39;</span><span class="p">,</span> <span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">expanding_first</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">first_fold</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">first_fold</span><span class="p">[</span><span class="s1">&#39;Strategy&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Expanding 30d start&#39;</span><span class="p">,</span> <span class="s1">&#39;NRMSE (%)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">sliding_first</span><span class="p">,</span> <span class="n">expanding_first</span><span class="p">),</span> <span class="s1">&#39;Fold-1 30-day windows should match.&#39;</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">ex2_results</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Strategy&#39;</span><span class="p">)[</span><span class="s1">&#39;Test day&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">TEST_DAYS</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Checks passed: identical first-fold 30d windows; consistent evaluation days.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Checks passed: identical first-fold 30d windows; consistent evaluation days.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="optional-extension">
+<h3>Optional extension<a class="headerlink" href="#optional-extension" title="Link to this heading">#</a></h3>
+<p><strong>Advanced discussion:</strong> compare these models with seasonal naïve (last day or same weekday last week), and explain why evaluating only 7 days may produce an unstable ranking.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="practical_10_baselines_evaluation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">⚡ LAB: Baselines &amp; Evaluation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="24_home_ems_pyomo.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">🏠⚡ Home Energy Management Systems (Home EMS)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading-common-setup">Data loading — common setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#forecasting-functions-provided-code">Forecasting functions — provided code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-direct-vs-recursive-does-the-horizon-matter">Exercise 1 — Direct vs. Recursive: does the horizon matter?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-tasks">Your tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instructor-notes-exercise-1">👩‍🏫 Instructor notes — Exercise 1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sliding-vs-expanding-how-much-history-is-useful">Exercise 2 — Sliding vs. Expanding: how much history is useful?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Your tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instructor-notes-exercise-2">👩‍🏫 Instructor notes — Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-extension">Optional extension</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Margarita Matson
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright © 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
